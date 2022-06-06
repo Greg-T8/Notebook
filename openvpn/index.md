@@ -24,5 +24,4 @@ Refer to [OpenVPN Software Repos](https://community.openvpn.net/openvpn/wiki/Ope
 
 |Notes|Screenshot
 |-|-|
-| Run `ip route` | ![](img/1.3.png)
-
+| Run `ip route` blah blah blah blah <br> blah blah | ![](img/1.3.png)
