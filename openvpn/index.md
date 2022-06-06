@@ -14,7 +14,7 @@ The command is successful when you receive the message **Initialization Sequence
 
 Run `ip route` to confirm that routes are present.
 
-![](img/1.2.png)
+&emsp;![](img/1.2.png)
 
 If you receive an error indicating unrecognized option or missing or extra parameter(s) then you may need to install a later version.
 
