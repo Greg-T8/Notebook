@@ -6,8 +6,9 @@ Run the command the following command to launch an OpenVPN session:
 ```
 sudo openvpn --config <config file>
 ```
-The command is successful when you receive the message **Initialization Sequence Completed**. 
-&emsp![](img/1.1.png)
+The command is successful when you receive the message **Initialization Sequence Completed**.
+
+&emsp;![](img/1.1.png)
 
 
 
