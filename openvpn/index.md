@@ -1,11 +1,13 @@
 This is my notes collection on using the OpenVPN client.
 
-**General Usage** 
+## General Usage
 
-|Notes|Screenshot|
-|-|-|
-| Run the command `sudo openvpn --config <config file>` to establish a VPN connection. The command is successful when you receive the message **Initialization Sequence Completed**. | ![](img/1.1.png)
-| do this | do that
+Run the command the following command to launch an OpenVPN session:
+```
+sudo openvpn --config <config file>
+```
+The command is successful when you receive the message **Initialization Sequence Completed**. 
+&emsp![](img/1.1.png)
 
 
 
