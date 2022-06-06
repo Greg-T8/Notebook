@@ -21,3 +21,8 @@ Refer to [OpenVPN Software Repos](https://community.openvpn.net/openvpn/wiki/Ope
     <td>Run `ip route` to confirm routes are present</td>
     <td>![](img/1.3.png)</td>  
 </table>
+
+|Notes|Screenshot
+|-|-|
+| Run `ip route` | ![](img/1.3.png)
+
