@@ -33,4 +33,28 @@ Reference
       color: ...;
       font-size: ...;
     }
-  
+- Values
+  - Determines the behavior of the property
+  - Identified as the text between the colon and semicolon
+    ```css
+    p {
+      color: orange;
+      font-size: 16px;
+    }
+    ```
+
+## Working with Selectors
+- Selectors indicate which HTML elements are being styled
+- There are several types of selectors:  Type Selectors, Class Selectors, ID Selectors, and more
+
+### Type Selectors
+- Target elements by their element type
+- Example: type selector for `<div>` element:
+  ```css
+  div { ... }
+  ```
+  corresponding HTML
+  ```html
+  <div>...</div>
+  <div>...</div>
+  ```
