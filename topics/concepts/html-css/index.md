@@ -117,6 +117,12 @@ Reference
 - CSS reset examples
   - [Eric Meyer's reset](https://meyerweb.com/eric/tools/css/reset/)
     - adapted to include styles for the new HTML5 elements
+    - just copy the code and append it to the top of the stylesheet file
   - [Normalize CSS](https://necolas.github.io/normalize.css/)
     - Focuses on setting common styles for common elements; requires a stronger understanding of CSS
 
+# More on HTML
+- It's important to understand which HTML elements are best used to display different types of content and how elements are visually displayed on a web page
+
+## Semantics Overview
+- Semantics is the practice of giving content meaning and structure by using the proper element.  See [Semantics within HTML](https://boagworld.com/dev/semantic-code-what-why-how/)
