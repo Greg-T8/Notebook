@@ -80,4 +80,29 @@ Reference
 - More precise than class selectors, as they target only one unique element at a time
 - ID selectors use an element's `id` value as a selector
 - `id` attribute values can only be used once per page. If used they should be reserved for significant elements
-- 
+- ID selectors are denoted by a leading hash sign, `#`, followed by the `id` attribute value
+- Example:  the ID selector will only select the element containing the `id` attribute value of `special`:  
+  **CSS**
+  ```css
+  #special { ... }
+  ```
+  **HTML**
+  ```html
+  <div id="special">...</div>
+  ```
+### Additional Selectors
+- The selectors above are the most common, but there are many more selectors
+- See [Complex Selectors](https://learn.shayhowe.com/advanced-html-css/complex-selectors/)
+
+### Referencing CSS
+- Best practice for referencing style sheets is to include all styles in an external style sheet, which is referenced from within the `<head>` element.
+- There are other options for referencing CSS using internal and inline styles, but they are generally frowned upon, as they make updating websites cumbersome
+- Use the following code to reference a CSS stylesheet:
+  ```html
+  <head>
+    <link rel="stylesheet" href="main.css">
+  </head>
+  ```
+- In the code above, `rel` and `href` are attributes to the `link` element
+- `href` stands for "hyperlink reference"
+- The `rel` attribute defines the relationship between a linked resource and the current document
