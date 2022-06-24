@@ -76,3 +76,8 @@ Reference
   <p class="awesome>...</p>
   ```
 
+### ID Selectors
+- More precise than class selectors, as they target only one unique element at a time
+- ID selectors use an element's `id` value as a selector
+- `id` attribute values can only be used once per page. If used they should be reserved for significant elements
+- 
