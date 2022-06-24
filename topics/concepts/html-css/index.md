@@ -94,7 +94,7 @@ Reference
 - The selectors above are the most common, but there are many more selectors
 - See [Complex Selectors](https://learn.shayhowe.com/advanced-html-css/complex-selectors/)
 
-### Referencing CSS
+## Referencing CSS
 - Best practice for referencing style sheets is to include all styles in an external style sheet, which is referenced from within the `<head>` element.
 - There are other options for referencing CSS using internal and inline styles, but they are generally frowned upon, as they make updating websites cumbersome
 - Use the following code to reference a CSS stylesheet:
@@ -105,4 +105,18 @@ Reference
   ```
 - In the code above, `rel` and `href` are attributes to the `link` element
 - `href` stands for "hyperlink reference"
-- The `rel` attribute defines the relationship between a linked resource and the current document
+- The `rel` attribute defines the relationship between a linked resource and the current document. In this case `rel` imports a stylesheet. See [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel) for more info.
+- The path referenced by `href` must correlate to where the CSS file is saved
+
+## CSS Resets
+- Every web browser has its own default styles for different elements, and it's important to recognize the value of cross-browser compatibility and testing
+- CSS resets are used to ensure cross-browser compatibility
+- CSS resets take every common HTML element with a predefined style and provide one unified style for all browsers
+- CSS resets generally remove all sizing, margins, padding, or additional styles
+- CSS resets need to be at the very top of the style sheet.  Doings so ensures those styles are read first and all of the different web browsers are working from the same baseline
+- CSS reset examples
+  - [Eric Meyer's reset](https://meyerweb.com/eric/tools/css/reset/)
+    - adapted to include styles for the new HTML5 elements
+  - [Normalize CSS](https://necolas.github.io/normalize.css/)
+    - Focuses on setting common styles for common elements; requires a stronger understanding of CSS
+
