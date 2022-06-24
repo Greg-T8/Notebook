@@ -49,12 +49,30 @@ Reference
 
 ### Type Selectors
 - Target elements by their element type
-- Example: type selector for `<div>` element:
+- Example: type selector for `<div>` element:  
+    **CSS**
+    ```css
+    div { ... }
+    ```
+    **HTML**
+    ```html
+    <div>...</div>
+    <div>...</div>
+    ```
+
+### Class Selectors
+- Allow for selecting an element based on the element's `class` attribute value
+- More specific than type selectors as they target a particular group of elements rather than all elements of one type
+- Allow for applying the same styles to different elements at once by using the same `class` value across multiple elements
+- Within CSS, classes are denoted by a leading period, `.`, followed by the `class` attribute value
+- Example: class selector that selects any element containing the `class` attribute value of `awesome`:  
+  **CSS**
   ```css
-  div { ... }
+  .awesome { ... }
   ```
-  corresponding HTML
+  **HTML**
   ```html
-  <div>...</div>
-  <div>...</div>
+  <div class="awesome">...</div>
+  <p class="awesome>...</p>
   ```
+
