@@ -126,3 +126,18 @@ Reference
 
 ## Semantics Overview
 - Semantics is the practice of giving content meaning and structure by using the proper element.  See [Semantics within HTML](https://boagworld.com/dev/semantic-code-what-why-how/)
+- Semantics describes the *value* of the content on the page, regardless of the style or appearance
+- Benefits of using semantics
+  - Enables computers, screen readers, search engines to adquatley read and understand content on a web page
+  - Semantic HTML is easier to manage and work with, as it shows clearly what each piece of content is about
+- Two elements, `<div>` and `<span>` don't actually hold any semantic value; they exist for styling purposes only
+
+## Divisions and Spans
+- Divisions, `<div>`s, and `<span>`s are HTML elements that act as containers solely for styling purposes.  They do not have any semantic value.
+- `<div>`s and `<span>`s are extremely value in that they give the ability to apply targeted styles to a contained set of content
+- A `<div>` is a block-level element that is commonly used to identify large groupings of content, and which helps to build a web page's layout and design
+- A `<span>` is an inline-level element used to identify smaller groupings of text within a block-level element
+- You'll commonly see `<div>`s and `<span>`s  with `class` or `id` attributes for styling purposes
+- Choosing a `class` or `id` attribute value requires care; you want to choose a value that refers to the content of an element, not necessarily the appearance of an element
+
+## Text-Based Elements
