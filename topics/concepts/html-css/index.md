@@ -134,10 +134,38 @@ Reference
 
 ## Divisions and Spans
 - Divisions, `<div>`s, and `<span>`s are HTML elements that act as containers solely for styling purposes.  They do not have any semantic value.
-- `<div>`s and `<span>`s are extremely value in that they give the ability to apply targeted styles to a contained set of content
+- `<div>`s and `<span>`s are valuable in that they give the ability to apply targeted styles to a contained set of content
 - A `<div>` is a block-level element that is commonly used to identify large groupings of content, and which helps to build a web page's layout and design
 - A `<span>` is an inline-level element used to identify smaller groupings of text within a block-level element
 - You'll commonly see `<div>`s and `<span>`s  with `class` or `id` attributes for styling purposes
 - Choosing a `class` or `id` attribute value requires care; you want to choose a value that refers to the content of an element, not necessarily the appearance of an element
 
 ## Text-Based Elements
+Here's a quick summary of the more popular text-based elements.
+
+### Headings
+- Block-level elements that come in six rankings, `<h1>` through `<h6>`
+- Help to break up content and establish hierarchy
+- Help search engines to index and determine content on a page
+- Should be used for semantic value.  Should not be used just to make text big or bold.
+
+### Paragraphs
+- Headings are often followed by paragraphs
+- Paragraphs are defined using the <p> block-level element
+- Paragraphs can appear one after the other, adding information to the page as desired
+
+### Bold Text with Strong
+- Use the `<strong>` inline-level element to make text bold and place a strong emphasis
+- There are two elements that bold text:  `<strong>` and `<b>`.  It is important to understand the semantic difference between the two.
+  - The `<strong>` element is semantically used to give *strong* importance to text, and is the most popular option for bolding text
+  - The `<b>` element, on the other hand, semantically means to *stylistically offset* text, which isn't always the best choice for text deserving prominent attention
+- Examples
+  ```html
+  <!-- Strong importance -->
+  <p><strong>Caution:</strong> Falling rocks.</p>
+
+  <!-- Stylistically offset -->
+  <p>This recipe calls for <b>bacon</b> and <b>baconnaise</b>.</p>
+  ```
+
+### I
