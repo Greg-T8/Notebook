@@ -159,7 +159,7 @@ Here's a quick summary of the more popular text-based elements.
 - There are two elements that bold text:  `<strong>` and `<b>`.  It is important to understand the semantic difference between the two.
   - The `<strong>` element is semantically used to give *strong* importance to text, and is the most popular option for bolding text
   - The `<b>` element, on the other hand, semantically means to *stylistically offset* text, which isn't always the best choice for text deserving prominent attention
-- Examples
+- Example:
   ```html
   <!-- Strong importance -->
   <p><strong>Caution:</strong> Falling rocks.</p>
@@ -168,4 +168,15 @@ Here's a quick summary of the more popular text-based elements.
   <p>This recipe calls for <b>bacon</b> and <b>baconnaise</b>.</p>
   ```
 
-### I
+### Italicize Text with Emphasis
+- Use the `<em>` inline-level element to italicize text with emphasis
+- The `<em>` element is used semantically to place a *stressed* emphasis on text, and is the most popular option for italicizing text
+- The `<i>` element is used semantically to convey text in an *alternative voice or tone*, as if it were placed in quotation marks
+- Example:
+  ```html
+  <!-- Stressed emphasis -->
+  <p>I <em>love</em> Chicago!</p>
+
+  <!-- Alternative voice or tone -->
+  <p>The name <i>Shay</i> means a gift.</p>
+  ```
