@@ -180,3 +180,31 @@ Here's a quick summary of the more popular text-based elements.
   <!-- Alternative voice or tone -->
   <p>The name <i>Shay</i> means a gift.</p>
   ```
+
+## Building Structure
+- For a long time, divisions were used to structure a web page
+- The problem w/ divisions is that divisions provide no semantic value, and it was fairly difficult to determine the intention of divisions
+- HTML5 introduced new [structurally based elements](https://dev.opera.com/articles/new-structural-elements-in-html5/), including `<header>`, `<nav>`, `<article>`, `<section>`, `<aside>`, and `<footer>`, elements. 
+- Here's an example in how the structure of these elements gives meaning to the organization of pages: 
+  ![](img/2022-06-25-04-59-30.png)
+
+### Header
+- The `<header>` element is used to identify the top of the page, article, section, or other segment of a page
+- The `<header>` element may include a heading, introductory text, and even navigation
+  ```html
+  <header>...</header>
+  ```
+- It's easy to confuse `<header>` with `<head>` and `<h1>` through `<h6>` elements
+  - `<header>` is a structural element that outlines the heading of a segment of a page. It falls within the `<body>` element
+  - `<head>` is not displayed on the page and is used to outline metadata, including the document title and links to external files. It falls within the `<html>` element
+  - `<h1>` through `<h6>` are used to designate multiple levels of text headings throughout a page
+
+### Navigation
+- `<nav>` identifies a section of major navigational links on a page
+- `<nav>` should be reserved for primary navigation sections only, such as a global navigation table, a table of contents, and previous/next links
+- Links included w/ the `<nav>` element will link to other pages
+- Miscellaneous one-off links should not be wrapped w/ the `<nav>` element; use the anchor element, `<a>`, instead
+  ```html
+  <nav>...</nav>
+  ```
+
