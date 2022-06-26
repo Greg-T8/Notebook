@@ -250,7 +250,7 @@ Here's a quick summary of the more popular text-based elements.
 ### Encoding Special Characters
 - Special characters, like punctuation marks and accented letters, need to be encoded
 - Use https://copypastecharacter.com/ as a reference for a long list of character encodings
-- Example: Use the encoding `&#8212;` to create an emdash, i.e. &#8212; 
+- Example: Use the encoding `&#8212;` to create an emdash, i.e. &#8212;  
 ![](img/2022-06-26-05-36-27.png)
 
 ### Creating Hyperlinks
