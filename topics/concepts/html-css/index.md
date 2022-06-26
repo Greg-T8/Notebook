@@ -253,4 +253,42 @@ Here's a quick summary of the more popular text-based elements.
 - Example: Use the encoding `&#8212;` to create an emdash, i.e. &#8212; 
 ![](img/2022-06-26-05-36-27.png)
 
+### Creating Hyperlinks
+- Use the anchor inline-level element, `<a>`, for hyperlinks
+- The `href` attribute is required and identifies the destination of the link
+- Example:
+  ```html
+  <a href="http://mywebsite.com">My Website</a>
+  ```
+- Traditionally, `<a>` is an inline element, and according to web standards, inline-level elements may not wrap block-level elements
+  - With HTML5, anchor elements now have permission to wrap either block-, inline-, or any other level elements
+  - This enables entire blocks of content on a page to become links
+- Hyperlinks can have relative paths and absolute paths
+  ```html
+  <!-- Relative Path -->
+  <a href="about.html">About</a>
 
+  <!-- Absolute Path -->
+  <a href="http://www.google.com">Google</a>
+  ```
+
+#### Linking to an Email Address
+- The href attribute must start with `mailto:`, followed by the email address
+- You can also specify subject, body text, and other information using parameters after the email addresses
+  - The first parameter must begin with a question mark, ?, to bind it to the hyperlink path
+  - Use ampersand, &, to separate additional parameters
+  - Encode spaces with `%20` and encode line breaks with `%0A`
+- Example:
+  ```html
+  <a href="mailto:myaddress@email.com?subject=Reaching%20Out&body=How%20are%20you">Email Me</a>
+  ```
+
+#### Opening Links in New Window
+- Use the `target` attribute with a value of `_blank` to trigger the action of opening in a new window
+- Example
+  ```html
+  <a href="http://mysite.com" target="_blank">My Site</a>
+  ```
+
+#### Linking to Same Parts in a Page
+- 
