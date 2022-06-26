@@ -291,4 +291,12 @@ Here's a quick summary of the more popular text-based elements.
   ```
 
 #### Linking to Same Parts in a Page
-- 
+- Use the `id` attribute for linking back to a part
+- Reference the id using the pound sign in the `href` attribute
+- Example:
+  ```html
+  <body id="top">
+    ...
+    <a href="#top">Back to top</a>
+    ...
+  </body>
