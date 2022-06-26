@@ -128,7 +128,7 @@ Reference
 - Semantics is the practice of giving content meaning and structure by using the proper element.  See [Semantics within HTML](https://boagworld.com/dev/semantic-code-what-why-how/)
 - Semantics describes the *value* of the content on the page, regardless of the style or appearance
 - Benefits of using semantics
-  - Enables computers, screen readers, search engines to adquatley read and understand content on a web page
+  - Enables computers, screen readers, search engines to adequately read and understand content on a web page
   - Semantic HTML is easier to manage and work with, as it shows clearly what each piece of content is about
 - Two elements, `<div>` and `<span>` don't actually hold any semantic value; they exist for styling purposes only
 
@@ -229,3 +229,28 @@ Here's a quick summary of the more popular text-based elements.
 - Use `<article>` if the content adds to the document outline and it can be independently redistributed or syndicated
 - Use `<section>` if the content adds to the document outline and represents a thematic group of content
 - Use `<div>` if the content is being grouped solely for styling purposes and doesn't provide value to the outline of a document
+
+### Aside
+- `<aside>` holds content, such as sidebars, inserts, or brief explanations, that is tangentially related to the content surrounding it
+- When used with `<article>`, `<aside>` may identify content related to the author of the article
+- Think of `<aside>` as content that appears off to the left or right side of a page
+  - However, all of the structural elements, including `<aside>`, are block-level elements and will therefore appear on a new line, occupying the full available width of the page or of the element they are nested within, i.e. their parent element
+  ```html
+  <aside>...</aside>
+  ```
+
+### Footer
+- `<footer>` identifies the closing or end of a page, article, section, or other segment of a page
+- Generally, `<footer>` is found at the bottom of its parent
+- Content within `<footer>` should be relevant information and should not diverge from the document or section it is included within
+  ```html
+  <footer>...</footer>
+  ```
+
+### Encoding Special Characters
+- Special characters, like punctuation marks and accented letters, need to be encoded
+- Use https://copypastecharacter.com/ as a reference for a long list of character encodings
+- Example: Use the encoding `&#8212;` to create an emdash, i.e. &#8212; 
+![](img/2022-06-26-05-36-27.png)
+
+
