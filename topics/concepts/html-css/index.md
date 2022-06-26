@@ -208,3 +208,24 @@ Here's a quick summary of the more popular text-based elements.
   <nav>...</nav>
   ```
 
+### Article
+- `<article>` is used to identify a section of independent, self-contained content that may be independently distributed or reused
+- `<article>` is often used to mark up blog posts, newspaper articles, and user-submitted content
+  ```html
+  <article>...</article>
+  ```
+- When deciding to use `<article>`, determine if the content within the element could be replicated elsewhere without any confusion.
+
+### Section
+- `<section>` is used to identify a thematic grouping of content, which generally, but not always, includes a heading
+- The grouping content within `<section>` may be generic in nature, but it's useful to identify all the content as related
+- `<section>` is commonly used to break up and provide hierarchy to a page
+  ```html
+  <section>...</section>
+  ```
+
+### Deciding Between \<article\>, \<section\>, and \<div\> Elements
+- Both `<article>` and `<section>` contribute to a document's structure and help to outline a document
+- Use `<article>` if the content adds to the document outline and it can be independently redistributed or syndicated
+- Use `<section>` if the content adds to the document outline and represents a thematic group of content
+- Use `<div>` if the content is being grouped solely for styling purposes and doesn't provide value to the outline of a document
