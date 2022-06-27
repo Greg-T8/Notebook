@@ -282,6 +282,7 @@ Here's a quick summary of the more popular text-based elements.
   ```html
   <a href="mailto:myaddress@email.com?subject=Reaching%20Out&body=How%20are%20you">Email Me</a>
   ```
+- See [here](https://developer.yoast.com/blog/guide-mailto-links/) for options on mailto syntax
 
 #### Opening Links in New Window
 - Use the `target` attribute with a value of `_blank` to trigger the action of opening in a new window
