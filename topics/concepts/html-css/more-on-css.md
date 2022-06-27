@@ -102,3 +102,15 @@ Reference
 - <strong>Best Practice</strong>: Do not prefix a class selector with a type selector
   - Generally, you want to select any element with a given class, not just one type of element
   - Following this best practice, the new combined type selector would be better as `.hotdog .mustard`
+
+### Specificity Within Combined Selectors
+- When selectors are combined, so are the specificity weights of the individual selectors
+  - The combined specificity weights are calculated by counting each different type of selector within a combined selector
+
+- In the hotdog example above, the first selector `.hotdog p`, had both a class selector and a type selector
+  - Knowing that the point value of a class selector is `0-1-0` and the point value of a type selector is `0-0-1`, the total combined point value is `0-1-1`
+- The second selector, `.hotdog p.mustard` has two class selectors and one type selector, so the combined specificity point value is `0-2-1`
+- If you were to flip the order of these selectors in the style sheet, the appearance of their styles would not be affected due to each selector's specificity weight
+- In general it is good to keep an eye on specificity weight of your selectors.  The higher the specificity weights rise, the more likely the cascade is to break.
+
+
