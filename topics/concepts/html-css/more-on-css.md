@@ -94,3 +94,11 @@ Reference
   - The key selector is a type selector targeting the paragraph elements
   - This type selector is prequalified with the class selector of `hotdog`
   - The full combined selector will only select paragraph elements that reside within an element with a class attribute of `hotdog`
+- The second combined selector above, `.hotdog p.mustard`, includes three selectors: two class selectors and one type selector
+  - The only difference between the second selector and the first selector is the addition of the class selector of mustard to the end of the paragraph type selector
+  - The new class selector, `mustard`, falls all the way to the right of the combined selector. It is the key selector, and all the individual selectors before it are now prequalifiers
+- Note: spaces are important
+  - If the paragraph selector was removed, and the `mustard` class selector had spaces on both sides of it, then it would select any element with class of `mustard`, not just paragraphs
+- <strong>Best Practice</strong>: Do not prefix a class selector with a type selector
+  - Generally, you want to select any element with a given class, not just one type of element
+  - Following this best practice, the new combined type selector would be better as `.hotdog .mustard`
