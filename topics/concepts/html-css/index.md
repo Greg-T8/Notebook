@@ -1,6 +1,6 @@
 # Contents
 
-[Overview of HTML and CSS](/overview.md#overview-of-html-and-css)
+[Overview of HTML and CSS](overview.md#overview-of-html-and-css)
 - [Common HTML Terms](/overview.md#common-css-terms)
 - [Common CSS Terms](/overview.md#common-css-terms)
 - [Working with Selectors](/overview.md#working-with-selectors)
