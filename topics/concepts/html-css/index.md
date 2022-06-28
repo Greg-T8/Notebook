@@ -46,6 +46,7 @@
       - [HSL & HSLa Colors](#hsl--hsla-colors)
     - [Lengths](#lengths)
       - [Absolute Lengths](#absolute-lengths)
+        - [Pixels](#pixels)
 
 
 # Overview of HTML and CSS
@@ -594,3 +595,17 @@ The following sections cover some of the more frequently-used CSS property value
 - Length values come in two forms: absolute and relative, each with different units of measurement
 
 #### Absolute Lengths
+- Absolute lengths are fixed to a physical measurement, such as inches, cm, or mm
+- The most popular measurement is the `px` unit notation
+
+##### Pixels
+- The pixel is equal to 1/96th of an inch; thus there are 96 pixels in an inch
+- The exact measurement of a pixel may vary slightly between high-density and low-density viewing devices
+- Example:
+    ```css
+    p {
+      font-size: 14px;
+    }
+    ```
+- With the changing landscape of viewing devices and their varying screen sizes, pixels have lost some of their popularity
+- Pixels also don't provide much flexibility as an absolute unit of measurement
