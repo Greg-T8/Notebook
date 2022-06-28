@@ -1,4 +1,41 @@
-
+- [Overview of HTML and CSS](#overview-of-html-and-css)
+  - [Common HTML Terms](#common-html-terms)
+  - [Common CSS Terms](#common-css-terms)
+  - [Working with Selectors](#working-with-selectors)
+    - [Type Selectors](#type-selectors)
+    - [Class Selectors](#class-selectors)
+    - [ID Selectors](#id-selectors)
+    - [Additional Selectors](#additional-selectors)
+  - [Referencing CSS](#referencing-css)
+  - [CSS Resets](#css-resets)
+- [More on HTML](#more-on-html)
+  - [Semantics Overview](#semantics-overview)
+  - [Divisions and Spans](#divisions-and-spans)
+  - [Text-Based Elements](#text-based-elements)
+    - [Headings](#headings)
+    - [Paragraphs](#paragraphs)
+    - [Bold Text with Strong](#bold-text-with-strong)
+    - [Italicize Text with Emphasis](#italicize-text-with-emphasis)
+  - [Building Structure](#building-structure)
+    - [Header](#header)
+    - [Navigation](#navigation)
+    - [Article](#article)
+    - [Section](#section)
+    - [Deciding Between \<article\>, \<section\>, and \<div\> Elements](#deciding-between-article-section-and-div-elements)
+    - [Aside](#aside)
+    - [Footer](#footer)
+    - [Encoding Special Characters](#encoding-special-characters)
+    - [Creating Hyperlinks](#creating-hyperlinks)
+      - [Linking to an Email Address](#linking-to-an-email-address)
+      - [Opening Links in New Window](#opening-links-in-new-window)
+      - [Linking to Same Parts in a Page](#linking-to-same-parts-in-a-page)
+- [More on CSS](#more-on-css)
+  - [The Cascade](#the-cascade)
+    - [Cascading Properties](#cascading-properties)
+  - [Calculating Specificity](#calculating-specificity)
+  - [Combining Selectors](#combining-selectors)
+    - [Specificity Within Combined Selectors](#specificity-within-combined-selectors)
+- [New header](#new-header)
 
 
 # Overview of HTML and CSS
@@ -304,8 +341,7 @@ Here's a quick summary of the more popular text-based elements.
     <a href="#top">Back to top</a>
     ...
   </body>
-
-
+  ```
 
 # More on CSS
 - Benefits of CSS
@@ -418,3 +454,8 @@ Here's a quick summary of the more popular text-based elements.
 - The second selector, `.hotdog p.mustard` has two class selectors and one type selector, so the combined specificity point value is `0-2-1`
 - If you were to flip the order of these selectors in the style sheet, the appearance of their styles would not be affected due to each selector's specificity weight
 - In general it is good to keep an eye on specificity weight of your selectors.  The higher the specificity weights rise, the more likely the cascade is to break.
+
+
+# New header
+adlkajdflk
+aldkfjlsk
