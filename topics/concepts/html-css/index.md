@@ -44,6 +44,8 @@
       - [Hexadecimal Colors](#hexadecimal-colors)
       - [RGB & RGBa Colors](#rgb--rgba-colors)
       - [HSL & HSLa Colors](#hsl--hsla-colors)
+    - [Lengths](#lengths)
+      - [Absolute Lengths](#absolute-lengths)
 
 
 # Overview of HTML and CSS
@@ -503,7 +505,7 @@ The following sections cover some of the more frequently-used CSS property value
 #### Keyword Colors
 - Keyword color values are names that map to a given color
 - The keyword names and corresponding colors are determined by their CSS specification
-- See the [CSS Specification](https://www.w3.org/TR/css-color-3/) for a complete list of colors
+- See the [CSS Specification](https://www.w3.org/TR/css-color-3/) for a complete list of colors  
   ![](img/2022-06-28-04-56-55.png)
 - Example:
     ```css
@@ -586,3 +588,9 @@ The following sections cover some of the more frequently-used CSS property value
   - Example: `hsla(24, 100%, 50%, .5)`
 - The HSL color value is the newest color value available within CSS
   - It is not as widely used as the other values due to its age and support w/ browsers
+
+### Lengths
+- There are a handful of different types of length values, all of which serve distinct purposes
+- Length values come in two forms: absolute and relative, each with different units of measurement
+
+#### Absolute Lengths
