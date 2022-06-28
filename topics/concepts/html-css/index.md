@@ -1,3 +1,5 @@
+# Contents
+- [Contents](#contents)
 - [Overview of HTML and CSS](#overview-of-html-and-css)
   - [Common HTML Terms](#common-html-terms)
   - [Common CSS Terms](#common-css-terms)
@@ -35,11 +37,17 @@
   - [Calculating Specificity](#calculating-specificity)
   - [Combining Selectors](#combining-selectors)
     - [Specificity Within Combined Selectors](#specificity-within-combined-selectors)
-- [New header](#new-header)
+  - [Layering Styles with Multiple Classes](#layering-styles-with-multiple-classes)
+  - [Common CSS Property Values](#common-css-property-values)
+    - [Colors](#colors)
+      - [Keyword Colors](#keyword-colors)
+      - [Hexadecimal Colors](#hexadecimal-colors)
+      - [RGB & RGBa Colors](#rgb--rgba-colors)
+      - [HSL & HSLa Colors](#hsl--hsla-colors)
 
 
 # Overview of HTML and CSS
-Reference
+Most of these notes were taken from the following resources:
 - [ShayHowe.com](https://learn.shayhowe.com/html-css/)
 
 ## Common HTML Terms
@@ -455,7 +463,126 @@ Here's a quick summary of the more popular text-based elements.
 - If you were to flip the order of these selectors in the style sheet, the appearance of their styles would not be affected due to each selector's specificity weight
 - In general it is good to keep an eye on specificity weight of your selectors.  The higher the specificity weights rise, the more likely the cascade is to break.
 
+## Layering Styles with Multiple Classes
+- For ease of use, it is best to keep the specificity weights of selectors low
+  - One way to do this is to be as modular as possible, by layering on different styles by using multiple classes
+- Elements within HTML can have more than one class attribute value, so as long as each value is separated with a space
+- Example below shows how you can apply two classes, keeping the specificity weights low  
+  **HTML**
+  ```html
+  <a class="btn btn-danger">...</a>
+  <a class="btn btn-success">...</a>
+  ```
+  **CSS**
+  ```css
+  .btn {
+    font-size: 16px;
+  }
+  .btn-danger {
+    background: red;
+  }
+  .btn-success {
+    background: green;
+  }
+  ```
 
-# New header
-adlkajdflk
-aldkfjlsk
+## Common CSS Property Values
+The following sections cover some of the more frequently-used CSS property values.
+
+### Colors
+- All color values are defined on an sRGB (or standard red, green, and blue) color space
+- There are four primary ways to represent sRGB colors:
+  - Keyword colors
+  - Hexadecimal notation
+  - RGB/RGBa value
+  - HSL/HSLa value
+
+- For the time being, hexadecimal color values are the most popular as they are widely supported
+  - When an alpha (transparency) channel is needed, RGBa color values are preferred
+
+#### Keyword Colors
+- Keyword color values are names that map to a given color
+- The keyword names and corresponding colors are determined by their CSS specification
+- See the [CSS Specification](https://www.w3.org/TR/css-color-3/) for a complete list of colors
+  ![](img/2022-06-28-04-56-55.png)
+- Example:
+    ```css
+    .task {
+      background: maroon;
+    }
+    .count {
+      background: yellow;
+    }
+    ```
+- While keyword colors are simple, they provide limited options and thus are not the most popular color choice
+
+#### Hexadecimal Colors
+- Consist of a pound, or hash, #, followed by a three- or six- character figure
+- The values map to red, green, and blue color channels  
+  ![](img/2022-06-28-05-02-09.png) 
+- Hexadecimal colors have been around for a while and are popular, but they are difficult to work with
+- Example:
+    ```css
+    .task {
+      background: #800000;
+    }
+    .count {
+      background: #ff0;
+    }
+    ```
+
+#### RGB & RGBa Colors
+- RGB colors are stated using the `rgb()` function
+  - The `rgb()` function accepts three comma-separated integers, representing the red, green, and blue channels
+- Example:
+    ```css
+    .task {
+      background: rgb(128, 0, 0);
+    }
+    .count {
+      background: rgb(255, 255, 0);
+    }
+    ```
+- RGB color values may also include an alpha, or transparency, channel by using the `rgba()` function
+  - The `rgba()` function requires a fourth value, which must be a number between `0` and `1`, including decimals
+  - A value of `0` creates a fully transparent color, meaning invisible
+  - A value of `1` creates a fully opaque color
+  - Any decimal value in between creates a semi-transparent color
+- Example:
+    ```css
+    .task {
+      background: rgba(128, 0, 0, .25);
+    }
+    .count {
+      background: rgba(255, 255, 0, 1);
+    }
+    ```
+- RGB color values are becoming more popular, especially with the ability to create semi-transparent colors
+
+#### HSL & HSLa Colors
+- HSL color values are stated using the `hsl()` function, which stands for hue, saturation, and lightness
+- The HSL function accepts three integer values
+  - First value (hue)
+    - Range is `0` to `360`
+    - Each number represent the degree of color on the color wheel
+  - Second value (saturation)
+    - Percentage values `0` to `100`
+    - `0` - completely grayscale
+    - `100` - fully saturated
+  - Third value (lightness)
+    - Percentage values `0` to `100`
+    - `0` - completely black
+    - `1` - completely white
+- Example:
+    ```css
+    .task {
+      background: hsl(0, 100%, 25%);
+    }
+    .count {
+      background: hsl(60, 100%, 50%);
+    }
+    ```
+- HSL color values, like RGBa, may also include an alpha, or transparency channel, with the use of the `hsla()` function
+  - Example: `hsla(24, 100%, 50%, .5)`
+- The HSL color value is the newest color value available within CSS
+  - It is not as widely used as the other values due to its age and support w/ browsers
