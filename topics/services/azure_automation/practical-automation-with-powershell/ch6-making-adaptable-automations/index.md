@@ -93,3 +93,6 @@ Invoke-WebRequest -Uri $UrlB -OutFile $FileB
 }
 Get-Job | Wait-Job
 ```
+
+Use the `Receive-Job` cmdlet to get the return information.
+
