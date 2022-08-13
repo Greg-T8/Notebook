@@ -9,6 +9,7 @@ I just started this notebook, so there's not much content here yet. I will be bu
 - [HTTP](/topics/concepts/http/http-basics/index.md)
 ## Services
 - [Azure Automation](/topics/services/azure_automation/index.md)
+  - [Practical Automation with PowerShell](/topics/services/azure_automation/practical-automation-with-powershell/index.md)
 ## Tools
 - [Git](/topics/tools/git/index.md)
 - [Wireshark](/topics/tools/wireshark/index.md)
