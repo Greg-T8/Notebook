@@ -78,3 +78,18 @@ Foreach ($import in $Functions) {
     }
 }
 ```
+
+## Waiting for Commands to Complete
+Some commands, like `Stop-Service` have the `-NoWait` switch. This switch tells the cmdlet to send the stop signal but do not wait for it to stop.
+
+Other commands, such as `Invoke-WebRequest` do not have a no-wait option. In these cases you can use PowerShell jobs to get the wait functionality:
+
+```powershell
+Start-Job -ScriptBlock {
+Invoke-WebRequest -Uri $UrlA -OutFile $FileA
+}
+Start-Job -ScriptBlock {
+Invoke-WebRequest -Uri $UrlB -OutFile $FileB
+}
+Get-Job | Wait-Job
+```
