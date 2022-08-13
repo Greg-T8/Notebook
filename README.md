@@ -7,6 +7,8 @@ I just started this notebook, so there's not much content here yet. I will be bu
 ## Concepts
 - [HTML](/topics/concepts/html-css/index.md)
 - [HTTP](/topics/concepts/http/http-basics/index.md)
+## Services
+- [Azure Automation](/topics/services/azure_automation/index.md)
 ## Tools
 - [Git](/topics/tools/git/index.md)
 - [Wireshark](/topics/tools/wireshark/index.md)
