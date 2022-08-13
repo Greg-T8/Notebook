@@ -1,6 +1,6 @@
 # Chapter 6 - Making Adaptable Automations
 
-The author provides a nice template for creating modules.  
+The author provides a nice template for creating modules. This script creates a module structure with blank files. 
 ```powershell
 Function New-ModuleTemplate {
     [CmdletBinding()]
@@ -60,4 +60,21 @@ $module = @{
 }
 # Execute the function to create the new module
 New-ModuleTemplate @module
+```
+
+You can then add the following code to the .psm1 file to automatically import the functions from the `Public` folder.
+
+```powershell
+$Path = Join-Path $PSScriptRoot 'Public'
+$Functions = Get-ChildItem -Path $Path -Filter '*.ps1'
+ 
+Foreach ($import in $Functions) {
+    Try {
+        Write-Verbose "dot-sourcing file '$($import.fullname)'"
+        . $import.fullname
+    }
+    Catch {
+        Write-Error -Message "Failed to import function $($import.name)"
+    }
+}
 ```
