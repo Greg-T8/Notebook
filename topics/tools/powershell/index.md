@@ -6,11 +6,14 @@ See below for the code I use for my custom PowerShell prompt.
 The prompt looks similar to this pic:  
 ![](img/2022-08-14-06-25-37.png)
 
-Place this code in your PowerShell profile. Use `$profile | select *` to view all the profile paths.
+Place the code below in your PowerShell profile. Use `$profile | select *` to view all the profile paths.
 
 Since I use the same profile across multiple hosts, e.g. Windows Terminal and VS Code, I place my code in the `CurrentUserAllHosts` profile, i.e. `profile.ps1`.
 
+![](img/2022-08-14-06-30-04.png)
 
+
+**My PowerShell Profile Prompt**
 
 ```powershell
 function GetPromptPath {
