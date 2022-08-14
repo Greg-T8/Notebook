@@ -8,6 +8,8 @@ Place the code below in your PowerShell profile. Use `$profile | select *` to vi
 
 ![](img/2022-08-14-06-30-04.png)
 
+Windows PowerShell and PowerShell each have their own profile paths, so you'll need to maintain a profile file for each PowerShell edition.
+
 
 **My PowerShell Profile Prompt**
 
