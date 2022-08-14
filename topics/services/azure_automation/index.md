@@ -1,5 +1,8 @@
 # Notes on Azure Automation
 
+Notes from [Practical Automation with PowerShell](/topics/services/azure_automation/practical-automation-with-powershell/index.md)
+
+# Miscellaneous Notes
 When using the Azure AD module, you need to create a RunAs account.  The RunAs account is tied to a service principal.  This principal needs a role Azure AD to do its business.
 
 Use the following commands to assign a role.
