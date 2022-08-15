@@ -97,8 +97,11 @@ Get-Job | Wait-Job
 Use the `Receive-Job` cmdlet to get the return information.
 
 ## Disabling Windows Services
-The following script takes in a list of services and sets the startup type to `Disabled`.  It then attempts to stop the service and records the resulting state. If there are any services that haven't been stopped in the predetermined amount of time, then an attempt is made to kill the process.  
+The following script takes in a list of services and sets the startup type to `Disabled`.  It then attempts to stop the service and records the resulting state. If there are any services that haven't been stopped in the predetermined amount of time, then an attempt is made to kill the process. If the script is unable to kill the process, then a reboot flag is noted.  Here's an example of the output:
 
+![](img/2022-08-15-04-12-48.png)
+
+**Disable-WindowsService**  
 ```powershell
 Function Disable-WindowsService {
     [CmdletBinding()]
