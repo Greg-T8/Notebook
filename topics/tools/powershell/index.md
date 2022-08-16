@@ -43,3 +43,9 @@ $updated = $checks |
     Select-Object -Property *, @{l='Type';e={'DWORD'}},
         @{l='Data';e={$_.Tests[0].Value}}
 ```
+
+## Use a date string
+See [Get-Date](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-date?view=powershell-7.2).
+```powershell
+$DateString = (Get-Date).ToString('yyMMdd')
+```
