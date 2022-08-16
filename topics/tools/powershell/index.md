@@ -23,3 +23,11 @@ foreach ($o in $objects) {
 ...
 # To set value
 $myCollection[-1].Key1 = $o.Value1
+```
+
+## Use a timer to monitor something
+```powershell
+$timer = [system.diagnostics.stopwatch]::StartNew()
+do {
+  # code to monitor
+} while { $timer.Elapsed.TotalSeconds -lt $SecondsToWait }
