@@ -197,7 +197,7 @@ Function Disable-WindowsService {
 ```
 
 ## Building Data-Driven Functions
-The author provides an example of using registry checks to convert a PowerShell object into a JSON file.
+The author provides an example of using registry checks to convert a PowerShell object into a JSON file. Use the JSON validator site at [jsonlint.com](https://jsonlint.com/) to validate JSON syntax.
 
 **Creating JSON**
 ```powershell
