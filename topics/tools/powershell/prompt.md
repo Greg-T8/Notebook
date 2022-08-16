@@ -1,13 +1,25 @@
 ## PowerShell Prompt
-See below for the code I use for my custom PowerShell prompt. The prompt looks similar to this pic:  
+There are many options for customizing your PowerShell prompt, including the [Oh My Posh](https://ohmyposh.dev/) PowerShell theme engine.  However, I prefer to roll my own: 
 ![](img/2022-08-14-13-24-55.png)
 
-Place the code below in your PowerShell profile. Use `$profile | select *` to view possible the profile paths. Since I use the same profile across multiple hosts, e.g. Windows Terminal and VS Code, I place my code in the `CurrentUserAllHosts` profile, i.e. `profile.ps1`.
+My PowerShell prompt has a few key features:
+- Places the working directory above the command line, leaving as much space as possible for running commands
+- Uses a dimmed, italic style for the working directory
+- Uses an arrow to connect the working directory with the command.  This is helpful when you are working in a narrow window
+
+To update your prompt, place the code below in your PowerShell profile. Use `$profile | select *` to view all possible the profile paths. See [about_Profiles](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles?view=powershell-7.2) for more info. Since I use the same profile across multiple hosts, e.g. Windows Terminal and VS Code, I place my code in the `CurrentUserAllHosts` profile, i.e. `profile.ps1`.
 
 ![](img/2022-08-14-06-30-04.png)
 
-Windows PowerShell and PowerShell each have their own profile paths, so you'll need to maintain a profile file for each PowerShell edition.
+Windows PowerShell and PowerShell each have their own profile paths, so you'll need to maintain a profile file for each PowerShell edition. Here are those paths:
 
+Windows PowerShell
+- $HOME\Documents\WindowsPowerShell\profile.ps1
+
+PowerShell
+- $HOME\Documents\PowerShell\profile.ps1
+
+To edit your profile from the command line use `code $profile.CurrentUserAllHosts`
 
 **My PowerShell Profile Prompt**
 
