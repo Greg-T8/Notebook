@@ -195,3 +195,48 @@ Function Disable-WindowsService {
     $ServiceStatus
 }
 ```
+
+## Building Data-Driven Functions
+The author provides an example of using registry checks to convert a PowerShell object into a JSON file.
+
+**Creating JSON**
+```powershell
+[System.Collections.Generic.List[PSObject]] $JsonBuilder = @()
+$JsonBuilder.Add(@{
+    KeyPath =
+    'HKLM:\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters'
+    Name    = 'EnableSecuritySignature'
+    Tests   = @(
+        @{operator = 'eq'; value = '1' }
+    )
+})
+$JsonBuilder.Add(@{
+    KeyPath =
+    'HKLM:\SYSTEM\CurrentControlSet\Services\EventLog\Security'
+    Name    = 'MaxSize'
+    Tests   = @(
+        @{operator = 'ge'; value = '32768' }
+    )
+})
+$JsonBuilder.Add(@{
+    KeyPath =
+    'HKLM:\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters'
+    Name    = 'AutoDisconnect'
+    Tests   = @(
+        @{operator = 'in'; value = '1..15' }
+    )
+})
+$JsonBuilder.Add(@{
+    KeyPath =
+    'HKLM:\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters'
+    Name    = 'EnableForcedLogoff'
+    Tests   = @(
+        @{operator = 'eq'; value = '1' }
+        @{operator = 'eq'; value = '$null' }
+    )
+})
+ 
+$JsonBuilder |
+    ConvertTo-Json -Depth 3 |
+    Out-File .\RegistryChecks.json -Encoding UTF8
+```
