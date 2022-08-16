@@ -1,5 +1,5 @@
 ## PowerShell Prompt
-There are many options for customizing your PowerShell prompt, including the [Oh My Posh](https://ohmyposh.dev/) PowerShell theme engine.  However, I prefer to roll my own: 
+There are many options for customizing your PowerShell prompt, including the [Oh My Posh](https://ohmyposh.dev/) PowerShell theme engine.  However, I prefer to roll my own:   
 ![](img/2022-08-14-13-24-55.png)
 
 My PowerShell prompt has a few key features:
