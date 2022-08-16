@@ -31,3 +31,15 @@ $timer = [system.diagnostics.stopwatch]::StartNew()
 do {
   # code to monitor
 } while { $timer.Elapsed.TotalSeconds -lt $SecondsToWait }
+```
+
+## Use a calculated property
+The following cmdlets support calculated properties:
+- Select-Object, Group-Object, Sort-Object, Compare-Object, Measure-Object
+- Format-List, Format-Table, Format-Custom
+See [about_Calculated_Properties](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_calculated_properties?view=powershell-7.2).
+```powershell
+$updated = $checks |
+    Select-Object -Property *, @{l='Type';e={'DWORD'}},
+        @{l='Data';e={$_.Tests[0].Value}}
+```
