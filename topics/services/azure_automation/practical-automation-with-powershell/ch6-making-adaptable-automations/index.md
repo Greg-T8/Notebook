@@ -259,3 +259,6 @@ $updated = $checks |
 ConvertTo-Json -InputObject $updated -Depth 3 | 
     Out-File -FilePath .\RegistryChecksAndResolves.json -Encoding utf8
 ```
+
+**Classes** 
+Use classes when the script is expecting a specifically-formatted object. You need a class 
