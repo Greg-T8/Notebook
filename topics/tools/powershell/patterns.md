@@ -7,7 +7,7 @@ Use the following block of code to check if a string is null or empty.
 if ([string]::IsNullOrEmpty('String')) { ... }
 ```
 
-## Use a collection of custom PowerShell objects
+## Use a generic list for custom PowerShell objects
 ```powershell
 [System.Collections.Generic.List[PSObject]] $myCollection = @()
 foreach ($o in $objects) {
@@ -17,18 +17,19 @@ foreach ($o in $objects) {
     Key2 = $null
   }])
 }
-
+...
+# To set value
+$myCollection[-1].Key1 = $o.Value1
+```
 You can shorten the syntax with the `using namespace` statement:
 ```powershell
 using namespace System.Collections.Generic
 $myList = [List[int]]@(1,2,3)
 ```
 
-See [Generic List](https://docs.microsoft.com/en-us/powershell/scripting/learn/deep-dives/everything-about-arrays?view=powershell-7.2#generic-list) for more info. 
-...
-# To set value
-$myCollection[-1].Key1 = $o.Value1
-```
+References
+- [Generic List](https://docs.microsoft.com/en-us/powershell/scripting/learn/deep-dives/everything-about-arrays?view=powershell-7.2#generic-list)
+- [PSCustomObject](https://docs.microsoft.com/en-us/powershell/scripting/learn/deep-dives/everything-about-pscustomobject?view=powershell-7.2)
 
 ## Use a timer to monitor something
 ```powershell
