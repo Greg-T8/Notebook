@@ -16,7 +16,8 @@ foreach ($o in $objects) {
     Key1 = $null
     Key2 = $null
   }])
-} 
+}
+See [Generic List](https://docs.microsoft.com/en-us/powershell/scripting/learn/deep-dives/everything-about-arrays?view=powershell-7.2#generic-list) for more info. 
 ...
 # To set value
 $myCollection[-1].Key1 = $o.Value1
@@ -46,5 +47,3 @@ See [Get-Date](https://docs.microsoft.com/en-us/powershell/module/microsoft.powe
 ```powershell
 $DateString = (Get-Date).ToString('yyMMdd')
 ```
-
-

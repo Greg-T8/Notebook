@@ -241,10 +241,11 @@ $JsonBuilder |
     Out-File .\RegistryChecks.json -Encoding UTF8
 ```
 
-**Updating JSON
+**Updating JSON**  
 You can then use the code below to add custom fields to your data, in this case the `Type` and `Value` fields:  
 ![](img/2022-08-17-03-12-41.png)
 
+This script 
 ```powershell
 $checks = Get-Content .\RegistryChecks.json -Raw | 
     ConvertFrom-Json
@@ -258,5 +259,3 @@ $updated = $checks |
 ConvertTo-Json -InputObject $updated -Depth 3 | 
     Out-File -FilePath .\RegistryChecksAndResolves.json -Encoding utf8
 ```
-
-
