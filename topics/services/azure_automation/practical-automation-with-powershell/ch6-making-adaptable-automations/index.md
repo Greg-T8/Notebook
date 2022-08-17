@@ -261,4 +261,56 @@ ConvertTo-Json -InputObject $updated -Depth 3 |
 ```
 
 **Classes** 
-Use classes when the script is expecting a specifically-formatted object. You need a class 
+Use classes when the script is expecting a specifically-formatted object. If you are creating classes from JSON, then you'll need a class for each nested JSON object.  
+
+Here's an example on how to create a class for a nested JSON object:
+```powershell
+# Listing 6 - Registry Test Class
+class RegistryTest {
+    [string]$operator
+	[string]$Value
+    # Method to create a blank instance of this class
+    RegistryTest(){
+    }
+    # Method to create an instance of this class populated with data from a generic PowerShell object
+    RegistryTest(
+        [object]$object
+    ){
+        $this.operator = $object.Operator
+		$this.Value = $object.Value
+    }
+}
+```
+And here's how to use the nested class in the parent class. 
+```powershell
+# Listing 7 - Registry Check Class
+class RegistryCheck {
+    [string]$KeyPath
+    [string]$Name
+    [string]$Type
+    [string]$Data
+    [string]$SetValue
+    [Boolean]$Success
+    [RegistryTest[]]$Tests # Use of nested class
+    # Method to create a blank instance of the parent class
+    RegistryCheck(){
+        $this.Tests += [RegistryTest]::new()
+        $this.Success = $false
+    }
+    # Method to create an instance of this class populated with data from a generic PowerShell object
+    RegistryCheck(
+        [object]$object
+    ){
+        $this.KeyPath = $object.KeyPath
+		$this.Name = $object.Name
+		$this.Type = $object.Type
+        $this.Data = $object.Data
+        $this.Success = $false
+        $this.SetValue = $object.SetValue
+
+        $object.Tests | Foreach-Object {
+            $this.Tests += [RegistryTest]::new($_)
+        }
+    }
+}
+```
