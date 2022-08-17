@@ -240,3 +240,23 @@ $JsonBuilder |
     ConvertTo-Json -Depth 3 |
     Out-File .\RegistryChecks.json -Encoding UTF8
 ```
+
+**Updating JSON
+You can then use the code below to add custom fields to your data, in this case the `Type` and `Value` fields:  
+![](img/2022-08-17-03-12-41.png)
+
+```powershell
+$checks = Get-Content .\RegistryChecks.json -Raw | 
+    ConvertFrom-Json
+
+# Use the Select-Object to add new properties to the object
+$updated = $checks | 
+    Select-Object -Property *, @{l='Type';e={'DWORD'}}, 
+        @{l='Data';e={$_.Tests[0].Value}}
+
+# Convert the updated object with the new properties back to JSON and export
+ConvertTo-Json -InputObject $updated -Depth 3 | 
+    Out-File -FilePath .\RegistryChecksAndResolves.json -Encoding utf8
+```
+
+
