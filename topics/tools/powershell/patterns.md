@@ -30,6 +30,7 @@ $myList = [List[int]]@(1,2,3)
 References
 - [Generic List](https://docs.microsoft.com/en-us/powershell/scripting/learn/deep-dives/everything-about-arrays?view=powershell-7.2#generic-list)
 - [PSCustomObject](https://docs.microsoft.com/en-us/powershell/scripting/learn/deep-dives/everything-about-pscustomobject?view=powershell-7.2)
+- [Array Do's and Don'ts](https://gist.github.com/kevinblumenfeld/4a698dbc90272a336ed9367b11d91f1c)
 
 ## Use a timer to monitor something
 ```powershell
