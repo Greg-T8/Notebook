@@ -17,6 +17,13 @@ foreach ($o in $objects) {
     Key2 = $null
   }])
 }
+
+You can shorten the syntax with the `using namespace` statement:
+```powershell
+using namespace System.Collections.Generic
+$myList = [List[int]]@(1,2,3)
+```
+
 See [Generic List](https://docs.microsoft.com/en-us/powershell/scripting/learn/deep-dives/everything-about-arrays?view=powershell-7.2#generic-list) for more info. 
 ...
 # To set value
