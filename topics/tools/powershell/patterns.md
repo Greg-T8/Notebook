@@ -58,7 +58,7 @@ $DateString = (Get-Date).ToString('yyMMdd')
 ```
 
 ## Execute a string as PowerShell code
-This is useful technique for managing data and operators inside a string.
+This is useful technique for managing data in a string with replaceable data and operator.
 ```powershell
 $Data = 3
 $Operator = 'in'
