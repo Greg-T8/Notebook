@@ -56,3 +56,13 @@ See [Get-Date](https://docs.microsoft.com/en-us/powershell/module/microsoft.powe
 ```powershell
 $DateString = (Get-Date).ToString('yyMMdd')
 ```
+
+## Execute a string as PowerShell code
+This is useful technique for managing data and operators inside a string.
+```powershell
+$Data = 3
+$Operator = 'in'
+$Expected = '1..15'
+$cmd = 'if($Data -{0} {1}){{$true}}' -f $Operator, $Expected
+Invoke-Expression $cmd
+```
