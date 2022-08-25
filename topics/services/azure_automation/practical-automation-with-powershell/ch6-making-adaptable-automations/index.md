@@ -399,7 +399,9 @@ Function Set-SecurityBaseline{
 ```
 
 
-The next example shows how you can submit a string array to install Windows Features.  Note the use of `System.Collections.Generic.List[PSObject]`.  Per [here](https://gist.github.com/kevinblumenfeld/4a698dbc90272a336ed9367b11d91f1c), it's recommended to use a generic list when you know the type of the elements but not the size of the collection.
+The next example shows how you can submit a string array to install Windows Features. A couple of things to note:
+- The use of `System.Collections.Generic.List[PSObject]`.  Per [here](https://gist.github.com/kevinblumenfeld/4a698dbc90272a336ed9367b11d91f1c), it's recommended to use a generic list when you know the type of the elements but not the size of the collection.
+- The use of a custom property `@{l='Name'; e={$Name}}`. This is because 'Install-WindowsFeature' doesn't return the Name property.
 ```powershell
 Function Install-RequiredFeatures {
     [CmdletBinding()]
