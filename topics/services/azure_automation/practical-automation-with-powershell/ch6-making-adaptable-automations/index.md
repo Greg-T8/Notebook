@@ -199,7 +199,7 @@ Function Disable-WindowsService {
 ## Building Data-Driven Functions
 The author provides an example of using registry checks to convert a PowerShell object into a JSON file. Use the JSON validator site at [jsonlint.com](https://jsonlint.com/) to validate JSON syntax.
 
-**Creating JSON**
+### Creating JSON
 ```powershell
 [System.Collections.Generic.List[PSObject]] $JsonBuilder = @()
 $JsonBuilder.Add(@{
@@ -241,7 +241,7 @@ $JsonBuilder |
     Out-File .\RegistryChecks.json -Encoding UTF8
 ```
 
-**Updating JSON**  
+### Updating JSON
 You can then use the code below to add custom fields to your data, in this case the `Type` and `Value` fields:  
 ![](img/2022-08-17-03-12-41.png)
 
@@ -260,7 +260,7 @@ ConvertTo-Json -InputObject $updated -Depth 3 |
     Out-File -FilePath .\RegistryChecksAndResolves.json -Encoding utf8
 ```
 
-**Classes** 
+### Using Classes
 Use classes when the script is expecting a specifically-formatted object. If you are creating classes from JSON, then you'll need a class for each nested JSON object.  
 
 Here's an example on how to create a class for a nested JSON object:
@@ -395,5 +395,26 @@ Function Set-SecurityBaseline{
         ErrorAction  = 'Continue'
     }
     New-ItemProperty @ItemProperty
+}
+```
+
+
+The next example shows how you can submit a string array to install Windows Features.  Note the use of `System.Collections.Generic.List[PSObject]`.  Per [here](https://gist.github.com/kevinblumenfeld/4a698dbc90272a336ed9367b11d91f1c), it's recommended to use a generic list when you know the type of the elements but not the size of the collection.
+```powershell
+Function Install-RequiredFeatures {
+    [CmdletBinding()]
+    [OutputType([object])]
+    param(
+        [Parameter(Mandatory = $true)]
+        [string[]]$Features
+    )
+    [System.Collections.Generic.List[PSObject]] $FeatureInstalls = @()
+    foreach ($Name in $Features) {
+        Install-WindowsFeature -Name $Name -ErrorAction SilentlyContinue |
+            Select-Object -Property @{l='Name';e={$Name}}, * |
+            ForEach-Object{ $FeatureInstalls.Add($_) }
+    }
+ 
+    $FeatureInstalls
 }
 ```
