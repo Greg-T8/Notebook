@@ -4,9 +4,10 @@
   - [Waiting for Commands to Complete](#waiting-for-commands-to-complete)
   - [Disabling Windows Services](#disabling-windows-services)
   - [Building Data-Driven Functions](#building-data-driven-functions)
-    - [Creating JSON](#creating-json)
-    - [Updating JSON](#updating-json)
-    - [Using Classes](#using-classes)
+    - [Creating JSON for Registry Checks](#creating-json-for-registry-checks)
+    - [Updating JSON with Registry Types](#updating-json-with-registry-types)
+    - [Using Classes for Registry Checks](#using-classes-for-registry-checks)
+    - [Installing Windows Features](#installing-windows-features)
 
 The author provides a nice template for creating modules. This script creates a module structure with blank files. 
 ```powershell
@@ -207,7 +208,7 @@ Function Disable-WindowsService {
 ## Building Data-Driven Functions
 The author provides an example of using registry checks to convert a PowerShell object into a JSON file. Use the JSON validator site at [jsonlint.com](https://jsonlint.com/) to validate JSON syntax.
 
-### Creating JSON
+### Creating JSON for Registry Checks
 ```powershell
 [System.Collections.Generic.List[PSObject]] $JsonBuilder = @()
 $JsonBuilder.Add(@{
@@ -249,7 +250,7 @@ $JsonBuilder |
     Out-File .\RegistryChecks.json -Encoding UTF8
 ```
 
-### Updating JSON
+### Updating JSON with Registry Types
 You can then use the code below to add custom fields to your data, in this case the `Type` and `Value` fields:  
 ![](img/2022-08-17-03-12-41.png)
 
@@ -268,7 +269,7 @@ ConvertTo-Json -InputObject $updated -Depth 3 |
     Out-File -FilePath .\RegistryChecksAndResolves.json -Encoding utf8
 ```
 
-### Using Classes
+### Using Classes for Registry Checks
 Use classes when the script is expecting a specifically-formatted object. If you are creating classes from JSON, then you'll need a class for each nested JSON object.  
 
 Here's an example on how to create a class for a nested JSON object:
@@ -406,7 +407,7 @@ Function Set-SecurityBaseline{
 }
 ```
 
-
+### Installing Windows Features
 The next example shows how you can submit a string array to install Windows Features. A couple of things to note:
 - The use of `System.Collections.Generic.List[PSObject]`.  Per [here](https://gist.github.com/kevinblumenfeld/4a698dbc90272a336ed9367b11d91f1c), it's recommended to use a generic list when you know the type of the elements but not the size of the collection.
 - The use of a custom property `@{l='Name'; e={$Name}}`. This is because 'Install-WindowsFeature' doesn't return the Name property.
