@@ -67,7 +67,7 @@ $cmd = 'if($Data -{0} {1}){{$true}}' -f $Operator, $Expected
 Invoke-Expression $cmd
 ```
 
-## Use Scriptblock 
+## Using Scriptblocks with Parameters 
 This is a useful technique for running a common series of commands. In this case, the text you need to modify resides in the middle of the command, and you don't want to navigate to the middle each time you need to update the text.  So you use a script block and pass the text at the end as a parameter.
 ```powershell
 & {param($comment) git add .; git commit -m $comment; git push} "Updated notes on PowerShell"
