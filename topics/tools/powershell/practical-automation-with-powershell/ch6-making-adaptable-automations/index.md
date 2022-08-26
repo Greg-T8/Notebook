@@ -94,10 +94,10 @@ Other commands, such as `Invoke-WebRequest` do not have a no-wait option. In the
 
 ```powershell
 Start-Job -ScriptBlock {
-  Invoke-WebRequest -Uri $UrlA -OutFile $FileA
+    Invoke-WebRequest -Uri $UrlA -OutFile $FileA
 }
 Start-Job -ScriptBlock {
-  Invoke-WebRequest -Uri $UrlB -OutFile $FileB
+    Invoke-WebRequest -Uri $UrlB -OutFile $FileB
 }
 Get-Job | Wait-Job
 ```
@@ -127,10 +127,10 @@ Function Disable-WindowsService {
     foreach ($Name in $Services) {
         # Create a custom PowerShell object to track the status of each service
         $ServiceStatus.Add([pscustomobject]@{
-          Service  = $Name
-          HardKill = $false
-          Status   = $null
-          Startup  = $null
+            Service  = $Name
+            HardKill = $false
+            Status   = $null
+            Startup  = $null
         })
         try {
             # Attempt to find the service, then disable and stop it
@@ -282,7 +282,7 @@ class RegistryTest {
     }
     # Method to create an instance of this class populated with data from a generic PowerShell object
     RegistryTest(
-      [object]$object
+        [object]$object
     ){
         $this.operator = $object.Operator
         $this.Value = $object.Value
