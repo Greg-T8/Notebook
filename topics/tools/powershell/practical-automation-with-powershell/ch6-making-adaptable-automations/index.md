@@ -1,5 +1,13 @@
 # Chapter 6 - Making Adaptable Automations
 
+- [Chapter 6 - Making Adaptable Automations](#chapter-6---making-adaptable-automations)
+  - [Waiting for Commands to Complete](#waiting-for-commands-to-complete)
+  - [Disabling Windows Services](#disabling-windows-services)
+  - [Building Data-Driven Functions](#building-data-driven-functions)
+    - [Creating JSON](#creating-json)
+    - [Updating JSON](#updating-json)
+    - [Using Classes](#using-classes)
+
 The author provides a nice template for creating modules. This script creates a module structure with blank files. 
 ```powershell
 Function New-ModuleTemplate {
