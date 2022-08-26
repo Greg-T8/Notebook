@@ -9,6 +9,7 @@
     - [Using Classes for Registry Checks](#using-classes-for-registry-checks)
   - [Installing Windows Features](#installing-windows-features)
   - [Updating Windows Firewall](#updating-windows-firewall)
+  - [Creating a Server Config Class](#creating-a-server-config-class)
 
 The author provides a nice template for creating modules. This script creates a module structure with blank files. 
 ```powershell
@@ -487,3 +488,29 @@ Function Set-FirewallDefaults {
 }
 ```
 
+## Creating a Server Config Class
+The following code is used to create a server config class.  This class definition would typically be stored in the module (.psm1) file.
+
+```powershell
+class ServerConfig {
+    [string[]]$Features
+    [string[]]$Services
+    [RegistryCheck[]]$SecurityBaseline
+	[UInt64]$FirewallLogSize
+    # Method to create a blank instance of this class
+    ServerConfig(){
+        $this.SecurityBaseline += [RegistryCheck]::new()
+    }
+    # Method to create an instance of this class populated with data from a generic PowerShell object
+    ServerConfig(
+        [object]$object
+    ){
+        $this.Features = $object.Features
+        $this.Services = $object.Services
+        $this.FirewallLogSize = $object.FirewallLogSize
+        $object.SecurityBaseline | Foreach-Object {
+            $this.SecurityBaseline += [RegistryCheck]::new($_)
+        }
+    }
+}
+```
