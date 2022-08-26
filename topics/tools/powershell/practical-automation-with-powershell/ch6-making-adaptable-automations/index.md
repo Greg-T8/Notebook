@@ -7,7 +7,8 @@
     - [Creating JSON for Registry Checks](#creating-json-for-registry-checks)
     - [Updating JSON with Registry Types](#updating-json-with-registry-types)
     - [Using Classes for Registry Checks](#using-classes-for-registry-checks)
-    - [Installing Windows Features](#installing-windows-features)
+  - [Installing Windows Features](#installing-windows-features)
+  - [Updating Windows Firewall](#updating-windows-firewall)
 
 The author provides a nice template for creating modules. This script creates a module structure with blank files. 
 ```powershell
@@ -407,7 +408,7 @@ Function Set-SecurityBaseline{
 }
 ```
 
-### Installing Windows Features
+## Installing Windows Features
 The next example shows how you can submit a string array to install Windows Features. A couple of things to note:
 - The use of `System.Collections.Generic.List[PSObject]`.  Per [here](https://gist.github.com/kevinblumenfeld/4a698dbc90272a336ed9367b11d91f1c), it's recommended to use a generic list when you know the type of the elements but not the size of the collection.
 - The use of a custom property `@{l='Name'; e={$Name}}`. This is because 'Install-WindowsFeature' doesn't return the Name property.
@@ -429,7 +430,7 @@ Function Install-RequiredFeatures {
     $FeatureInstalls
 }
 ```
-
+## Updating Windows Firewall
 The next example shows how you can configure Windows firewall to (1) enable for all profiles, (2) block inbound traffic on the Public profile and (3) set up logging. 
 ```powershell
 Function Set-FirewallDefaults {
