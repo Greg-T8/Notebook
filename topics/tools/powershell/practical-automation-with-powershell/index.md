@@ -5,5 +5,5 @@ The book "Practical Automation with PowerShell", written by [Matthew Dowst](http
 
 ## Table of Contents
 
-- [ ] [Chapter 6 - Making Adaptable Automations](/ch6-making-adaptable-automations/index.md)
-- [x] [Chapter 8 - Cloud-Based Automation](/ch8-azure-automation/index.md)
+- [ ] [Chapter 6 - Making Adaptable Automations](ch6-making-adaptable-automations/index.md)
+- [x] [Chapter 8 - Cloud-Based Automation](ch8-azure-automation/index.md)
