@@ -73,3 +73,5 @@ This is a useful technique for running a common series of commands. In this case
 & {param($comment) git add .; git commit -m $comment; git push} "Updated notes on PowerShell"
 ```
 See [about_Script_Blocks](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_script_blocks?view=powershell-7.2)
+
+
