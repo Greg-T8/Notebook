@@ -514,3 +514,41 @@ class ServerConfig {
     }
 }
 ```
+
+An advantage of using classes is they enable to create your configuration JSON.  For example, you can add a function `New-ServerConfig` that creates a blank instance of the `ServerConfig` class:
+
+```powershell
+Function New-ServerConfig{
+    [ServerConfig]::new()
+}
+```
+
+Then you can use `ConvertTo-Json` from the `New-ServerConfig` function to generate a JSON template:
+
+```powershell
+Import-Module .\PoshAutomate-ServerConfig.psd1 -Force
+New-ServerConfig | ConvertTo-Json -Depth 4
+```
+Here's the JSON output:
+```json
+{
+    "Features": null,
+    "Service": null,
+    "SecurityBaseline": [
+        {
+            "KeyPath": null,
+            "Name": null,
+            "Type": null,
+            "Data": null,
+            "SetValue": null,
+            "Tests": [
+                {
+                    "operator": null,
+                    "Value": null
+                }
+            ]
+        }
+    ],
+    "FirewallLogSize": 0
+}
+```
