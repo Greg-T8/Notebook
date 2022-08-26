@@ -67,4 +67,9 @@ $cmd = 'if($Data -{0} {1}){{$true}}' -f $Operator, $Expected
 Invoke-Expression $cmd
 ```
 
-## Use 
+## Use Scriptblock 
+This is a useful technique for running a common series of commands. In this case, the text you need to modify resides in the middle of the command, and you don't want to navigate to the middle each time you need to update the text.  So you use a script block and pass the text at the end as a parameter.
+```powershell
+& {param($comment) git add .; git commit -m $comment; git push} "Updated notes on PowerShell"
+```
+See [about_Script_Blocks](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_script_blocks?view=powershell-7.2)
