@@ -1,8 +1,8 @@
 # Notes on Azure Automation
 Helpful Links
-- https://github.com/azureautomation
-- https://docs.microsoft.com/en-us/powershell/module/az.automation/?view=azps-8.2.0
-- 
+- [Azure Automation's GitHub](https://github.com/azureautomation)
+- [Az.Automation PowerShell Module Documentation](https://docs.microsoft.com/en-us/powershell/module/az.automation/?view=azps-8.2.0)
+- [Blog: Using Azure DevOps Pipelines with Azure Automation](https://www.miru.ch/using-azure-devops-pipelines-with-azure-automation/) 
 
 ## PowerShell Usage
 Use the module `Az.Automation`.  Here are some example commands and their output.
@@ -38,6 +38,12 @@ This command retrieves the endpoint URL and keys.  This information is used to r
 Get-AzAutomationRegistrationInfo -AutomationAccountName <name> -ResourceGroupName <name>
 ```
 ![](img/2022-08-27-06-00-45.png)
+
+### Get-AzAutomationRunbook
+```powershell
+Get-AzAutomationRunbook -AutomationAccountName <name> -ResourceGroupName <name>
+```
+![](img/2022-08-27-06-02-40.png)
 
 
 
