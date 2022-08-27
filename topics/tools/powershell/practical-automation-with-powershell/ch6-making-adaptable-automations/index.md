@@ -11,6 +11,7 @@
   - [Updating Windows Firewall](#updating-windows-firewall)
   - [Creating a Server Config Class](#creating-a-server-config-class)
   - [Using Your Configuration Data](#using-your-configuration-data)
+  - [6.3.3 - Storing Your Configuration Data](#633---storing-your-configuration-data)
 
 The author provides a nice template for creating modules. This script creates a module structure with blank files. 
 ```powershell
@@ -555,7 +556,7 @@ Here's the JSON output:
 ```
 
 ## Using Your Configuration Data
-The following function
+The following function builds on the previous functions above to set configurations.  This function has a couple of built-in logging functions that are interesting.  The script in the next section creates the JSON config that this function uses.
 
 ```powershell
 Function Set-ServerConfig {
@@ -637,3 +638,53 @@ Function Set-ServerConfig {
     Write-Host "All logs written to $($LogFile)"
 }
 ```
+
+## 6.3.3 - Storing Your Configuration Data
+The author recommends storing configuration data within the module. Doing so will allow you to track changes when using version control.
+
+The following function creates a configuration and stores the resulting JSON configuration file in the `Configurations` folder within the module.
+
+```powershell
+# Import the module
+Import-Module .\PoshAutomate-ServerConfig.psd1 -Force
+
+# Create a blank configuration item
+$Config = New-ServerConfig 
+
+# Import security baseline registry keys
+$Content = @{
+    Path = '.\RegistryChecksAndResolves.json'
+    Raw  = $true
+}
+$Data = (Get-Content @Content | ConvertFrom-Json)
+$Config.SecurityBaseline = $Data
+
+# Set default firewall log size
+$Config.FirewallLogSize = 4096
+
+# Set roles and features to install
+$Config.Features = @(
+    "RSAT-AD-PowerShell"
+    "RSAT-AD-AdminCenter"
+    "RSAT-ADDS-Toolsf"
+)
+
+# Set services to disable
+$Config.Services = @(
+    "PrintNotify",
+    "Spooler",
+    "lltdsvc",
+    "SharedAccess",
+    "wisvc"
+)
+
+# Create the Configurations folder
+if(-not (Test-Path ".\Configurations")){
+    New-Item -Path ".\Configurations" -ItemType Directory
+}
+
+# Export the security baseline
+$Config | ConvertTo-Json -Depth 4 | 
+    Out-File ".\Configurations\SecurityBaseline.json" -Encoding UTF8
+```
+

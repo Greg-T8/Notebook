@@ -1,10 +1,11 @@
 # PowerShell Patterns
 
-## Check if a string is null or empty
-Use the following block of code to check if a string is null or empty.
+## Check if a string or object is null or empty
+Use the following block of code to check if a string is null or empty.  You can also pass in a variable to an object.  
 
 ```powershell
 if ([string]::IsNullOrEmpty('String')) { ... }
+if ([string]::IsNullOrEmpty($variable)) { ... }
 ```
 
 ## Use a generic list for custom PowerShell objects
@@ -107,5 +108,3 @@ This is a snippet of code from Chapter 6 of Practical Automation with PowerShell
     $Features = Install-RequiredFeatures -Features $Config.Features
     Write-OutputLog -Object $Features
 ```
-
-
