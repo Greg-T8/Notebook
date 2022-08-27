@@ -11,7 +11,6 @@ Use the module `Az.Automation`.  Here are some example commands and their output
 ```powershell
 Get-AzAutomationAccount
 ```
-Output:  
 ![](img/2022-08-27-05-30-05.png)
 
 ### Get-AzAutomationConnection
@@ -19,8 +18,20 @@ This command retrieves RunAs accounts.
 ```powershell
 Get-AzAutomationConnection -AutomationAccountName <name> -ResourceGroupName <name>
 ```
-Output:  
 ![](img/2022-08-27-05-45-27.png)
+
+### Get-AzAutomationCertificate
+```powershell
+Get-AzAutomationCertificate -AutomationAccountName <name> -ResourceGroupName <name>
+```
+![](img/2022-08-27-05-52-15.png)
+
+### Get-AzAutomationModule
+```powershell
+Get-AzAutomationModule -AutomationAccountName <name> -ResourceGroupName <name>
+```
+![](img/2022-08-27-05-54-50.png)
+
 
 
 ## Miscellaneous Notes
