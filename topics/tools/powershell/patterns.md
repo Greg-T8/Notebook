@@ -108,3 +108,6 @@ This is a snippet of code from Chapter 6 of Practical Automation with PowerShell
     $Features = Install-RequiredFeatures -Features $Config.Features
     Write-OutputLog -Object $Features
 ```
+
+## Creating Log Paths
+
