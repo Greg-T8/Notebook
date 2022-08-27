@@ -72,6 +72,40 @@ This is a useful technique for running a common series of commands. In this case
 ```powershell
 & {param($comment) git add .; git commit -m $comment; git push} "Updated notes on PowerShell"
 ```
-See [about_Script_Blocks](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_script_blocks?view=powershell-7.2)
+See [about_Script_Blocks](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_script_blocks?view=powershell-7.2).
+
+
+## Using Custom Logging Functions
+This is a snippet of code from Chapter 6 of Practical Automation with PowerShell that I found was interesting for custom logging functions.
+```powershell
+# A small function to ensure consistent logs are written for an activity starting
+    Function Write-StartLog {
+        param(
+            $Message
+        )
+        "`n$('#' * 50)`n# $($Message)`n" | Out-File $LogFile -Append
+        Write-Host $Message
+    }
+
+    # A small function to ensure consistent logs are written for an activity completing
+    Function Write-OutputLog {
+        param(
+            $Object
+        )
+        $output = $Object | Format-Table | Out-String
+        if ([string]::IsNullOrEmpty($output)) {
+            $output = 'No data'
+        }
+        "$($output.Trim())`n$('#' * 50)" | Out-File $LogFile -Append
+        Write-Host $output
+    }
+    $msg = "Start Server Setup - $(Get-Date)`nFrom JSON $($ConfigJson)"
+    Write-StartLog -Message $msg
+
+    # Set Windows Features first
+    Write-StartLog -Message "Set Features"
+    $Features = Install-RequiredFeatures -Features $Config.Features
+    Write-OutputLog -Object $Features
+```
 
 
