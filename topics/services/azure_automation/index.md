@@ -32,6 +32,13 @@ Get-AzAutomationModule -AutomationAccountName <name> -ResourceGroupName <name>
 ```
 ![](img/2022-08-27-05-54-50.png)
 
+### Get-AzAutomationRegistrationInfo
+This command retrieves the endpoint URL and keys.  This information is used to register the hybrid runbook worker.
+```powershell
+Get-AzAutomationRegistrationInfo -AutomationAccountName <name> -ResourceGroupName <name>
+```
+![](img/2022-08-27-06-00-45.png)
+
 
 
 ## Miscellaneous Notes
