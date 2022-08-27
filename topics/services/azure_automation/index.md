@@ -1,4 +1,8 @@
 # Notes on Azure Automation
+Helpful Links
+- https://github.com/azureautomation
+- https://docs.microsoft.com/en-us/powershell/module/az.automation/?view=azps-8.2.0
+- 
 
 ## PowerShell Usage
 Use the module `Az.Automation`.  Here are some example commands and their output.
@@ -10,7 +14,13 @@ Get-AzAutomationAccount
 Output:  
 ![](img/2022-08-27-05-30-05.png)
 
-### Get
+### Get-AzAutomationConnection
+This command retrieves RunAs accounts.
+```powershell
+Get-AzAutomationConnection -AutomationAccountName <name> -ResourceGroupName <name>
+```
+Output:  
+![](img/2022-08-27-05-45-27.png)
 
 
 ## Miscellaneous Notes
