@@ -19,4 +19,4 @@ Foreach ($import in $Functions) {
 ```
 You won't see any commands when you initially import the module.  You'll need to populate the functions for the exported commands to show up.  
 
-See [Export-ModuleMember](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/export-modulemember?view=powershell-7.2) for further guidance.
+See [Export-ModuleMember](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/export-modulemember?view=powershell-7.2) and [about_Modules](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_modules?view=powershell-7.2) for further guidance.
