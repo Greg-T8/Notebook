@@ -1,8 +1,13 @@
 # Source Control Integration for Azure Automation
-Links:
+## Helpful Links:
 - [Use Source Control Integration](https://docs.microsoft.com/en-us/azure/automation/source-control-integration)
 - [Managed Identities](https://docs.microsoft.com/en-us/azure/automation/automation-security-overview#managed-identities)
 - [Azure DevOps Personal Access Tokens](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops&tabs=Windows) 
+
+## Relevant PowerShell Commands for Managing Source Control
+Here are the relevant PowerShell commands for managing source code tasks.
+![](img/2022-08-28-05-36-58.png)
+
 
 ## Walkthrough for Azure DevOps (Git) using PowerShell
 
@@ -27,7 +32,7 @@ Enable **Third-party application access via OAuth** in the Azure DevOps organiza
 ![](img/2022-08-27-06-38-35.png)
 
 ### Configure Source Control
-
+Use the code below to set up source control integration.
 ```powershell
 $params = @{
     Name = 'SCADO'
@@ -47,3 +52,27 @@ Note that you have to convert the ADO access token to a secure string. See [here
 Here's the result in the portal:
 
 ![](img/2022-08-27-07-04-54.png)
+
+
+### Synchronize with Source Control
+By default, the `AutoSync` property is set to `false`, so you must manually sync commits. Use the following command to kick off a sync.
+```powershell
+$params = @{
+    ResourceGroupName = 'azure-automation'
+    AutomationAccountName = 'azure-automate'
+}
+Start-AzAutomationSourceControlSyncJob @params -SourceControlName 'SCADO'
+```
+![](img/2022-08-28-05-41-28.png)
+
+Then you can get do something similar to get the job status:  
+![](img/2022-08-28-05-42-19.png)
+
+Here's the portal results:  
+![](img/2022-08-28-05-43-06.png)
+
+Then check the runbook status:  
+![](img/2022-08-28-05-45-23.png)
+
+And confirm the runbook update in the portal:
+![](img/2022-08-28-05-45-45.png)
