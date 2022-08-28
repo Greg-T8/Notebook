@@ -1,9 +1,9 @@
 # Chapter 6 - Making Adaptable Automations
 
 - [Chapter 6 - Making Adaptable Automations](#chapter-6---making-adaptable-automations)
-  - [Creating the Server Config PowerShell Module Scaffold](#creating-the-server-config-powershell-module-scaffold)
-  - [Waiting for Commands to Complete](#waiting-for-commands-to-complete)
-  - [Disabling Windows Services](#disabling-windows-services)
+  - [6.0 - Creating the ServerConfig PowerShell Module Scaffold](#60---creating-the-serverconfig-powershell-module-scaffold)
+  - [6.1 - Event Handling - Stopping and Disabling Windows Services](#61---event-handling---stopping-and-disabling-windows-services)
+    - [Disabling Windows Services](#disabling-windows-services)
   - [Building Data-Driven Functions](#building-data-driven-functions)
     - [Creating JSON for Registry Checks](#creating-json-for-registry-checks)
     - [Updating JSON with Registry Types](#updating-json-with-registry-types)
@@ -14,7 +14,7 @@
   - [Using Your Configuration Data](#using-your-configuration-data)
   - [6.3.3 - Storing Your Configuration Data](#633---storing-your-configuration-data)
 
-## Creating the Server Config PowerShell Module Scaffold
+## 6.0 - Creating the ServerConfig PowerShell Module Scaffold
 The author provides a nice template for creating modules. This script creates a blank module structure.  
 ```powershell
 Function New-ModuleTemplate {
@@ -94,7 +94,9 @@ Foreach ($import in $Functions) {
 }
 ```
 
-## Waiting for Commands to Complete
+## 6.1 - Event Handling - Stopping and Disabling Windows Services
+The author demonstrates general use of event handling with `try{}`/`catch{}` with a goal of disabling and stopping Windows services.
+
 Some commands, like `Stop-Service` have the `-NoWait` switch. This switch tells the cmdlet to send the stop signal but do not wait for it to stop.
 
 Other commands, such as `Invoke-WebRequest` do not have a no-wait option. In these cases you can use PowerShell jobs to get the wait functionality:
@@ -111,7 +113,7 @@ Get-Job | Wait-Job
 
 Use the `Receive-Job` cmdlet to get the return information.
 
-## Disabling Windows Services
+### Disabling Windows Services
 The following script takes in a list of services and sets the startup type to `Disabled`.  It then attempts to stop the service and records the resulting state. If there are any services that haven't been stopped in the predetermined amount of time, then an attempt is made to kill the process. If the script is unable to kill the process, then a reboot flag is noted.  Here's an example of the output:
 
 ![](img/2022-08-15-04-12-48.png)
