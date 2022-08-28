@@ -1,6 +1,7 @@
 # Chapter 6 - Making Adaptable Automations
 
 - [Chapter 6 - Making Adaptable Automations](#chapter-6---making-adaptable-automations)
+  - [Creating the Server Config PowerShell Module Scaffold](#creating-the-server-config-powershell-module-scaffold)
   - [Waiting for Commands to Complete](#waiting-for-commands-to-complete)
   - [Disabling Windows Services](#disabling-windows-services)
   - [Building Data-Driven Functions](#building-data-driven-functions)
@@ -13,7 +14,8 @@
   - [Using Your Configuration Data](#using-your-configuration-data)
   - [6.3.3 - Storing Your Configuration Data](#633---storing-your-configuration-data)
 
-The author provides a nice template for creating modules. This script creates a module structure with blank files. 
+## Creating the Server Config PowerShell Module Scaffold
+The author provides a nice template for creating modules. This script creates a blank module structure.  
 ```powershell
 Function New-ModuleTemplate {
     [CmdletBinding()]
@@ -45,13 +47,13 @@ Function New-ModuleTemplate {
     New-ModuleManifest @ManifestParameters
 
     $File = @{
-        Path     = ".\$($ModuleName).psm1"
+        FilePath     = ".\$($ModuleName).psm1"
         Encoding = 'utf8'
     }
     Out-File @File
 
     $Functions | ForEach-Object {
-        Out-File -Path ".\Public\$($_).ps1" -Encoding utf8
+        Out-File -FilePath ".\Public\$($_).ps1" -Encoding utf8
     }
 }
 
@@ -75,7 +77,7 @@ $module = @{
 New-ModuleTemplate @module
 ```
 
-You can then add the following code to the .psm1 file to automatically import the functions from the `Public` folder.
+Next add the following code to the .psm1 file to automatically import the functions from the `Public` folder. You won't see any commands when you initially import the module. You need to populate the functions in the Public folder for the commands to show up.
 
 ```powershell
 $Path = Join-Path $PSScriptRoot 'Public'
@@ -687,4 +689,3 @@ if(-not (Test-Path ".\Configurations")){
 $Config | ConvertTo-Json -Depth 4 | 
     Out-File ".\Configurations\SecurityBaseline.json" -Encoding UTF8
 ```
-
