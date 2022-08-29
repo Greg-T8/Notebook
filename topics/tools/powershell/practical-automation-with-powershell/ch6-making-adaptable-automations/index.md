@@ -5,8 +5,8 @@
   - [6.1 - Event Handling - Stopping and Disabling Windows Services](#61---event-handling---stopping-and-disabling-windows-services)
     - [Disabling Windows Services](#disabling-windows-services)
   - [6.2 - Building Data-Driven Functions](#62---building-data-driven-functions)
-    - [6.1 - Determining Your Data Structure](#61---determining-your-data-structure)
-    - [Creating JSON for Registry Checks](#creating-json-for-registry-checks)
+    - [6.2.1 - Determining Your Data Structure](#621---determining-your-data-structure)
+    - [6.2.2 - Storing Your Data](#622---storing-your-data)
     - [Updating JSON with Registry Types](#updating-json-with-registry-types)
     - [Using Classes for Registry Checks](#using-classes-for-registry-checks)
   - [Installing Windows Features](#installing-windows-features)
@@ -217,7 +217,7 @@ Function Disable-WindowsService {
 ## 6.2 - Building Data-Driven Functions
 The author uses the registry as an example for storing and accessing data through JSON and classes.
 
-### 6.1 - Determining Your Data Structure
+### 6.2.1 - Determining Your Data Structure
 Here is an example of how to build out a test for a registry entry in a hash table.
 ```powershell
 @{
@@ -230,10 +230,13 @@ Here is an example of how to build out a test for a registry entry in a hash tab
 }
 ```
 
+### 6.2.2 - Storing Your Data
+The author indicates there is a variety of ways you can store data, including XML, CSV, JSON, and PowerShell Data Files (.psd1). His recommendation is to use JSON unless you have a specific reason not to.
 
 The author provides an example of using registry checks to convert a PowerShell object into a JSON file. Use the JSON validator site at [jsonlint.com](https://jsonlint.com/) to validate JSON syntax.
 
-### Creating JSON for Registry Checks
+**Creating JSON for Registry Checks**  
+Creates a collection of registry checks which are made from hashtables.
 ```powershell
 [System.Collections.Generic.List[PSObject]] $JsonBuilder = @()
 $JsonBuilder.Add(@{
