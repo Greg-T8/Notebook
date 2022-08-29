@@ -16,7 +16,7 @@ foreach ($o in $objects) {
     Name = o.Name
     Key1 = $null
     Key2 = $null
-  }])
+  })
 }
 ...
 # To set value
@@ -110,4 +110,3 @@ This is a snippet of code from Chapter 6 of Practical Automation with PowerShell
 ```
 
 ## Creating Log Paths
-
