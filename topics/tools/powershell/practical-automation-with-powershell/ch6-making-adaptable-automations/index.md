@@ -4,7 +4,8 @@
   - [6.0 - Creating the ServerConfig PowerShell Module Scaffold](#60---creating-the-serverconfig-powershell-module-scaffold)
   - [6.1 - Event Handling - Stopping and Disabling Windows Services](#61---event-handling---stopping-and-disabling-windows-services)
     - [Disabling Windows Services](#disabling-windows-services)
-  - [Building Data-Driven Functions](#building-data-driven-functions)
+  - [6.2 - Building Data-Driven Functions](#62---building-data-driven-functions)
+    - [6.1 - Determining Your Data Structure](#61---determining-your-data-structure)
     - [Creating JSON for Registry Checks](#creating-json-for-registry-checks)
     - [Updating JSON with Registry Types](#updating-json-with-registry-types)
     - [Using Classes for Registry Checks](#using-classes-for-registry-checks)
@@ -77,7 +78,7 @@ $module = @{
 New-ModuleTemplate @module
 ```
 
-Next add the following code to the .psm1 file to automatically import the functions from the `Public` folder. You won't see any commands when you initially import the module. You need to populate the functions in the Public folder for the commands to show up.
+Next add the following code to the .psm1 file to automatically import the functions from the `Public` folder. You won't see any commands when you initially import the module. So you'll need to populate the functions in the Public folder for the commands to show up.
 
 ```powershell
 $Path = Join-Path $PSScriptRoot 'Public'
@@ -213,7 +214,23 @@ Function Disable-WindowsService {
 }
 ```
 
-## Building Data-Driven Functions
+## 6.2 - Building Data-Driven Functions
+The author uses the registry as an example for storing and accessing data through JSON and classes.
+
+### 6.1 - Determining Your Data Structure
+Here is an example of how to build out a test for a registry entry in a hash table.
+```powershell
+@{
+    KeyPath = 'HKLM:\SYSTEM\Path\Example'
+    Name    = 'SecurityKey'
+    Tests   = @(
+        @{operator = 'eq'; value = '1' }
+        @{operator = 'eq'; value = $null }
+    )
+}
+```
+
+
 The author provides an example of using registry checks to convert a PowerShell object into a JSON file. Use the JSON validator site at [jsonlint.com](https://jsonlint.com/) to validate JSON syntax.
 
 ### Creating JSON for Registry Checks
