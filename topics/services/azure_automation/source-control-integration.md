@@ -86,4 +86,8 @@ Here's the PowerShell method:
 And here's the setting in the portal:  
 ![](img/2022-08-29-04-13-49.png)
 
+To validate AutoSync, perform a commit and monitor the sync jobs.  It takes 20-30 seconds for Azure Automation to pick up the sync. Then the sync itself only takes a few seconds.
 
+![](img/2022-08-29-04-19-08.png)
+
+![](img/2022-08-29-04-19-30.png)
