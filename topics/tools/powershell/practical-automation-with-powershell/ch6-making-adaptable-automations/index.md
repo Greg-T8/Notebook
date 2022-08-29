@@ -16,7 +16,7 @@
   - [6.3.3 - Storing Your Configuration Data](#633---storing-your-configuration-data)
 
 ## 6.0 - Creating the ServerConfig PowerShell Module Scaffold
-The author provides a nice template for creating modules. This script creates a blank module structure.  
+The author provides a nice template for creating modules. This script creates a blank module structure. See [Listing 01 - Creating the PoshAutomate-ServerConfig module](scripts/Listing%2001%20-%20Creating%20the%20PoshAutomate-ServerConfig%20module.ps1). 
 ```powershell
 Function New-ModuleTemplate {
     [CmdletBinding()]
@@ -236,7 +236,7 @@ The author indicates there is a variety of ways you can store data, including XM
 The author provides an example of using registry checks to convert a PowerShell object into a JSON file. Use the JSON validator site at [jsonlint.com](https://jsonlint.com/) to validate JSON syntax.
 
 **Creating JSON for Registry Checks**  
-Creates a collection of registry checks which are made from hashtables.
+Creates a collection of registry checks and outputs them to a JSON file. 
 ```powershell
 [System.Collections.Generic.List[PSObject]] $JsonBuilder = @()
 $JsonBuilder.Add(@{
