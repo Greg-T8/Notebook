@@ -1,4 +1,14 @@
 # Source Control Integration for Azure Automation
+
+- [Source Control Integration for Azure Automation](#source-control-integration-for-azure-automation)
+  - [Helpful Links:](#helpful-links)
+  - [Relevant PowerShell Commands for Managing Source Control](#relevant-powershell-commands-for-managing-source-control)
+  - [Walkthrough for Azure DevOps (Git) using PowerShell](#walkthrough-for-azure-devops-git-using-powershell)
+    - [Prerequisites](#prerequisites)
+    - [Configure Source Control](#configure-source-control)
+    - [Synchronize with Source Control](#synchronize-with-source-control)
+      - [Enable Auto Sync](#enable-auto-sync)
+
 ## Helpful Links:
 - [Use Source Control Integration](https://docs.microsoft.com/en-us/azure/automation/source-control-integration)
 - [Managed Identities](https://docs.microsoft.com/en-us/azure/automation/automation-security-overview#managed-identities)
