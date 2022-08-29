@@ -76,3 +76,14 @@ Then check the runbook status:
 
 And confirm the runbook update in the portal:
 ![](img/2022-08-28-05-45-45.png)
+
+#### Enable Auto Sync
+You can turn on AutoSync in the portal or through PowerShell.
+
+Here's the PowerShell method:  
+![](img/2022-08-29-04-12-56.png)
+
+And here's the setting in the portal:  
+![](img/2022-08-29-04-13-49.png)
+
+
