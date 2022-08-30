@@ -4,12 +4,12 @@
 Reference:
 - [Azure Active Directory Identity Protection and the Microsoft Graph PowerShell SDK](https://docs.microsoft.com/en-us/azure/active-directory/identity-protection/howto-identity-protection-graph-api)
 - [New-SelfSignedCertificate](https://docs.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate?view=windowsserver2022-ps)
+- [New-AzureADApplication](https://docs.microsoft.com/en-us/powershell/module/azuread/new-azureadapplication?view=azureadps-2.0)
 
 Four steps to accessing Identity Protection data through Microsoft Graph:
-1. [Create a certificate](#create-a-certificate)
-2. Create a new app registration
-3. Configure API permissions
-4. Configure a valid credential
+- [Managing Azure Identity Protection with PowerShell](#managing-azure-identity-protection-with-powershell)
+  - [Create a certificate](#create-a-certificate)
+  - [Create a new app registration](#create-a-new-app-registration)
 
 ### Create a certificate  
 This example uses a self-signed certificate. In a production environment, you would use a certificate from your Certificate Authority.
@@ -24,6 +24,10 @@ $params = @{
   KeyAlgorithm = 'RSA'
   HashAlgorithm = 'SHA256'
 }
-$cert = New-SelfSignedCertificate      
+$cert = New-SelfSignedCertificate @params 
 Export-Certificate -Cert $cert -FilePath ".\MSGraph_ReportingAPI.cer"
 ```
+
+### Create a new app registration
+Create a new app registration.  Note the `Application (client) ID` and `Directory (tenant) ID`.
+
