@@ -38,7 +38,7 @@ Quick note on Managed identities
 Use `Get-AzAutomationAccount` to confirm enablement of the managed identity:  
 ![](img/2022-08-27-06-35-49.png)
 
-Enable **Third-party application access via OAuth** in the Azure DevOps organization settings. This setting is not enabled by default for new Azure DevOps organizations.
+Enable **Third-party application access via OAuth** in the Azure DevOps organization settings. This setting is not enabled by default for new Azure DevOps organizations.  
 ![](img/2022-08-27-06-38-35.png)
 
 ### Configure Source Control
