@@ -7,8 +7,9 @@
   - [6.2 - Building Data-Driven Functions](#62---building-data-driven-functions)
     - [6.2.1 - Determining Your Data Structure](#621---determining-your-data-structure)
     - [6.2.2 - Storing Your Data](#622---storing-your-data)
-    - [Updating JSON with Registry Types](#updating-json-with-registry-types)
-    - [Using Classes for Registry Checks](#using-classes-for-registry-checks)
+      - [Creating JSON for Registry Checks](#creating-json-for-registry-checks)
+    - [6.2.3 - Updating Your Data Structure](#623---updating-your-data-structure)
+    - [6.2.4 - Using Classes](#624---using-classes)
   - [Installing Windows Features](#installing-windows-features)
   - [Updating Windows Firewall](#updating-windows-firewall)
   - [Creating a Server Config Class](#creating-a-server-config-class)
@@ -235,8 +236,8 @@ The author indicates there is a variety of ways you can store data, including XM
 
 The author provides an example of using registry checks to convert a PowerShell object into a JSON file. Use the JSON validator site at [jsonlint.com](https://jsonlint.com/) to validate JSON syntax.
 
-**Creating JSON for Registry Checks**  
-Creates a collection of registry checks and outputs them to a JSON file. 
+#### Creating JSON for Registry Checks
+Creates a collection of registry checks and outputs them to the `RegistryChecks.json` file. 
 ```powershell
 [System.Collections.Generic.List[PSObject]] $JsonBuilder = @()
 $JsonBuilder.Add(@{
@@ -278,11 +279,10 @@ $JsonBuilder |
     Out-File .\RegistryChecks.json -Encoding UTF8
 ```
 
-### Updating JSON with Registry Types
-You can then use the code below to add custom fields to your data, in this case the `Type` and `Value` fields:  
-![](img/2022-08-17-03-12-41.png)
+### 6.2.3 - Updating Your Data Structure
+The author introduces the the `Type` and `Value` fields to the registry check structure. The `Type` field defaults to DWORD.  The `Value` field defaults to value of the first registry test item in the `Tests` array.
 
-This script adds new properties and exports the data structure into a new .json file.
+The script exports the resulting changes to a new `RegistryChecksAndResolves.json` file.
 ```powershell
 $checks = Get-Content .\RegistryChecks.json -Raw | 
     ConvertFrom-Json
@@ -296,16 +296,26 @@ $updated = $checks |
 ConvertTo-Json -InputObject $updated -Depth 3 | 
     Out-File -FilePath .\RegistryChecksAndResolves.json -Encoding utf8
 ```
+Here's a look at the results:  
+![](img/2022-08-17-03-12-41.png)
 
-### Using Classes for Registry Checks
-Use classes when the script is expecting a specifically-formatted object. If you are creating classes from JSON, then you'll need a class for each nested JSON object.  
+### 6.2.4 - Using Classes
+Use classes when the script is expecting a specifically-formatted object. If you are creating classes from JSON, then you'll need a class for each nested JSON object. 
 
-Here's an example on how to create a class for a nested JSON object:
+The author takes the examples from the previous sections to create two classes:
+- `RegistryCheck`
+  - Represents the base JSON object
+- `RegistryTest`
+  - Represents a nested JSON object
+  - Checks for the operator and value
+
+The following examples show how to create the two classes. The sections that follow will demonstrate how to use the classes.
+
+The `RegistryTest` class has the simplest implementation: 
 ```powershell
-# Listing 6 - Registry Test Class
 class RegistryTest {
     [string]$operator
-    [string]$Value
+	[string]$Value
     # Method to create a blank instance of this class
     RegistryTest(){
     }
@@ -314,13 +324,13 @@ class RegistryTest {
         [object]$object
     ){
         $this.operator = $object.Operator
-        $this.Value = $object.Value
+		$this.Value = $object.Value
     }
 }
 ```
-And here's how to use the nested class in the parent class. 
+
+The `RegistryCheck` class is the base class. Note how it references the `RegistryTest` class.
 ```powershell
-# Listing 7 - Registry Check Class
 class RegistryCheck {
     [string]$KeyPath
     [string]$Name
