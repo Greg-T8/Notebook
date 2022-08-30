@@ -2,14 +2,13 @@
 
 - [Chapter 6 - Making Adaptable Automations](#chapter-6---making-adaptable-automations)
   - [6.0 - Creating the ServerConfig PowerShell Module Scaffold](#60---creating-the-serverconfig-powershell-module-scaffold)
-  - [6.1 - Event Handling - Stopping and Disabling Windows Services](#61---event-handling---stopping-and-disabling-windows-services)
-    - [Disabling Windows Services](#disabling-windows-services)
+  - [6.1 - Event Handling (Stopping and Disabling Windows Services)](#61---event-handling-stopping-and-disabling-windows-services)
   - [6.2 - Building Data-Driven Functions](#62---building-data-driven-functions)
-    - [6.2.1 - Determining Your Data Structure](#621---determining-your-data-structure)
-    - [6.2.2 - Storing Your Data](#622---storing-your-data)
-      - [Creating JSON for Registry Checks](#creating-json-for-registry-checks)
-    - [6.2.3 - Updating Your Data Structure](#623---updating-your-data-structure)
-    - [6.2.4 - Using Classes](#624---using-classes)
+    - [6.2.1 - Determining Your Data Structure (Hash Table)](#621---determining-your-data-structure-hash-table)
+    - [6.2.2 - Storing Your Data (JSON)](#622---storing-your-data-json)
+    - [6.2.3 - Updating Your Data Structure (Updating JSON Structure)](#623---updating-your-data-structure-updating-json-structure)
+    - [6.2.4 - Creating Classes (Base and Nested Class)](#624---creating-classes-base-and-nested-class)
+    - [6.2.5 - Building the Function (Using Classes)](#625---building-the-function-using-classes)
   - [Installing Windows Features](#installing-windows-features)
   - [Updating Windows Firewall](#updating-windows-firewall)
   - [Creating a Server Config Class](#creating-a-server-config-class)
@@ -96,7 +95,7 @@ Foreach ($import in $Functions) {
 }
 ```
 
-## 6.1 - Event Handling - Stopping and Disabling Windows Services
+## 6.1 - Event Handling (Stopping and Disabling Windows Services)
 The author demonstrates general use of event handling with `try{}`/`catch{}` with a goal of disabling and stopping Windows services.
 
 Some commands, like `Stop-Service` have the `-NoWait` switch. This switch tells the cmdlet to send the stop signal but do not wait for it to stop.
@@ -115,7 +114,7 @@ Get-Job | Wait-Job
 
 Use the `Receive-Job` cmdlet to get the return information.
 
-### Disabling Windows Services
+**Disabling Windows Services**  
 The following script takes in a list of services and sets the startup type to `Disabled`.  It then attempts to stop the service and records the resulting state. If there are any services that haven't been stopped in the predetermined amount of time, then an attempt is made to kill the process. If the script is unable to kill the process, then a reboot flag is noted.  Here's an example of the output:
 
 ![](img/2022-08-15-04-12-48.png)
@@ -218,7 +217,7 @@ Function Disable-WindowsService {
 ## 6.2 - Building Data-Driven Functions
 The author uses the registry as an example for storing and accessing data through JSON and classes.
 
-### 6.2.1 - Determining Your Data Structure
+### 6.2.1 - Determining Your Data Structure (Hash Table)
 Here is an example of how to build out a test for a registry entry in a hash table.
 ```powershell
 @{
@@ -231,12 +230,12 @@ Here is an example of how to build out a test for a registry entry in a hash tab
 }
 ```
 
-### 6.2.2 - Storing Your Data
+### 6.2.2 - Storing Your Data (JSON)
 The author indicates there is a variety of ways you can store data, including XML, CSV, JSON, and PowerShell Data Files (.psd1). His recommendation is to use JSON unless you have a specific reason not to.
 
 The author provides an example of using registry checks to convert a PowerShell object into a JSON file. Use the JSON validator site at [jsonlint.com](https://jsonlint.com/) to validate JSON syntax.
 
-#### Creating JSON for Registry Checks
+**Creating JSON for Registry Checks**  
 Creates a collection of registry checks and outputs them to the `RegistryChecks.json` file. 
 ```powershell
 [System.Collections.Generic.List[PSObject]] $JsonBuilder = @()
@@ -279,7 +278,7 @@ $JsonBuilder |
     Out-File .\RegistryChecks.json -Encoding UTF8
 ```
 
-### 6.2.3 - Updating Your Data Structure
+### 6.2.3 - Updating Your Data Structure (Updating JSON Structure)
 The author introduces the the `Type` and `Value` fields to the registry check structure. The `Type` field defaults to DWORD.  The `Value` field defaults to value of the first registry test item in the `Tests` array.
 
 The script exports the resulting changes to a new `RegistryChecksAndResolves.json` file.
@@ -299,7 +298,7 @@ ConvertTo-Json -InputObject $updated -Depth 3 |
 Here's a look at the results:  
 ![](img/2022-08-17-03-12-41.png)
 
-### 6.2.4 - Using Classes
+### 6.2.4 - Creating Classes (Base and Nested Class)
 Use classes when the script is expecting a specifically-formatted object. If you are creating classes from JSON, then you'll need a class for each nested JSON object. 
 
 The author takes the examples from the previous sections to create two classes:
@@ -329,15 +328,15 @@ class RegistryTest {
 }
 ```
 
-The `RegistryCheck` class is the base class. Note how it references the `RegistryTest` class.
+The `RegistryCheck` class is the base class. Note how `RegistryCheck` references the `RegistryTest` class.
 ```powershell
 class RegistryCheck {
     [string]$KeyPath
     [string]$Name
     [string]$Type
-    [string]$Data
-    [string]$SetValue
-    [Boolean]$Success
+    [string]$Data   # Represents the current state
+    [string]$SetValue  # New property added - represents new state
+    [Boolean]$Success   # New property added
     [RegistryTest[]]$Tests # Use of nested class
     # Method to create a blank instance of the parent class
     RegistryCheck(){
@@ -361,6 +360,8 @@ class RegistryCheck {
     }
 }
 ```
+
+### 6.2.5 - Building the Function (Using Classes)
 The following code takes in a `RegistryCheck` object and performs a check on the registry value.
 ```powershell
 Function Test-SecurityBaseline {
