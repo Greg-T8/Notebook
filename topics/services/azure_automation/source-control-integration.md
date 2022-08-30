@@ -1,13 +1,12 @@
 # Source Control Integration for Azure Automation
-
-- [Source Control Integration for Azure Automation](#source-control-integration-for-azure-automation)
-[Helpful Links:](#helpful-links)
-  - [Relevant PowerShell Commands for Managing Source Control](#relevant-powershell-commands-for-managing-source-control)
-  - [Walkthrough for Azure DevOps (Git) using PowerShell](#walkthrough-for-azure-devops-git-using-powershell)
-    - [Prerequisites](#prerequisites)
-    - [Configure Source Control](#configure-source-control)
-    - [Synchronize with Source Control](#synchronize-with-source-control)
-      - [Enable Auto Sync](#enable-auto-sync)
+- [Helpful Links](#helpful-links)
+- [Relevant PowerShell Commands for Managing Source Control](#relevant-powershell-commands-for-managing-source-control)
+- [Walkthrough for Azure DevOps (Git) using PowerShell](#walkthrough-for-azure-devops-git-using-powershell)
+  - [Prerequisites](#prerequisites)
+  - [Personal Access Token](#personal-access-token)
+  - [Configure Source Control](#configure-source-control)
+  - [Synchronize with Source Control](#synchronize-with-source-control)
+    - [Enable Auto Sync](#enable-auto-sync)
 
 ## Helpful Links
 - [Use Source Control Integration](https://docs.microsoft.com/en-us/azure/automation/source-control-integration)
@@ -40,6 +39,15 @@ Use `Get-AzAutomationAccount` to confirm enablement of the managed identity:
 
 Enable **Third-party application access via OAuth** in the Azure DevOps organization settings. This setting is not enabled by default for new Azure DevOps organizations.  
 ![](img/2022-08-27-06-38-35.png)
+
+### Personal Access Token
+Registration of source control with Azure Automation depends on an Azure DevOps personal access token (PAT).  You generate a PAT from Azure DevOps and then convert the resulting PAT to a SecureString.  You then feed the SecureString in the command to register source control integration.
+
+The following links provide guidance on PATs with Azure Automation setup:
+- [Minimum PAT permissions for Azure DevOps](https://docs.microsoft.com/en-us/azure/automation/source-control-integration#minimum-pat-permissions-for-azure-devops)
+- [Generating a Personal Access Token](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops&tabs=Windows)
+- [Convert a Plain Text String to a SecureString](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.security/convertto-securestring?view=powershell-7.2#example-3-convert-a-plain-text-string-to-a-secure-string)
+
 
 ### Configure Source Control
 Use the code below to set up source control integration.
