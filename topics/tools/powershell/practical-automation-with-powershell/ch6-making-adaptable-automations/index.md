@@ -1,19 +1,20 @@
 # Chapter 6 - Making Adaptable Automations
 
-- [Chapter 6 - Making Adaptable Automations](#chapter-6---making-adaptable-automations)
-  - [6.0 - Creating the ServerConfig PowerShell Module Scaffold](#60---creating-the-serverconfig-powershell-module-scaffold)
-  - [6.1 - Event Handling (Stopping and Disabling Windows Services)](#61---event-handling-stopping-and-disabling-windows-services)
-  - [6.2 - Building Data-Driven Functions](#62---building-data-driven-functions)
-    - [6.2.1 - Determining Your Data Structure (Hash Table)](#621---determining-your-data-structure-hash-table)
-    - [6.2.2 - Storing Your Data (JSON)](#622---storing-your-data-json)
-    - [6.2.3 - Updating Your Data Structure (Updating JSON Structure)](#623---updating-your-data-structure-updating-json-structure)
-    - [6.2.4 - Creating Classes (Base and Nested Class)](#624---creating-classes-base-and-nested-class)
-    - [6.2.5 - Building the Function (Using Classes)](#625---building-the-function-using-classes)
-  - [Installing Windows Features](#installing-windows-features)
-  - [Updating Windows Firewall](#updating-windows-firewall)
-  - [Creating a Server Config Class](#creating-a-server-config-class)
-  - [Using Your Configuration Data](#using-your-configuration-data)
-  - [6.3.3 - Storing Your Configuration Data](#633---storing-your-configuration-data)
+- [6.0 - Creating the ServerConfig PowerShell Module Scaffold](#60---creating-the-serverconfig-powershell-module-scaffold)
+- [6.1 - Event Handling (Stopping and Disabling Windows Services)](#61---event-handling-stopping-and-disabling-windows-services)
+- [6.2 - Building Data-Driven Functions](#62---building-data-driven-functions)
+  - [6.2.1 - Determining Your Data Structure (Hash Table)](#621---determining-your-data-structure-hash-table)
+  - [6.2.2 - Storing Your Data (JSON)](#622---storing-your-data-json)
+  - [6.2.3 - Updating Your Data Structure (Updating JSON Structure)](#623---updating-your-data-structure-updating-json-structure)
+  - [6.2.4 - Creating Classes (Base and Nested Class)](#624---creating-classes-base-and-nested-class)
+  - [6.2.5 - Building the Function (Dynamic Conditions; Using Classes)](#625---building-the-function-dynamic-conditions-using-classes)
+    - [Dynamic Conditions](#dynamic-conditions)
+    - [Using Classes](#using-classes)
+- [Installing Windows Features](#installing-windows-features)
+- [Updating Windows Firewall](#updating-windows-firewall)
+- [Creating a Server Config Class](#creating-a-server-config-class)
+- [Using Your Configuration Data](#using-your-configuration-data)
+- [6.3.3 - Storing Your Configuration Data](#633---storing-your-configuration-data)
 
 ## 6.0 - Creating the ServerConfig PowerShell Module Scaffold
 The author provides a nice template for creating modules. This script creates a blank module structure. See [Listing 01 - Creating the PoshAutomate-ServerConfig module](scripts/Listing%2001%20-%20Creating%20the%20PoshAutomate-ServerConfig%20module.ps1). 
@@ -323,7 +324,7 @@ class RegistryTest {
         [object]$object
     ){
         $this.operator = $object.Operator
-		$this.Value = $object.Value
+		$this.Value = $object.Value # Represents desired state
     }
 }
 ```
@@ -361,8 +362,29 @@ class RegistryCheck {
 }
 ```
 
-### 6.2.5 - Building the Function (Using Classes)
-The following code takes in a `RegistryCheck` object and performs a check on the registry value.
+### 6.2.5 - Building the Function (Dynamic Conditions; Using Classes)
+#### Dynamic Conditions
+When verifying registry values, there are a lot of conditions to consider, as PowerShell has 14 different comparison operators. Instead of using an `if/else` statement for each operator or the `switch` statement, the author demonstrates how you can build a function to accept dynamic conditions.
+
+For example, a simple test may look like this:
+```powershell
+if ($Data -eq 1) { $true }
+```
+If you turn the expression into a string, you can pass parameters to the string:
+```powershell
+'if ($Data -{0} {1}) { {$true} }' -f 'eq', 1
+```
+You can then use the `Invoke-Expression` command to execute on the dynamic condition:
+```powershell
+$Data = 3
+$Operator = 'in'
+$Expected = '1..15'
+$cmd = 'if($Data -{0} {1}){{$true}}' -f $Operator, $Expected
+Invoke-Expression $cmd
+```
+
+#### Using Classes
+The following function receives a `RegistryCheck` parameter and 
 ```powershell
 Function Test-SecurityBaseline {
     [CmdletBinding()]
