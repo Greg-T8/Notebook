@@ -109,3 +109,4 @@ To validate AutoSync, perform a commit and monitor the sync jobs.  It takes 20-3
 ![](img/2022-08-29-04-19-08.png)
 
 ![](img/2022-08-29-04-19-30.png)
+
