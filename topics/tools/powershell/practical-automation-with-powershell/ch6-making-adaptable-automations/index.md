@@ -14,7 +14,7 @@
   - [Installing Windows Features](#installing-windows-features)
   - [Configuring Windows Firewall](#configuring-windows-firewall)
   - [6.3.1 - Organizing Your Data](#631---organizing-your-data)
-- [Creating a Server Config Class](#creating-a-server-config-class)
+    - [Creating a Server Config Class](#creating-a-server-config-class)
 - [Using Your Configuration Data](#using-your-configuration-data)
 - [6.3.3 - Storing Your Configuration Data](#633---storing-your-configuration-data)
 
@@ -555,9 +555,11 @@ Function Set-FirewallDefaults {
 ```
 
 ### 6.3.1 - Organizing Your Data
-At this point, there are five separate functions: `Disable-WindowsService`, `Install-RequiredFeatures`, `Set-FirewallDefaults`, `Test-SecurityBaseline`, and `Set-SecurityBaseline`. The next step is to build a simple configuration file that you can feed into each of these functions.
+At this point, there are five separate functions: `Disable-WindowsService`, `Install-RequiredFeatures`, `Set-FirewallDefaults`, `Test-SecurityBaseline`, and `Set-SecurityBaseline`. The next step is to build a simple configuration file that you can feed into the parameters for each of these functions.
 
-## Creating a Server Config Class
+The best way to achieve this is to create a class that models the data you need to send to each function.  The author demonstrates this by using the `ServerConfig` class.
+
+#### Creating a Server Config Class
 The following code is used to create a server config class.  This class definition would typically be stored in the module (.psm1) file.
 
 ```powershell
