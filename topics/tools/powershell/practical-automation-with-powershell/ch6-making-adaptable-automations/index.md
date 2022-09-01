@@ -10,9 +10,10 @@
   - [6.2.5 - Building the Function (Dynamic Conditions; Using Classes)](#625---building-the-function-dynamic-conditions-using-classes)
     - [Dynamic Conditions](#dynamic-conditions)
     - [Using Classes](#using-classes)
-- [6.3 Controlling Scripts with Configuration Data](#63-controlling-scripts-with-configuration-data)
+- [6.3 - Controlling Scripts with Configuration Data](#63---controlling-scripts-with-configuration-data)
   - [Installing Windows Features](#installing-windows-features)
-  - [Updating Windows Firewall](#updating-windows-firewall)
+  - [Configuring Windows Firewall](#configuring-windows-firewall)
+  - [6.3.1 - Organizing Your Data](#631---organizing-your-data)
 - [Creating a Server Config Class](#creating-a-server-config-class)
 - [Using Your Configuration Data](#using-your-configuration-data)
 - [6.3.3 - Storing Your Configuration Data](#633---storing-your-configuration-data)
@@ -469,11 +470,13 @@ Function Set-SecurityBaseline{
 }
 ```
 
-## 6.3 Controlling Scripts with Configuration Data
-The author starts this section by presenting a couple of functions to round out demonstrating the full automation.
+## 6.3 - Controlling Scripts with Configuration Data
+The goal of this section is have one single script that calls each function with appropriate parameters, where the parameters are provided from a configuration file.
+
+The author starts this section by presenting a couple of functions to round out demonstrating the full automation.  
 
 ### Installing Windows Features
-The next example shows how you can submit a string array to install Windows Features. A couple of things to note:
+The function below demonstrates how to install Windows Features. A couple of things to note:
 - The use of `System.Collections.Generic.List[PSObject]`.  Per [here](https://gist.github.com/kevinblumenfeld/4a698dbc90272a336ed9367b11d91f1c), it's recommended to use a generic list when you know the type of the elements but not the size of the collection.
 - The use of a custom property `@{l='Name'; e={$Name}}`. This is because 'Install-WindowsFeature' doesn't return the Name property.
 ```powershell
@@ -494,8 +497,8 @@ Function Install-RequiredFeatures {
     $FeatureInstalls
 }
 ```
-### Updating Windows Firewall
-The next example shows how you can configure Windows firewall to (1) enable for all profiles, (2) block inbound traffic on the Public profile and (3) set up logging. 
+### Configuring Windows Firewall
+The following function shows how you can configure Windows firewall to (1) enable for all profiles, (2) block inbound traffic on the Public profile and (3) set up logging. 
 ```powershell
 Function Set-FirewallDefaults {
     [CmdletBinding()]
@@ -550,6 +553,9 @@ Function Set-FirewallDefaults {
     $FirewallSettings
 }
 ```
+
+### 6.3.1 - Organizing Your Data
+At this point, there are five separate functions: `Disable-WindowsService`, `Install-RequiredFeatures`, `Set-FirewallDefaults`, `Test-SecurityBaseline`, and `Set-SecurityBaseline`. The next step is to build a simple configuration file that you can feed into each of these functions.
 
 ## Creating a Server Config Class
 The following code is used to create a server config class.  This class definition would typically be stored in the module (.psm1) file.
