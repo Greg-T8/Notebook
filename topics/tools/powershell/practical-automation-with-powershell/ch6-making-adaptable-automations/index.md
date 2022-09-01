@@ -624,6 +624,8 @@ Here's the JSON output:
 Use `Out-File` to send the resulting JSON to a configuration file; then place that file in your module directory.
 
 ## 6.3.2 - Using Your Configuration Data
+This section demonstrates how you can feed a JSON configuration file into a script. 
+
 The following function builds on the previous functions above to set configurations.  This function has a couple of built-in logging functions that are interesting.  The script in the next section creates the JSON config that this function uses.
 
 ```powershell
