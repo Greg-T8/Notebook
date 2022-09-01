@@ -10,8 +10,9 @@
   - [6.2.5 - Building the Function (Dynamic Conditions; Using Classes)](#625---building-the-function-dynamic-conditions-using-classes)
     - [Dynamic Conditions](#dynamic-conditions)
     - [Using Classes](#using-classes)
-- [Installing Windows Features](#installing-windows-features)
-- [Updating Windows Firewall](#updating-windows-firewall)
+- [6.3 Controlling Scripts with Configuration Data](#63-controlling-scripts-with-configuration-data)
+  - [Installing Windows Features](#installing-windows-features)
+  - [Updating Windows Firewall](#updating-windows-firewall)
 - [Creating a Server Config Class](#creating-a-server-config-class)
 - [Using Your Configuration Data](#using-your-configuration-data)
 - [6.3.3 - Storing Your Configuration Data](#633---storing-your-configuration-data)
@@ -384,7 +385,7 @@ Invoke-Expression $cmd
 ```
 
 #### Using Classes
-The following function receives a `RegistryCheck` parameter and 
+The following function receives a `RegistryCheck` parameter and checks to see if the target value exists.  If the target value exists, then a dynamic condition is used to verify the value. If the value is verified, then the `RegistryCheck.Success` is set to `true`. For reporting and debugging purposes, `RegistryCheck.SetValue` is set to registry value. 
 ```powershell
 Function Test-SecurityBaseline {
     [CmdletBinding()]
@@ -440,7 +441,7 @@ Function Test-SecurityBaseline {
 }
 ```
 
-If the registry check fails, then the following function will create the required key/value pair:
+If the registry check fails, then the following function will create the registry value. Remember when setting the registry that an item corresponds to a key (or folder) and an item property corresponds to the key's value/data pair.  
 
 ```powershell
 Function Set-SecurityBaseline{
@@ -468,7 +469,10 @@ Function Set-SecurityBaseline{
 }
 ```
 
-## Installing Windows Features
+## 6.3 Controlling Scripts with Configuration Data
+The author starts this section by presenting a couple of functions to round out demonstrating the full automation.
+
+### Installing Windows Features
 The next example shows how you can submit a string array to install Windows Features. A couple of things to note:
 - The use of `System.Collections.Generic.List[PSObject]`.  Per [here](https://gist.github.com/kevinblumenfeld/4a698dbc90272a336ed9367b11d91f1c), it's recommended to use a generic list when you know the type of the elements but not the size of the collection.
 - The use of a custom property `@{l='Name'; e={$Name}}`. This is because 'Install-WindowsFeature' doesn't return the Name property.
@@ -490,7 +494,7 @@ Function Install-RequiredFeatures {
     $FeatureInstalls
 }
 ```
-## Updating Windows Firewall
+### Updating Windows Firewall
 The next example shows how you can configure Windows firewall to (1) enable for all profiles, (2) block inbound traffic on the Public profile and (3) set up logging. 
 ```powershell
 Function Set-FirewallDefaults {
