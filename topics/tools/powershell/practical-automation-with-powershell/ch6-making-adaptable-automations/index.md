@@ -13,9 +13,9 @@
 - [6.3 - Controlling Scripts with Configuration Data](#63---controlling-scripts-with-configuration-data)
   - [Installing Windows Features](#installing-windows-features)
   - [Configuring Windows Firewall](#configuring-windows-firewall)
-  - [6.3.1 - Organizing Your Data](#631---organizing-your-data)
+  - [6.3.1 - Organizing Your Data (Creating a single config file)](#631---organizing-your-data-creating-a-single-config-file)
     - [Creating a Server Config Class](#creating-a-server-config-class)
-- [Using Your Configuration Data](#using-your-configuration-data)
+- [6.3.2 - Using Your Configuration Data](#632---using-your-configuration-data)
 - [6.3.3 - Storing Your Configuration Data](#633---storing-your-configuration-data)
 
 ## 6.0 - Creating the ServerConfig PowerShell Module Scaffold
@@ -554,13 +554,13 @@ Function Set-FirewallDefaults {
 }
 ```
 
-### 6.3.1 - Organizing Your Data
+### 6.3.1 - Organizing Your Data (Creating a single config file)
 At this point, there are five separate functions: `Disable-WindowsService`, `Install-RequiredFeatures`, `Set-FirewallDefaults`, `Test-SecurityBaseline`, and `Set-SecurityBaseline`. The next step is to build a simple configuration file that you can feed into the parameters for each of these functions.
 
-The best way to achieve this is to create a class that models the data you need to send to each function.  The author demonstrates this by using the `ServerConfig` class.
+The best way to achieve this is to create a class that models the data you need to send to each function. The author demonstrates this by using the `ServerConfig` class.
 
 #### Creating a Server Config Class
-The following code is used to create a server config class.  This class definition would typically be stored in the module (.psm1) file.
+The following code is used to create the `ServerConfig` class. This class definition is typically be stored in the module (.psm1) file.
 
 ```powershell
 class ServerConfig {
@@ -586,15 +586,13 @@ class ServerConfig {
 }
 ```
 
-An advantage of using classes is they enable to create your configuration JSON.  For example, you can add a function `New-ServerConfig` that creates a blank instance of the `ServerConfig` class:
-
+An advantage of using classes is they enable to create your configuration JSON.  For example, you can add a function `New-ServerConfig` that creates a blank instance of the `ServerConfig` class:  
 ```powershell
 Function New-ServerConfig{
     [ServerConfig]::new()
 }
 ```
-
-Then you can use `ConvertTo-Json` from the `New-ServerConfig` function to generate a JSON template:
+Then you can use `ConvertTo-Json` on the `New-ServerConfig` function to generate a JSON template:
 
 ```powershell
 Import-Module .\PoshAutomate-ServerConfig.psd1 -Force
@@ -623,8 +621,9 @@ Here's the JSON output:
     "FirewallLogSize": 0
 }
 ```
+Use `Out-File` to send the resulting JSON to a configuration file; then place that file in your module directory.
 
-## Using Your Configuration Data
+## 6.3.2 - Using Your Configuration Data
 The following function builds on the previous functions above to set configurations.  This function has a couple of built-in logging functions that are interesting.  The script in the next section creates the JSON config that this function uses.
 
 ```powershell
