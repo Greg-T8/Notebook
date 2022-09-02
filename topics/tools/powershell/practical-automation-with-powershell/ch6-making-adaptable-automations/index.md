@@ -624,9 +624,9 @@ Here's the JSON output:
 Use `Out-File` to send the resulting JSON to a configuration file; then place that file in your module directory.
 
 ## 6.3.2 - Using Your Configuration Data
-This section demonstrates how you can feed a JSON configuration file into a script. 
+This section demonstrates how you can utilize a JSON configuration file in your script that is based on custom classes. 
 
-The following function builds on the previous functions above to set configurations.  This function has a couple of built-in logging functions that are interesting.  The script in the next section creates the JSON config that this function uses.
+The following function takes in a JSON configuration file and converts it into a PowerShell `ServerConfig` object. The function then calls all of the other functions presented in this chapter using the custom classes as input values.  This function also has a couple of built-in logging functions that are interesting.  
 
 ```powershell
 Function Set-ServerConfig {
