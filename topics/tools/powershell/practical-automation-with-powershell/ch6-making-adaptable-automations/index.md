@@ -17,6 +17,7 @@
     - [Creating a Server Config Class](#creating-a-server-config-class)
 - [6.3.2 - Using Your Configuration Data](#632---using-your-configuration-data)
 - [6.3.3 - Storing Your Configuration Data](#633---storing-your-configuration-data)
+  - [Bringing it All Together](#bringing-it-all-together)
 
 ## 6.0 - Creating the ServerConfig PowerShell Module Scaffold
 The author provides a nice template for creating modules. This script creates a blank module structure. See [Listing 01 - Creating the PoshAutomate-ServerConfig module](scripts/Listing%2001%20-%20Creating%20the%20PoshAutomate-ServerConfig%20module.ps1). 
@@ -757,7 +758,7 @@ if(-not (Test-Path ".\Configurations")){
 $Config | ConvertTo-Json -Depth 4 | 
     Out-File ".\Configurations\SecurityBaseline.json" -Encoding UTF8
 ```
-
+### Bringing it All Together
 Here's a look at how the resulting JSON looks, along with the accommodating file structure:  
 ![](img/2022-09-03-06-13-57.png)  
 
