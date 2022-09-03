@@ -624,7 +624,7 @@ Here's the JSON output:
 Use `Out-File` to send the resulting JSON to a configuration file; then place that file in your module directory.
 
 ## 6.3.2 - Using Your Configuration Data
-This section demonstrates how you can utilize a JSON configuration file in your script that is based on custom classes. 
+This section demonstrates the use of a JSON configuration file with custom classes. 
 
 The following function takes in a JSON configuration file and converts it into a PowerShell `ServerConfig` object. The function then calls all of the other functions presented in this chapter using the custom classes as input values.  This function also has a couple of built-in logging functions that are interesting.  
 
@@ -712,7 +712,7 @@ Function Set-ServerConfig {
 ## 6.3.3 - Storing Your Configuration Data
 The author recommends storing configuration data within the module. Doing so will allow you to track changes when using version control.
 
-The following function creates a configuration and stores the resulting JSON configuration file in the `Configurations` folder within the module.
+The following function creates a configuration and stores the resulting JSON configuration file in the `Configurations` folder within the module. This function depends on the existence of previous JSON files in the module root that were used earlier in the chapter.
 
 ```powershell
 # Import the module
@@ -757,3 +757,60 @@ if(-not (Test-Path ".\Configurations")){
 $Config | ConvertTo-Json -Depth 4 | 
     Out-File ".\Configurations\SecurityBaseline.json" -Encoding UTF8
 ```
+
+Here's a look at how the resulting JSON looks, along with the accommodating file structure:  
+![](img/2022-09-03-06-13-57.png)  
+
+The author then pulls everything together in the function `Invoke-ServerConfig`.  This function looks for the existence of configuration files in the `Configurations` folder and then calls `Set-ServerConfig` for each JSON file.  Additionally, there is a prompt using `Out-Gridview` that you can use to select a JSON file.
+```powershell
+Function Invoke-ServerConfig{
+    [CmdletBinding()]
+    [OutputType([object])]
+    param(
+        [string[]]$Config = $null
+    )
+    [System.Collections.Generic.List[PSObject]]$selection = @()
+    # Get all the Configurations folder
+    $Path = @{
+        Path      = $Script:PSScriptRoot
+        ChildPath = 'Configurations'
+    }
+    $ConfigPath = Join-Path @Path
+
+    # Get all the Json files in the Configurations folder
+    $ChildItem = @{
+        Path   = $ConfigPath
+        Filter = '*.JSON'
+    }
+    $Configurations = Get-ChildItem @ChildItem
+    
+    # If a config name is passed, attempt to find the file
+    if(-not [string]::IsNullOrEmpty($Config)){
+        foreach($c in $Config){
+            $Configurations | Where-Object{ $_.BaseName -eq $Config } | 
+                ForEach-Object { $selection.Add($_) }
+        }
+    }
+
+    # If config name is not passed or name is not found, prompt for a file to use
+    if($selection.Count -eq 0){
+        $Configurations | Select-Object BaseName, FullName | 
+            Out-GridView -PassThru | ForEach-Object { $selection.Add($_) }
+    }
+    
+    # Set the default log file path
+    $Log = "$($env:COMPUTERNAME)-Config.log"
+    $LogFile = Join-Path -Path $($env:SystemDrive) -ChildPath $Log
+
+    # Run the Set-ServerConfig for each json file
+    foreach($json in $selection){
+        Set-ServerConfig -ConfigJson $json.FullName -LogFile $LogFile
+    }
+}
+```
+Here's a look at the process when when calling `Invoke-ServerConfig`:  
+![](img/2022-09-03-06-19-59.png)
+
+![](img/2022-09-03-06-22-41.png)
+
+![](img/2022-09-03-06-23-32.png)
