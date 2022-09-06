@@ -1,0 +1,77 @@
+﻿{
+    "Features":  [
+                     "RSAT-AD-PowerShell",
+                     "RSAT-AD-AdminCenter",
+                     "RSAT-ADDS-Toolsf"
+                 ],
+    "Services":  [
+                     "PrintNotify",
+                     "Spooler",
+                     "lltdsvc",
+                     "SharedAccess",
+                     "wisvc"
+                 ],
+    "SecurityBaseline":  [
+                             {
+                                 "KeyPath":  "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanManServer\\Parameters",
+                                 "Name":  "EnableSecuritySignature",
+                                 "Type":  "DWORD",
+                                 "Data":  "1",
+                                 "SetValue":  "",
+                                 "Success":  false,
+                                 "Tests":  [
+                                               {
+                                                   "operator":  "eq",
+                                                   "Value":  "1"
+                                               }
+                                           ]
+                             },
+                             {
+                                 "KeyPath":  "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\EventLog\\Security",
+                                 "Name":  "MaxSize",
+                                 "Type":  "DWORD",
+                                 "Data":  "32768",
+                                 "SetValue":  "",
+                                 "Success":  false,
+                                 "Tests":  [
+                                               {
+                                                   "operator":  "ge",
+                                                   "Value":  "32768"
+                                               }
+                                           ]
+                             },
+                             {
+                                 "KeyPath":  "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanManServer\\Parameters",
+                                 "Name":  "AutoDisconnect",
+                                 "Type":  "DWORD",
+                                 "Data":  "1..15",
+                                 "SetValue":  "",
+                                 "Success":  false,
+                                 "Tests":  [
+                                               {
+                                                   "operator":  "in",
+                                                   "Value":  "1..15"
+                                               }
+                                           ]
+                             },
+                             {
+                                 "KeyPath":  "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanManServer\\Parameters",
+                                 "Name":  "EnableForcedLogoff",
+                                 "Type":  "DWORD",
+                                 "Data":  "1",
+                                 "SetValue":  "",
+                                 "Success":  false,
+                                 "Tests":  [
+                                               {
+                                                   "operator":  "eq",
+                                                   "Value":  "1"
+                                               },
+                                               {
+                                                   "operator":  "eq",
+                                                   "Value":  "$null"
+                                               }
+                                           ]
+                             }
+                         ],
+    "FirewallLogSize":  4096
+}
