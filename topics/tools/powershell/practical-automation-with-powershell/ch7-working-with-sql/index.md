@@ -106,3 +106,9 @@ New-DbaDbTable @DbaDbTable
 ```
 The script doesn't give you any useful output on the table columns, but you can use SQL Server Management Studio to confirm column creation:  
 ![](img/2022-09-06-05-09-48.png)
+
+
+## 7.2 - Connecting to SQL
+Throughout this chapter, you will make numerous calls to the SQL instance and database.  The author recommends storing these parameters as variables in the module's .psm1 file for ease of reuse.
+
+The author 
