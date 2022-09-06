@@ -5,6 +5,6 @@ The book "Practical Automation with PowerShell", written by [Matthew Dowst](http
 
 ## Table of Contents
 
-- [ ] [Chapter 5 - Working with SQL]
 - [x] [Chapter 6 - Making Adaptable Automations](ch6-making-adaptable-automations/index.md)
+- [ ] [Chapter 5 - Working with SQL](ch7-working-with-sql/index.md)
 - [x] [Chapter 8 - Cloud-Based Automation](ch8-azure-automation/index.md)
