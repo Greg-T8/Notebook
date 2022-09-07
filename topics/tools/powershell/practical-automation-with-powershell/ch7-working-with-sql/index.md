@@ -227,4 +227,39 @@ Commands in the `dbatools` module run as the logged-in user if no other credenti
 
 The author guides you through building the `Connect-PoshAssetMgmt` cmdlet, which calls `Connect-DbaInstance`, allowing you to pass parameters for the SQL connection, including SQL instance, database, and credentials. If the SQL instance is not provided, then the cmdlet will use the default values set in the `$_PoshAssetMgmt` variable.
 
-You don't want to pass the connection to every function, so to avoid doing this you save the connection information into a variable that other functions can reference, similar to the `$_PoshAssetMgmt` variable. The only difference is this variable is placed inside of the function instead of in the .psm1 file.
+You don't want to pass the connection to every function, so to avoid doing this you save the connection information into a variable that other functions can reference, similar to the `$_PoshAssetMgmt` variable. The only difference is this variable is placed inside of the function instead of in the .psm1 file. In this case, we update the scope of this variable to reside at the script level by adding `script:` to the variable name. This allows for all other functions in the module to read that variable.
+
+```powershell
+# Listing 5 - Connect-PoshAssetMgmt
+# Note usage of script-level variable, allowing other functions to use the connection.
+Function Connect-PoshAssetMgmt {
+    [CmdletBinding()]
+    [OutputType([object])]
+    param(
+        [Parameter(Mandatory = $false)]
+        [string]$SqlInstance = $_PoshAssetMgmt.SqlInstance,
+
+        [Parameter(Mandatory = $false)]
+        [string]$Database = $_PoshAssetMgmt.Database,
+
+        [Parameter(Mandatory = $false)]
+        [PSCredential]$Credential
+    )
+
+    # Set default connection parameters
+    $connection = @{
+        SqlInstance = $SqlInstance
+        Database    = $Database
+    }
+
+    # Add credential object if passed
+    if ($Credential) {
+        $connection.Add('SqlCredential', $Credential)
+    }
+
+    $Script:_SqlInstance = Connect-DbaInstance @connection
+
+    # Output the result so the person running it can confirm the connection information
+    $Script:_SqlInstance
+}
+```
