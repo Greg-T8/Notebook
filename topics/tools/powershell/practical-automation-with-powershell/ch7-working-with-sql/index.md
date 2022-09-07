@@ -108,9 +108,123 @@ The script doesn't give you any useful output on the table columns, but you can 
 ![](img/2022-09-06-05-09-48.png)
 
 
-## 7.2 - Connecting to SQL
+## 7.2 - Connecting to SQL (Setting Up Custom PowerShell Object)
 Throughout this chapter, you will make numerous calls to the SQL instance and database.  The author recommends storing these parameters as variables in the module's .psm1 file for ease of reuse.
 
 The author uses a naming convention for module-scoped variables that starts with an underscore, e.g. `$_PoshAssetMgmt`.
 
-For SQL connection information, the author recommends using a single PowerShell object with properties for the SQL instance. All of this code will be put in a module called `PoshAssetMgmt`. 
+For SQL connection information, the author recommends using a single PowerShell object with properties for the SQL instance. All of this code will be put in a module called `PoshAssetMgmt`. To create this module, use the [New-ModuleTemplate](scripts/Listing%2003%20-%20Creating%20the%20PoshAssetMgmt%20module.ps1) script.  This script creates a module folder structure with blank .psm1 and .ps1 files.
+
+```powershell
+# Listing 3 - Creating the PoshAssetMgmt module
+Function New-ModuleTemplate {
+    [CmdletBinding()]
+    [OutputType()]
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$ModuleName,
+        [Parameter(Mandatory = $true)]
+        [string]$ModuleVersion,
+        [Parameter(Mandatory = $true)]
+        [string]$Author,
+        [Parameter(Mandatory = $true)]
+        [string]$PSVersion,
+        [Parameter(Mandatory = $false)]
+        [string[]]$Functions
+    )
+    $ModulePath = Join-Path .\ "$($ModuleName)\$($ModuleVersion)"
+    New-Item -Path $ModulePath -ItemType Directory
+    Set-Location $ModulePath
+    New-Item -Path .\Public -ItemType Directory
+
+    $ManifestParameters = @{
+        ModuleVersion     = $ModuleVersion
+        Author            = $Author
+        Path              = ".\$($ModuleName).psd1"
+        RootModule        = ".\$($ModuleName).psm1"
+        PowerShellVersion = $PSVersion
+    }
+    New-ModuleManifest @ManifestParameters
+
+    $File = @{
+        Path     = ".\$($ModuleName).psm1"
+        Encoding = 'utf8'
+    }
+    Out-File @File
+
+    $Functions | ForEach-Object {
+        Out-File -Path ".\Public\$($_).ps1" -Encoding utf8
+    }
+}
+
+# Set the parameters to pass to the function
+$module = @{
+    # The name of your module
+    ModuleName    = 'PoshAssetMgmt'
+    # The version of your module
+    ModuleVersion = "1.0.0.0"
+    # Your name
+    Author        = "YourNameHere"
+    # The minimum PowerShell version this module supports
+    PSVersion     = '7.1'
+    # The functions to create blank files for in the Public folder
+    Functions     = 'Connect-PoshAssetMgmt',
+    'New-PoshServer', 'Get-PoshServer', 'Set-PoshServer'
+}
+# Execute the function to create the new module
+New-ModuleTemplate @module
+```
+
+In the next step you populate the .psm1 module file with a custom object for the SQL connection. You also specify a section for required modules, in this case the `dbatools` module. 
+
+```powershell
+# Listing 4 - PoshAssetMgmt.psm1
+$_PoshAssetMgmt = [pscustomobject]@{
+    SqlInstance  = 'YourSqlSrv\SQLEXPRESS'
+    Database     = 'PoshAssetMgmt'
+    ServerTable  = 'Servers'
+}
+ 
+$Path = Join-Path $PSScriptRoot 'Public'
+$Functions = Get-ChildItem -Path $Path -Filter '*.ps1'
+ 
+Foreach ($import in $Functions) {
+    Try {
+        Write-Verbose "dot-sourcing file '$($import.fullname)'"
+        . $import.fullname
+    }
+    Catch {
+        Write-Error -Message "Failed to import function $($import.name)"
+    }
+}
+ 
+[System.Collections.Generic.List[PSObject]]$RequiredModules = @()
+$RequiredModules.Add([pscustomobject]@{
+    Name = 'dbatools'
+    Version = '1.1.5'
+})
+ 
+foreach($module in $RequiredModules){
+    $Check = Get-Module $module.Name -ListAvailable
+ 
+    if(-not $check){
+        throw "Module $($module.Name) not found"
+    }
+ 
+    $VersionCheck = $Check |
+        Where-Object{ $_.Version -ge $module.Version }
+ 
+    if(-not $VersionCheck){
+        Write-Error "Module $($module.Name) running older version"
+    }
+ 
+    Import-Module -Name $module.Name
+}
+```
+
+### 7.2.1 - Permissions (and Variable Scope)  
+Commands in the `dbatools` module run as the logged-in user if no other credentials are supplied. To run as a different user, you use `Connect-DbaInstance`, which sets a default connection for all other functions to use.
+
+The author guides you through building the `Connect-PoshAssetMgmt` cmdlet, which calls `Connect-DbaInstance`, allowing you to pass parameters for the SQL connection, including SQL instance, database, and credentials. If the SQL instance is not provided, then the cmdlet will use the default values set in the `$_PoshAssetMgmt` variable.
+
+You don't want to pass the connection to every function, so to avoid doing this you save the connection information into a variable that other functions can reference, similar to the `$_PoshAssetMgmt` variable. The only difference is this variable is placed inside of the function instead of in the .psm1 file.
