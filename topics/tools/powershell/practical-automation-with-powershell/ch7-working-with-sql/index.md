@@ -111,4 +111,6 @@ The script doesn't give you any useful output on the table columns, but you can 
 ## 7.2 - Connecting to SQL
 Throughout this chapter, you will make numerous calls to the SQL instance and database.  The author recommends storing these parameters as variables in the module's .psm1 file for ease of reuse.
 
-The author 
+The author uses a naming convention for module-scoped variables that starts with an underscore, e.g. `$_PoshAssetMgmt`.
+
+For SQL connection information, the author recommends using a single PowerShell object with properties for the SQL instance. All of this code will be put in a module called `PoshAssetMgmt`. 
