@@ -227,7 +227,7 @@ Commands in the `dbatools` module run as the logged-in user if no other credenti
 
 The author guides you through building the `Connect-PoshAssetMgmt` cmdlet, which calls `Connect-DbaInstance`, allowing you to pass parameters for the SQL connection, including SQL instance, database, and credentials. If the SQL instance is not provided, then the cmdlet will use the default values set in the `$_PoshAssetMgmt` variable.
 
-You don't want to pass the connection to every function, so to avoid doing this you save the connection information into a variable that other functions can reference, similar to the `$_PoshAssetMgmt` variable. The only difference is this variable is placed inside of the function instead of in the .psm1 file. In this case, the scope of this variable is set to operate at the script level by adding `script:` to the variable name. This allows for all other functions in the module to read that variable.
+You don't want to pass the connection to every function, so to avoid doing this you save the connection information into a variable that other functions can reference, similar to the `$_PoshAssetMgmt` variable. The only difference is this variable is placed inside of the function instead of in the .psm1 file. To account for scope, this variable is set to operate at the script level by adding `script:` to the variable name. This allows for all other functions in the module to read that variable. In the example below, see `$Script:_SQLInstance`:
 
 ```powershell
 # Listing 5 - Connect-PoshAssetMgmt
@@ -263,3 +263,12 @@ Function Connect-PoshAssetMgmt {
     $Script:_SqlInstance
 }
 ```
+Here's a look at the output:  
+![](img/2022-09-08-03-27-02.png)
+
+## 7.3 - Adding Data To a Table
+This section focuses on importing data into a SQL table. You create a new function `New-PoshServer` that uses the `Write-DbaDataTable` cmdlet to add an entry to the `Servers` SQL table.
+
+You import the data by mapping parameters for `New-PoshServer` to the table columns. However, given that you're dealing with SQL, it is important that you use parameter validation.
+
+### 7.3.1 - String Validation
