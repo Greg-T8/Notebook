@@ -353,4 +353,33 @@ Function New-PoshServer {
 Here's a look at the resulting output:  
 ![](img/2022-09-09-03-32-04.png)
 
- 
+And here's a look at the resulting data in SQL:  
+![](img/2022-09-09-03-34-32.png)  
+
+## 7.4 - Getting Data From a Table
+The `Invoke-DbaQuery` cmdlet from `dbatools` returns the results of a T-SQL query to PowerShell. Here's an example on how to use it:
+
+```powershell
+$DbaQuery = @{
+    SqlInstance = "$($env:COMPUTERNAME)\SQLEXPRESS"
+    Database = 'PoshAssetMgmt'
+    Query = 'SELECT * FROM Servers'
+}
+Invoke-DbaQuery @DbaQuery
+```
+
+### 7.4.1 - SQL Where Clause (Filtering Results)
+As tables get large, it is important to be able to filter the results before they get returned to PowerShell. You can filter results in a SQL statement using the `WHERE` clause:
+```SQL
+SELECT * FROM Servers WHERE Name = 'Srv01'
+```
+To make this query dynamic, use a SQL variable in your query.  A SQL variable is denoted by the (@) symbol. The `Invoke-DbaQuery` cmdlet has the `-SqlParameter` argument you can use to pass a value to the SQL variable:
+```powershell
+$DbaQuery = @{
+    SqlInstance = "$($env:COMPUTERNAME)\SQLEXPRESS"
+    Database = 'PoshAssetMgmt'
+    Query = 'SELECT * FROM Servers WHERE Name = @name'
+    SqlParameter = @{name = 'Srv01'}
+}
+Invoke-DbaQuery @DbaQuery
+```
