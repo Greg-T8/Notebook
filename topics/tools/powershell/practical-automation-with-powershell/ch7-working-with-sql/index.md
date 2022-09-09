@@ -271,4 +271,86 @@ This section focuses on importing data into a SQL table. You create a new functi
 
 You import the data by mapping parameters for `New-PoshServer` to the table columns. However, given that you're dealing with SQL, it is important that you use parameter validation.
 
-### 7.3.1 - String Validation
+### 7.3.1-2 - String Validation and Writing Data to a Table
+The following script uses several parameter validation techniques, including validating string length, validating a set, and using the `Mandatory` option to enforce a value. The script takes these values and writes data to a table.
+
+Use the `dbatools` cmdlet `Write-DbaDataTable` to write data to a SQL table. No SQL commands required.
+
+```powershell
+# Listing 6 - New-PoshServer
+Function New-PoshServer {
+    [CmdletBinding()]
+    [OutputType([object])]
+    param(
+        # Validate server name is less than or equal to 50 characters.
+        [Parameter(Mandatory = $true)]
+        [ValidateScript( { $_.Length -le 50 })]
+        [string]$Name,
+
+        # Validate that the OSType is one of the predefined values.
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('Windows', 'Linux')]
+        [string]$OSType,
+
+        # Validate OSVersion is less than or equal to 50 characters.
+        [Parameter(Mandatory = $true)]
+        [ValidateScript( { $_.Length -le 50 })]
+        [string]$OSVersion,
+
+        # Validate that the Status is one of the predefined values.
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('Active', 'Depot', 'Retired')]
+        [string]$Status,
+
+        # Validate that the RemoteMethod is one of the predefined values.
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('WSMan', 'SSH', 'PowerCLI', 'HyperV', 'AzureRemote')]
+        [string]$RemoteMethod,
+
+        # Validate the UUID is less than or equal to 255 characters
+        [Parameter(Mandatory = $false)]
+        [ValidateScript( { $_.Length -le 255 })]
+        [string]$UUID,
+
+        # Validate that the Source is one of the predefined values.
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('Physical', 'VMware', 'Hyper-V', 'Azure', 'AWS')]
+        [string]$Source,
+
+        # Validate the SourceInstance is less than or equal to 255 characters
+        [Parameter(Mandatory = $false)]
+        [ValidateScript( { $_.Length -le 255 })]
+        [string]$SourceInstance
+    )
+
+    # Build the data mapping for the SQL columns
+    $Data = [pscustomobject]@{
+        Name           = $Name
+        OSType         = $OSType
+        OSVersion      = $OSVersion
+        Status         = $Status
+        RemoteMethod   = $RemoteMethod
+        UUID           = $UUID
+        Source         = $Source
+        SourceInstance = $SourceInstance
+    }
+
+    # Write the data to the table
+    $DbaDataTable = @{
+        SqlInstance = $_SqlInstance
+        Database    = $_PoshAssetMgmt.Database
+        InputObject = $Data
+        Table       = $_PoshAssetMgmt.ServerTable
+    }
+    Write-DbaDataTable @DbaDataTable
+
+    # Since Write-DbaDataTable doesn't have any output the data object so you know which ones where added.
+    Write-Output $Data
+
+
+}
+```
+Here's a look at the resulting output:  
+![](img/2022-09-09-03-32-04.png)
+
+ 
