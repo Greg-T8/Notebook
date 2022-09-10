@@ -466,7 +466,16 @@ Where the SQL parameters are:
 ## 7.5 - Updating Records 
 Just like the function in the previous section uses `Invoke-DbaQuery` to retrieve data, you can use `Invoke-DbaQuery` to update data. 
 
-Here's an example function:
+Here's a SQL query that updates the `Source` field for a record with an `ID` value:
+```SQL
+UPDATE [dbo].[Server]
+SET Source = @Source 
+OUTPUT @ID AS ID, deleted.Source AS Prev_Source, 
+    inserted.Source AS Source 
+WHERE ID = @ID
+```
+
+The following function utilizes this SQL query to update SQL data:  
 ```powershell
 # Listing 8 - Set-PoshServer
 Function Set-PoshServer {
@@ -573,3 +582,18 @@ Function Set-PoshServer {
     }
 }
 ```
+Here's an analysis of the function when running the following command:  
+
+![](img/2022-09-10-04-54-42.png)
+
+The function evaluates each supplied parameter and determines which parameters need to become part of the SQL query. Here's what the SQL query looks like:
+
+![](img/2022-09-10-04-58-13.png)  
+
+The function then makes a call to retrieve objects from SQL with `SourceInstance = 'Cluster1'` and uses the following query to update values:  
+
+![](img/2022-09-10-05-13-45.png)  
+
+All of this information is stored in one variable and then passed internally to `Invoke-DbaQuery`:  
+
+![](img/2022-09-10-05-14-40.png)  
