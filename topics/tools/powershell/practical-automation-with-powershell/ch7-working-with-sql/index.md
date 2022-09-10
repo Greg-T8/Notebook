@@ -453,7 +453,14 @@ Function Get-PoshServer {
 ```
 The SQL `WHERE` query is built dynamically based on the parameters specified. So if the parameters specified look like the following:   
 
-![](img/2022-09-09-04-06-35.png)  
+![](img/2022-09-10-04-19-51.png)  
+
 Then the resulting DBA query looks like:  
 
-![](img/2022-09-09-04-07-28.png)
+![](img/2022-09-09-04-07-28.png)  
+
+Where the SQL parameters are:
+
+![](img/2022-09-10-04-21-36.png)  
+
+## 7.5 - Updating Records 
