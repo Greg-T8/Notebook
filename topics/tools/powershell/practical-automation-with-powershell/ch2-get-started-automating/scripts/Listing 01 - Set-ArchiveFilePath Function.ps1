@@ -1,16 +1,4 @@
-# Chapter 2 - Get Started Automating
-
-Goal of this chapter is to take a simple script and turn it into a reusable building block.  The script cleans up old log files.  
-
-## 2.1 - Cleaning Up Old Files
-Requirements for the script are to remove old log files to keep the drive from filling up. Logs must be retained for at least seven years but can go into cold storage after 30 days.
-
-### 2.1.1 - Your First Function
-As a good practice, always include `[CmdletBinding()]` and `[OutputType()]` in your functions. 
-
-Here's a look at the first function. This function creates the name of a zip file based on a supplied date and prefix. 
-```powershell
-# Listing 1 - Set-ArchiveFilePath Function
+﻿# Listing 1 - Set-ArchiveFilePath Function
 # Declare the function and set required parameters
 Function Set-ArchiveFilePath{
     # Declare CmdletBinding and OutputType
@@ -50,6 +38,3 @@ Function Set-ArchiveFilePath{
     # Return the file path to the script
     $ZipFile
 }
-```
-
-### 2.1.2 - Returning Data from Functions
