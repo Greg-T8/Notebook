@@ -1,5 +1,15 @@
 # Chapter 7 - Working with SQL
 
+- [7.1 - Setting Your Schema](#71---setting-your-schema)
+  - [7.1.1 - Data Types](#711---data-types)
+- [7.2 - Connecting to SQL (Setting Up Custom PowerShell Object)](#72---connecting-to-sql-setting-up-custom-powershell-object)
+  - [7.2.1 - Permissions (and Variable Scope)](#721---permissions-and-variable-scope)
+- [7.3 - Adding Data To a Table](#73---adding-data-to-a-table)
+  - [7.3.1-2 - String Validation and Writing Data to a Table](#731-2---string-validation-and-writing-data-to-a-table)
+- [7.4 - Getting Data From a Table](#74---getting-data-from-a-table)
+  - [7.4.1 - SQL Where Clause (Filtering Results)](#741---sql-where-clause-filtering-results)
+- [7.5 - Updating Records](#75---updating-records)
+
 This chapter covers
 - Building SQL databases and tables
 - Inserting and updating data
@@ -21,7 +31,7 @@ $DbaDatabase = @{
 }
 New-DbaDatabase @DbaDatabase
 ```
-Here's an example of the output:
+Here's an example of the output:  
 ![](img/2022-09-06-04-42-52.png)
 
 ## 7.1 - Setting Your Schema
