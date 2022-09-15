@@ -1,12 +1,12 @@
 # Practical Automation with PowerShell
-The book "Practical Automation with PowerShell", written by [Matthew Dowst](https://github.com/mdowst), is available for early access from [Manning](https://www.manning.com/books/practical-automation-with-powershell). This repository is a collection of scripts and notes from this book.
+The book "Practical Automation with PowerShell", written by [Matthew Dowst](https://github.com/mdowst), is available for early access from [Manning](https://www.manning.com/books/practical-automation-with-powershell). The sections that follow are my notes from this book.
 
 ![](img/2022-08-08-04-41-32.png)
 
 ## Table of Contents
 
 - [ ] Chapter 1 - PowerShell Automation
-- [ ] Chapter 2 - Get Started Automating
+- [ ] [Chapter 2 - Get Started Automating](ch2-get-started-automating/index.md)
 - [ ] Chapter 3 - Scheduling Automation Scripts
 - [ ] Chapter 4 - Handling Sensitive Data
 - [ ] Chapter 5 - PowerShell Remote Execution
