@@ -1,4 +1,10 @@
 # Chapter 8: Cloud-Based Automation
+
+- [Azure Automation Setup](#azure-automation-setup)
+- [Microsoft Monitoring Agent and Hybrid Worker Setup](#microsoft-monitoring-agent-and-hybrid-worker-setup)
+  - [Issue: Machine is already registered as a hybrid runbook worker](#issue-machine-is-already-registered-as-a-hybrid-runbook-worker)
+  - [Managing Modules for Hybrid Runbook Workers](#managing-modules-for-hybrid-runbook-workers)
+
 This chapter provides a brief introduction to Azure Automation.  
 
 ## Azure Automation Setup
