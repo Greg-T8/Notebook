@@ -387,3 +387,47 @@ $Public = Join-Path $PSScriptRoot 'Public'
 $Private = Join-Path $PSScriptRoot 'Private'
 $Functions = Get-ChildItem -Path $Public,$Private -Filter '*.ps1'
 ```
+
+When loading the module, use the `-Force` and the `PassThru` switches.  The `Force` switch picks up any changes you have made.  The `PassThru` switch sends output to the console:  
+
+![](img/2022-09-16-04-32-25.png)
+
+The next script demonstrates how you can replace function definitions with a call to import the script module.
+
+Things to note:
+- The call to `Import-Module`
+
+```powershell
+# Listing 8 - Moving Functions to Module
+param(
+    [Parameter(Mandatory = $true)]
+    [string]$LogPath,
+
+    [Parameter(Mandatory = $true)]
+    [string]$ZipPath,
+
+    [Parameter(Mandatory = $true)]
+    [string]$ZipPrefix,
+
+    [Parameter(Mandatory = $false)]
+    [double]$NumberOfDays = 30
+)
+
+# Replaced functions with the command to load the FileCleanupTools module
+Import-Module FileCleanupTools
+
+$Date = (Get-Date).AddDays(-$NumberOfDays)
+$files = Get-ChildItem -Path $LogPath -File |
+    Where-Object{ $_.LastWriteTime -lt $Date}
+
+$ZipParameters = @{
+    ZipPath = $ZipPath
+    ZipPrefix = $ZipPrefix
+    Date = $Date
+}
+$ZipFile = Set-ArchiveFilePath @ZipParameters
+
+$files | Compress-Archive -DestinationPath $ZipFile
+
+Remove-ArchivedFiles -ZipFile $ZipFile -FilesToDelete $files
+```
