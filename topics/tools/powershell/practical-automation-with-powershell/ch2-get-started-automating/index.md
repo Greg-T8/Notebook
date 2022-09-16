@@ -8,6 +8,7 @@
 - [2.2 - The Anatomy of a PowerShell Function](#22---the-anatomy-of-a-powershell-function)
   - [2.2.1 - Function: Get-TopProcess](#221---function-get-topprocess)
   - [2.2.2 - Function: New-ModuleTemplate](#222---function-new-moduletemplate)
+  - [2.2.3 - Module creation tips](#223---module-creation-tips)
 
 Goal of this chapter is to take a simple script and turn it into a reusable building block.  The script cleans up old log files.  
 
@@ -368,10 +369,10 @@ $Path = Join-Path $PSScriptRoot 'Public'
 $Functions = Get-ChildItem -Path $Path -Filter '*.ps1'
 
 # Loop through each ps1 file
-Foreach ($import in $Functions) {
-    Try {
-        Write-Verbose "dot-sourcing file '$($import.fullname)'"
-        # Execute each ps1 file to load the function into memory
+foreach ($import in $functions) {
+    try {
+        write-verbose "dot-sourcing file '$($import.fullname)'"
+        # execute each ps1 file to load the function into memory
         . $import.fullname
     }
     Catch {
@@ -431,3 +432,5 @@ $files | Compress-Archive -DestinationPath $ZipFile
 
 Remove-ArchivedFiles -ZipFile $ZipFile -FilesToDelete $files
 ```
+
+### 2.2.3 - Module creation tips
