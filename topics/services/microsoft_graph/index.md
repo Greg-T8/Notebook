@@ -15,6 +15,8 @@ Things to note:
 - RSA key algorithm is recommended
 - The certificate is valid for only one year 
 
+The following code creates and exports a certificate with only the private key. Supply the .cer file to the application that is configured with resource permissions, e.g. Microsoft Graph.
+
 ```powershell
 $params = @{
     Subject           = 'CN=MyAppName'
@@ -28,3 +30,17 @@ $params = @{
 $cert = New-SelfSignedCertificate @params 
 Export-Certificate -Cert $cert -FilePath '.\MyAppName.cer'
 ```
+
+The following code creates and exports a certificate with the private key. Use the resulting .pfx file for the client application, e.g. Azure Automation or your own machine for interactive PowerShell use.
+
+```powershell
+$params = @{
+    String = "my password"
+    AsPlainText = $true
+    Force = $true
+}
+$myPwd = ConvertTo-SecureString @params
+
+$params = @{
+    
+}
