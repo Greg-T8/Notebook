@@ -98,7 +98,10 @@ for($i = 0; $i -lt $days; $i++) {
 ```
 
 ### 2.1.3 - Function: Remove-ArchivedFiles
+This function removes a file from the local disk if that file has already been archived, i.e. added to a zip file.
 
+Things to note:
+- The use of `Add-Type` to load a Microsoft .NET class to the PowerShell session
 
 ```powershell
 # Listing 2 - Deleting Archived Files
