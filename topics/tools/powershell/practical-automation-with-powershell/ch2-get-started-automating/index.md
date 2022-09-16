@@ -1,11 +1,16 @@
 # Chapter 2 - Get Started Automating
+- [2.1 - Cleaning Up Old Files](#21---cleaning-up-old-files)
+  - [2.1.1 - Function: Set-ArchiveFilePath](#211---function-set-archivefilepath)
+  - [2.1.2 - Script to Generate Random Log files](#212---script-to-generate-random-log-files)
+  - [2.1.3 - Function: Remove-ArchivedFiles](#213---function-remove-archivedfiles)
+  - [2.1.4 - Combining Functions](#214---combining-functions)
 
 Goal of this chapter is to take a simple script and turn it into a reusable building block.  The script cleans up old log files.  
 
 ## 2.1 - Cleaning Up Old Files
 Requirements for the script are to remove old log files to keep the drive from filling up. Logs must be retained for at least seven years but can go into cold storage after 30 days.
 
-### 2.1.1 - Function: Set-ArchiveFilePath)
+### 2.1.1 - Function: Set-ArchiveFilePath
 This function creates the name of a zip file based on a supplied date and prefix. 
 ```powershell
 # Listing 1 - Set-ArchiveFilePath Function
@@ -141,3 +146,111 @@ Function Remove-ArchivedFiles {
     }
 }
 ```
+### 2.1.4 - Combining Functions
+The following script combines the functions `Set-ArchiveFilePath` and `Remove-ArchivedFiles` into one script. The end result is a script that archives files that haven't been modified beyond a certain date.  The script places the files in a zip file and then deletes the original files from local disk.
+
+```powershell
+# Listing 3 - Putting it All Together
+[CmdletBinding()]
+[OutputType()]
+param(
+    [Parameter(Mandatory = $true)]
+    [string]$LogPath,
+
+    [Parameter(Mandatory = $true)]
+    [string]$ZipPath,
+
+    [Parameter(Mandatory = $true)]
+    [string]$ZipPrefix,
+
+    [Parameter(Mandatory = $false)]
+    [double]$NumberOfDays = 30
+)
+
+# Declare your functions before the script code
+Function Set-ArchiveFilePath{
+    [CmdletBinding()]
+    [OutputType([string])]
+    param(
+    [Parameter(Mandatory = $true)]
+    [string]$ZipPath,
+
+    [Parameter(Mandatory = $true)]
+    [string]$ZipPrefix,
+
+    [Parameter(Mandatory = $false)]
+    [datetime]$Date = (Get-Date)
+    )
+
+    if(-not (Test-Path -Path $ZipPath)){
+        New-Item -Path $ZipPath -ItemType Directory | Out-Null
+        Write-Verbose "Created folder '$ZipPath'"
+    }
+
+    $ZipName = "$($ZipPrefix)$($Date.ToString('yyyyMMdd')).zip"
+    $ZipFile = Join-Path $ZipPath $ZipName
+
+    if(Test-Path -Path $ZipFile){
+        throw "The file '$ZipFile' already exists"
+    }
+
+    $ZipFile
+}
+
+Function Remove-ArchivedFiles {
+    [CmdletBinding()]
+    [OutputType()]
+    param(
+    [Parameter(Mandatory = $true)]
+    [string]$ZipFile,
+
+    [Parameter(Mandatory = $true)]
+    [object]$FilesToDelete,
+
+    [Parameter(Mandatory = $false)]
+    [switch]$WhatIf = $false
+    )
+
+    $AssemblyName = 'System.IO.Compression.FileSystem'
+    Add-Type -AssemblyName $AssemblyName | Out-Null
+
+    $OpenZip = [System.IO.Compression.ZipFile]::OpenRead($ZipFile)
+    $ZipFileEntries = $OpenZip.Entries
+
+    foreach($file in $FilesToDelete){
+        $check = $ZipFileEntries | Where-Object{ $_.Name -eq $file.Name -and
+            $_.Length -eq $file.Length }
+        if($null -ne $check){
+            $file | Remove-Item -Force -WhatIf:$WhatIf
+        }
+        else {
+            Write-Error "'$($file.Name)' was not find in '$($ZipFile)'"
+        }
+    }
+}
+
+# Set the date filter based on the number of days in the past
+$Date = (Get-Date).AddDays(-$NumberOfDays)
+# Get the files to archive based on the date filter
+$files = Get-ChildItem -Path $LogPath -File |
+    Where-Object{ $_.LastWriteTime -lt $Date}
+
+$ZipParameters = @{
+    ZipPath = $ZipPath
+    ZipPrefix = $ZipPrefix
+    Date = $Date
+}
+# Get the archive file path
+$ZipFile = Set-ArchiveFilePath @ZipParameters
+
+# Add the files to the archive file
+$files | Compress-Archive -DestinationPath $ZipFile
+
+$RemoveFiles = @{
+    ZipFile = $ZipFile
+    FilesToDelete = $files
+}
+# confirm files are in the archive and delete
+Remove-ArchivedFiles @RemoveFiles
+```
+
