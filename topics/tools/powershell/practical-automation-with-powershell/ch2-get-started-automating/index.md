@@ -5,10 +5,8 @@ Goal of this chapter is to take a simple script and turn it into a reusable buil
 ## 2.1 - Cleaning Up Old Files
 Requirements for the script are to remove old log files to keep the drive from filling up. Logs must be retained for at least seven years but can go into cold storage after 30 days.
 
-### 2.1.1 - Your First Function
-As a good practice, always include `[CmdletBinding()]` and `[OutputType()]` in your functions. 
-
-Here's a look at the first function. This function creates the name of a zip file based on a supplied date and prefix. 
+### 2.1.1 - Function: Set-ArchiveFilePath)
+This function creates the name of a zip file based on a supplied date and prefix. 
 ```powershell
 # Listing 1 - Set-ArchiveFilePath Function
 # Declare the function and set required parameters
@@ -52,10 +50,7 @@ Function Set-ArchiveFilePath{
 }
 ```
 
-### 2.1.2 - Returning Data from Functions
-Best practice is to use a single line when returning data to the output stream.  You can either use `return`, which exits the function, or `Write-Output`, which may be used multiple times in a function. `Write-Output` can have performance impacts and has been known to cause issues with different data types.  
-
-### 2.1.3 - Testing Your Functions
+### 2.1.2 - Script to Generate Random Log files
 The author provides the following script that generates a set of log files with random size. Note the use of the `[DateTime]` parameter:  PowerShell is smart enough to parse a string and convert it into a DateTime object for you. Use `(Get-Date).GetDateTimeFormats()` to determine the string types that PowerShell accepts.
 
 ```powershell
@@ -101,4 +96,45 @@ for($i = 0; $i -lt $days; $i++) {
     }
 }
 ```
-### 2.1.4 - Problems to Avoid...
+
+### 2.1.3 - Function: Remove-ArchivedFiles
+
+
+```powershell
+# Listing 2 - Deleting Archived Files
+Function Remove-ArchivedFiles {
+    [CmdletBinding()]
+    [OutputType()]
+    param(
+    [Parameter(Mandatory = $true)]
+    [string]$ZipFile,
+
+    [Parameter(Mandatory = $true)]
+    [object]$FilesToDelete,
+
+    [Parameter(Mandatory = $false)]
+    [switch]$WhatIf = $false
+    )
+    # Load the System.IO.Compression.FileSystem assembly so you can use dot sourcing later
+    $AssemblyName = 'System.IO.Compression.FileSystem'
+    Add-Type -AssemblyName $AssemblyName | Out-Null
+
+    $OpenZip = [System.IO.Compression.ZipFile]::OpenRead($ZipFile)
+    # Get the information on the files inside the zip
+    $ZipFileEntries = $OpenZip.Entries
+
+    # Confirm each file to delete has a match in the zip file
+    foreach($file in $FilesToDelete){
+        $check = $ZipFileEntries | Where-Object{ $_.Name -eq $file.Name -and
+            $_.Length -eq $file.Length }
+        # If $check does not equal null, then you know the file was found and can be deleted
+        if($null -ne $check){
+            # Add WhatIf to allow for testing without actually deleting the files
+            $file | Remove-Item -Force -WhatIf:$WhatIf
+        }
+        else {
+            Write-Error "'$($file.Name)' was not find in '$($ZipFile)'"
+        }
+    }
+}
+```
