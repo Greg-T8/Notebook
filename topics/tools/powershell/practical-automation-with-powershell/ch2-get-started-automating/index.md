@@ -1,9 +1,13 @@
 # Chapter 2 - Get Started Automating
+
 - [2.1 - Cleaning Up Old Files](#21---cleaning-up-old-files)
   - [2.1.1 - Function: Set-ArchiveFilePath](#211---function-set-archivefilepath)
   - [2.1.2 - Script to Generate Random Log files](#212---script-to-generate-random-log-files)
   - [2.1.3 - Function: Remove-ArchivedFiles](#213---function-remove-archivedfiles)
-  - [2.1.4 - Combining Functions](#214---combining-functions)
+  - [2.1.4 - Combining Functions: Set-ArchiveFilePath and Remove-ArchivedFiles](#214---combining-functions-set-archivefilepath-and-remove-archivedfiles)
+- [2.2 - The Anatomy of a PowerShell Function](#22---the-anatomy-of-a-powershell-function)
+  - [2.2.1 - Function: Get-TopProcess](#221---function-get-topprocess)
+  - [2.2.2 - Function: New-ModuleTemplate](#222---function-new-moduletemplate)
 
 Goal of this chapter is to take a simple script and turn it into a reusable building block.  The script cleans up old log files.  
 
@@ -146,7 +150,7 @@ Function Remove-ArchivedFiles {
     }
 }
 ```
-### 2.1.4 - Combining Functions
+### 2.1.4 - Combining Functions: Set-ArchiveFilePath and Remove-ArchivedFiles
 The following script combines the functions `Set-ArchiveFilePath` and `Remove-ArchivedFiles` into one script. The end result is a script that archives files that haven't been modified beyond a certain date.  The script places the files in a zip file and then deletes the original files from local disk.
 
 ```powershell
@@ -254,3 +258,132 @@ $RemoveFiles = @{
 Remove-ArchivedFiles @RemoveFiles
 ```
 
+## 2.2 - The Anatomy of a PowerShell Function
+The author provides the following diagram for using PowerShell scripts with your own script modules:
+
+![](img/2022-09-16-04-06-51.png)  
+
+### 2.2.1 - Function: Get-TopProcess
+This function demonstrates reusable code by returning the top processes by CPU utilization.
+
+Things to note:
+- The use of a PowerShell calculated property with `Select-Object`
+
+```powershell
+# Listing 4 - Get Top N Processes
+# Declare your function
+Function Get-TopProcess{
+    # Define the parameters
+    param(
+        [Parameter(Mandatory = $true)]
+        [int]$TopN
+    )
+    # Run the command
+    Get-Process | Sort-Object CPU -Descending |
+        Select-Object -First $TopN -Property ID,
+        ProcessName, @{l='CPU';e={'{0:N}' -f $_.CPU}}
+}
+```
+
+### 2.2.2 - Function: New-ModuleTemplate
+The following function creates a blank module scaffold.  Modify the parameters at the bottom of the script.
+
+```powershell
+# Listing 5 - New-ModuleTemplate
+Function New-ModuleTemplate {
+    [CmdletBinding()]
+    [OutputType()]
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$ModuleName,
+        [Parameter(Mandatory = $true)]
+        [string]$ModuleVersion,
+        [Parameter(Mandatory = $true)]
+        [string]$Author,
+        [Parameter(Mandatory = $true)]
+        [string]$PSVersion,
+        [Parameter(Mandatory = $false)]
+        [string[]]$Functions
+    )
+    $ModulePath = Join-Path .\ "$($ModuleName)\$($ModuleVersion)"
+    # Creates a folder with the same name as the module
+    New-Item -Path $ModulePath -ItemType Directory
+    Set-Location $ModulePath
+    # Creates the public folder to store your ps1 scripts
+    New-Item -Path .\Public -ItemType Directory
+
+    $ManifestParameters = @{
+        ModuleVersion     = $ModuleVersion
+        Author            = $Author
+        # Sets the path to the psd1 file
+        Path              = ".\$($ModuleName).psd1"
+        # Sets the path to the psm1 file
+        RootModule        = ".\$($ModuleName).psm1"
+        PowerShellVersion = $PSVersion
+    }
+    # Creates the module manifest psd1 file with the settings supplied in the parameters
+    New-ModuleManifest @ManifestParameters
+
+    # Creates a blank psm1 file
+    $File = @{
+        FilePath     = ".\$($ModuleName).psm1"
+        Encoding = 'utf8'
+    }
+    Out-File @File
+
+    # Create a blank ps1 for each function
+    $Functions | ForEach-Object {
+        Out-File -FilePath ".\Public\$($_).ps1" -Encoding utf8
+    }
+}
+
+# Set the parameters to pass to the function
+$module = @{
+    # The name of your module
+    ModuleName    = 'FileCleanupTools'
+    # The version of your module
+    ModuleVersion = "1.0.0.0"
+    # Your name
+    Author        = "YourNameHere"
+    # The minimum PowerShell version this module supports
+    PSVersion     = '7.0'
+    # The functions to create blank files for in the Public folder
+    Functions     =  'Remove-ArchivedFiles',
+                     'Set-ArchiveFilePath'
+}
+# Execute the function to create the new module
+New-ModuleTemplate @module
+```
+
+Here's the end result:  
+
+![](img/2022-09-16-04-20-11.png)
+
+The script files in the `Public` folder will not load, i.e. dot source, by default. Place the following code in the .psm1 file to have the module load scripts in the Public folder.
+
+```powershell
+# Listing 7 - Load Module Functions
+$Path = Join-Path $PSScriptRoot 'Public'
+# Get all the ps1 files in the Public folder
+$Functions = Get-ChildItem -Path $Path -Filter '*.ps1'
+
+# Loop through each ps1 file
+Foreach ($import in $Functions) {
+    Try {
+        Write-Verbose "dot-sourcing file '$($import.fullname)'"
+        # Execute each ps1 file to load the function into memory
+        . $import.fullname
+    }
+    Catch {
+        Write-Error -Message "Failed to import function $($import.name)"
+    }
+}
+```
+
+If you add a folder for private functions, the code would be
+
+```powershell
+$Public = Join-Path $PSScriptRoot 'Public'
+$Private = Join-Path $PSScriptRoot 'Private'
+$Functions = Get-ChildItem -Path $Public,$Private -Filter '*.ps1'
+```
