@@ -28,4 +28,33 @@ When creating an Action, set the program to the path of the PowerShell executabl
 
 ![](img/2022-09-17-04-28-24.png)
 
+For PowerShell 5.1, include the `-WindowStyle` argument and have it set to Hidden so that your script will run silently. See [about_PowerShell_exe](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_powershell_exe?view=powershell-5.1) for command options.
 
+### 3.1.2 - Create Scheduled Task with PowerShell
+Creating a scheduled task is done in three steps:
+1. Define a trigger using `New-ScheduledTaskTrigger`
+2. Define the action using `New-ScheduledTaskAction`
+3. Create scheduled task using `Register-ScheduledTask`
+
+Here's an example script that creates a scheduled task.  Things to note:
+
+```powershell
+$Trigger = New-ScheduledTaskTrigger -Daily -At 8am
+$Execute = "C:\Program Files\PowerShell\7\pwsh.exe"
+$Argument = '-File ' +
+    '"C:\Scripts\Invoke-LogFileCleanup.ps1"' +
+    ' -LogPath "L:\Logs\" -ZipPath "L:\Archives\"' +
+    ' -ZipPrefix "LogArchive-" -NumberOfDays 30'
+$ScheduledTaskAction = @{
+    Execute = $Execute
+    Argument = $Argument
+}
+$Action = New-ScheduledTaskAction @ScheduledTaskAction
+$ScheduledTask = @{
+    TaskName = "PoSHAutomation\LogFileCleanup"
+    Trigger  = $Trigger
+    Action   = $Action
+    User     = 'NT AUTHORITY\SYSTEM'
+}
+Register-ScheduledTask @ScheduledTask
+```
