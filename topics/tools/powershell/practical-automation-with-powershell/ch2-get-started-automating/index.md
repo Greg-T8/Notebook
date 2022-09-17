@@ -434,3 +434,24 @@ Remove-ArchivedFiles -ZipFile $ZipFile -FilesToDelete $files
 ```
 
 ### 2.2.3 - Module creation tips
+Use the following code to perform friendly checking for module prerequisites.
+
+```powershell
+[System.Collections.Generic.List[PSObject]]$RequiredModules = @()
+$RequiredModules.Add([pscustomobject]@{
+    Name = 'Pester'
+    Version = '4.1.2'
+})
+foreach($module in $RequiredModules){
+    $Check = Get-Module $module.Name -ListAvailable
+    if(-not $check){
+        throw "Module $($module.Name) not found"
+    }
+    $VersionCheck = $Check |
+        Where-Object{ $_.Version -ge $module.Version }
+    if(-not $VersionCheck){
+        Write-Error "Module $($module.Name) running older version"
+    }
+    Import-Module -Name $module.Name
+}
+```
