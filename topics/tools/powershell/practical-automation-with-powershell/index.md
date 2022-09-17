@@ -6,7 +6,7 @@ The book "Practical Automation with PowerShell", written by [Matthew Dowst](http
 ## Table of Contents
 
 - [ ] Chapter 1 - PowerShell Automation
-- [ ] [Chapter 2 - Get Started Automating](ch2-get-started-automating/index.md)
+- [x] [Chapter 2 - Get Started Automating](ch2-get-started-automating/index.md)
 - [ ] Chapter 3 - Scheduling Automation Scripts
 - [ ] Chapter 4 - Handling Sensitive Data
 - [ ] Chapter 5 - PowerShell Remote Execution
