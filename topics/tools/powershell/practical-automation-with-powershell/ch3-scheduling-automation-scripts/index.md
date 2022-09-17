@@ -1,5 +1,13 @@
 # Chapter 3 - Scheduling Automation Scripts
 
+- [3.1 Scheduled Scripts](#31-scheduled-scripts)
+  - [3.1.1 - Using Windows Task Scheduler](#311---using-windows-task-scheduler)
+    - [Security Options](#security-options)
+  - [3.1.2 - Create Scheduled Task with PowerShell](#312---create-scheduled-task-with-powershell)
+  - [3.1.3 - Exporting and Importing Scheduled Tasks](#313---exporting-and-importing-scheduled-tasks)
+- [3.2 - Watcher Scripts](#32---watcher-scripts)
+  - [3.2.1 - Designing Watcher Scripts](#321---designing-watcher-scripts)
+
 There are two different types of scripts you run on a scheduled basis:
 1. Scheduled Script - runs regularly
 2. Watcher Script - runs continuously
@@ -94,3 +102,23 @@ foreach($task in $TaskFiles){
     Register-ScheduledTask -Xml $xml -TaskName $TaskName
 }
 ```
+
+## 3.2 - Watcher Scripts
+A watcher script is a scheduled script that runs continuously or at least every few minutes. Any script that needs to run every 15 minutes or less should be considered a watcher. Examples include
+- File watcher that monitors a folder for updated files
+- Monitor for a SharePoint list
+- Checking a shared mailbox for new emails
+- Alerting on stopped services or an unresponsive web app
+
+With watcher scripts the most important thing to be aware of is execution time. You don't want a script that executes once a minute and takes 2 minutes to complete.
+
+Use action scripts to reduce a watcher script's runtime. A watcher script monitors for a specific condition. Once that condition is met, the watcher script invokes the action script. You can also invoke multiple action scripts in parallel from a single watcher.
+
+### 3.2.1 - Designing Watcher Scripts
+The author demonstrates with the following scenario: You need to monitor a folder for new files. Once a file is added, it needs to be moved to another folder. The monitor should be as real-time as possible, i.e. once a minute. The goal is to have the watch script run as efficiently as possible and have the ability to pick up from where the last watcher left off. 
+
+Here's an illustration of the process. Things to note:
+- Watcher script invokes action script
+- Action script moves files to another folder
+
+![](img/2022-09-17-05-05-24.png)
