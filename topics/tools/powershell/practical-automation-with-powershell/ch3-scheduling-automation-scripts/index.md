@@ -37,6 +37,9 @@ Creating a scheduled task is done in three steps:
 3. Create scheduled task using `Register-ScheduledTask`
 
 Here's an example script that creates a scheduled task.  Things to note:
+- The `$Argument` variable uses a string that begins with single quotes to preserve the usage of double quotes for the command argument
+- The scheduled task creates a folder structure instead of placing the task at the root
+- When using a service account you must also specify the `-Password` argument
 
 ```powershell
 $Trigger = New-ScheduledTaskTrigger -Daily -At 8am
@@ -57,4 +60,37 @@ $ScheduledTask = @{
     User     = 'NT AUTHORITY\SYSTEM'
 }
 Register-ScheduledTask @ScheduledTask
+```
+
+### 3.1.3 - Exporting and Importing Scheduled Tasks
+Use `Export-ScheduledTask` to export any task to XML. Then use `Register-ScheduledTask` to recreate the task from the XML file.
+
+```powershell
+PS P:\> $ScheduledTask = @{
+     >>    TaskName = "LogFileCleanup"
+     >>    TaskPath = "\PoSHAutomation\"
+     >>}
+PS P:\> $export = Export-ScheduledTask @ScheduledTask
+PS P:\> $export | Out-File "\\srv01\PoSHAutomation\LogFileCleanup.xml"
+```
+
+Here's how to import:  
+```powershell
+$FilePath = ".\CH03\Monitor\Export\LogFileCleanup.xml"
+$xml = Get-Content $FilePath -Raw
+[xml]$xmlObject = $xml
+$TaskName = $xmlObject.Task.RegistrationInfo.URI
+Register-ScheduledTask -Xml $xml -TaskName $TaskName
+```
+
+Here's an example for importing from multiple files:  
+```powershell
+$Share = "\\srv01\PoSHAutomation\"
+$TaskFiles = Get-ChildItem -Path $Share -Filter "*.xml"
+foreach($task in $TaskFiles){
+    $xml = Get-Content $FilePath -Raw
+    [xml]$xmlObject = $xml
+    $TaskName = $xmlObject.Task.RegistrationInfo.URI
+    Register-ScheduledTask -Xml $xml -TaskName $TaskName
+}
 ```
