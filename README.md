@@ -1,20 +1,14 @@
 # Welcome
-This is my personal notebook. I intend to use this notebook to capture my learnings and knowledge of technical items in systems administration, web development, information security, and programming.  
+This is my personal notebook. In the spirit of public learning, I use this notebook document my journey through technical certifications and systems administration.
 
-I just started this notebook, so there's not much content here yet. I will be building out this notebook in the spirit of <strong>Public Learning</strong>.
+I work for a Microsoft consulting company. Most of my learning caters to progressing my skills in Microsoft technologies, including Azure, Microsoft 365, and PowerShell.  
 
 # Table of Contents
 
 ## Tools
 - [PowerShell](/topics/tools/powershell/index.md)
   - [Practical Automation with PowerShell](topics/tools/powershell/practical-automation-with-powershell/index.md)
-- [Git](/topics/tools/git/index.md)
-- [Wireshark](/topics/tools/wireshark/index.md)
-- [OpenVPN](/topics/tools/openvpn/index.md)
-## Services
-- [Azure Automation](/topics/services/azure_automation/index.md)
-## Concepts
-- [HTML](/topics/concepts/html-css/index.md)
-- [HTTP](/topics/concepts/http/http-basics/index.md)
+## Technologies
+- [Azure Automation](/topics/technologies/azure_automation/index.md)
 ## Certifications
-- [MS-500: Microsoft Security Administration](topics/certifications/ms-500.md)
+- [Main Certification Page](/topics/certifications/certifications.md)
