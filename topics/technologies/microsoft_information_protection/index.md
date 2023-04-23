@@ -37,3 +37,4 @@ Learn More
 - [Retention Policies and Retention Labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/retention?azure-portal=true&view=o365-worldwide)
 - [Trainable Classifiers](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-get-started-with?azure-portal=true&view=o365-worldwide)
 - [Using Sensitivity Labels in Office Apps](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-office-apps?azure-portal=true&view=o365-worldwide)
+- [Data Loss Prevention](https://learn.microsoft.com/en-us/microsoft-365/compliance/dlp-learn-about-dlp?azure-portal=true&view=o365-worldwide)
