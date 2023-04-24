@@ -6,6 +6,13 @@
   - [Confidence Levels](#confidence-levels)
   - [Providing Accuracy Feedback](#providing-accuracy-feedback)
   - [Creating Custom Sensitive Information Types](#creating-custom-sensitive-information-types)
+- [Exact Data Match (EDM) Sensitive Information Types](#exact-data-match-edm-sensitive-information-types)
+- [Concepts Specific to EDMs](#concepts-specific-to-edms)
+  - [Schema](#schema)
+  - [Sensitive Information Source Table](#sensitive-information-source-table)
+  - [Rule Package](#rule-package)
+  - [You Supply Your Own Schema and Data](#you-supply-your-own-schema-and-data)
+  - [Primary and Secondary Support Elements](#primary-and-secondary-support-elements)
 
 
 ## Exam Goals
@@ -53,12 +60,14 @@ Use high confidence levels patterns with low counts, say 5-10, and low confidenc
 
 ![](img/2023-04-24-03-21-57.png)
 
+See [US Social Security Number (SSN)](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-defn-us-social-security-number?view=o365-worldwide) as an example definition of an SIT.
+
 ### Providing Accuracy Feedback
 You can view number of SIT matches in the Content Explorer.
 
 ![](img/2023-04-23-06-23-42.png)
 
-You can also provide feedback on trainer classifier accuracy. See [Increase trainer accuracy](https://learn.microsoft.com/en-us/microsoft-365/compliance/data-classification-increase-accuracy?view=o365-worldwide)
+You can also provide feedback on trainer classifier accuracy by using the **Match, Not a Match** mechanism. See [Increase trainer accuracy](https://learn.microsoft.com/en-us/microsoft-365/compliance/data-classification-increase-accuracy?view=o365-worldwide)
 
 ### Creating Custom Sensitive Information Types
 Three methods for creating custom sensitive information types:
@@ -68,3 +77,53 @@ Three methods for creating custom sensitive information types:
   - EDM-based classification enables you to create a dynamic sensitive information type using a secure database that you can refresh periodically
 - Use PowerShell
   - Has more configuration options than the UI
+
+
+## Exact Data Match (EDM) Sensitive Information Types
+[Documentation](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-learn-about-exact-data-match-based-sits?view=o365-worldwide)
+
+Exact Data Match enables you to define custom sensitive information types based on values in a database rather than using matches found on generic patterns.
+
+EDM SITs are designed to
+- be dynamic and easily refreshed
+- result in fewer false-positives
+- work with structured sensitive data
+- handle sensitive information more securely, not sharing it with anyone, including Microsoft
+- be used with several Microsoft cloud services
+
+The database values can be refreshed daily and can contain up to 100 million rows of data
+
+## Concepts Specific to EDMs
+
+### Schema
+The schema is an XML file that defines
+- the name of the schema, referred to as the **DataStore**
+- the field names that your sensitive information source table contains, e.g. First Name, Last Name, Date of Birth
+- Which fields are searchable
+- A *configurable match* is one with parameters that modify a search, such as ignoring delimiters and case in searched values
+
+### Sensitive Information Source Table
+Contains values that the EDM SIT will look for.  Contains columns and rows.
+
+![](img/2023-04-24-04-05-07.png)
+
+### Rule Package
+Every SIT has a rule package. You use a rule package in an EDM SIT to define
+- Matches
+  - The primary element to be used in the exact lookup
+  - Can be a regular expression, a keyword list, a keyword dictionary or a function
+- Classification
+  - Specifies the SIT type match that triggers an EDM lookup
+- Supporting Elements
+- Confidence Levels
+- Proximity
+
+### You Supply Your Own Schema and Data
+With EDM SITs you are responsible for defining the schema as well as primary and secondary fields that identify sensitive items.
+
+The primary and secondary fields are considered highly sensitive items, so you'll be encrypting them via a hash function. Only the hashed values are uploaded to the service. So your sensitive data is never in the open.
+
+### Primary and Secondary Support Elements
+When you create an EDM SIT you define a *primary field* in the rule package. All content will be searched for the primary element.
+
+EDM requires that the primary element be discoverable through an existing SIT. See [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitive-information-type-entity-definitions?view=o365-worldwide) for a list of existing SITs.
