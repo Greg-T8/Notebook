@@ -7,12 +7,14 @@
   - [Providing Accuracy Feedback](#providing-accuracy-feedback)
   - [Creating Custom Sensitive Information Types](#creating-custom-sensitive-information-types)
 - [Exact Data Match (EDM) Sensitive Information Types](#exact-data-match-edm-sensitive-information-types)
-- [Concepts Specific to EDMs](#concepts-specific-to-edms)
-  - [Schema](#schema)
-  - [Sensitive Information Source Table](#sensitive-information-source-table)
-  - [Rule Package](#rule-package)
-  - [You Supply Your Own Schema and Data](#you-supply-your-own-schema-and-data)
-  - [Primary and Secondary Support Elements](#primary-and-secondary-support-elements)
+  - [Concepts Specific to EDMs](#concepts-specific-to-edms)
+    - [Schema](#schema)
+    - [Sensitive Information Source Table](#sensitive-information-source-table)
+    - [Rule Package](#rule-package)
+    - [You Supply Your Own Schema and Data](#you-supply-your-own-schema-and-data)
+    - [Primary and Secondary Support Elements](#primary-and-secondary-support-elements)
+    - [How Matching Works](#how-matching-works)
+    - [Services Supported by EDM](#services-supported-by-edm)
 
 
 ## Exam Goals
@@ -93,21 +95,21 @@ EDM SITs are designed to
 
 The database values can be refreshed daily and can contain up to 100 million rows of data
 
-## Concepts Specific to EDMs
+### Concepts Specific to EDMs
 
-### Schema
+#### Schema
 The schema is an XML file that defines
 - the name of the schema, referred to as the **DataStore**
 - the field names that your sensitive information source table contains, e.g. First Name, Last Name, Date of Birth
 - Which fields are searchable
 - A *configurable match* is one with parameters that modify a search, such as ignoring delimiters and case in searched values
 
-### Sensitive Information Source Table
+#### Sensitive Information Source Table
 Contains values that the EDM SIT will look for.  Contains columns and rows.
 
 ![](img/2023-04-24-04-05-07.png)
 
-### Rule Package
+#### Rule Package
 Every SIT has a rule package. You use a rule package in an EDM SIT to define
 - Matches
   - The primary element to be used in the exact lookup
@@ -118,12 +120,35 @@ Every SIT has a rule package. You use a rule package in an EDM SIT to define
 - Confidence Levels
 - Proximity
 
-### You Supply Your Own Schema and Data
+#### You Supply Your Own Schema and Data
 With EDM SITs you are responsible for defining the schema as well as primary and secondary fields that identify sensitive items.
 
 The primary and secondary fields are considered highly sensitive items, so you'll be encrypting them via a hash function. Only the hashed values are uploaded to the service. So your sensitive data is never in the open.
 
-### Primary and Secondary Support Elements
+#### Primary and Secondary Support Elements
 When you create an EDM SIT you define a *primary field* in the rule package. All content will be searched for the primary element.
 
 EDM requires that the primary element be discoverable through an existing SIT. See [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitive-information-type-entity-definitions?view=o365-worldwide) for a list of existing SITs.
+
+EDM does not require that secondary elements to be based on an existing SIT unless they contain multiple tokens. However, secondary elements do need to be within a certain proximity to the primary element.
+
+#### How Matching Works
+EDM works by comparing strings in your documents and emails against values in the sensitive information source table to see if the values int eh scanned content are present in the table. The comparison is done by using one-way hashes.
+
+Tip: Use EDM SITs and predefined SITs together in DLP rules for better detection. Use the EDM SIT with higher confidence levels and the predefined SIT with lower confidence levels.
+
+#### Services Supported by EDM
+![](img/2023-04-24-04-24-28.png)
+
+##Document Fingerprinting
+[Documentation](https://learn.microsoft.com/en-us/microsoft-365/compliance/document-fingerprinting?view=o365-worldwide)
+
+Document fingerprinting allows you to detect standard forms that are used throughout your organization, making eit easier to protect information.
+
+Document fingerprinting includes the following features:
+- DLP can use as a detection method in Exchange, SharePoint, OneDrive, Teams, and Devices
+- Can be managed through the Microsoft Purview compliance portal
+- Partial matching is supported
+- Exact matching is supported
+- Improved accuracy detection
+- Support for detection in multiple languages
