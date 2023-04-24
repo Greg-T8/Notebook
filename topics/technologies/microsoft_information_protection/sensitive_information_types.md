@@ -15,6 +15,7 @@
     - [Primary and Secondary Support Elements](#primary-and-secondary-support-elements)
     - [How Matching Works](#how-matching-works)
     - [Services Supported by EDM](#services-supported-by-edm)
+- [Document Fingerprinting](#document-fingerprinting)
 
 
 ## Exam Goals
@@ -140,7 +141,7 @@ Tip: Use EDM SITs and predefined SITs together in DLP rules for better detection
 #### Services Supported by EDM
 ![](img/2023-04-24-04-24-28.png)
 
-##Document Fingerprinting
+## Document Fingerprinting
 [Documentation](https://learn.microsoft.com/en-us/microsoft-365/compliance/document-fingerprinting?view=o365-worldwide)
 
 Document fingerprinting allows you to detect standard forms that are used throughout your organization, making eit easier to protect information.

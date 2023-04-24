@@ -1,6 +1,17 @@
 # Microsoft Security Engineer Role Certifications
 As of April 2023, here are the current certifications for the **Security Engineer** role.
 
+My goal is to achieve each of these certifications in this order:
+- Microsoft Certified: Information Protection Administrator Associate by 8/31/23
+- Microsoft Certified: Security Operations Analyst Associate by 12/31/23
+- Microsoft Certified: Azure Security Engineer Associate by 4/28/24
+- Microsoft Certified: Identity and Access Administrator Associate by 8/31/24
+- Microsoft Certified: Cybersecurity Architect Expert by 12/31/24
+
+I am currently studying for the Microsoft Certified: Information Protection Administrator Associate.
+
+
+
 | Certification | Exam |
 | - | - |
 | Microsoft Certified: Security Operations Analyst Associate | SC-200
