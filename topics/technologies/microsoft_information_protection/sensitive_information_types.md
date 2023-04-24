@@ -1,6 +1,13 @@
 # Sensitive Information Types
 [Microsoft Docs: Sensitive Information Types](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitive-information-type-learn-about?view=o365-worldwide)
 
+- [Exam Goals](#exam-goals)
+- [Overview](#overview)
+  - [Confidence Levels](#confidence-levels)
+  - [Providing Accuracy Feedback](#providing-accuracy-feedback)
+  - [Creating Custom Sensitive Information Types](#creating-custom-sensitive-information-types)
+
+
 ## Exam Goals
 - Identify sensitive information requirements for an organization's data
 - Translate sensitive information requirements into built-in or custom sensitive info types
@@ -23,7 +30,7 @@ Sensitive Information Types (SIT) are pattern-based classifiers and are used in
 - Auto-labeling policies
 - Microsoft Priva
 
-Fundamental parts of an SIT
+Fundamental parts of a Sensitive Information Type
 - Name
 - Description
 - Pattern
