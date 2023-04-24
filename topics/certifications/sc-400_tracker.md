@@ -1,7 +1,7 @@
 The following information is taken from the SC-400 study guide: https://learn.microsoft.com/en-us/certifications/resources/study-guides/sc-400
 
 # Implement information protection (25–30%)
-## Create and manage sensitive info types
+## [Create and manage sensitive info types](/topics/technologies/microsoft_information_protection/sensitive_information_types.md)
 - Identify sensitive information requirements for an organization's data
 - Translate sensitive information requirements into built-in or custom sensitive info types
 - Create and manage custom sensitive info types
