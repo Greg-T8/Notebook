@@ -46,11 +46,14 @@ Use high confidence levels patterns with low counts, say 5-10, and low confidenc
 
 ![](img/2023-04-24-03-21-57.png)
 
+### Providing Accuracy Feedback
 You can view number of SIT matches in the Content Explorer.
 
 ![](img/2023-04-23-06-23-42.png)
 
-## Creating Custom Sensitive Information Types
+You can also provide feedback on trainer classifier accuracy. See [Increase trainer accuracy](https://learn.microsoft.com/en-us/microsoft-365/compliance/data-classification-increase-accuracy?view=o365-worldwide)
+
+### Creating Custom Sensitive Information Types
 Three methods for creating custom sensitive information types:
 - Use the Compliance Center UI
   - Allows for regular expressions, keywords, and keyword dictionaries
