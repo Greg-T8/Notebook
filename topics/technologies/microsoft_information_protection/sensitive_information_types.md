@@ -20,6 +20,7 @@
   - [Supported file types](#supported-file-types)
   - [Limitations](#limitations)
   - [Create Fingerprint in Compliance Portal](#create-fingerprint-in-compliance-portal)
+  - [Troubleshooting](#troubleshooting)
 
 
 ## Exam Goals
@@ -194,9 +195,26 @@ In the Microsoft Purview compliance portal, select **Data Classification > Class
 
 ![](img/2023-04-26-03-27-14.png)
 
-![](img/2023-04-26-03-32-43.png)
+![](img/2023-04-26-03-44-04.png)
 
-![](img/2023-04-26-03-34-03.png)
+![](img/2023-04-26-03-44-24.png)
 
-![](img/2023-04-26-03-34-33.png)
+![](img/2023-04-26-03-44-39.png)
 
+![](img/2023-04-26-03-48-29.png)
+
+You can test the fingerprint SIT after creation.
+
+![](img/2023-04-26-03-48-53.png)
+
+However, testing results aren't very useful.
+
+![](img/2023-04-26-03-51-32.png)
+
+
+### Troubleshooting
+You receive **Client Error** message when creating a new fingerprint-based SIT. 
+
+![](img/2023-04-26-03-45-46.png)
+
+Solution: Wait a minute and then click **Next**.
