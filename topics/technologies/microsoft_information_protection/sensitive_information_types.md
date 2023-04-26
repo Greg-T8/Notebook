@@ -16,6 +16,8 @@
     - [How Matching Works](#how-matching-works)
     - [Services Supported by EDM](#services-supported-by-edm)
 - [Document Fingerprinting](#document-fingerprinting)
+  - [How document fingerprinting works](#how-document-fingerprinting-works)
+  - [Supported file types](#supported-file-types)
 
 
 ## Exam Goals
@@ -144,7 +146,7 @@ Tip: Use EDM SITs and predefined SITs together in DLP rules for better detection
 ## Document Fingerprinting
 [Documentation](https://learn.microsoft.com/en-us/microsoft-365/compliance/document-fingerprinting?view=o365-worldwide)
 
-Document fingerprinting allows you to detect standard forms that are used throughout your organization, making eit easier to protect information.
+Document fingerprinting is a Data Loss Protection (DLP) feature that allows you to detect standard forms that are used throughout your organization, making eit easier to protect information.
 
 Document fingerprinting includes the following features:
 - DLP can use as a detection method in Exchange, SharePoint, OneDrive, Teams, and Devices
@@ -154,4 +156,22 @@ Document fingerprinting includes the following features:
 - Improved accuracy detection
 - Support for detection in multiple languages
 
-Document fingerprinting is a Microsoft Purview Data Loss Protection (DLP) features. 
+Scenarios
+- Government forms
+- HIPAA compliance forms
+- Employee information forms for HR departments
+- Custom forms created specifically for your organization
+
+Ideally, organizations already have an established business practice of using certain forms to transmit sensitive information. To enable detection, upload an empty form to be converted to a document fingerprint. Then set up a corresponding policy. From there, DLP detects documents in outbound mail that match that fingerprint.
+
+### How document fingerprinting works
+In the same way that a person's fingerprints have unique patterns, documents have unique word patterns. When you upload a file, DLP identifies the unique word pattern in the document, creates a document fingerprint based on that pattern, and uses that document fingerprint to detect outbound documents containing the same pattern.
+
+![](img/2023-04-26-03-07-42.png)
+
+In the example above, the patent template contains blank fields "Patent Title", "Inventors", and "Description", along with descriptions for each field&mdash;that's the word pattern. When you upload the template, DLP converts the word pattern into a document fingerprint, which is a small Unicode XML file containing a unique hash value that represents the original text. The fingerprint is saved as a data classification in Active Directory. The original document isn't itself stored; only the hash value is stored. The patent fingerprint then becomes a Sensitive Information Type (SIT) that you can associate with a DLP policy. 
+
+### Supported file types
+Document fingerprinting supports the same type of files that are supported by mail transport rules. Neither mail flow rules nor document fingerprinting supports the **.dotx** file type. See [here](https://learn.microsoft.com/en-us/exchange/security-and-compliance/mail-flow-rules/inspect-message-attachments#supported-file-types-for-mail-flow-rule-content-inspection) for supported file types.
+
+![](img/2023-04-26-03-16-20.png)
