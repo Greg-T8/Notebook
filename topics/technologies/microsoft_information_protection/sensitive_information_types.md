@@ -153,3 +153,5 @@ Document fingerprinting includes the following features:
 - Exact matching is supported
 - Improved accuracy detection
 - Support for detection in multiple languages
+
+Document fingerprinting is a Microsoft Purview Data Loss Protection (DLP) features. 
