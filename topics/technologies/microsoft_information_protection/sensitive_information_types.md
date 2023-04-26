@@ -19,8 +19,11 @@
   - [How document fingerprinting works](#how-document-fingerprinting-works)
   - [Supported file types](#supported-file-types)
   - [Limitations](#limitations)
-  - [Create Fingerprint in Compliance Portal](#create-fingerprint-in-compliance-portal)
-  - [Troubleshooting](#troubleshooting)
+  - [Create Fingerprint SIT in Compliance Portal](#create-fingerprint-sit-in-compliance-portal)
+    - [Troubleshooting](#troubleshooting)
+  - [Create Fingerprint SIT using PowerShell](#create-fingerprint-sit-using-powershell)
+    - [Troubleshooting](#troubleshooting-1)
+  - [Matching](#matching)
 
 
 ## Exam Goals
@@ -190,7 +193,7 @@ To use document fingerprinting with devices, **Advanced fingerprinting** must be
 
 Fingerprints are stored in a separate rule pack, which has a maximum size limit of 150KB. Given this limit, you can create approximately 50 fingerprints per tenant.
 
-### Create Fingerprint in Compliance Portal
+### Create Fingerprint SIT in Compliance Portal
 In the Microsoft Purview compliance portal, select **Data Classification > Classifiers**.  Then choose **Sensitive info types > Create Fingerprint based SIT**.
 
 ![](img/2023-04-26-03-27-14.png)
@@ -207,14 +210,41 @@ You can test the fingerprint SIT after creation.
 
 ![](img/2023-04-26-03-48-53.png)
 
-However, testing results aren't very useful.
+However, initial testing results aren't very useful.
 
 ![](img/2023-04-26-03-51-32.png)
 
 
-### Troubleshooting
+#### Troubleshooting
 You receive **Client Error** message when creating a new fingerprint-based SIT. 
 
 ![](img/2023-04-26-03-45-46.png)
 
 Solution: Wait a minute and then click **Next**.
+
+### Create Fingerprint SIT using PowerShell
+Use [New-DlpSensitiveInformationType](https://learn.microsoft.com/en-us/powershell/module/exchange/new-dlpsensitiveinformationtype?view=exchange-ps) to create the fingerprint SIT. The documentation doesn't mention the `FileData` parameter, but it's there.
+
+![](img/2023-04-26-04-14-00.png)
+
+Refer to [New-DlpFingerprint](https://learn.microsoft.com/en-us/powershell/module/exchange/new-dlpfingerprint?view=exchange-ps) for requirements in using the `FileData` parameter.  
+
+![](img/2023-04-26-04-17-16.png)
+
+#### Troubleshooting
+You receive the **Fingerprint Rule Package found in EXO but not EOP** message.  
+
+![](img/2023-04-26-04-08-44.png)
+
+Solution: wait a few minutes and try again
+
+### Matching
+For partial matching specify percentage values for low, medium, and high. You can do this in the portal or using the `ThresholdConfig` parameter in PowerShell.
+
+Exact matching can only be configured through PowerShell using the `IsExact` parameter. This parameter is available through `Set-DlpSensitiveInformationType` but is undocumented. I ran into issues with it:
+
+![](img/2023-04-26-04-26-04.png)
+
+However, I was able to use the `Exact` parameter when creating the fingerprint SIT:
+
+![](img/2023-04-26-04-36-59.png)
