@@ -18,6 +18,7 @@
 - [Document Fingerprinting](#document-fingerprinting)
   - [How document fingerprinting works](#how-document-fingerprinting-works)
   - [Supported file types](#supported-file-types)
+  - [Limitations](#limitations)
 
 
 ## Exam Goals
@@ -175,3 +176,13 @@ In the example above, the patent template contains blank fields "Patent Title", 
 Document fingerprinting supports the same type of files that are supported by mail transport rules. Neither mail flow rules nor document fingerprinting supports the **.dotx** file type. See [here](https://learn.microsoft.com/en-us/exchange/security-and-compliance/mail-flow-rules/inspect-message-attachments#supported-file-types-for-mail-flow-rule-content-inspection) for supported file types.
 
 ![](img/2023-04-26-03-16-20.png)
+
+### Limitations
+Document fingerprinting doesn't work for
+* Password protected files
+* Files that contain images only
+* Documents that don't contain all the text from the original form used to create the fingerprint
+* Files larger than 4MB
+
+**Note**  
+this is a note
