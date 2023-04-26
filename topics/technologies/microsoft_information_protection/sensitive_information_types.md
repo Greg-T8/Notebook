@@ -19,6 +19,7 @@
   - [How document fingerprinting works](#how-document-fingerprinting-works)
   - [Supported file types](#supported-file-types)
   - [Limitations](#limitations)
+  - [Create Fingerprint in Compliance Portal](#create-fingerprint-in-compliance-portal)
 
 
 ## Exam Goals
@@ -184,5 +185,18 @@ Document fingerprinting doesn't work for
 * Documents that don't contain all the text from the original form used to create the fingerprint
 * Files larger than 4MB
 
-**Note**  
-this is a note
+To use document fingerprinting with devices, **Advanced fingerprinting** must be turned on.
+
+Fingerprints are stored in a separate rule pack, which has a maximum size limit of 150KB. Given this limit, you can create approximately 50 fingerprints per tenant.
+
+### Create Fingerprint in Compliance Portal
+In the Microsoft Purview compliance portal, select **Data Classification > Classifiers**.  Then choose **Sensitive info types > Create Fingerprint based SIT**.
+
+![](img/2023-04-26-03-27-14.png)
+
+![](img/2023-04-26-03-32-43.png)
+
+![](img/2023-04-26-03-34-03.png)
+
+![](img/2023-04-26-03-34-33.png)
+
