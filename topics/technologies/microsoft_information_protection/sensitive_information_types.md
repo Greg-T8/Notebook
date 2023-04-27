@@ -93,7 +93,8 @@ Three methods for creating custom sensitive information types:
 
 
 ## Exact Data Match (EDM) Sensitive Information Types
-[Documentation](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-learn-about-exact-data-match-based-sits?view=o365-worldwide)
+- [Documentation](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-learn-about-exact-data-match-based-sits?view=o365-worldwide)  
+- [Accurate data classification using Exact Data Matching](https://microsoft.github.io/ComplianceCxE/resources/files/Configuring%20EDM%20for%20accurate%20classification.pdf)
 
 Exact Data Match enables you to define custom sensitive information types based on values in a database rather than using matches found on generic patterns.
 
@@ -152,7 +153,7 @@ Tip: Use EDM SITs and predefined SITs together in DLP rules for better detection
 ![](img/2023-04-24-04-24-28.png)
 
 ## Document Fingerprinting
-[Documentation](https://learn.microsoft.com/en-us/microsoft-365/compliance/document-fingerprinting?view=o365-worldwide)
+[Microsoft Docs: Document Fingerprinting](https://learn.microsoft.com/en-us/microsoft-365/compliance/document-fingerprinting?view=o365-worldwide)
 
 Document fingerprinting is a Data Loss Protection (DLP) feature that allows you to detect standard forms that are used throughout your organization, making eit easier to protect information.
 
@@ -253,6 +254,8 @@ Solution: wait a few minutes and try again
 ### Matching
 For partial matching specify percentage values for low, medium, and high. You can do this in the portal or using the `ThresholdConfig` parameter in PowerShell.
 
+Exact matching of a document fingerprint matches only files that have exactly the same text as the fingerprint.  If the file has even a small deviation from the fingerprint, it will not be detected.
+
 Exact matching can only be configured through PowerShell using the `IsExact` parameter. This parameter is available through `Set-DlpSensitiveInformationType` but is undocumented. I ran into issues with it:
 
 ![](img/2023-04-26-04-26-04.png)
@@ -290,3 +293,5 @@ The user will receive an NDR when attempting to share the file over email:
 The message trace indicates the email was blocked due to the **Patent Sharing Restriction** DLP rule:
 
 ![](img/2023-04-27-04-14-59.png)
+
+Alternatively, you can use a mail flow rule in Exchange to block the fingerprint SIT.
