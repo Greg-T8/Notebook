@@ -25,6 +25,7 @@
     - [Troubleshooting](#troubleshooting-1)
   - [Matching](#matching)
   - [Test a Fingerprint SIT](#test-a-fingerprint-sit)
+  - [Validate DLP Fingerprint Functionality](#validate-dlp-fingerprint-functionality)
 
 
 ## Exam Goals
@@ -194,6 +195,25 @@ To use document fingerprinting with devices, **Advanced fingerprinting** must be
 
 Fingerprints are stored in a separate rule pack, which has a maximum size limit of 150KB. Given this limit, you can create approximately 50 fingerprints per tenant.
 
+Fingerprint SITs are only supported for the following DLP locations:
+- Exchange
+- SharePoint sites
+- OneDrive accounts
+- Teams chat and channel messages
+- Devices
+
+Fingerprint SITs do not work for the other DLP locations, including
+- Microsoft Defender for Cloud Apps
+- On-premises repositories
+- Power BI
+
+You will get an error message if you select unsupported locations:
+![](img/2023-04-27-03-50-22.png)
+
+Here are the supported locations:
+
+![](img/2023-04-27-04-02-05.png)
+
 ### Create Fingerprint SIT in Compliance Portal
 In the Microsoft Purview compliance portal, select **Data Classification > Classifiers**.  Then choose **Sensitive info types > Create Fingerprint based SIT**.
 
@@ -206,9 +226,6 @@ In the Microsoft Purview compliance portal, select **Data Classification > Class
 ![](img/2023-04-26-03-44-39.png)
 
 ![](img/2023-04-26-03-48-29.png)
-
-
-
 
 #### Troubleshooting
 You receive **Client Error** message when creating a new fingerprint-based SIT. 
@@ -260,3 +277,16 @@ You can also test in PowerShell using [`Test-DataClassification`](https://learn.
 Similar unuseful match results for PowerShell.  Again, could be due to fingerprint SIT vs regular SIT.
 
 ![](img/2023-04-27-03-32-17.png)
+
+### Validate DLP Fingerprint Functionality
+From an existing DLP policy use `New-DlpComplianceRule` to add a rule that blocks the fingerprint SIT.
+
+![](img/2023-04-27-04-12-11.png)
+
+The user will receive an NDR when attempting to share the file over email:
+
+![](img/2023-04-27-04-12-54.png)
+
+The message trace indicates the email was blocked due to the **Patent Sharing Restriction** DLP rule:
+
+![](img/2023-04-27-04-14-59.png)
