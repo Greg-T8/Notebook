@@ -24,6 +24,7 @@
   - [Create Fingerprint SIT using PowerShell](#create-fingerprint-sit-using-powershell)
     - [Troubleshooting](#troubleshooting-1)
   - [Matching](#matching)
+  - [Test a Fingerprint SIT](#test-a-fingerprint-sit)
 
 
 ## Exam Goals
@@ -206,13 +207,7 @@ In the Microsoft Purview compliance portal, select **Data Classification > Class
 
 ![](img/2023-04-26-03-48-29.png)
 
-You can test the fingerprint SIT after creation.
 
-![](img/2023-04-26-03-48-53.png)
-
-However, initial testing results aren't very useful.
-
-![](img/2023-04-26-03-51-32.png)
 
 
 #### Troubleshooting
@@ -248,3 +243,20 @@ Exact matching can only be configured through PowerShell using the `IsExact` par
 However, I was able to use the `Exact` parameter when creating the fingerprint SIT:
 
 ![](img/2023-04-26-04-36-59.png)
+
+### Test a Fingerprint SIT
+You can test the fingerprint SIT after creation.
+
+![](img/2023-04-26-03-48-53.png)
+
+However, initial testing results don't provide useful match information. This could be specific to fingerprint SITs.
+
+![](img/2023-04-26-03-51-32.png)
+
+You can also test in PowerShell using [`Test-DataClassification`](https://learn.microsoft.com/en-us/powershell/module/exchange/test-dataclassification?view=exchange-ps):
+
+![](img/2023-04-27-03-30-14.png)
+
+Similar unuseful match results for PowerShell.  Again, could be due to fingerprint SIT vs regular SIT.
+
+![](img/2023-04-27-03-32-17.png)
