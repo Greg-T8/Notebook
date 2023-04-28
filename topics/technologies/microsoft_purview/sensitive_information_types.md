@@ -16,6 +16,7 @@
   - [Providing Accuracy Feedback](#providing-accuracy-feedback)
   - [Creating Custom Sensitive Information Types](#creating-custom-sensitive-information-types)
 - [Named Entity Sensitive Information Types](#named-entity-sensitive-information-types)
+- [Custom Sensitive Information Types](#custom-sensitive-information-types)
 - [Exact Data Match (EDM) Sensitive Information Types](#exact-data-match-edm-sensitive-information-types)
   - [Concepts Specific to EDMs](#concepts-specific-to-edms)
     - [Schema](#schema)
@@ -126,6 +127,10 @@ To use bundled SITs, you must activate relevant DLP settings in [Advanced classi
 Microsoft also provides examples of DLP policies that use named entity SITs. The Enhanced versions can be used in DLP and auto-labeling.
 
 ![](img/2023-04-28-04-21-05.png)
+
+## Custom Sensitive Information Types
+[Microsoft Docs: Create custom sensitive information types](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-a-custom-sensitive-information-type?view=o365-worldwide)
+
 
 
 ## Exact Data Match (EDM) Sensitive Information Types
