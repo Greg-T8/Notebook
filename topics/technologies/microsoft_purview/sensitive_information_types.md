@@ -1,5 +1,5 @@
 # Sensitive Information Types
-[Microsoft Docs: Sensitive Information Types](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitive-information-type-learn-about?view=o365-worldwide)
+
 
 - [Exam Goals](#exam-goals)
 - [Overview](#overview)
@@ -20,9 +20,7 @@
   - [Supported file types](#supported-file-types)
   - [Limitations](#limitations)
   - [Create Fingerprint SIT in Compliance Portal](#create-fingerprint-sit-in-compliance-portal)
-    - [Troubleshooting](#troubleshooting)
   - [Create Fingerprint SIT using PowerShell](#create-fingerprint-sit-using-powershell)
-    - [Troubleshooting](#troubleshooting-1)
   - [Matching](#matching)
   - [Test a Fingerprint SIT](#test-a-fingerprint-sit)
   - [Validate DLP Fingerprint Functionality](#validate-dlp-fingerprint-functionality)
@@ -36,6 +34,8 @@
 - Implement document fingerprinting
 
 ## Overview
+[Microsoft Docs: Sensitive Information Types](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitive-information-type-learn-about?view=o365-worldwide)
+
 Identifying and classifying sensitive items is the first step in the Information Protection discipline. Microsoft Purview provides three ways of identifying items:
 - Manually by users
 - Automated pattern recognition by Sensitive Information Types
@@ -93,8 +93,8 @@ Three methods for creating custom sensitive information types:
 
 
 ## Exact Data Match (EDM) Sensitive Information Types
-- [Documentation](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-learn-about-exact-data-match-based-sits?view=o365-worldwide)  
-- [Accurate data classification using Exact Data Matching](https://microsoft.github.io/ComplianceCxE/resources/files/Configuring%20EDM%20for%20accurate%20classification.pdf)
+- [Microsoft Docs: EDM-based SITs](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-learn-about-exact-data-match-based-sits?view=o365-worldwide)  
+- [ComplianceCxE: Accurate data classification using Exact Data Matching](https://microsoft.github.io/ComplianceCxE/resources/files/Configuring%20EDM%20for%20accurate%20classification.pdf)
 
 Exact Data Match enables you to define custom sensitive information types based on values in a database rather than using matches found on generic patterns.
 
@@ -228,12 +228,9 @@ In the Microsoft Purview compliance portal, select **Data Classification > Class
 
 ![](img/2023-04-26-03-48-29.png)
 
-#### Troubleshooting
-You receive **Client Error** message when creating a new fingerprint-based SIT. 
+If you receive **Client Error** message when creating a new fingerprint-based SIT, wait a few minutes and try again.
 
 ![](img/2023-04-26-03-45-46.png)
-
-Solution: Wait a minute and then click **Next**.
 
 ### Create Fingerprint SIT using PowerShell
 Use [New-DlpSensitiveInformationType](https://learn.microsoft.com/en-us/powershell/module/exchange/new-dlpsensitiveinformationtype?view=exchange-ps) to create the fingerprint SIT. The documentation doesn't mention the `FileData` parameter, but it's there.
@@ -244,12 +241,9 @@ Refer to [New-DlpFingerprint](https://learn.microsoft.com/en-us/powershell/modul
 
 ![](img/2023-04-26-04-17-16.png)
 
-#### Troubleshooting
-You receive the **Fingerprint Rule Package found in EXO but not EOP** message.  
+If you receive the **Fingerprint Rule Package found in EXO but not EOP** message, wait a few minutes and try again.
 
 ![](img/2023-04-26-04-08-44.png)
-
-Solution: wait a few minutes and try again
 
 ### Matching
 For partial matching specify percentage values for low, medium, and high. You can do this in the portal or using the `ThresholdConfig` parameter in PowerShell.
