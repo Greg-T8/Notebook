@@ -1,11 +1,21 @@
 # Sensitive Information Types
 
+## Exam Goals
+- Identify sensitive information requirements for an organization's data
+- Translate sensitive information requirements into built-in or custom sensitive info types
+- Create and manage custom sensitive info types
+- Create and manage exact data match (EDM) classifiers
+- Implement document fingerprinting
+
+## Contents
 
 - [Exam Goals](#exam-goals)
+- [Contents](#contents)
 - [Overview](#overview)
   - [Confidence Levels](#confidence-levels)
   - [Providing Accuracy Feedback](#providing-accuracy-feedback)
   - [Creating Custom Sensitive Information Types](#creating-custom-sensitive-information-types)
+- [Named Entity Sensitive Information Types](#named-entity-sensitive-information-types)
 - [Exact Data Match (EDM) Sensitive Information Types](#exact-data-match-edm-sensitive-information-types)
   - [Concepts Specific to EDMs](#concepts-specific-to-edms)
     - [Schema](#schema)
@@ -24,14 +34,6 @@
   - [Matching](#matching)
   - [Test a Fingerprint SIT](#test-a-fingerprint-sit)
   - [Validate DLP Fingerprint Functionality](#validate-dlp-fingerprint-functionality)
-
-
-## Exam Goals
-- Identify sensitive information requirements for an organization's data
-- Translate sensitive information requirements into built-in or custom sensitive info types
-- Create and manage custom sensitive info types
-- Create and manage exact data match (EDM) classifiers
-- Implement document fingerprinting
 
 ## Overview
 [Microsoft Docs: Sensitive Information Types](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitive-information-type-learn-about?view=o365-worldwide)
@@ -90,6 +92,40 @@ Three methods for creating custom sensitive information types:
   - EDM-based classification enables you to create a dynamic sensitive information type using a secure database that you can refresh periodically
 - Use PowerShell
   - Has more configuration options than the UI
+
+## Named Entity Sensitive Information Types
+[Microsoft Docs: Learn about named entities](https://learn.microsoft.com/en-us/microsoft-365/compliance/named-entities-learn?view=o365-worldwide)  
+[Microsoft Docs: Sensitive Information Type Entity Definitions](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitive-information-type-entity-definitions?view=o365-worldwide)
+
+*Named entities* are complex dictionary and pattern-based classifiers you can use to detect person names, physical addresses, and medical terms and conditions. Named entities are SITs used in many places:
+- Microsoft Purview DLP policies
+- Sensitivity labels
+- Insider risk management
+- Microsoft Defender for Cloud Apps
+- Microsoft Purview Information Protection
+- Data Lifecycle Management
+- Records management
+- Microsoft Purview eDiscovery
+- Microsoft Priva
+- Exact data match sensitive information types
+
+![](img/2023-04-28-04-04-19.png)
+
+Named entity SITs come in two flavors: *bundled* and *unbundled*.  
+
+Bundled named entity SITs detect all possible matches. Use them as broad criteria in your DLP policies for detecting sensitive items. These SITs typically begin w/ the word *All*.
+
+Unbundled named entity SITs have narrower focus, like a single country.  Use them when you need a DLP policy with a narrower scope.
+
+![](img/2023-04-28-04-09-51.png)
+
+To use bundled SITs, you must activate relevant DLP settings in [Advanced classification scanning and protection](https://learn.microsoft.com/en-us/microsoft-365/compliance/dlp-configure-endpoint-settings?view=o365-worldwide#advanced-classification-scanning-and-protection). By default, this feature is turned off.
+
+![](img/2023-04-28-04-17-34.png)
+
+Microsoft also provides examples of DLP policies that use named entity SITs. The Enhanced versions can be used in DLP and auto-labeling.
+
+![](img/2023-04-28-04-21-05.png)
 
 
 ## Exact Data Match (EDM) Sensitive Information Types
@@ -214,6 +250,14 @@ You will get an error message if you select unsupported locations:
 Here are the supported locations:
 
 ![](img/2023-04-27-04-02-05.png)
+
+Note the Devices option is not available yet but is expected to be available in June.
+
+![](img/2023-04-28-03-42-52.png)
+
+There should be an option called **Advanced Fingerprinting** to enable document fingerprinting on devices.
+
+![](img/2023-04-28-03-44-05.png)
 
 ### Create Fingerprint SIT in Compliance Portal
 In the Microsoft Purview compliance portal, select **Data Classification > Classifiers**.  Then choose **Sensitive info types > Create Fingerprint based SIT**.
