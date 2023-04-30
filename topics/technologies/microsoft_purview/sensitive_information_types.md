@@ -22,8 +22,10 @@
   - [Providing Accuracy Feedback](#providing-accuracy-feedback)
   - [Creating Custom Sensitive Information Types](#creating-custom-sensitive-information-types)
   - [Sensitive Information Type Limits](#sensitive-information-type-limits)
+    - [Instance Count Supported Values for SIT](#instance-count-supported-values-for-sit)
 - [Named Entity Sensitive Information Types](#named-entity-sensitive-information-types)
 - [Custom Sensitive Information Types](#custom-sensitive-information-types)
+  - [Create a SIT from Scratch](#create-a-sit-from-scratch)
 - [Exact Data Match (EDM) Sensitive Information Types](#exact-data-match-edm-sensitive-information-types)
   - [Concepts Specific to EDMs](#concepts-specific-to-edms)
     - [Schema](#schema)
@@ -109,6 +111,15 @@ Three methods for creating custom sensitive information types:
 
 ### [Sensitive Information Type Limits](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-limits?view=o365-worldwide)
 
+![](img/2023-04-30-06-19-47.png)
+
+#### Instance Count Supported Values for SIT
+For a scanned item to satisfy the rule criteria, the number of unique instances of a SIT in any single item must fall between the min and max values. This is called the **Instance count**.
+
+- **Min** field: The lower limit (minimum number) of unique instances of a SIT that must be found to trigger a match.  Supported values are 1 to 500.
+- **Max** field: The upper limit for triggering a match.  
+    - 1 to 500: Use this value when you want to specify an upper limit
+    - Any - use `Any` when you want to ensure that the unique instance count is satisfied when an undefined number of unique instances are found and that the number of instances meets or exceeds the minimum number of unique instances value
 
 ## Named Entity Sensitive Information Types
 [Microsoft Docs: Learn about named entities](https://learn.microsoft.com/en-us/microsoft-365/compliance/named-entities-learn?view=o365-worldwide)  
@@ -150,6 +161,29 @@ Microsoft also provides examples of DLP policies that use named entity SITs. The
 There are two ways to create a custom Sensitive Information Type
 1. From scratch
 2. Copy and modifying an existing sensitive information type
+
+### Create a SIT from Scratch
+![](img/2023-04-30-06-29-53.png)
+
+![](img/2023-04-30-06-38-35.png)
+
+The following regular expression matches a string that starts with 4 digits for the year, followed by 2 digits for the month (01-12), followed by 2 digits for the day (01-31), and ends with 3 digits. For example, it will match the string “20230430001”.  The **Word match** option indicates the match must exist on its own.  The **String match** option means the match can be included within text.
+
+![](img/2023-04-30-06-50-17.png)
+
+![](img/2023-04-30-06-53-22.png)
+
+![](img/2023-04-30-06-42-12.png)
+
+![](img/2023-04-30-06-42-31.png)
+
+![](img/2023-04-30-06-42-48.png)
+
+![](img/2023-04-30-06-43-31.png)
+
+![](img/2023-04-30-06-43-56.png)
+
+You can validate the SIT by using 
 
 
 
