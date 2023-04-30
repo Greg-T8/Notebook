@@ -1,5 +1,9 @@
 # Sensitive Information Types
 
+## Links
+- [Microsoft Docs: Sensitive Information Types](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitive-information-type-learn-about?view=o365-worldwide)
+- [Microsoft Purview Customer Experience Engineering (CxE)](https://microsoft.github.io/ComplianceCxE/)
+
 ## Exam Goals
 - Identify sensitive information requirements for an organization's data
 - Translate sensitive information requirements into built-in or custom sensitive info types
@@ -9,12 +13,15 @@
 
 ## Contents
 
+- [Links](#links)
 - [Exam Goals](#exam-goals)
 - [Contents](#contents)
-- [Overview](#overview)
+- [Sensitivity Information Types Overview](#sensitivity-information-types-overview)
+  - [Sensitive Information Type Patterns](#sensitive-information-type-patterns)
   - [Confidence Levels](#confidence-levels)
   - [Providing Accuracy Feedback](#providing-accuracy-feedback)
   - [Creating Custom Sensitive Information Types](#creating-custom-sensitive-information-types)
+  - [Sensitive Information Type Limits](#sensitive-information-type-limits)
 - [Named Entity Sensitive Information Types](#named-entity-sensitive-information-types)
 - [Custom Sensitive Information Types](#custom-sensitive-information-types)
 - [Exact Data Match (EDM) Sensitive Information Types](#exact-data-match-edm-sensitive-information-types)
@@ -36,8 +43,7 @@
   - [Test a Fingerprint SIT](#test-a-fingerprint-sit)
   - [Validate DLP Fingerprint Functionality](#validate-dlp-fingerprint-functionality)
 
-## Overview
-[Microsoft Docs: Sensitive Information Types](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitive-information-type-learn-about?view=o365-worldwide)
+## Sensitivity Information Types Overview
 
 Identifying and classifying sensitive items is the first step in the Information Protection discipline. Microsoft Purview provides three ways of identifying items:
 - Manually by users
@@ -61,6 +67,13 @@ Fundamental parts of a Sensitive Information Type
   - Supporting element - helps to increase confidence in a match
   - Confidence level - high, medium, or low.  The more supporting evidence the higher the confidence match
   - Proximity - number of characters between primary and supporting element
+
+### Sensitive Information Type Patterns
+Primary elements can use the following patterns:
+- Regular expression - M365 SITs use the [Boost.RegEx 5.1.3](https://www.boost.org/doc/libs/1_68_0/libs/regex/doc/html/) engine.
+- Keyword list - you create your own list or choose from existing lists
+- [Keyword dictionary](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-a-keyword-dictionary?view=o365-worldwide) - provide simple management of keywords at a larger scale than keyword lists
+- [SIT function](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-functions?view=o365-worldwide) - predefined routine--you cannot create your own function. 
 
 ### Confidence Levels
 Matches with a higher confidence level will contain more supporting evidence in close proximity to the primary element. Matches with a lower confidence level contain little or no supporting evidence in close proximity.
@@ -93,6 +106,9 @@ Three methods for creating custom sensitive information types:
   - EDM-based classification enables you to create a dynamic sensitive information type using a secure database that you can refresh periodically
 - Use PowerShell
   - Has more configuration options than the UI
+
+### [Sensitive Information Type Limits](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-limits?view=o365-worldwide)
+
 
 ## Named Entity Sensitive Information Types
 [Microsoft Docs: Learn about named entities](https://learn.microsoft.com/en-us/microsoft-365/compliance/named-entities-learn?view=o365-worldwide)  
@@ -130,6 +146,11 @@ Microsoft also provides examples of DLP policies that use named entity SITs. The
 
 ## Custom Sensitive Information Types
 [Microsoft Docs: Create custom sensitive information types](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-a-custom-sensitive-information-type?view=o365-worldwide)
+
+There are two ways to create a custom Sensitive Information Type
+1. From scratch
+2. Copy and modifying an existing sensitive information type
+
 
 
 
