@@ -27,6 +27,8 @@
 - [Named Entity Sensitive Information Types](#named-entity-sensitive-information-types)
 - [Custom Sensitive Information Types](#custom-sensitive-information-types)
   - [Create a SIT from Scratch](#create-a-sit-from-scratch)
+  - [Test an SIT using PowerShell](#test-an-sit-using-powershell)
+  - [Modifying an SIT using PowerShell](#modifying-an-sit-using-powershell)
 - [Exact Data Match (EDM) Sensitive Information Types](#exact-data-match-edm-sensitive-information-types)
   - [Concepts Specific to EDMs](#concepts-specific-to-edms)
     - [Schema](#schema)
@@ -47,6 +49,8 @@
   - [Validate DLP Fingerprint Functionality](#validate-dlp-fingerprint-functionality)
 
 ## PowerShell commands for Sensitive Information Types
+Note: Use the portal when modifying custom sensitive information types as PowerShell offers limited functionality for making changes to custom SITs.  
+
 - [Get-DlpEdmSchema](https://learn.microsoft.com/en-us/powershell/module/exchange/get-dlpedmschema?view=exchange-ps)
 - [Get-DlpKeywordDictionary](https://learn.microsoft.com/en-us/powershell/module/exchange/get-dlpkeyworddictionary?view=exchange-ps)
 - [Get-DlpSensitiveInformationType](https://learn.microsoft.com/en-us/powershell/module/exchange/get-dlpsensitiveinformationtype?view=exchange-ps)
@@ -65,13 +69,16 @@
 - [Remove-DlpSensitiveInformationType](https://learn.microsoft.com/en-us/powershell/module/exchange/remove-dlpsensitiveinformationtype?view=exchange-ps)
 - [Remove-DlpSensitiveInformationTypeRulePackage](https://learn.microsoft.com/en-us/powershell/module/exchange/remove-dlpsensitiveinformationtyperulepackage?view=exchange-ps)
 - [Set-DlpSensitiveInformationType](https://learn.microsoft.com/en-us/powershell/module/exchange/set-dlpsensitiveinformationtype?view=exchange-ps)
+  - Only used to manage document fingerprints; cannot use to manage custom SITs
 - [Set-DlpSensitiveInformationTypeConfig]()
   - Documentation not available
 - [Set-DlpSensitiveInformationTypeRulePackage](https://learn.microsoft.com/en-us/powershell/module/exchange/set-dlpsensitiveinformationtyperulepackage?view=exchange-ps) 
+  - Update rule package by providing an XML file
 - [Test-DataClassification](https://learn.microsoft.com/en-us/powershell/module/exchange/test-dataclassification?view=exchange-ps)
   - Provide file or text to determine SIT matches
 - [Test-TextExtraction](https://learn.microsoft.com/en-us/powershell/module/exchange/test-textextraction?view=exchange-ps)
-  - Returns text from SIT matches for a file
+  - Returns text from a specified email message in Exchange flow
+  - Used to determine SITs found in a message
 
 
 ## Sensitivity Information Types Overview
@@ -191,6 +198,8 @@ There are two ways to create a custom Sensitive Information Type
 1. From scratch
 2. Copy and modifying an existing sensitive information type
 
+Custom sensitive information types are stored in the rule package named `Microsoft.SCCManaged.CustomRulePack`. Use `Get-DlpSensitiveInformationTypeRulePackage` to view the contents.  
+
 ### Create a SIT from Scratch
 ![](img/2023-04-30-06-29-53.png)
 
@@ -212,7 +221,17 @@ The following regular expression matches a string that starts with 4 digits for 
 
 ![](img/2023-04-30-06-43-56.png)
 
-You can validate the SIT by using 
+### Test an SIT using PowerShell
+You can validate the SIT by using `Test-DataClassification`:
+
+![](img/2023-05-01-03-58-21.png)
+
+
+### Modifying an SIT using PowerShell
+Use `Get-DlpSensitiveInformationType` to view the properties of a custom SIT.
+
+![](img/2023-05-01-04-11-13.png)
+
 
 
 
