@@ -16,6 +16,7 @@
 - [Links](#links)
 - [Exam Goals](#exam-goals)
 - [Contents](#contents)
+- [PowerShell commands for Sensitive Information Types](#powershell-commands-for-sensitive-information-types)
 - [Sensitivity Information Types Overview](#sensitivity-information-types-overview)
   - [Sensitive Information Type Patterns](#sensitive-information-type-patterns)
   - [Confidence Levels](#confidence-levels)
@@ -44,6 +45,34 @@
   - [Matching](#matching)
   - [Test a Fingerprint SIT](#test-a-fingerprint-sit)
   - [Validate DLP Fingerprint Functionality](#validate-dlp-fingerprint-functionality)
+
+## PowerShell commands for Sensitive Information Types
+- [Get-DlpEdmSchema](https://learn.microsoft.com/en-us/powershell/module/exchange/get-dlpedmschema?view=exchange-ps)
+- [Get-DlpKeywordDictionary](https://learn.microsoft.com/en-us/powershell/module/exchange/get-dlpkeyworddictionary?view=exchange-ps)
+- [Get-DlpSensitiveInformationType](https://learn.microsoft.com/en-us/powershell/module/exchange/get-dlpsensitiveinformationtype?view=exchange-ps)
+- [Get-DlpSensitiveInformationTypeConfig]()
+  - Documentation not available
+- [Get-DlpSensitiveInformationTypeRulePackage](https://learn.microsoft.com/en-us/powershell/module/exchange/get-dlpsensitiveinformationtyperulepackage?view=exchange-ps)
+- [Get-DlpSiDetectionsReport](https://learn.microsoft.com/en-us/powershell/module/exchange/get-dlpsidetectionsreport?view=exchange-ps)
+  - Returns DLP sensitive information type detections
+- [New-DlpEdmSchema](https://learn.microsoft.com/en-us/powershell/module/exchange/new-dlpedmschema?view=exchange-ps)
+  - Create exact data match (EDM)-based classification schema
+- [New-DlpKeywordDictionary](https://learn.microsoft.com/en-us/powershell/module/exchange/new-dlpkeyworddictionary?view=exchange-ps)
+- [New-DlpSensitiveInformationType](https://learn.microsoft.com/en-us/powershell/module/exchange/new-dlpsensitiveinformationtype?view=exchange-ps)
+- [New-DlpSensitiveInformationTypeRulePackage](https://learn.microsoft.com/en-us/powershell/module/exchange/new-dlpsensitiveinformationtyperulepackage?view=exchange-ps)
+- [Remove-DlpEdmSchema](https://learn.microsoft.com/en-us/powershell/module/exchange/remove-dlpedmschema?view=exchange-ps)
+- [Remove-DlpKeywordDictionary](https://learn.microsoft.com/en-us/powershell/module/exchange/remove-dlpkeyworddictionary?view=exchange-ps)
+- [Remove-DlpSensitiveInformationType](https://learn.microsoft.com/en-us/powershell/module/exchange/remove-dlpsensitiveinformationtype?view=exchange-ps)
+- [Remove-DlpSensitiveInformationTypeRulePackage](https://learn.microsoft.com/en-us/powershell/module/exchange/remove-dlpsensitiveinformationtyperulepackage?view=exchange-ps)
+- [Set-DlpSensitiveInformationType](https://learn.microsoft.com/en-us/powershell/module/exchange/set-dlpsensitiveinformationtype?view=exchange-ps)
+- [Set-DlpSensitiveInformationTypeConfig]()
+  - Documentation not available
+- [Set-DlpSensitiveInformationTypeRulePackage](https://learn.microsoft.com/en-us/powershell/module/exchange/set-dlpsensitiveinformationtyperulepackage?view=exchange-ps) 
+- [Test-DataClassification](https://learn.microsoft.com/en-us/powershell/module/exchange/test-dataclassification?view=exchange-ps)
+  - Provide file or text to determine SIT matches
+- [Test-TextExtraction](https://learn.microsoft.com/en-us/powershell/module/exchange/test-textextraction?view=exchange-ps)
+  - Returns text from SIT matches for a file
+
 
 ## Sensitivity Information Types Overview
 
@@ -184,7 +213,6 @@ The following regular expression matches a string that starts with 4 digits for 
 ![](img/2023-04-30-06-43-56.png)
 
 You can validate the SIT by using 
-
 
 
 
