@@ -27,7 +27,8 @@
 - [Custom Sensitive Information Types](#custom-sensitive-information-types)
   - [Create a SIT from Scratch](#create-a-sit-from-scratch)
   - [Test an SIT using PowerShell](#test-an-sit-using-powershell)
-  - [Modifying an SIT using PowerShell](#modifying-an-sit-using-powershell)
+  - [Define Confidence Level Patterns](#define-confidence-level-patterns)
+  - [Modify an SIT using PowerShell](#modify-an-sit-using-powershell)
 - [Exact Data Match (EDM) Sensitive Information Types](#exact-data-match-edm-sensitive-information-types)
   - [Concepts Specific to EDMs](#concepts-specific-to-edms)
     - [Schema](#schema)
@@ -193,8 +194,38 @@ You can validate the SIT by using `Test-DataClassification`:
 
 ![](img/2023-05-01-03-58-21.png)
 
+### Define Confidence Level Patterns
+In this example scenario we start with the SIT created from the previous section, which tracks the organization's internal purchase order (PO) number. The PO uses the format Q20230502001 and is based on the date and an index number with the prefix "Q".
 
-### Modifying an SIT using PowerShell
+There are three confidence level options with a custom SIT&mdash;low, medium, and high. 
+
+For a low confidence level we use anything that matches the regular expression.
+
+![](img/2023-05-02-03-13-14.png)
+
+For a medium confidence level we use additional checks, including the "Q" or "Q-" prefix and anything that starts with the year number "202". All additional checks must match, not just one.  
+
+![](img/2023-05-02-03-31-22.png)
+
+For a high confidence level we use a keyword list as a secondary element in addition to the regular expression and additional checks from the medium confidence level: 
+
+![](img/2023-05-02-03-18-04.png)
+
+Here's an overall look at the patterns:
+
+![](img/2023-05-02-03-19-35.png)
+
+To test, add a number of mocked PO numbers to a text file.
+
+![](img/2023-05-02-03-24-24.png)
+
+Then use the **Test** option.
+
+![](img/2023-05-02-03-24-59.png)
+
+
+
+### Modify an SIT using PowerShell
 Use `Get-DlpSensitiveInformationType` to view the properties of a custom SIT.
 
 ![](img/2023-05-01-04-11-13.png)
