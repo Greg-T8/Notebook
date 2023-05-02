@@ -203,9 +203,9 @@ For a low confidence level we use anything that matches the regular expression.
 
 ![](img/2023-05-02-03-13-14.png)
 
-For a medium confidence level we use additional checks, including the "Q" or "Q-" prefix and anything that starts with the year number "202". All additional checks must match, not just one.  
+For a medium confidence level we use additional checks, including the "Q" or "Q-" prefix and anything that starts with the years 199, 200, 201, and 202. All additional checks must match, not just one. Be sure to separate each value by a comma; do not put individual values on each line. 
 
-![](img/2023-05-02-03-31-22.png)
+![](img/2023-05-02-04-15-29.png)
 
 For a high confidence level we use a keyword list as a secondary element in addition to the regular expression and additional checks from the medium confidence level: 
 
