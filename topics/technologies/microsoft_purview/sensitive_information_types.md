@@ -28,6 +28,7 @@
   - [Create a SIT from Scratch](#create-a-sit-from-scratch)
   - [Test an SIT using PowerShell](#test-an-sit-using-powershell)
   - [Define Confidence Level Patterns](#define-confidence-level-patterns)
+    - [Considerations on Additional Checks](#considerations-on-additional-checks)
   - [Modify an SIT using PowerShell](#modify-an-sit-using-powershell)
 - [Exact Data Match (EDM) Sensitive Information Types](#exact-data-match-edm-sensitive-information-types)
   - [Concepts Specific to EDMs](#concepts-specific-to-edms)
@@ -195,6 +196,8 @@ You can validate the SIT by using `Test-DataClassification`:
 ![](img/2023-05-01-03-58-21.png)
 
 ### Define Confidence Level Patterns
+  
+  
 In this example scenario we start with the SIT created from the previous section, which tracks the organization's internal purchase order (PO) number. The PO uses the format Q20230502001 and is based on the date and an index number with the prefix "Q".
 
 There are three confidence level options with a custom SIT&mdash;low, medium, and high. 
@@ -222,6 +225,12 @@ To test, add a number of mocked PO numbers to a text file.
 Then use the **Test** option.
 
 ![](img/2023-05-02-03-24-59.png)
+
+#### Considerations on Additional Checks
+References
+- [Sensitive information type additional checks](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-regex-validators-additional-checks?view=o365-worldwide#sensitive-information-type-additional-checks)
+
+
 
 
 
