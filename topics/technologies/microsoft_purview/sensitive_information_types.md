@@ -30,6 +30,7 @@
   - [Define Confidence Level Patterns](#define-confidence-level-patterns)
     - [Considerations on Additional Checks](#considerations-on-additional-checks)
   - [Customize Sensitive Information Types using PowerShell and XML](#customize-sensitive-information-types-using-powershell-and-xml)
+    - [View SIT rules with PowerShell](#view-sit-rules-with-powershell)
 - [Exact Data Match (EDM) Sensitive Information Types](#exact-data-match-edm-sensitive-information-types)
   - [Concepts Specific to EDMs](#concepts-specific-to-edms)
     - [Schema](#schema)
@@ -230,10 +231,16 @@ Then use the **Test** option.
 References
 - [Sensitive information type additional checks](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-regex-validators-additional-checks?view=o365-worldwide#sensitive-information-type-additional-checks)
 
+A pattern
+
 
 ### Customize Sensitive Information Types using PowerShell and XML
 Reference
-- [Customize a built-in built-in Sensitive Information Type](https://learn.microsoft.com/en-us/microsoft-365/compliance/customize-a-built-in-sensitive-information-type?view=o365-worldwide)
+- [Customize a built-in built-in Sensitive Information Type](https://learn.microsoft.com/en-us/microsoft-365/compliance/customize-a-built-in-sensitive-information-type?view=o365-worldwide)  
+- [Create a custom sensitive information type - PowerShell](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-a-custom-sensitive-information-type-in-scc-powershell?view=o365-worldwide#potential-validation-issues-to-be-aware-of)
+  - Explains SIT XML structure
+
+#### View SIT rules with PowerShell
 Use `Get-DlpSensitiveInformationType` to view the properties of a custom SIT.
 
 ![](img/2023-05-01-04-11-13.png)
@@ -242,7 +249,47 @@ Unfortunately, `Set-DlpSensitiveInformationType` cannot be used for customizing 
 
 To update custom SITs outside of the portal you must use a combination of PowerShell and XMl.
 
-To start
+To start run `Get-DlpSensitiveInformationTypeRulePackage`.  Custom sensitive information type rules are stored in `Microsoft.SCCManaged.CustomRulePack`.
+![](img/2023-05-04-03-14-23.png)
+
+PowerShell does not have a built-in method for viewing friendly XML. To view XML, I place the following function in my PowerShell profile ([reference](https://devblogs.microsoft.com/powershell/format-xml/)):
+
+```PowerShell
+function Format-XML {
+    [OutputType([System.IO.StringWriter])] 
+    [CmdletBinding(PositionalBinding)]
+    param(
+        [Parameter(Mandatory, Position = 0, ValueFromPipeline)]
+        [ValidateNotNullOrEmpty()]
+        [xml]$Xml,
+
+        [ValidateRange(1, 8)]
+        [int]$indent = 2
+    )
+    $StringWriter = New-Object System.IO.StringWriter
+    $XmlWriter = New-Object System.XMl.XmlTextWriter $StringWriter
+    $xmlWriter.Formatting = 'indented'
+    $xmlWriter.Indentation = $Indent
+    $xml.WriteContentTo($XmlWriter)
+    $XmlWriter.Flush()
+    $StringWriter.Flush()
+    Write-Output $StringWriter.ToString()
+}
+```
+
+From there use the following chain of commands to view the rule package definition from the console.
+
+![](img/2023-05-04-03-44-52.png)
+
+The above command references the property `ClassificationRuleCollectionXml`. If you want to export the rule to an XML file then you must use the `SerializedClassificationRuleCollection` property:
+
+![](img/2023-05-04-03-49-22.png)
+
+Use a text editor to view the rules. In VSCode you need to install an extension that can format XML.
+
+![](img/2023-05-04-03-52-40.png)
+
+
 
 
 ## Exact Data Match (EDM) Sensitive Information Types
