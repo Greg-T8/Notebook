@@ -31,6 +31,7 @@
     - [Considerations on Additional Checks](#considerations-on-additional-checks)
   - [Customize Sensitive Information Types using PowerShell and XML](#customize-sensitive-information-types-using-powershell-and-xml)
     - [View SIT rules with PowerShell](#view-sit-rules-with-powershell)
+    - [Use PowerShell to modify a custom SIT](#use-powershell-to-modify-a-custom-sit)
 - [Exact Data Match (EDM) Sensitive Information Types](#exact-data-match-edm-sensitive-information-types)
   - [Concepts Specific to EDMs](#concepts-specific-to-edms)
     - [Schema](#schema)
@@ -207,7 +208,11 @@ For a low confidence level we use anything that matches the regular expression.
 
 ![](img/2023-05-02-03-13-14.png)
 
-For a medium confidence level we use additional checks, including the "Q" or "Q-" prefix and anything that starts with the years 199, 200, 201, and 202. All additional checks must match, not just one. Be sure to separate each value by a comma; do not put individual values on each line. 
+For a medium confidence level we use additional checks, including the "Q" or "Q-" prefix and anything that starts with the years 199, 200, 201, and 202. All additional checks must match, not just one. 
+
+IMPORTANT:
+- Do not use separate lines for each value
+- Do not separate values with a space;  all values should appear directly after the comma with no space!
 
 ![](img/2023-05-02-04-15-29.png)
 
@@ -239,6 +244,7 @@ Reference
 - [Customize a built-in built-in Sensitive Information Type](https://learn.microsoft.com/en-us/microsoft-365/compliance/customize-a-built-in-sensitive-information-type?view=o365-worldwide)  
 - [Create a custom sensitive information type - PowerShell](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-a-custom-sensitive-information-type-in-scc-powershell?view=o365-worldwide#potential-validation-issues-to-be-aware-of)
   - Explains SIT XML structure
+- [Modify a custom sensitive information type - PowerShell](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-modify-a-custom-sensitive-information-type-in-powershell?view=o365-worldwide)
 
 #### View SIT rules with PowerShell
 Use `Get-DlpSensitiveInformationType` to view the properties of a custom SIT.
@@ -288,6 +294,11 @@ The above command references the property `ClassificationRuleCollectionXml`. If 
 Use a text editor to view the rules. In VSCode you need to install an extension that can format XML.
 
 ![](img/2023-05-04-03-52-40.png)
+
+#### Use PowerShell to modify a custom SIT
+Once you have exported an XML file and made changes, use `Set-DlpSensitiveInformationTypeRulePackage` to commit the changes.
+
+![](img/2023-05-04-04-00-58.png)
 
 
 
