@@ -29,7 +29,7 @@
   - [Test an SIT using PowerShell](#test-an-sit-using-powershell)
   - [Define Confidence Level Patterns](#define-confidence-level-patterns)
     - [Considerations on Additional Checks](#considerations-on-additional-checks)
-  - [Modify an SIT using PowerShell](#modify-an-sit-using-powershell)
+  - [Customize Sensitive Information Types using PowerShell and XML](#customize-sensitive-information-types-using-powershell-and-xml)
 - [Exact Data Match (EDM) Sensitive Information Types](#exact-data-match-edm-sensitive-information-types)
   - [Concepts Specific to EDMs](#concepts-specific-to-edms)
     - [Schema](#schema)
@@ -231,17 +231,18 @@ References
 - [Sensitive information type additional checks](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-regex-validators-additional-checks?view=o365-worldwide#sensitive-information-type-additional-checks)
 
 
-
-
-
-### Modify an SIT using PowerShell
+### Customize Sensitive Information Types using PowerShell and XML
+Reference
+- [Customize a built-in built-in Sensitive Information Type](https://learn.microsoft.com/en-us/microsoft-365/compliance/customize-a-built-in-sensitive-information-type?view=o365-worldwide)
 Use `Get-DlpSensitiveInformationType` to view the properties of a custom SIT.
 
 ![](img/2023-05-01-04-11-13.png)
 
-Unfortunately, `Set-DlpSensitiveInformationType` cannot be used for custom SITs; it can only be used for the document fingerprinting scenario.
+Unfortunately, `Set-DlpSensitiveInformationType` cannot be used for customizing SITs -- it's really intended for updating document fingerprinting SITs.
 
-If you want to update an SIT in PowerShell then you must use `Set-DlpSensitiveInformationTypeRulePackage`.  This command requires importing an XML file. Therefore, it's easier to use the portal when making changes to custom SITs.
+To update custom SITs outside of the portal you must use a combination of PowerShell and XMl.
+
+To start
 
 
 ## Exact Data Match (EDM) Sensitive Information Types
