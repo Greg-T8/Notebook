@@ -236,8 +236,6 @@ Then use the **Test** option.
 References
 - [Sensitive information type additional checks](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-regex-validators-additional-checks?view=o365-worldwide#sensitive-information-type-additional-checks)
 
-A pattern
-
 
 ### Customize Sensitive Information Types using PowerShell and XML
 Reference
@@ -245,6 +243,16 @@ Reference
 - [Create a custom sensitive information type - PowerShell](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-a-custom-sensitive-information-type-in-scc-powershell?view=o365-worldwide#potential-validation-issues-to-be-aware-of)
   - Explains SIT XML structure
 - [Modify a custom sensitive information type - PowerShell](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-modify-a-custom-sensitive-information-type-in-powershell?view=o365-worldwide)
+
+PowerShell offers a lot more flexibility and ease when making changes to SITs. The process involves exporting a SIT rule to XML, making changes to the XML in a text editor, and then importing the XML into the SIT rule.
+
+When working with PowerShell and XML you get the following additional configuration options not available in the portal:
+- Ability to specify the pattern proximity (clarify)
+- Ability to change the `relaxProximity` setting from `"false"` to `"true"`
+- Ability to modify the values of each pattern confidence level
+
+Furthermore, when diagnosing problems with the SIT it is easier to identify issues in the XML.  For example, if you unintentionally placed a space in a comma-separated keyword list, it is easier to spot this mistake in XML than it is in the portal.
+
 
 #### View SIT rules with PowerShell
 Use `Get-DlpSensitiveInformationType` to view the properties of a custom SIT.
