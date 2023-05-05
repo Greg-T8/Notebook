@@ -32,7 +32,7 @@
   - [Customize Sensitive Information Types using PowerShell and XML](#customize-sensitive-information-types-using-powershell-and-xml)
     - [View SIT rules with PowerShell](#view-sit-rules-with-powershell)
     - [Export custom SIT rules to XML](#export-custom-sit-rules-to-xml)
-    - [Use PowerShell to modify a custom SIT](#use-powershell-to-modify-a-custom-sit)
+    - [Import custom SIT XML using PowerShell](#import-custom-sit-xml-using-powershell)
 - [Exact Data Match (EDM) Sensitive Information Types](#exact-data-match-edm-sensitive-information-types)
   - [Concepts Specific to EDMs](#concepts-specific-to-edms)
     - [Schema](#schema)
@@ -187,6 +187,8 @@ The following regular expression matches a string that starts with 4 digits for 
 
 ![](img/2023-04-30-06-42-31.png)
 
+The picture above asks you to select the recommended confidence level.  In addition to the confidence level for each pattern (as in the screenshot above that), the recommended confidence level is the default confidence level for the rule. When you create a rule in a policy (for example, a DLP policy), if you don't specify a confidence level for the rule to use, that rule will match based on the recommended confidence level. The recommended confidence level is a mandatory setting.
+
 ![](img/2023-04-30-06-42-48.png)
 
 ![](img/2023-04-30-06-43-31.png)
@@ -264,8 +266,10 @@ Unfortunately, `Set-DlpSensitiveInformationType` cannot be used for making chang
 
 To update custom SITs outside of the portal you must use a combination of PowerShell and XMl.
 
-First, run `Get-DlpSensitiveInformationTypeRulePackage`. Custom sensitive information type rules are stored in `Microsoft.SCCManaged.CustomRulePack`.
+First, run `Get-DlpSensitiveInformationTypeRulePackage`. Custom sensitive information type rules are stored in `Microsoft.SCCManaged.CustomRulePack`. The `Microsoft Rule Package` contains all  of the built-in sensitive information types.  The `Document Fingerprint Rule Package` contains rule packages specific to file-based, i.e. form/template, sensitive information types.
 ![](img/2023-05-04-03-14-23.png)
+
+For custom SITs, you typically work with the `Microsoft.SCCManaged.CustomRulePack`.  However, know there are options to create additional rule pack files for custom SITs.
 
 When you return all properties of the `Microsoft.SCCManaged.CustomRulePack` you'll find the rule set is displayed in unformatted XML.
 
@@ -305,18 +309,22 @@ Get-DlpSensitiveInformationTypeRulePackage | Select -Index 2 | Select -ExpandPro
 ![](img/2023-05-04-03-44-52.png)
 
 #### Export custom SIT rules to XML  
-If you want to export the rule to an XML file then you must use the `SerializedClassificationRuleCollection` property.
+If you want to export the rule to an XML file then you must use the `SerializedClassificationRuleCollection` property. The following command exports the built-in `Microsoft.SCCManaged.CustomRulePack`.
 
 ```powershell
 $rulepak = Get-DlpSensitiveInformationTypeRulePackage -Identity 'Microsoft.SCCManaged.CustomRulePack'
-[System.IO.File]::WriteAllBytes("$env:USERPROFILE\Desktop\exportedRulePck.xml", $rulepak.SerializedClassificationRuleCollection)
+[System.IO.File]::WriteAllBytes("$env:USERPROFILE\Desktop\exportedRulePack.xml", $rulepak.SerializedClassificationRuleCollection)
 ```
 
-Use a text editor to view the rules. In VSCode you need to install an extension that can format XML.
+Use a text editor to view and make changes to the rules.
 
 ![](img/2023-05-04-03-52-40.png)
 
-#### Use PowerShell to modify a custom SIT
+By default, VS Code doesn't display formatted XML. Use the **Format Document** command to format to readable XML.
+
+![](img/2023-05-05-03-32-53.png)
+
+#### Import custom SIT XML using PowerShell 
 Once you have exported an XML file and made changes, use `Set-DlpSensitiveInformationTypeRulePackage` to commit the changes.
 
 ![](img/2023-05-04-04-00-58.png)
