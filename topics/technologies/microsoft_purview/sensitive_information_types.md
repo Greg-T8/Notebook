@@ -31,6 +31,7 @@
     - [Considerations on Additional Checks](#considerations-on-additional-checks)
   - [Customize Sensitive Information Types using PowerShell and XML](#customize-sensitive-information-types-using-powershell-and-xml)
     - [View SIT rules with PowerShell](#view-sit-rules-with-powershell)
+    - [Export custom SIT rules to XML](#export-custom-sit-rules-to-xml)
     - [Use PowerShell to modify a custom SIT](#use-powershell-to-modify-a-custom-sit)
 - [Exact Data Match (EDM) Sensitive Information Types](#exact-data-match-edm-sensitive-information-types)
   - [Concepts Specific to EDMs](#concepts-specific-to-edms)
@@ -259,14 +260,18 @@ Use `Get-DlpSensitiveInformationType` to view the properties of a custom SIT.
 
 ![](img/2023-05-01-04-11-13.png)
 
-Unfortunately, `Set-DlpSensitiveInformationType` cannot be used for customizing SITs -- it's really intended for updating document fingerprinting SITs.
+Unfortunately, `Set-DlpSensitiveInformationType` cannot be used for making changes to custom SITs; this command is really intended for updating document fingerprinting SITs.
 
 To update custom SITs outside of the portal you must use a combination of PowerShell and XMl.
 
-To start run `Get-DlpSensitiveInformationTypeRulePackage`.  Custom sensitive information type rules are stored in `Microsoft.SCCManaged.CustomRulePack`.
+First, run `Get-DlpSensitiveInformationTypeRulePackage`. Custom sensitive information type rules are stored in `Microsoft.SCCManaged.CustomRulePack`.
 ![](img/2023-05-04-03-14-23.png)
 
-PowerShell does not have a built-in method for viewing friendly XML. To view XML, I place the following function in my PowerShell profile ([reference](https://devblogs.microsoft.com/powershell/format-xml/)):
+When you return all properties of the `Microsoft.SCCManaged.CustomRulePack` you'll find the rule set is displayed in unformatted XML.
+
+![](img/2023-05-05-03-10-27.png)
+
+PowerShell does not have a built-in method for formatting XML. To format XML, I use the following function, which I place in my PowerShell profile ([reference](https://devblogs.microsoft.com/powershell/format-xml/)):
 
 ```PowerShell
 function Format-XML {
@@ -291,13 +296,21 @@ function Format-XML {
 }
 ```
 
-From there use the following chain of commands to view the rule package definition from the console.
+From here, use the following chain of commands to view the rule package definition from the console:
+
+```powershell
+Get-DlpSensitiveInformationTypeRulePackage | Select -Index 2 | Select -ExpandProperty ClassificationRuleCollectionXml | Format-XML
+```
 
 ![](img/2023-05-04-03-44-52.png)
 
-The above command references the property `ClassificationRuleCollectionXml`. If you want to export the rule to an XML file then you must use the `SerializedClassificationRuleCollection` property:
+#### Export custom SIT rules to XML  
+If you want to export the rule to an XML file then you must use the `SerializedClassificationRuleCollection` property.
 
-![](img/2023-05-04-03-49-22.png)
+```powershell
+$rulepak = Get-DlpSensitiveInformationTypeRulePackage -Identity 'Microsoft.SCCManaged.CustomRulePack'
+[System.IO.File]::WriteAllBytes("$env:USERPROFILE\Desktop\exportedRulePck.xml", $rulepak.SerializedClassificationRuleCollection)
+```
 
 Use a text editor to view the rules. In VSCode you need to install an extension that can format XML.
 
