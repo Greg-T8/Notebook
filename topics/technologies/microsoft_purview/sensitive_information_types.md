@@ -341,6 +341,10 @@ Set-DlpSensitiveInformationTypeRulePackage -FileData ([System.IO.File]::ReadAllB
 #### Test custom SITs using PowerShell
 Use `Test-DataClassification` 
 
+```powershell
+$results = Test-DataClassification -TextToClassify (Get-Content $env:USERPROFILE\Desktop\test.txt) -ClassificationNames 'Purchase Order Number'
+```
+
 ## Exact Data Match (EDM) Sensitive Information Types
 - [Microsoft Docs: EDM-based SITs](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-learn-about-exact-data-match-based-sits?view=o365-worldwide)  
 - [ComplianceCxE: Accurate data classification using Exact Data Matching](https://microsoft.github.io/ComplianceCxE/resources/files/Configuring%20EDM%20for%20accurate%20classification.pdf)
