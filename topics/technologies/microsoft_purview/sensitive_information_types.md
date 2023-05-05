@@ -33,6 +33,7 @@
     - [View SIT rules with PowerShell](#view-sit-rules-with-powershell)
     - [Export custom SIT rules to XML](#export-custom-sit-rules-to-xml)
     - [Import custom SIT XML using PowerShell](#import-custom-sit-xml-using-powershell)
+    - [Test custom SITs using PowerShell](#test-custom-sits-using-powershell)
 - [Exact Data Match (EDM) Sensitive Information Types](#exact-data-match-edm-sensitive-information-types)
   - [Concepts Specific to EDMs](#concepts-specific-to-edms)
     - [Schema](#schema)
@@ -89,10 +90,10 @@ Primary elements can use the following patterns:
 Matches with a higher confidence level will contain more supporting evidence in close proximity to the primary element. Matches with a lower confidence level contain little or no supporting evidence in close proximity.
 
 Confidence Level Values
-- Low: 65
+- Low: <= 65
   - Matched items contain the fewest false negatives but the most false positives
-- Medium: 75
-- High: 85
+- Medium: 65 < x <= 75
+- High: x > 75 
   - Matched items contain the fewest false positives but the most false negatives
 
 Use high confidence levels patterns with low counts, say 5-10, and low confidence with high confidence matches, say 20 or more.
@@ -130,8 +131,9 @@ For a scanned item to satisfy the rule criteria, the number of unique instances 
     - Any - use `Any` when you want to ensure that the unique instance count is satisfied when an undefined number of unique instances are found and that the number of instances meets or exceeds the minimum number of unique instances value
 
 ## Named Entity Sensitive Information Types
-[Microsoft Docs: Learn about named entities](https://learn.microsoft.com/en-us/microsoft-365/compliance/named-entities-learn?view=o365-worldwide)  
-[Microsoft Docs: Sensitive Information Type Entity Definitions](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitive-information-type-entity-definitions?view=o365-worldwide)
+References
+- [Microsoft Docs: Learn about named entities](https://learn.microsoft.com/en-us/microsoft-365/compliance/named-entities-learn?view=o365-worldwide)  
+- [Microsoft Docs: Sensitive Information Type Entity Definitions](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitive-information-type-entity-definitions?view=o365-worldwide)
 
 *Named entities* are complex dictionary and pattern-based classifiers you can use to detect person names, physical addresses, and medical terms and conditions. Named entities are SITs used in many places:
 - Microsoft Purview DLP policies
@@ -164,7 +166,8 @@ Microsoft also provides examples of DLP policies that use named entity SITs. The
 ![](img/2023-04-28-04-21-05.png)
 
 ## Custom Sensitive Information Types
-[Microsoft Docs: Create custom sensitive information types](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-a-custom-sensitive-information-type?view=o365-worldwide)
+References
+- [Microsoft Docs: Create custom sensitive information types](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-a-custom-sensitive-information-type?view=o365-worldwide)
 
 There are two ways to create a custom Sensitive Information Type
 1. From scratch
@@ -187,7 +190,7 @@ The following regular expression matches a string that starts with 4 digits for 
 
 ![](img/2023-04-30-06-42-31.png)
 
-The picture above asks you to select the recommended confidence level.  In addition to the confidence level for each pattern (as in the screenshot above that), the recommended confidence level is the default confidence level for the rule. When you create a rule in a policy (for example, a DLP policy), if you don't specify a confidence level for the rule to use, that rule will match based on the recommended confidence level. The recommended confidence level is a mandatory setting.
+The picture above asks you to select the recommended confidence level.  In addition to the confidence level for each pattern (as in the screenshot above that), the recommended confidence level is the default confidence level for the rule. When you create a rule in a policy, e.g. a DLP policy, if you don't specify a confidence level for the rule to use, that rule will match based on the recommended confidence level. The recommended confidence level is a mandatory setting.
 
 ![](img/2023-04-30-06-42-48.png)
 
@@ -201,7 +204,6 @@ You can validate the SIT by using `Test-DataClassification`:
 ![](img/2023-05-01-03-58-21.png)
 
 ### Define Confidence Level Patterns
-  
   
 In this example scenario we start with the SIT created from the previous section, which tracks the organization's internal purchase order (PO) number. The PO uses the format Q20230502001 and is based on the date and an index number with the prefix "Q".
 
@@ -227,6 +229,10 @@ Here's an overall look at the patterns:
 
 ![](img/2023-05-02-03-19-35.png)
 
+Note here that order matters. If you have multiple patterns in the same confidence level, and the scanned content contains multiple matches in that confidence level, then the engine will only report a match for the first rule in that confidence level, in this case Pattern #1 for Low and Pattern #3 for High.
+
+![](img/2023-05-05-04-14-53.png)
+
 To test, add a number of mocked PO numbers to a text file.
 
 ![](img/2023-05-02-03-24-24.png)
@@ -238,6 +244,7 @@ Then use the **Test** option.
 #### Considerations on Additional Checks
 References
 - [Sensitive information type additional checks](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-regex-validators-additional-checks?view=o365-worldwide#sensitive-information-type-additional-checks)
+- [Keyword validation issues](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-a-custom-sensitive-information-type-in-scc-powershell?view=o365-worldwide#potential-validation-issues-to-be-aware-of)
 
 
 ### Customize Sensitive Information Types using PowerShell and XML
@@ -269,7 +276,7 @@ To update custom SITs outside of the portal you must use a combination of PowerS
 First, run `Get-DlpSensitiveInformationTypeRulePackage`. Custom sensitive information type rules are stored in `Microsoft.SCCManaged.CustomRulePack`. The `Microsoft Rule Package` contains all  of the built-in sensitive information types.  The `Document Fingerprint Rule Package` contains rule packages specific to file-based, i.e. form/template, sensitive information types.
 ![](img/2023-05-04-03-14-23.png)
 
-For custom SITs, you typically work with the `Microsoft.SCCManaged.CustomRulePack`.  However, know there are options to create additional rule pack files for custom SITs.
+For custom SITs, you typically work with the `Microsoft.SCCManaged.CustomRulePack`.  However, know there are options to create additional rule pack files for custom SITs. The maximum number of rule packages supported is 10, but each package can contain the definition of multiple sensitive information types ([see here](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-a-custom-sensitive-information-type-in-scc-powershell?view=o365-worldwide#upload-your-rule-package)).
 
 When you return all properties of the `Microsoft.SCCManaged.CustomRulePack` you'll find the rule set is displayed in unformatted XML.
 
@@ -327,10 +334,12 @@ By default, VS Code doesn't display formatted XML. Use the **Format Document** c
 #### Import custom SIT XML using PowerShell 
 Once you have exported an XML file and made changes, use `Set-DlpSensitiveInformationTypeRulePackage` to commit the changes.
 
-![](img/2023-05-04-04-00-58.png)
+```powershell
+Set-DlpSensitiveInformationTypeRulePackage -FileData ([System.IO.File]::ReadAllBytes("$env:USERPROFILE\Desktop\exportedRulePack.xml")) -Confirm:$false
+```
 
-
-
+#### Test custom SITs using PowerShell
+Use `Test-DataClassification` 
 
 ## Exact Data Match (EDM) Sensitive Information Types
 - [Microsoft Docs: EDM-based SITs](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-learn-about-exact-data-match-based-sits?view=o365-worldwide)  
