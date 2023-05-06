@@ -26,11 +26,11 @@
 - [Named Entity Sensitive Information Types](#named-entity-sensitive-information-types)
 - [Custom Sensitive Information Types](#custom-sensitive-information-types)
   - [Create a SIT from Scratch](#create-a-sit-from-scratch)
-  - [Test an SIT using PowerShell](#test-an-sit-using-powershell)
-  - [Define Confidence Level Patterns](#define-confidence-level-patterns)
+  - [Test your Sensitive Information Type](#test-your-sensitive-information-type)
+  - [Example: Define Confidence Level Patterns](#example-define-confidence-level-patterns)
     - [Considerations on Additional Checks](#considerations-on-additional-checks)
   - [Customize Sensitive Information Types using PowerShell and XML](#customize-sensitive-information-types-using-powershell-and-xml)
-  - [Export and Import Commands](#export-and-import-commands)
+    - [Quick Access: Export and Import Commands](#quick-access-export-and-import-commands)
     - [View SIT rules with PowerShell](#view-sit-rules-with-powershell)
     - [Export custom SIT rules to XML](#export-custom-sit-rules-to-xml)
     - [Import custom SIT XML using PowerShell](#import-custom-sit-xml-using-powershell)
@@ -192,13 +192,15 @@ The following regular expression matches a string that starts with 4 digits for 
 
 ![](img/2023-04-30-06-50-17.png)
 
+In the screenshot below be sure to enter keywords on separate lines.
+
 ![](img/2023-04-30-06-53-22.png)
 
 ![](img/2023-04-30-06-42-12.png)
 
 ![](img/2023-04-30-06-42-31.png)
 
-The picture above asks you to select the recommended confidence level.  In addition to the confidence level for each pattern (as in the screenshot above that), the recommended confidence level is the default confidence level for the rule. When you create a rule in a policy, e.g. a DLP policy, if you don't specify a confidence level for the rule to use, that rule will match based on the recommended confidence level. The recommended confidence level is a mandatory setting.
+The picture above asks you to select the recommended confidence level.  In addition to the confidence level for each pattern (see previous screenshot above), the sensitive information type, as a whole, must have a defined recommended confidence level. When you create a rule in a policy, e.g. a DLP policy, if you don't specify a confidence level for the rule to use, that rule will match based on the SIT's recommended confidence level. The recommended confidence level is a mandatory setting.
 
 ![](img/2023-04-30-06-42-48.png)
 
@@ -206,14 +208,22 @@ The picture above asks you to select the recommended confidence level.  In addit
 
 ![](img/2023-04-30-06-43-56.png)
 
-### Test an SIT using PowerShell
-You can validate the SIT by using `Test-DataClassification`:
+### Test your Sensitive Information Type
+Create a test file and load it with a few examples. Space each sample so that they are out of the proximity range you defined.  
+![](img/2023-05-06-05-04-04.png)
 
-![](img/2023-05-01-03-58-21.png)
+Use the **Test** feature in the portal to upload your test file.
 
-### Define Confidence Level Patterns
+![](img/2023-05-06-05-05-26.png)
+
+Observe the matches and match behavior.
+
+![](img/2023-05-06-05-05-34.png)
+
+
+### Example: Define Confidence Level Patterns
   
-In this example scenario we start with the SIT created from the previous section, which tracks the organization's internal purchase order (PO) number. The PO uses the format Q20230502001 and is based on the date and an index number with the prefix "Q".
+In this scenario we start with the SIT created from the previous section, which tracks the organization's internal purchase order (PO) number. The PO uses the format Q20230502001 and is based on the date and an index number with the prefix "Q".
 
 There are three confidence level options with a custom SIT&mdash;low, medium, and high. 
 
@@ -224,10 +234,12 @@ For a low confidence level we use anything that matches the regular expression.
 For a medium confidence level we use additional checks, including the "Q" or "Q-" prefix and anything that starts with the years 199, 200, 201, and 202. All additional checks must match, not just one. 
 
 IMPORTANT:
+There are a couple of important details to note when specifying values in **Additional Checks**
 - Do not use separate lines for each value
 - Do not separate values with a space;  all values should appear directly after the comma with no space!
+- Multiple additional checks result in a logical AND, not a logical OR
 
-![](img/2023-05-02-04-15-29.png)
+![](img/2023-05-06-05-08-49.png)
 
 For a high confidence level we use a keyword list as a secondary element in addition to the regular expression and additional checks from the medium confidence level: 
 
@@ -271,7 +283,7 @@ When working with PowerShell and XML you get the following additional configurat
 
 Furthermore, when diagnosing problems with the SIT it is easier to identify issues in the XML.  For example, if you unintentionally placed a space in a comma-separated keyword list, it is easier to spot this mistake in XML than it is in the portal.
 
-### Export and Import Commands
+#### Quick Access: Export and Import Commands
 
 Use the following commands to export the Microsoft custom rule pack to XML.  
 ```powershell
