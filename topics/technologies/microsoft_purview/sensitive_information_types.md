@@ -30,6 +30,7 @@
   - [Define Confidence Level Patterns](#define-confidence-level-patterns)
     - [Considerations on Additional Checks](#considerations-on-additional-checks)
   - [Customize Sensitive Information Types using PowerShell and XML](#customize-sensitive-information-types-using-powershell-and-xml)
+  - [Export and Import Commands](#export-and-import-commands)
     - [View SIT rules with PowerShell](#view-sit-rules-with-powershell)
     - [Export custom SIT rules to XML](#export-custom-sit-rules-to-xml)
     - [Import custom SIT XML using PowerShell](#import-custom-sit-xml-using-powershell)
@@ -95,6 +96,13 @@ Confidence Level Values
 - Medium: 65 < x <= 75
 - High: x > 75 
   - Matched items contain the fewest false positives but the most false negatives
+
+Here are the default values:
+- Low: 65
+- Medium: 75
+- High: 85
+
+I determined the default values by exporting the rule pack to XML and observing the value change.
 
 Use high confidence levels patterns with low counts, say 5-10, and low confidence with high confidence matches, say 20 or more.
 
@@ -262,6 +270,20 @@ When working with PowerShell and XML you get the following additional configurat
 - Ability to modify the values of each pattern confidence level
 
 Furthermore, when diagnosing problems with the SIT it is easier to identify issues in the XML.  For example, if you unintentionally placed a space in a comma-separated keyword list, it is easier to spot this mistake in XML than it is in the portal.
+
+### Export and Import Commands
+
+Use the following commands to export the Microsoft custom rule pack to XML.  
+```powershell
+$rulepak = Get-DlpSensitiveInformationTypeRulePackage -Identity 'Microsoft.SCCManaged.CustomRulePack'
+[System.IO.File]::WriteAllBytes("$env:USERPROFILE\Desktop\exportedRulePack.xml", $rulepak.SerializedClassificationRuleCollection)
+```
+
+Use the following command to import the Microsoft custom rule pack XML file.  
+```powershell
+Set-DlpSensitiveInformationTypeRulePackage -FileData ([System.IO.File]::ReadAllBytes("$env:USERPROFILE\Desktop\exportedRulePack.xml")) -Confirm:$false
+```
+
 
 
 #### View SIT rules with PowerShell
