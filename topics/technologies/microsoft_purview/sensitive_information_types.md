@@ -34,6 +34,7 @@
     - [View SIT rules with PowerShell](#view-sit-rules-with-powershell)
     - [Export custom SIT rules to XML](#export-custom-sit-rules-to-xml)
     - [Import custom SIT XML using PowerShell](#import-custom-sit-xml-using-powershell)
+    - [Additional Notes on XML structure](#additional-notes-on-xml-structure)
     - [Test custom SITs using PowerShell](#test-custom-sits-using-powershell)
 - [Exact Data Match (EDM) Sensitive Information Types](#exact-data-match-edm-sensitive-information-types)
   - [Concepts Specific to EDMs](#concepts-specific-to-edms)
@@ -97,18 +98,20 @@ Confidence Level Values
 - High: x > 75 
   - Matched items contain the fewest false positives but the most false negatives
 
-Here are the default values:
-- Low: 65
-- Medium: 75
-- High: 85
-
-I determined the default values by exporting the rule pack to XML and observing the value change.
-
 Use high confidence levels patterns with low counts, say 5-10, and low confidence with high confidence matches, say 20 or more.
 
 ![](img/2023-04-24-03-21-57.png)
 
 See [US Social Security Number (SSN)](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-defn-us-social-security-number?view=o365-worldwide) as an example definition of an SIT.
+
+Confidence values are declared as "High", "Medium", and "Low" in the portal. Specific values are declared in the resulting XML file.
+
+![](img/2023-05-06-05-26-27.png)
+
+Here are the default values:
+- Low: 65
+- Medium: 75
+- High: 85
 
 ### Providing Accuracy Feedback
 You can view number of SIT matches in the Content Explorer.
@@ -192,6 +195,10 @@ The following regular expression matches a string that starts with 4 digits for 
 
 ![](img/2023-04-30-06-50-17.png)
 
+When adding a regular expression, you may also choose from a number of regular expression validators.  For example, given the PO number contains a date, you can use the date validator as an additional check. This will filter out items that resemble the date structure but do not actually qualify, e.g. a number with 13 in the month place and 32 in the day place.
+
+![](img/2023-05-06-06-16-14.png)
+
 In the screenshot below be sure to enter keywords on separate lines.
 
 ![](img/2023-04-30-06-53-22.png)
@@ -249,23 +256,26 @@ Here's an overall look at the patterns:
 
 ![](img/2023-05-02-03-19-35.png)
 
-Note here that order matters. If you have multiple patterns in the same confidence level, and the scanned content contains multiple matches in that confidence level, then the engine will only report a match for the first rule in that confidence level, in this case Pattern #1 for Low and Pattern #3 for High.
+In cases where you have multiple pattern rules *within the same confidence level*, it is important to note that order matters. The scanning engine will only report a match for the first pattern rule in that confidence level, which in the case below would be Pattern #1 for Low and Pattern #3 for High.
 
 ![](img/2023-05-05-04-14-53.png)
-
-To test, add a number of mocked PO numbers to a text file.
-
-![](img/2023-05-02-03-24-24.png)
-
-Then use the **Test** option.
-
-![](img/2023-05-02-03-24-59.png)
 
 #### Considerations on Additional Checks
 References
 - [Sensitive information type additional checks](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-regex-validators-additional-checks?view=o365-worldwide#sensitive-information-type-additional-checks)
 - [Keyword validation issues](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-a-custom-sensitive-information-type-in-scc-powershell?view=o365-worldwide#potential-validation-issues-to-be-aware-of)
 
+Here are some things to note:
+- Multiple additional checks result in a logical AND, not a logical OR
+- You may encounter unexpected results when using the **Include prefixes** and **Include suffixes** additional check.
+
+For example, given patterns that match an included prefix of "Q" you get expected results when the high confidence match appears after the medium confidence match. 
+
+![](img/2023-05-06-06-08-45.png)
+
+However, when you place the high confidence match before the medium confidence match, the search results do not report the high confidence match.
+
+![](img/2023-05-06-06-10-03.png)
 
 ### Customize Sensitive Information Types using PowerShell and XML
 Reference
@@ -277,11 +287,9 @@ Reference
 PowerShell offers a lot more flexibility and ease when making changes to SITs. The process involves exporting a SIT rule to XML, making changes to the XML in a text editor, and then importing the XML into the SIT rule.
 
 When working with PowerShell and XML you get the following additional configuration options not available in the portal:
-- Ability to specify the pattern proximity (clarify)
-- Ability to change the `relaxProximity` setting from `"false"` to `"true"`
-- Ability to modify the values of each pattern confidence level
+- Ability to specify specific confidence level values (instead of High, Medium, and Low)
 
-Furthermore, when diagnosing problems with the SIT it is easier to identify issues in the XML.  For example, if you unintentionally placed a space in a comma-separated keyword list, it is easier to spot this mistake in XML than it is in the portal.
+When diagnosing problems with the SIT it may be easier to identify issues in the XML. For example, if you unintentionally placed a space in a comma-separated keyword list, it is easier to spot this mistake in XML than it is in the portal.
 
 #### Quick Access: Export and Import Commands
 
@@ -295,8 +303,6 @@ Use the following command to import the Microsoft custom rule pack XML file.
 ```powershell
 Set-DlpSensitiveInformationTypeRulePackage -FileData ([System.IO.File]::ReadAllBytes("$env:USERPROFILE\Desktop\exportedRulePack.xml")) -Confirm:$false
 ```
-
-
 
 #### View SIT rules with PowerShell
 Use `Get-DlpSensitiveInformationType` to view the properties of a custom SIT.
@@ -371,6 +377,11 @@ Once you have exported an XML file and made changes, use `Set-DlpSensitiveInform
 ```powershell
 Set-DlpSensitiveInformationTypeRulePackage -FileData ([System.IO.File]::ReadAllBytes("$env:USERPROFILE\Desktop\exportedRulePack.xml")) -Confirm:$false
 ```
+
+#### Additional Notes on XML structure
+You may remove the proximity declaration for the pattern. In this case the pattern will use the entity's `patternsProximity` value.
+
+![](img/2023-05-06-05-24-57.png)
 
 #### Test custom SITs using PowerShell
 Use `Test-DataClassification` 
