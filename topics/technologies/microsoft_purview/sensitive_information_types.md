@@ -28,7 +28,8 @@
   - [Create a SIT from Scratch](#create-a-sit-from-scratch)
   - [Test your Sensitive Information Type](#test-your-sensitive-information-type)
   - [Example: Define Confidence Level Patterns](#example-define-confidence-level-patterns)
-    - [Considerations on Additional Checks](#considerations-on-additional-checks)
+    - [Additional Considerations](#additional-considerations)
+      - [Issue: Unexpected results when using prefixes and suffixes additional check](#issue-unexpected-results-when-using-prefixes-and-suffixes-additional-check)
   - [Customize Sensitive Information Types using PowerShell and XML](#customize-sensitive-information-types-using-powershell-and-xml)
     - [Quick Access: Export and Import Commands](#quick-access-export-and-import-commands)
     - [View SIT rules with PowerShell](#view-sit-rules-with-powershell)
@@ -241,9 +242,9 @@ For a low confidence level we use anything that matches the regular expression.
 For a medium confidence level we use additional checks, including the "Q" or "Q-" prefix and anything that starts with the years 199, 200, 201, and 202. All additional checks must match, not just one. 
 
 IMPORTANT:
-There are a couple of important details to note when specifying values in **Additional Checks**
+There are a couple of important details to note when specifying values in **Additional Checks**:
 - Do not use separate lines for each value
-- Do not separate values with a space;  all values should appear directly after the comma with no space!
+- Do not separate values with a space;  all values should appear directly after the comma with no space
 - Multiple additional checks result in a logical AND, not a logical OR
 
 ![](img/2023-05-06-05-08-49.png)
@@ -256,11 +257,11 @@ Here's an overall look at the patterns:
 
 ![](img/2023-05-02-03-19-35.png)
 
-In cases where you have multiple pattern rules *within the same confidence level*, it is important to note that order matters. The scanning engine will only report a match for the first pattern rule in that confidence level, which in the case below would be Pattern #1 for Low and Pattern #3 for High.
+In cases where you have multiple pattern rules *within the same confidence level*, it is important to note that order matters. The scanning engine will only report a match for the first pattern rule in that confidence level. In the case below, the matches would be Pattern #1 for the Low and Pattern #3 for the High confidence level.
 
 ![](img/2023-05-05-04-14-53.png)
 
-#### Considerations on Additional Checks
+#### Additional Considerations
 References
 - [Sensitive information type additional checks](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-regex-validators-additional-checks?view=o365-worldwide#sensitive-information-type-additional-checks)
 - [Keyword validation issues](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-a-custom-sensitive-information-type-in-scc-powershell?view=o365-worldwide#potential-validation-issues-to-be-aware-of)
@@ -268,7 +269,9 @@ References
 Here are some things to note:
 - Multiple additional checks result in a logical AND, not a logical OR
 - You may encounter unexpected results when using the **Include prefixes** and **Include suffixes** additional check.
+- 
 
+##### Issue: Unexpected results when using prefixes and suffixes additional check  
 For example, given patterns that match an included prefix of "Q" you get expected results when the high confidence match appears after the medium confidence match. 
 
 ![](img/2023-05-06-06-08-45.png)
