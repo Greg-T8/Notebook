@@ -28,10 +28,6 @@
   - [Create a SIT from Scratch](#create-a-sit-from-scratch)
   - [Test your Sensitive Information Type](#test-your-sensitive-information-type)
   - [Example: Define Confidence Level Patterns](#example-define-confidence-level-patterns)
-  - [Additional Considerations with Custom SITs](#additional-considerations-with-custom-sits)
-    - [Note: Additional checks result in logical AND, not logical OR](#note-additional-checks-result-in-logical-and-not-logical-or)
-    - [Issue: Unexpected results when using prefixes and suffixes additional check](#issue-unexpected-results-when-using-prefixes-and-suffixes-additional-check)
-    - [Note: Specifying *Any of these* criteria](#note-specifying-any-of-these-criteria)
   - [Customize Sensitive Information Types using PowerShell and XML](#customize-sensitive-information-types-using-powershell-and-xml)
     - [Quick Access: Export and Import Commands](#quick-access-export-and-import-commands)
     - [View SIT rules with PowerShell](#view-sit-rules-with-powershell)
@@ -39,6 +35,11 @@
     - [Import custom SIT XML using PowerShell](#import-custom-sit-xml-using-powershell)
     - [Additional Notes on XML structure](#additional-notes-on-xml-structure)
     - [Test custom SITs using PowerShell](#test-custom-sits-using-powershell)
+  - [Additional Considerations with Custom SITs](#additional-considerations-with-custom-sits)
+    - [Note: Additional checks result in logical AND, not logical OR](#note-additional-checks-result-in-logical-and-not-logical-or)
+    - [Issue: Unexpected results when using prefixes and suffixes additional check](#issue-unexpected-results-when-using-prefixes-and-suffixes-additional-check)
+    - [Note: Specifying *Any of these* criteria](#note-specifying-any-of-these-criteria)
+    - [Note: Keyword Lists vs Keyword Dictionaries](#note-keyword-lists-vs-keyword-dictionaries)
 - [Exact Data Match (EDM) Sensitive Information Types](#exact-data-match-edm-sensitive-information-types)
   - [Concepts Specific to EDMs](#concepts-specific-to-edms)
     - [Schema](#schema)
@@ -263,33 +264,6 @@ In cases where you have multiple pattern rules *within the same confidence level
 
 ![](img/2023-05-05-04-14-53.png)
 
-### Additional Considerations with Custom SITs
-References
-- [Sensitive information type additional checks](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-regex-validators-additional-checks?view=o365-worldwide#sensitive-information-type-additional-checks)
-- [Keyword validation issues](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-a-custom-sensitive-information-type-in-scc-powershell?view=o365-worldwide#potential-validation-issues-to-be-aware-of)
-
-#### Note: Additional checks result in logical AND, not logical OR
-When using multiple **Additional Checks**, the engine uses a logical AND, not a logical OR.
-
-![](img/2023-05-06-05-08-49.png)
-
-#### Issue: Unexpected results when using prefixes and suffixes additional check  
-For example, given patterns that match an included prefix of "Q" you get expected results when the high confidence match appears after the medium confidence match. 
-
-![](img/2023-05-06-06-08-45.png)
-
-However, when you place the high confidence match before the medium confidence match, the search results do not report the high confidence match.
-
-![](img/2023-05-06-06-10-03.png)
-
-#### Note: Specifying *Any of these* criteria
-When specifying the *Any of these criteria*, if you want to specify a range, you must include a number of supporting elements capable of satisfying the range.  Otherwise, the value will be `1 to Any`.
-
-![](img/2023-05-07-04-50-12.png)
-
-Here's how this pattern looks in XML: 
-
-![](img/2023-05-07-04-53-25.png)
 
 ### Customize Sensitive Information Types using PowerShell and XML
 Reference
@@ -404,9 +378,61 @@ Use `Test-DataClassification`
 $results = Test-DataClassification -TextToClassify (Get-Content $env:USERPROFILE\Desktop\test.txt) -ClassificationNames 'Purchase Order Number'
 ```
 
+### Additional Considerations with Custom SITs
+References
+- [Sensitive information type additional checks](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-regex-validators-additional-checks?view=o365-worldwide#sensitive-information-type-additional-checks)
+- [Keyword validation issues](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-a-custom-sensitive-information-type-in-scc-powershell?view=o365-worldwide#potential-validation-issues-to-be-aware-of)
+
+#### Note: Additional checks result in logical AND, not logical OR
+When using multiple **Additional Checks**, the engine uses a logical AND, not a logical OR.
+
+![](img/2023-05-06-05-08-49.png)
+
+#### Issue: Unexpected results when using prefixes and suffixes additional check  
+For example, given patterns that match an included prefix of "Q" you get expected results when the high confidence match appears after the medium confidence match. 
+
+![](img/2023-05-06-06-08-45.png)
+
+However, when you place the high confidence match before the medium confidence match, the search results do not report the high confidence match.
+
+![](img/2023-05-06-06-10-03.png)
+
+#### Note: Specifying *Any of these* criteria
+When specifying the *Any of these criteria*, if you want to specify a range, you must include a number of supporting elements capable of satisfying the range.  Otherwise, the value will be `1 to Any`.
+
+![](img/2023-05-07-04-50-12.png)
+
+Here's how this pattern looks in XML: 
+
+![](img/2023-05-07-04-53-25.png)
+
+#### Note: Keyword Lists vs Keyword Dictionaries
+References
+- [Create a keyword dictionary](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-a-keyword-dictionary?view=o365-worldwide)
+- [Modify a keyword dictionary](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-modify-keyword-dictionary?view=o365-worldwide)
+
+Keyword lists and keyword dictionaries accomplish the same thing&mdash;they search for matches in a word list. Keyword lists are suitable for small sets of words. Words in a keyword list are stored in the rules XML file. This is fine for small scenarios but not scalable for large scenarios. 
+
+Words in a keyword dictionary, however, are stored outside of the rules XML file. Keyword dictionaries are useful when you have a much larger list of words, such as a word list that spans multiple languages.  You may also reference keyword dictionaries across multiple rules XML files.
+
+Use `Get-DlpKeywordDictionary` to view the list of dictionaries. There is a limit of 50 keyword dictionary-based SITs that can be created per tenant.
+
+![](img/2023-05-07-05-05-24.png)
+
+Use the portal to create a keyword dictionary. You can create the dictionary from a list or upload a .CSV or a .TXT file.
+
+![](img/2023-05-07-05-08-14.png)
+
+You can also use the following commands to manage keyword dictionaries:
+- `Get-DlpKeywordDictionary`
+- `Set-DlpKeywordDictionary`
+- `New-DlpKeywordDictionary`
+
+
 ## Exact Data Match (EDM) Sensitive Information Types
 - [Microsoft Docs: EDM-based SITs](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-learn-about-exact-data-match-based-sits?view=o365-worldwide)  
 - [ComplianceCxE: Accurate data classification using Exact Data Matching](https://microsoft.github.io/ComplianceCxE/resources/files/Configuring%20EDM%20for%20accurate%20classification.pdf)
+
 
 Exact Data Match enables you to define custom sensitive information types based on values in a database rather than using matches found on generic patterns.
 
