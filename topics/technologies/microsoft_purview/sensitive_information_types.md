@@ -28,8 +28,10 @@
   - [Create a SIT from Scratch](#create-a-sit-from-scratch)
   - [Test your Sensitive Information Type](#test-your-sensitive-information-type)
   - [Example: Define Confidence Level Patterns](#example-define-confidence-level-patterns)
-    - [Additional Considerations](#additional-considerations)
-      - [Issue: Unexpected results when using prefixes and suffixes additional check](#issue-unexpected-results-when-using-prefixes-and-suffixes-additional-check)
+  - [Additional Considerations with Custom SITs](#additional-considerations-with-custom-sits)
+    - [Note: Additional checks result in logical AND, not logical OR](#note-additional-checks-result-in-logical-and-not-logical-or)
+    - [Issue: Unexpected results when using prefixes and suffixes additional check](#issue-unexpected-results-when-using-prefixes-and-suffixes-additional-check)
+    - [Note: Specifying *Any of these* criteria](#note-specifying-any-of-these-criteria)
   - [Customize Sensitive Information Types using PowerShell and XML](#customize-sensitive-information-types-using-powershell-and-xml)
     - [Quick Access: Export and Import Commands](#quick-access-export-and-import-commands)
     - [View SIT rules with PowerShell](#view-sit-rules-with-powershell)
@@ -261,17 +263,17 @@ In cases where you have multiple pattern rules *within the same confidence level
 
 ![](img/2023-05-05-04-14-53.png)
 
-#### Additional Considerations
+### Additional Considerations with Custom SITs
 References
 - [Sensitive information type additional checks](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-regex-validators-additional-checks?view=o365-worldwide#sensitive-information-type-additional-checks)
 - [Keyword validation issues](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-a-custom-sensitive-information-type-in-scc-powershell?view=o365-worldwide#potential-validation-issues-to-be-aware-of)
 
-Here are some things to note:
-- Multiple additional checks result in a logical AND, not a logical OR
-- You may encounter unexpected results when using the **Include prefixes** and **Include suffixes** additional check.
-- 
+#### Note: Additional checks result in logical AND, not logical OR
+When using multiple **Additional Checks**, the engine uses a logical AND, not a logical OR.
 
-##### Issue: Unexpected results when using prefixes and suffixes additional check  
+![](img/2023-05-06-05-08-49.png)
+
+#### Issue: Unexpected results when using prefixes and suffixes additional check  
 For example, given patterns that match an included prefix of "Q" you get expected results when the high confidence match appears after the medium confidence match. 
 
 ![](img/2023-05-06-06-08-45.png)
@@ -279,6 +281,15 @@ For example, given patterns that match an included prefix of "Q" you get expecte
 However, when you place the high confidence match before the medium confidence match, the search results do not report the high confidence match.
 
 ![](img/2023-05-06-06-10-03.png)
+
+#### Note: Specifying *Any of these* criteria
+When specifying the *Any of these criteria*, if you want to specify a range, you must include a number of supporting elements capable of satisfying the range.  Otherwise, the value will be `1 to Any`.
+
+![](img/2023-05-07-04-50-12.png)
+
+Here's how this pattern looks in XML: 
+
+![](img/2023-05-07-04-53-25.png)
 
 ### Customize Sensitive Information Types using PowerShell and XML
 Reference
