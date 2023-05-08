@@ -555,10 +555,6 @@ Data file limitations
 
 **Step 3**: Pay attention to the data format. If fields contain commas, then use a tab-separated or pipe-separated format.
 
-See here for sample template files
-- [US Healthcare Data](https://go.microsoft.com/fwlink/?linkid=2224450)
-- [US Financial Data](https://go.microsoft.com/fwlink/?linkid=2224770)
-- [US Insurance Data](https://go.microsoft.com/fwlink/?linkid=2224769)
 
 #### Create sample file (New Experience)
 Reference
@@ -577,10 +573,12 @@ Here are some guidelines for creating the sample file:
 - Column (field) names must start with a letter, be at least 3 characters long, and consiste of only alphanumeric characters. Can't include spaces, underscores, or other special characters
 
 Example
-
 ![](img/2023-05-08-04-23-44.png)
 
-
+See here for sample template files
+- [US Healthcare Data](https://go.microsoft.com/fwlink/?linkid=2224450)
+- [US Financial Data](https://go.microsoft.com/fwlink/?linkid=2224770)
+- [US Insurance Data](https://go.microsoft.com/fwlink/?linkid=2224769)
 
 
 ## Document Fingerprinting
