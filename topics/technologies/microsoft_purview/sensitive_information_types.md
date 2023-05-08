@@ -49,6 +49,8 @@
     - [Primary and Secondary Support Elements](#primary-and-secondary-support-elements)
     - [How Matching Works](#how-matching-works)
     - [Services Supported by EDM](#services-supported-by-edm)
+  - [Creating an using EDMs](#creating-an-using-edms)
+    - [EDM Creation Experiences](#edm-creation-experiences)
 - [Document Fingerprinting](#document-fingerprinting)
   - [How document fingerprinting works](#how-document-fingerprinting-works)
   - [Supported file types](#supported-file-types)
@@ -263,7 +265,6 @@ Here's an overall look at the patterns:
 In cases where you have multiple pattern rules *within the same confidence level*, it is important to note that order matters. The scanning engine will only report a match for the first pattern rule in that confidence level. In the case below, the matches would be Pattern #1 for the Low and Pattern #3 for the High confidence level.
 
 ![](img/2023-05-05-04-14-53.png)
-
 
 ### Customize Sensitive Information Types using PowerShell and XML
 Reference
@@ -483,12 +484,31 @@ EDM requires that the primary element be discoverable through an existing SIT. S
 EDM does not require that secondary elements to be based on an existing SIT unless they contain multiple tokens. However, secondary elements do need to be within a certain proximity to the primary element.
 
 #### How Matching Works
-EDM works by comparing strings in your documents and emails against values in the sensitive information source table to see if the values int eh scanned content are present in the table. The comparison is done by using one-way hashes.
+EDM works by comparing strings in your documents and emails against values in the sensitive information source table to see if the values in the scanned content are present in the table. The comparison is done by using one-way hashes.
 
 Tip: Use EDM SITs and predefined SITs together in DLP rules for better detection. Use the EDM SIT with higher confidence levels and the predefined SIT with lower confidence levels.
 
 #### Services Supported by EDM
 ![](img/2023-04-24-04-24-28.png)
+
+### Creating an using EDMs
+References
+- [Get started with EDM SITs](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-based-sits-overview?view=o365-worldwide)
+
+
+#### EDM Creation Experiences
+There are two EDM creation experiences, the new experience and the classic experience.  Use the new experience going forward. Here are reasons why you would want to use the classic experience:
+
+1. You want to map multiple EDM SITs to the same schema.  
+
+    In EDM, you can create a maximum of 10 schemas. Each time you create an EDM SIT using the new experience, a new schema is created.  This results in a 1:1 mapping between EDM schema and EDM sit. The new experience doesn't support mapping multiple SITs to the same schema.
+
+
+2. You need to create or manage more than 10 EDM SITs
+
+    Because the new experience doesn't support mapping multiple SITs to the 
+
+3. 
 
 ## Document Fingerprinting
 [Microsoft Docs: Document Fingerprinting](https://learn.microsoft.com/en-us/microsoft-365/compliance/document-fingerprinting?view=o365-worldwide)
