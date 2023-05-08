@@ -50,7 +50,10 @@
     - [How Matching Works](#how-matching-works)
     - [Services Supported by EDM](#services-supported-by-edm)
   - [Creating an using EDMs](#creating-an-using-edms)
-    - [EDM Creation Experiences](#edm-creation-experiences)
+  - [About the EDM Creation Experiences—Classic and New](#about-the-edm-creation-experiencesclassic-and-new)
+  - [Defining your EDM Sensitive Type](#defining-your-edm-sensitive-type)
+  - [Export source data](#export-source-data)
+  - [Creating and Managing an EDM Using the New Experience](#creating-and-managing-an-edm-using-the-new-experience)
 - [Document Fingerprinting](#document-fingerprinting)
   - [How document fingerprinting works](#how-document-fingerprinting-works)
   - [Supported file types](#supported-file-types)
@@ -495,8 +498,7 @@ Tip: Use EDM SITs and predefined SITs together in DLP rules for better detection
 References
 - [Get started with EDM SITs](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-based-sits-overview?view=o365-worldwide)
 
-
-#### EDM Creation Experiences
+### About the EDM Creation Experiences&mdash;Classic and New
 There are two EDM creation experiences, the new experience and the classic experience.  Use the new experience going forward. Here are reasons why you would want to use the classic experience:
 
 1. You want to map multiple EDM SITs to the same schema.  
@@ -506,9 +508,74 @@ There are two EDM creation experiences, the new experience and the classic exper
 
 2. You need to create or manage more than 10 EDM SITs
 
-    Because the new experience doesn't support mapping multiple SITs to the 
+    Because the new experience doesn't support mapping multiple SITs to the same schema, you are limited to creating and managing 10 EDM SITs.  In the classic experience, you can map multiple EDM SITs to the same schema and so have more than 10 EDM SITs. Using the new flow, you'll receive an error if you try to create an eleventh EDM schema.
 
-3. 
+3. You need to specify the name of your EDM schema
+
+    If you need to specify a name for your EDM SIT schemas, you have to use the classic experience to create an manage them. The new experience automatically creates the schema and doesn't provide an opportunity to give your schema a custom name. The auto-generated name is a concatenation of the EDM SIT name and the word *schema*, e.g. *PatientNumberschema*.
+
+4. You need to edit EDM schemas that were created in the classic experience
+
+    All schemas created using the classic experience or uploaded as an XML file using PowerShell are not viewable or manageable in the new experience.
+
+### Defining your EDM Sensitive Type
+- Reference
+  - [Export Source Data](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-export-data?view=o365-worldwide)
+
+When defining your EDM sensitive type, determining the primary fields is the most critical decision.  Primary fields need to follow a detectable pattern and be defined as searchable fields (columns) in your EDM schema. Secondary fields don't need to follow any pattern since they'll be compared against all the text surrounding matches to the primary fields.
+
+Use the following rules to help you decide which columns you should use as primary fields:
+
+- If you must detect sensitive data based on the presence of a single value matching a field in your sensitive data table, regardless of the presence of any other sensitive data surrounding it, that column must be defined as a primary element for an EDM type.
+
+- If multiple combinations of different fields in your sensitive data table must be detected in content, identify the columns that are common to most such combinations and designate them as primary elements and combinations of other fields as secondary elements.
+
+- If a column you want to use as a primary field doesn't follow a detectable pattern, try to choose over better structured columns as primary elements.
+
+Example:  if you have the columns `full name`, `date of birth`, `account number`, and `Social Security Number`, even first and last names may be common to different combinations of data you want to protect, but such strings don't follow easily identifiable patterns and may be difficult to define as a SIT. Date of birth can be easily identified but is not a good candidate for a primary field because multiple people may have the same date of birth.SSN and account numbers are good candidates for a primary field because they provide uniqueness.
+
+### Export source data
+Microsoft requires you to export your table of sensitive data to a text file. Later on, you'll use the [`EdmUploadAgent.exe`](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-hash-upload?view=o365-worldwide#links-to-edm-upload-agent-by-subscription-type) tool to securely upload a hash of this data to Microsoft.
+
+Step 1: Create your sensitive data table by exporting the data to a text file in one of the following supported formats:
+- CSV (comma-separated values)
+- Tab-separated format (see [here](https://www.automateexcel.com/how-to/convert-delimited-text-file/))
+  - Useful in cases where your data may contain commas, e.g. street addresses
+- Pipe-separated format (see [here](https://www.automateexcel.com/how-to/convert-save-as-pipe-delimited/))
+
+Data file limitations
+- Up to 100 million rows of sensitive data
+- Up to 32 columns (fields) per data source
+- Up to 10 columns (fields) marked as searchable
+
+Step 2: Structure the sensitive data such that the first row includes the names of the fields used for EDM-based classification, e.g. "SSN", "birthdate", "firstname", "lastname".  The column headers cannot include spaces or underscores.
+
+Step 3: Pay attention to the data format. If fields contain commas, then use a tab-separated or pipe-separated format.
+
+
+See here for sample template files
+- [US Healthcare Data](https://go.microsoft.com/fwlink/?linkid=2224450)
+- [US Financial Data](https://go.microsoft.com/fwlink/?linkid=2224770)
+- [US Insurance Data](https://go.microsoft.com/fwlink/?linkid=2224769)
+
+These files are CSV files. You can use the column headers to determine your primary fields. 
+
+You can save 
+
+### Creating and Managing an EDM Using the New Experience
+Reference
+- [Create EDM SIT workflow new experience](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-create-edm-sit-unified-ux-workflow?view=o365-worldwide)
+
+5 phases for creating an EDM SIT:
+1. Export source data for exact data match based SIT
+2. Create the sample file
+3. Create the EDM SIT
+4. Hash and upload the sensitive information source table for EDM SIT
+5. Test an EDM SIT
+
+
+
+
 
 ## Document Fingerprinting
 [Microsoft Docs: Document Fingerprinting](https://learn.microsoft.com/en-us/microsoft-365/compliance/document-fingerprinting?view=o365-worldwide)
