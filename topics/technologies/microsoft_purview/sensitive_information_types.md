@@ -49,11 +49,11 @@
     - [Primary and Secondary Support Elements](#primary-and-secondary-support-elements)
     - [How Matching Works](#how-matching-works)
     - [Services Supported by EDM](#services-supported-by-edm)
-  - [Creating an using EDMs](#creating-an-using-edms)
-  - [About the EDM Creation Experiences—Classic and New](#about-the-edm-creation-experiencesclassic-and-new)
-  - [Defining your EDM Sensitive Type](#defining-your-edm-sensitive-type)
-  - [Export source data](#export-source-data)
-  - [Creating and Managing an EDM Using the New Experience](#creating-and-managing-an-edm-using-the-new-experience)
+  - [Creating and Managing EDM SITs](#creating-and-managing-edm-sits)
+    - [About the EDM Creation Experiences—Classic and New](#about-the-edm-creation-experiencesclassic-and-new)
+    - [Defining the EDM data structure](#defining-the-edm-data-structure)
+    - [Export source data](#export-source-data)
+    - [Create sample file (New Experience)](#create-sample-file-new-experience)
 - [Document Fingerprinting](#document-fingerprinting)
   - [How document fingerprinting works](#how-document-fingerprinting-works)
   - [Supported file types](#supported-file-types)
@@ -494,11 +494,11 @@ Tip: Use EDM SITs and predefined SITs together in DLP rules for better detection
 #### Services Supported by EDM
 ![](img/2023-04-24-04-24-28.png)
 
-### Creating an using EDMs
+### Creating and Managing EDM SITs
 References
 - [Get started with EDM SITs](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-based-sits-overview?view=o365-worldwide)
 
-### About the EDM Creation Experiences&mdash;Classic and New
+#### About the EDM Creation Experiences&mdash;Classic and New
 There are two EDM creation experiences, the new experience and the classic experience.  Use the new experience going forward. Here are reasons why you would want to use the classic experience:
 
 1. You want to map multiple EDM SITs to the same schema.  
@@ -518,7 +518,7 @@ There are two EDM creation experiences, the new experience and the classic exper
 
     All schemas created using the classic experience or uploaded as an XML file using PowerShell are not viewable or manageable in the new experience.
 
-### Defining your EDM Sensitive Type
+#### Defining the EDM data structure
 - Reference
   - [Export Source Data](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-export-data?view=o365-worldwide)
 
@@ -534,10 +534,13 @@ Use the following rules to help you decide which columns you should use as prima
 
 Example:  if you have the columns `full name`, `date of birth`, `account number`, and `Social Security Number`, even first and last names may be common to different combinations of data you want to protect, but such strings don't follow easily identifiable patterns and may be difficult to define as a SIT. Date of birth can be easily identified but is not a good candidate for a primary field because multiple people may have the same date of birth.SSN and account numbers are good candidates for a primary field because they provide uniqueness.
 
-### Export source data
+#### Export source data
+Reference
+- [Export source data](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-export-data?view=o365-worldwide)
+  
 Microsoft requires you to export your table of sensitive data to a text file. Later on, you'll use the [`EdmUploadAgent.exe`](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-hash-upload?view=o365-worldwide#links-to-edm-upload-agent-by-subscription-type) tool to securely upload a hash of this data to Microsoft.
 
-Step 1: Create your sensitive data table by exporting the data to a text file in one of the following supported formats:
+**Step 1**: Create your sensitive data table by exporting the data to a text file in one of the following supported formats:
 - CSV (comma-separated values)
 - Tab-separated format (see [here](https://www.automateexcel.com/how-to/convert-delimited-text-file/))
   - Useful in cases where your data may contain commas, e.g. street addresses
@@ -548,31 +551,34 @@ Data file limitations
 - Up to 32 columns (fields) per data source
 - Up to 10 columns (fields) marked as searchable
 
-Step 2: Structure the sensitive data such that the first row includes the names of the fields used for EDM-based classification, e.g. "SSN", "birthdate", "firstname", "lastname".  The column headers cannot include spaces or underscores.
+**Step 2**: Structure the sensitive data such that the first row includes the names of the fields used for EDM-based classification, e.g. "SSN", "birthdate", "firstname", "lastname".  The column headers cannot include spaces or underscores.
 
-Step 3: Pay attention to the data format. If fields contain commas, then use a tab-separated or pipe-separated format.
-
+**Step 3**: Pay attention to the data format. If fields contain commas, then use a tab-separated or pipe-separated format.
 
 See here for sample template files
 - [US Healthcare Data](https://go.microsoft.com/fwlink/?linkid=2224450)
 - [US Financial Data](https://go.microsoft.com/fwlink/?linkid=2224770)
 - [US Insurance Data](https://go.microsoft.com/fwlink/?linkid=2224769)
 
-These files are CSV files. You can use the column headers to determine your primary fields. 
-
-You can save 
-
-### Creating and Managing an EDM Using the New Experience
+#### Create sample file (New Experience)
 Reference
-- [Create EDM SIT workflow new experience](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-create-edm-sit-unified-ux-workflow?view=o365-worldwide)
+- [Create EDM SIT sample file for the new experience](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-create-edm-sit-unified-ux-sample-file?view=o365-worldwide)
 
-5 phases for creating an EDM SIT:
-1. Export source data for exact data match based SIT
-2. Create the sample file
-3. Create the EDM SIT
-4. Hash and upload the sensitive information source table for EDM SIT
-5. Test an EDM SIT
+In this step you create a sample file to create the schema. The sample file must be formatted identically to your source sensitive information table file and should contain synthetic values that are representative of your actual data.
 
+Here are some guidelines for creating the sample file:
+- Use about 10-20 rows of data to ensure the system has enough samples to work with
+- Field values that contain commas must be enclosed in quotes
+- The first row must be the header row and contain column names
+- The file must contain at least one row of data
+- Each row of data must contain the correct number of fields, corresponding to the headers
+- The sample file can contain up to 32 columns
+- The sample file can't exceed 2.5 MB in size
+- Column (field) names must start with a letter, be at least 3 characters long, and consiste of only alphanumeric characters. Can't include spaces, underscores, or other special characters
+
+Example
+
+![](img/2023-05-08-04-23-44.png)
 
 
 
