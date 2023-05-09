@@ -538,7 +538,7 @@ Example:  if you have the columns `full name`, `date of birth`, `account number`
 Reference
 - [Export source data](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-export-data?view=o365-worldwide)
   
-Microsoft requires you to export your table of sensitive data to a text file. Later on, you'll use the [`EdmUploadAgent.exe`](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-hash-upload?view=o365-worldwide#links-to-edm-upload-agent-by-subscription-type) tool to securely upload a hash of this data to Microsoft.
+Microsoft requires you to export your table of sensitive data to a text file. Later on, you'll use the [`EdmUploadAgent.exe`](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-hash-upload?view=o365-worldwide#links-to-edm-upload-agent-by-subscription-type) tool to securely upload a hash of this data to Microsoft. This hashed data will serve as the basis for Exact Data Match rules.
 
 **Step 1**: Create your sensitive data table by exporting the data to a text file in one of the following supported formats:
 - CSV (comma-separated values)
@@ -553,14 +553,14 @@ Data file limitations
 
 **Step 2**: Structure the sensitive data such that the first row includes the names of the fields used for EDM-based classification, e.g. "SSN", "birthdate", "firstname", "lastname".  The column headers cannot include spaces or underscores.
 
-**Step 3**: Pay attention to the data format. If fields contain commas, then use a tab-separated or pipe-separated format.
+**Step 3**: Pay attention to the data format. If field values contain commas, then use a tab-separated or a pipe-separated format.
 
 
 #### Create sample file (New Experience)
 Reference
 - [Create EDM SIT sample file for the new experience](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-create-edm-sit-unified-ux-sample-file?view=o365-worldwide)
 
-In this step you create a sample file to create the schema. The sample file must be formatted identically to your source sensitive information table file and should contain synthetic values that are representative of your actual data.
+In this step you create a sample file that will generate the schema. The sample file must be formatted identically to your source sensitive information table file and should contain synthetic values that are representative of your actual data.
 
 Here are some guidelines for creating the sample file:
 - Use about 10-20 rows of data to ensure the system has enough samples to work with
@@ -579,6 +579,12 @@ See here for sample template files
 - [US Healthcare Data](https://go.microsoft.com/fwlink/?linkid=2224450)
 - [US Financial Data](https://go.microsoft.com/fwlink/?linkid=2224770)
 - [US Insurance Data](https://go.microsoft.com/fwlink/?linkid=2224769)
+
+In the example that follows, I use a sample file based on two custom SITs I created&mdash;Purchase Order and Account Number.  Here's a look at the sample file.
+
+![](img/2023-05-09-03-46-03.png)
+
+
 
 
 ## Document Fingerprinting
