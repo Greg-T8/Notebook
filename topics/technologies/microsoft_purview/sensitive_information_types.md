@@ -628,7 +628,7 @@ Confirm EDM classifier creation. The next step is to securely upload your sensit
 ![](img/2023-05-09-04-11-17.png)
 
 ##### Create EDM schema (New Experience) - Manual Method
-Here's how the EDM schema creation experience looks when using the manual method.
+Here's how the EDM schema creation experience looks when using the manual method, i.e. without the sample file.
 ![](img/2023-05-09-04-14-30.png)
 
 Define columns
