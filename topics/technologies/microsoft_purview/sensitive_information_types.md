@@ -54,6 +54,7 @@
     - [Defining the EDM data structure](#defining-the-edm-data-structure)
     - [Export source data](#export-source-data)
     - [Create sample file (New Experience)](#create-sample-file-new-experience)
+    - [Create EDM schema (New Experience)](#create-edm-schema-new-experience)
 - [Document Fingerprinting](#document-fingerprinting)
   - [How document fingerprinting works](#how-document-fingerprinting-works)
   - [Supported file types](#supported-file-types)
@@ -582,7 +583,34 @@ See here for sample template files
 
 In the example that follows, I use a sample file based on two custom SITs I created&mdash;Purchase Order and Account Number.  Here's a look at the sample file.
 
-![](img/2023-05-09-03-46-03.png)
+![](img/2023-05-09-03-59-12.png)
+
+Remember: for primary fields each column value must be unique!
+
+#### Create EDM schema (New Experience)
+Reference
+- [Create EDM SIT schema and rule package new experience](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-create-edm-sit-unified-ux-schema-rule-package?view=o365-worldwide)
+
+Here are the steps used to create an EDM schema in the new experience.
+
+Click **Create EDM classifier**
+![](img/2023-05-09-03-48-38.png)
+
+Again, click **Create EDM classifier**
+![](img/2023-05-09-03-51-04.png)
+
+Provide a name and description for the EDM classifier.
+![](img/2023-05-09-03-53-51.png)
+
+Choose the option to upload a sample data file.
+![](img/2023-05-09-03-54-39.png)
+
+Verify sample data
+![](img/2023-05-09-03-56-12.png)
+
+Select primary elements. Remember that values for primary elements must be unique!
+![](img/2023-05-09-04-01-24.png)
+
 
 
 
