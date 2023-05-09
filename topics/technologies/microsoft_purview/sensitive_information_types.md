@@ -608,10 +608,23 @@ Choose the option to upload a sample data file.
 Verify sample data
 ![](img/2023-05-09-03-56-12.png)
 
-Select primary elements. Remember that values for primary elements must be unique!
-![](img/2023-05-09-04-01-24.png)
+Select primary elements. Remember that values for primary elements must be unique. In this case, the purchase order is always unique.  
+![](img/2023-05-09-04-04-32.png)
 
+Configure data settings
+![](img/2023-05-09-04-06-45.png)
 
+Configure detection rules. EDM will automatically generate one detection rule for each of the primary elements identified. 
+![](img/2023-05-09-04-09-03.png)
+
+EDM will create a high confidence and a medium confidence rule
+![](img/2023-05-09-04-09-24.png)
+
+Click **Submit**
+![](img/2023-05-09-04-10-27.png)
+
+Confirm EDM classifier creation. The next step is to securely upload your sensitive information table data.
+![](img/2023-05-09-04-11-17.png)
 
 
 
