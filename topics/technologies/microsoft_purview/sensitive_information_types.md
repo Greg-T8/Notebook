@@ -55,6 +55,7 @@
     - [Export source data](#export-source-data)
     - [Create sample file (New Experience)](#create-sample-file-new-experience)
     - [Create EDM schema (New Experience)](#create-edm-schema-new-experience)
+      - [Create EDM schema (New Experience) - Manual Method](#create-edm-schema-new-experience---manual-method)
 - [Document Fingerprinting](#document-fingerprinting)
   - [How document fingerprinting works](#how-document-fingerprinting-works)
   - [Supported file types](#supported-file-types)
@@ -626,7 +627,17 @@ Click **Submit**
 Confirm EDM classifier creation. The next step is to securely upload your sensitive information table data.
 ![](img/2023-05-09-04-11-17.png)
 
+##### Create EDM schema (New Experience) - Manual Method
+Here's how the EDM schema creation experience looks when using the manual method.
+![](img/2023-05-09-04-14-30.png)
 
+Define columns
+![](img/2023-05-09-04-14-50.png)
+
+Select primary elements and SITs
+![](img/2023-05-09-04-15-40.png)
+
+The rest of the process is the same.
 
 ## Document Fingerprinting
 [Microsoft Docs: Document Fingerprinting](https://learn.microsoft.com/en-us/microsoft-365/compliance/document-fingerprinting?view=o365-worldwide)
