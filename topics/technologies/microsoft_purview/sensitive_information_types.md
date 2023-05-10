@@ -698,11 +698,19 @@ Here's an overview of the installation process:
 
 ![](img/2023-05-10-03-36-49.png)
 
-Here is the default location, where Admin permissions are required:  
+When using the default location Admin permissions are required each time when running `EdmUploadAgent.exe`:  
 ![](img/2023-05-10-03-37-51.png)
 
-Instead, use an installation location for a standard user account:  
+Instead, use an installation location for a standard user account. Admin permissions are still required for the install but are not required when running the executable.  
 ![](img/2023-05-10-03-56-21.png)
+
+![](img/2023-05-10-04-13-31.png)  
+
+
+
+
+
+
 
 
 

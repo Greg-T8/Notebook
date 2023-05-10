@@ -38,6 +38,7 @@ https://learn.microsoft.com/en-us/certifications/browse/?expanded=m365&roles=sec
 - [SC-400 Exam Page](https://learn.microsoft.com/en-us/certifications/exams/sc-400)
 - [SC-400 Study Guide](https://learn.microsoft.com/en-us/certifications/resources/study-guides/sc-400)
 - [SC-400 MeasureUp Practice Test](https://www.measureup.com/microsoft-practice-test-sc-400-microsoft-information-protection-administrator.html)
+- [My Study Notes](/topics/certifications/sc-400_tracker.md)
 
 ## Microsoft Certified: Azure Security Engineer Associate
 - [Main Page](https://learn.microsoft.com/en-us/certifications/azure-security-engineer/)
