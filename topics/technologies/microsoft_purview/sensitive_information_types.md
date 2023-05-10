@@ -56,6 +56,7 @@
     - [Create sample file (New Experience)](#create-sample-file-new-experience)
     - [Create EDM schema (New Experience)](#create-edm-schema-new-experience)
       - [Create EDM schema (New Experience) - Manual Method](#create-edm-schema-new-experience---manual-method)
+    - [Upload the Sensitive Information Source Table (New and Classic Experience)](#upload-the-sensitive-information-source-table-new-and-classic-experience)
 - [Document Fingerprinting](#document-fingerprinting)
   - [How document fingerprinting works](#how-document-fingerprinting-works)
   - [Supported file types](#supported-file-types)
@@ -638,6 +639,17 @@ Select primary elements and SITs
 ![](img/2023-05-09-04-15-40.png)
 
 The rest of the process is the same.
+
+#### Upload the Sensitive Information Source Table (New and Classic Experience)
+- Reference
+  - [Hash and upload the sensitive information source table for exact data match sensitive information types](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-hash-upload?view=o365-worldwide)
+
+There are three parts to this process:
+1. Set up a custom security group and user account
+2. Set up the EDM Upload Agent tool
+3. Use the EDM Upload Agent tool to hash, with a salt value, the sensitive information source table, and upload it.
+
+
 
 ## Document Fingerprinting
 [Microsoft Docs: Document Fingerprinting](https://learn.microsoft.com/en-us/microsoft-365/compliance/document-fingerprinting?view=o365-worldwide)
