@@ -57,6 +57,7 @@
     - [Create EDM schema (New Experience)](#create-edm-schema-new-experience)
       - [Create EDM schema (New Experience) - Manual Method](#create-edm-schema-new-experience---manual-method)
     - [Upload the Sensitive Information Source Table (New and Classic Experience)](#upload-the-sensitive-information-source-table-new-and-classic-experience)
+      - [Step 1: Download the schema file](#step-1-download-the-schema-file)
 - [Document Fingerprinting](#document-fingerprinting)
   - [How document fingerprinting works](#how-document-fingerprinting-works)
   - [Supported file types](#supported-file-types)
@@ -648,6 +649,32 @@ There are three parts to this process:
 1. Set up a custom security group and user account
 2. Set up the EDM Upload Agent tool
 3. Use the EDM Upload Agent tool to hash, with a salt value, the sensitive information source table, and upload it.
+
+The hashing and uploading can be done using one computer or you can separate the hash step from the upload step for greater security.
+
+If you don't want to expose your clear-text sensitive information source table file on the direct access computer, you can hash it on a computer that's in a secure location.  Then you can copy the hash file and the salt file to a computer that can connect directly to your M365 tenant for upload. In the separated hash and upload scenario, you'll need the **EDMUploadAgent** on both computers. 
+
+It is best practice to separate the processes of hashing and uploading the sensitive data so you can more easily isolate any issues in the process. Performing the hashing process on an isolated computer and then transferring the file for upload to an internet-facing computer ensures that the actual data is never available in clear text form on a computer that could have been compromised due to its connection to the internet.
+
+Important: If you used the Exact Data Match schema and sensitive information type wizard to create your schema file, you must download the schema for this procedure.  See [Export of the EDM schema file in XML format](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-create-schema?view=o365-worldwide#export-of-the-edm-schema-file-in-xml-format).
+
+Note: If your org has set up [Customer Key for Microsoft 365 at the tenant level](https://learn.microsoft.com/en-us/microsoft-365/compliance/customer-key-overview?view=o365-worldwide), an exact data match will use the encryption functionality automatically. This is for E5-licensed customers only.
+
+##### Step 1: Download the schema file
+- References
+  - [Export of the EDM schema file in XML format](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-create-schema?view=o365-worldwide#export-of-the-edm-schema-file-in-xml-format)
+
+Use `Get-DlpEdmSchema` to export the EDM schema to an XML file.
+```powershell
+$schema = Get-DlpEdmSchema -Identity 'customerinformationschema'
+Set-Content -Path "$env:USERPROFILE\Desktop\Schemafile.xml" -Value $schema.EdmSchemaXml
+```
+
+Here's what the schema looks like:
+![](img/2023-05-10-03-20-28.png)
+
+
+
 
 
 
