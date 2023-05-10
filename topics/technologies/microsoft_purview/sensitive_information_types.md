@@ -57,7 +57,10 @@
     - [Create EDM schema (New Experience)](#create-edm-schema-new-experience)
       - [Create EDM schema (New Experience) - Manual Method](#create-edm-schema-new-experience---manual-method)
     - [Upload the Sensitive Information Source Table (New and Classic Experience)](#upload-the-sensitive-information-source-table-new-and-classic-experience)
-      - [Step 1: Download the schema file](#step-1-download-the-schema-file)
+      - [Prerequisites](#prerequisites)
+        - [Download the schema file](#download-the-schema-file)
+        - [Create the **EDM\_DataUploaders** security group](#create-the-edm_datauploaders-security-group)
+      - [Install the EDM Upload Agent](#install-the-edm-upload-agent)
 - [Document Fingerprinting](#document-fingerprinting)
   - [How document fingerprinting works](#how-document-fingerprinting-works)
   - [Supported file types](#supported-file-types)
@@ -660,7 +663,9 @@ Important: If you used the Exact Data Match schema and sensitive information typ
 
 Note: If your org has set up [Customer Key for Microsoft 365 at the tenant level](https://learn.microsoft.com/en-us/microsoft-365/compliance/customer-key-overview?view=o365-worldwide), an exact data match will use the encryption functionality automatically. This is for E5-licensed customers only.
 
-##### Step 1: Download the schema file
+##### Prerequisites
+
+###### Download the schema file
 - References
   - [Export of the EDM schema file in XML format](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-create-schema?view=o365-worldwide#export-of-the-edm-schema-file-in-xml-format)
 
@@ -672,6 +677,41 @@ Set-Content -Path "$env:USERPROFILE\Desktop\Schemafile.xml" -Value $schema.EdmSc
 
 Here's what the schema looks like:
 ![](img/2023-05-10-03-20-28.png)
+
+###### Create the **EDM_DataUploaders** security group
+Use the following command to create the group:  
+```powershell
+New-AzureADGroup -DisplayName 'EDM_DataUploaders' -SecurityEnabled:$true -MailEnabled:$false -MailNickName 'edmupload' -Description "For use with the EDM Upload Agent tool"
+```
+
+Add members to the EDM_DataUploaders group.  
+```powershell
+Add-AzureADGroupMember -ObjectId cbca634c-a738-4409-990e-a3c09664f0ab -RefObjectId 6a245092-7801-445d-92b2-ac88d6759b92
+```
+
+##### Install the EDM Upload Agent
+Install the EDM Upload agent to a custom folder so you don't need administrative permissions. If you install it into the default folder (*Program Files*), administrator permissions are required.
+
+See [Links to EDM upload agent by subscription type](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-hash-upload?view=o365-worldwide#links-to-edm-upload-agent-by-subscription-type) for download.
+
+Here's an overview of the installation process:  
+
+![](img/2023-05-10-03-36-49.png)
+
+Here is the default location, where Admin permissions are required:  
+![](img/2023-05-10-03-37-51.png)
+
+Instead, use an installation location for a standard user account:  
+![](img/2023-05-10-03-56-21.png)
+
+
+
+
+
+
+
+
+
 
 
 
