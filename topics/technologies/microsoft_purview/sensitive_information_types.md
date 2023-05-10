@@ -579,7 +579,7 @@ Here are some guidelines for creating the sample file:
 - The sample file can't exceed 2.5 MB in size
 - Column (field) names must start with a letter, be at least 3 characters long, and consiste of only alphanumeric characters. Can't include spaces, underscores, or other special characters
 
-Example
+Example  
 ![](img/2023-05-08-04-23-44.png)
 
 See here for sample template files
@@ -599,47 +599,47 @@ Reference
 
 Here are the steps used to create an EDM schema in the new experience.
 
-Click **Create EDM classifier**
+Click **Create EDM classifier**  
 ![](img/2023-05-09-03-48-38.png)
 
-Again, click **Create EDM classifier**
+Again, click **Create EDM classifier**  
 ![](img/2023-05-09-03-51-04.png)
 
-Provide a name and description for the EDM classifier.
+Provide a name and description for the EDM classifier.  
 ![](img/2023-05-09-03-53-51.png)
 
-Choose the option to upload a sample data file.
+Choose the option to upload a sample data file.  
 ![](img/2023-05-09-03-54-39.png)
 
-Verify sample data
+Verify sample data  
 ![](img/2023-05-09-03-56-12.png)
 
 Select primary elements. Remember that values for primary elements must be unique. In this case, the purchase order is always unique.  
 ![](img/2023-05-09-04-04-32.png)
 
-Configure data settings
+Configure data settings  
 ![](img/2023-05-09-04-06-45.png)
 
-Configure detection rules. EDM will automatically generate one detection rule for each of the primary elements identified. 
+Configure detection rules. EDM will automatically generate one detection rule for each of the primary elements identified.  
 ![](img/2023-05-09-04-09-03.png)
 
-EDM will create a high confidence and a medium confidence rule
+EDM will create a high confidence and a medium confidence rule  
 ![](img/2023-05-09-04-09-24.png)
 
-Click **Submit**
+Click **Submit**  
 ![](img/2023-05-09-04-10-27.png)
 
-Confirm EDM classifier creation. The next step is to securely upload your sensitive information table data.
+Confirm EDM classifier creation. The next step is to securely upload your sensitive information table data.  
 ![](img/2023-05-09-04-11-17.png)
 
 ##### Create EDM schema (New Experience) - Manual Method
-Here's how the EDM schema creation experience looks when using the manual method, i.e. without the sample file.
+Here's how the EDM schema creation experience looks when using the manual method, i.e. without the sample file.  
 ![](img/2023-05-09-04-14-30.png)
 
-Define columns
+Define columns  
 ![](img/2023-05-09-04-14-50.png)
 
-Select primary elements and SITs
+Select primary elements and SITs  
 ![](img/2023-05-09-04-15-40.png)
 
 The rest of the process is the same.
