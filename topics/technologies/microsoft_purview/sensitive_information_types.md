@@ -702,22 +702,22 @@ If you accept the defaults, then a standard user will receive the following erro
 
 ![](img/2023-05-11-03-12-07.png)
 
-
-
-
-
-
 Here's an overview of the installation process:  
 
-![](img/2023-05-10-03-36-49.png)
+Microsoft Exact Data Match setup  
+![](img/2023-05-11-03-17-51.png)
 
-When using the default location Admin permissions are required each time when running `EdmUploadAgent.exe`:  
-![](img/2023-05-10-03-37-51.png)
+Install to a directory where standard users have write access.  
+![](img/2023-05-11-03-16-30.png)
 
-Instead, use an installation location for a standard user account. Admin permissions are still required for the install but are not required when running the executable.  
-![](img/2023-05-10-03-56-21.png)
+Accept EULA and then click **Finish**  
+![](img/2023-05-11-03-18-58.png)
 
-![](img/2023-05-10-04-13-31.png)  
+Verify usage with a standard user account:  
+![](img/2023-05-11-03-20-34.png)
+
+
+
 
 
 
