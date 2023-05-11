@@ -66,6 +66,7 @@
     - [EDM Upload Process](#edm-upload-process)
       - [Validate Sensitive Data Table](#validate-sensitive-data-table)
       - [Method 1: Hash and Upload](#method-1-hash-and-upload)
+      - [Check Upload Status](#check-upload-status)
 - [Document Fingerprinting](#document-fingerprinting)
   - [How document fingerprinting works](#how-document-fingerprinting-works)
   - [Supported file types](#supported-file-types)
@@ -745,10 +746,10 @@ Use the `/GetDataStore` option to retrieve the datastore name.
 
 Use the following command to export the EDM schema to an XML file.
 ```
-.\EdmUploadAgent.exe /SaveSchema /DataStoreName customerinformationschema /OutputDir ..\Data\
+.\EdmUploadAgent.exe /SaveSchema /DataStoreName customerinformationschema /OutputDir ..\Schema\
 ```  
 
-![](img/2023-05-11-03-54-30.png)
+![](img/2023-05-11-04-09-42.png)
 
 
 #### EDM Upload Process
@@ -770,6 +771,27 @@ Results should indicate a success.
 
 
 ##### Method 1: Hash and Upload
+The following command  
+```
+.\EdmUploadAgent.exe /UploadData /DataStoreName customerinformationschema /DataFile '..\Data\Sensitive Data Table.csv' /HashLocation '..\Hash\' /Schema '..\Schema\customerinformationschema.xml' /AllowedBadLinesPercentage 5
+```
+
+Command output  
+![](img/2023-05-11-04-15-17.png)
+
+Use the `/AllowedBadPercentage` parameter when your sensitive information table has some incorrectly formatted values, but you still want to import the remaining data while ignoring invalid rows. For example, a 5 percent threshold means that the tool hashes and uploads the sensitive information table, even if up to 5 percent of the rows are invalid. 
+
+Results  
+![](img/2023-05-11-04-16-28.png)
+
+##### Check Upload Status
+Use the following command to get upload status
+```
+.\EdmUploadAgent.exe /GetSession /DataStoreName customerinformationschema
+```
+
+Output  
+![](img/2023-05-11-04-18-07.png)
 
 
 
