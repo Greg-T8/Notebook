@@ -61,6 +61,7 @@
         - [Download the schema file](#download-the-schema-file)
         - [Create the **EDM\_DataUploaders** security group](#create-the-edm_datauploaders-security-group)
       - [Install the EDM Upload Agent](#install-the-edm-upload-agent)
+      - [Validate Sensitive Data Table](#validate-sensitive-data-table)
 - [Document Fingerprinting](#document-fingerprinting)
   - [How document fingerprinting works](#how-document-fingerprinting-works)
   - [Supported file types](#supported-file-types)
@@ -716,6 +717,21 @@ Accept EULA and then click **Finish**
 Verify usage with a standard user account:  
 ![](img/2023-05-11-03-20-34.png)
 
+##### Validate Sensitive Data Table
+The validation process detects the presence of special characters that may cause problems parsing the content. If the tool indicates a mismatch in the number of columns, it might be due to the presence of commas or quote characters within values that are being confused with column delimiters.
+
+If you find single quote characters or commas inside a value, you need to modify the data export process used and surround such columns with double quotes. For example, the person's name *Tom O'Neil* should be listed as *"Tom O'Neil"*. 
+
+If you find double quote characters inside values, use a Tab-delimited format.
+
+Run the following command to validate the EDM data table.
+
+```
+.\EdmUploadAgent.exe /ValidateData /DataFile '..\..\Data\Sensitive Data Table.csv' /Schema '..\..\Data\Schemafile.xml'
+```
+
+Results should indicate a success.  
+![](img/2023-05-11-03-26-15.png)
 
 
 
