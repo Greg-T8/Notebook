@@ -58,13 +58,14 @@
       - [Create EDM schema (New Experience) - Manual Method](#create-edm-schema-new-experience---manual-method)
     - [Upload the Sensitive Information Source Table (New and Classic Experience)](#upload-the-sensitive-information-source-table-new-and-classic-experience)
       - [Prerequisites](#prerequisites)
-        - [Download the schema file](#download-the-schema-file)
         - [Create the **EDM\_DataUploaders** security group](#create-the-edm_datauploaders-security-group)
       - [Install the EDM Upload Agent](#install-the-edm-upload-agent)
       - [Authorize the EDM Upload Agent](#authorize-the-edm-upload-agent)
-      - [](#)
+        - [Export the EDM Schema using `Get-DlpEdmSchema`](#export-the-edm-schema-using-get-dlpedmschema)
+      - [Export the EDM Schema using EdmUploadAgent.exe](#export-the-edm-schema-using-edmuploadagentexe)
     - [EDM Upload Process](#edm-upload-process)
       - [Validate Sensitive Data Table](#validate-sensitive-data-table)
+      - [Method 1: Hash and Upload](#method-1-hash-and-upload)
 - [Document Fingerprinting](#document-fingerprinting)
   - [How document fingerprinting works](#how-document-fingerprinting-works)
   - [Supported file types](#supported-file-types)
@@ -669,19 +670,6 @@ Note: If your org has set up [Customer Key for Microsoft 365 at the tenant level
 
 ##### Prerequisites
 
-###### Download the schema file
-- References
-  - [Export of the EDM schema file in XML format](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-create-schema?view=o365-worldwide#export-of-the-edm-schema-file-in-xml-format)
-
-Use `Get-DlpEdmSchema` to export the EDM schema to an XML file.
-```powershell
-$schema = Get-DlpEdmSchema -Identity 'customerinformationschema'
-Set-Content -Path "$env:USERPROFILE\Desktop\Schemafile.xml" -Value $schema.EdmSchemaXml
-```
-
-Here's what the schema looks like:
-![](img/2023-05-10-03-20-28.png)
-
 ###### Create the **EDM_DataUploaders** security group
 Use the following command to create the group:  
 ```powershell
@@ -734,7 +722,33 @@ Run the following command to authorize the EDM Upload Agent
 You will be prompted to enter credentials for a user that has access to the EDM_DataUploaders security group.
 ![](img/2023-05-11-03-48-31.png) 
 
-##### 
+###### Export the EDM Schema using `Get-DlpEdmSchema`
+- References
+  - [Export of the EDM schema file in XML format](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-create-schema?view=o365-worldwide#export-of-the-edm-schema-file-in-xml-format)
+
+Use `Get-DlpEdmSchema` to export the EDM schema to an XML file.
+```powershell
+$schema = Get-DlpEdmSchema -Identity 'customerinformationschema'
+Set-Content -Path "$env:USERPROFILE\Desktop\Schemafile.xml" -Value $schema.EdmSchemaXml
+```
+
+Here's what the schema loos like:
+![](img/2023-05-10-03-20-28.png)
+
+##### Export the EDM Schema using EdmUploadAgent.exe
+Use the `/GetDataStore` option to retrieve the datastore name.
+```
+.\EdmUploadAgent.exe /GetDataStore
+```
+
+![](img/2023-05-11-04-03-36.png)
+
+Use the following command to export the EDM schema to an XML file.
+```
+.\EdmUploadAgent.exe /SaveSchema /DataStoreName customerinformationschema /OutputDir ..\Data\
+```  
+
+![](img/2023-05-11-03-54-30.png)
 
 
 #### EDM Upload Process
@@ -753,6 +767,9 @@ Run the following command to validate the EDM data table.
 
 Results should indicate a success.  
 ![](img/2023-05-11-03-26-15.png)
+
+
+##### Method 1: Hash and Upload
 
 
 
