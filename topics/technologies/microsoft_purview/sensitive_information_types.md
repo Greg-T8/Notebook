@@ -690,9 +690,22 @@ Add-AzureADGroupMember -ObjectId cbca634c-a738-4409-990e-a3c09664f0ab -RefObject
 ```
 
 ##### Install the EDM Upload Agent
-Install the EDM Upload agent to a custom folder so you don't need administrative permissions. If you install it into the default folder (*Program Files*), administrator permissions are required.
-
 See [Links to EDM upload agent by subscription type](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-hash-upload?view=o365-worldwide#links-to-edm-upload-agent-by-subscription-type) for download.
+
+There are a couple of caveats when installing and using the EDM Upload Agent tool:
+
+1. Install the EDM Upload Agent to a custom folder so you don't need administrative permissions. If you install it into the default folder (*Program Files*), administrator permissions are required.
+
+2. The tool is designed to be run from the folder where it's installed. Provide an easy-to-use installation path,e.g. C:\EDM\Tools\EDMUploadAgent. 
+
+If you accept the defaults, then a standard user will receive the following error when running EdmUploadAgent.exe. The EDM Upload Agent tool writes trace files to the installation directory, and standard users don't have write access to C:\Program Files.    
+
+![](img/2023-05-11-03-12-07.png)
+
+
+
+
+
 
 Here's an overview of the installation process:  
 
