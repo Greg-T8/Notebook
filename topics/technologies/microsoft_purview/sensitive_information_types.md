@@ -61,6 +61,9 @@
         - [Download the schema file](#download-the-schema-file)
         - [Create the **EDM\_DataUploaders** security group](#create-the-edm_datauploaders-security-group)
       - [Install the EDM Upload Agent](#install-the-edm-upload-agent)
+      - [Authorize the EDM Upload Agent](#authorize-the-edm-upload-agent)
+      - [](#)
+    - [EDM Upload Process](#edm-upload-process)
       - [Validate Sensitive Data Table](#validate-sensitive-data-table)
 - [Document Fingerprinting](#document-fingerprinting)
   - [How document fingerprinting works](#how-document-fingerprinting-works)
@@ -709,14 +712,32 @@ Microsoft Exact Data Match setup
 ![](img/2023-05-11-03-17-51.png)
 
 Install to a directory where standard users have write access.  
-![](img/2023-05-11-03-16-30.png)
+![](img/2023-05-11-03-44-22.png)  
 
 Accept EULA and then click **Finish**  
 ![](img/2023-05-11-03-18-58.png)
 
-Verify usage with a standard user account:  
-![](img/2023-05-11-03-20-34.png)
+After the command completes you may receive an error related to accessing the TraceLogs folder. You can disregard this message.  
 
+![](img/2023-05-11-03-45-36.png)
+
+Verify usage with a standard user account:  
+![](img/2023-05-11-03-46-42.png)
+
+##### Authorize the EDM Upload Agent
+Run the following command to authorize the EDM Upload Agent
+
+```
+.\EdmUploadAgent.exe /Authorize
+```
+
+You will be prompted to enter credentials for a user that has access to the EDM_DataUploaders security group.
+![](img/2023-05-11-03-48-31.png) 
+
+##### 
+
+
+#### EDM Upload Process
 ##### Validate Sensitive Data Table
 The validation process detects the presence of special characters that may cause problems parsing the content. If the tool indicates a mismatch in the number of columns, it might be due to the presence of commas or quote characters within values that are being confused with column delimiters.
 
