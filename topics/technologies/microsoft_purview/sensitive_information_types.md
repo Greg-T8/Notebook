@@ -59,8 +59,9 @@
     - [Upload the Sensitive Information Source Table (New and Classic Experience)](#upload-the-sensitive-information-source-table-new-and-classic-experience)
       - [Prerequisites](#prerequisites)
         - [Create the **EDM\_DataUploaders** security group](#create-the-edm_datauploaders-security-group)
-      - [Install the EDM Upload Agent](#install-the-edm-upload-agent)
-      - [Authorize the EDM Upload Agent](#authorize-the-edm-upload-agent)
+        - [Install the EDM Upload Agent](#install-the-edm-upload-agent)
+        - [Create EDM Folder structure](#create-edm-folder-structure)
+        - [Authorize the EDM Upload Agent](#authorize-the-edm-upload-agent)
         - [Export the EDM Schema using `Get-DlpEdmSchema`](#export-the-edm-schema-using-get-dlpedmschema)
       - [Export the EDM Schema using EdmUploadAgent.exe](#export-the-edm-schema-using-edmuploadagentexe)
     - [EDM Upload Process](#edm-upload-process)
@@ -682,14 +683,14 @@ Add members to the EDM_DataUploaders group.
 Add-AzureADGroupMember -ObjectId cbca634c-a738-4409-990e-a3c09664f0ab -RefObjectId 6a245092-7801-445d-92b2-ac88d6759b92
 ```
 
-##### Install the EDM Upload Agent
+###### Install the EDM Upload Agent
 See [Links to EDM upload agent by subscription type](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-hash-upload?view=o365-worldwide#links-to-edm-upload-agent-by-subscription-type) for download.
 
 There are a couple of caveats when installing and using the EDM Upload Agent tool:
 
 1. Install the EDM Upload Agent to a custom folder so you don't need administrative permissions. If you install it into the default folder (*Program Files*), administrator permissions are required.
 
-2. The tool is designed to be run from the folder where it's installed. Provide an easy-to-use installation path,e.g. C:\EDM\Tools\EDMUploadAgent. 
+2. The tool is designed to be run from the folder where it's installed. Provide an easy-to-use installation path,e.g. C:\EDM\Agent. 
 
 If you accept the defaults, then a standard user will receive the following error when running EdmUploadAgent.exe. The EDM Upload Agent tool writes trace files to the installation directory, and standard users don't have write access to C:\Program Files.    
 
@@ -713,7 +714,12 @@ After the command completes you may receive an error related to accessing the Tr
 Verify usage with a standard user account:  
 ![](img/2023-05-11-03-46-42.png)
 
-##### Authorize the EDM Upload Agent
+###### Create EDM Folder structure
+The EDM Agent accesses several types of data. Use a folder structure for storing each of these data types&mdash;the sensitive data table, the EDM schema, and the hashes and salts used for encrypting the data.   
+
+![](img/2023-05-14-08-24-56.png)
+
+###### Authorize the EDM Upload Agent
 Run the following command to authorize the EDM Upload Agent
 
 ```
@@ -730,7 +736,7 @@ You will be prompted to enter credentials for a user that has access to the EDM_
 Use `Get-DlpEdmSchema` to export the EDM schema to an XML file.
 ```powershell
 $schema = Get-DlpEdmSchema -Identity 'customerinformationschema'
-Set-Content -Path "$env:USERPROFILE\Desktop\Schemafile.xml" -Value $schema.EdmSchemaXml
+Set-Content -Path "C:\EDM\Schema\CustomerInformationSchema.xml" -Value $schema.EdmSchemaXml
 ```
 
 Here's what the schema loos like:
@@ -771,27 +777,27 @@ Results should indicate a success.
 
 
 ##### Method 1: Hash and Upload
-The following command  
+The following command hashes and uploads the sensitive information source table in one process. 
 ```
 .\EdmUploadAgent.exe /UploadData /DataStoreName customerinformationschema /DataFile '..\Data\Sensitive Data Table.csv' /HashLocation '..\Hash\' /Schema '..\Schema\customerinformationschema.xml' /AllowedBadLinesPercentage 5
 ```
-
-Command output  
 ![](img/2023-05-11-04-15-17.png)
 
 Use the `/AllowedBadPercentage` parameter when your sensitive information table has some incorrectly formatted values, but you still want to import the remaining data while ignoring invalid rows. For example, a 5 percent threshold means that the tool hashes and uploads the sensitive information table, even if up to 5 percent of the rows are invalid. 
 
-Results  
+The result of the command is a table with hashed values. This table is stored in the Microsoft cloud.  
 ![](img/2023-05-11-04-16-28.png)
 
 ##### Check Upload Status
-Use the following command to get upload status
+Use the following command to get upload status.  
 ```
 .\EdmUploadAgent.exe /GetSession /DataStoreName customerinformationschema
-```
-
-Output  
+```  
+   
 ![](img/2023-05-11-04-18-07.png)
+
+Look for the status to be in **ProcessingInProgress**. Check again every few minutes until the status changes to **Completed**. Once the status is completed, your EDM data is ready for use. Depending on the size of the sensitive information source table file, this can take from a few minutes to several hours. 
+
 
 
 
