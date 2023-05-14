@@ -811,7 +811,7 @@ Run the following command to upload the hash file.
 ```
 
 ###### Check Upload Status
-Use the following command to get upload status.  
+Use the following command to get upload status. 
 ```
 .\EdmUploadAgent.exe /GetSession /DataStoreName customerinformationschema
 ```  
@@ -822,8 +822,8 @@ Look for the status to be in **ProcessingInProgress**. Check again every few min
 
 ![](img/2023-05-14-09-11-55.png)
 
-
-
+You can upload data with the EDMUploadAgent to any given data store up to five times per day.  You will receive an error message if attempting to upload more than five times.  
+![](img/2023-05-14-09-53-43.png)
 
 
 
