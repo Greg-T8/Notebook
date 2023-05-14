@@ -50,23 +50,23 @@
     - [How Matching Works](#how-matching-works)
     - [Services Supported by EDM](#services-supported-by-edm)
   - [Creating and Managing EDM SITs](#creating-and-managing-edm-sits)
-    - [About the EDM Creation Experiences—Classic and New](#about-the-edm-creation-experiencesclassic-and-new)
-    - [Defining the EDM data structure](#defining-the-edm-data-structure)
-    - [Export source data](#export-source-data)
-    - [Create sample file (New Experience)](#create-sample-file-new-experience)
+    - [About the Classic and New EDM Creation Experiences](#about-the-classic-and-new-edm-creation-experiences)
+    - [Define the EDM data structure](#define-the-edm-data-structure)
+    - [Create sample file used for establishing EDM schema (New Experience)](#create-sample-file-used-for-establishing-edm-schema-new-experience)
     - [Create EDM schema (New Experience)](#create-edm-schema-new-experience)
       - [Create EDM schema (New Experience) - Manual Method](#create-edm-schema-new-experience---manual-method)
+    - [Export source data to a text file](#export-source-data-to-a-text-file)
     - [Upload the Sensitive Information Source Table (New and Classic Experience)](#upload-the-sensitive-information-source-table-new-and-classic-experience)
       - [Prerequisites](#prerequisites)
         - [Create the **EDM\_DataUploaders** security group](#create-the-edm_datauploaders-security-group)
         - [Install the EDM Upload Agent](#install-the-edm-upload-agent)
         - [Create EDM Folder structure](#create-edm-folder-structure)
         - [Authorize the EDM Upload Agent](#authorize-the-edm-upload-agent)
-      - [Export the EDM Schema](#export-the-edm-schema)
+      - [Export the EDM schema to XML file](#export-the-edm-schema-to-xml-file)
         - [Export the EDM Schema using `Get-DlpEdmSchema`](#export-the-edm-schema-using-get-dlpedmschema)
         - [Export the EDM Schema using EdmUploadAgent.exe](#export-the-edm-schema-using-edmuploadagentexe)
       - [EDM Upload Process](#edm-upload-process)
-        - [Validate Sensitive Data Table](#validate-sensitive-data-table)
+        - [Validate sensitive data table against schema](#validate-sensitive-data-table-against-schema)
         - [Method 1: Hash and Upload](#method-1-hash-and-upload)
         - [Method 2: Separate Hash and Upload](#method-2-separate-hash-and-upload)
         - [Check Upload Status](#check-upload-status)
@@ -514,7 +514,7 @@ Tip: Use EDM SITs and predefined SITs together in DLP rules for better detection
 References
 - [Get started with EDM SITs](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-based-sits-overview?view=o365-worldwide)
 
-#### About the EDM Creation Experiences&mdash;Classic and New
+#### About the Classic and New EDM Creation Experiences
 There are two EDM creation experiences, the new experience and the classic experience.  Use the new experience going forward. Here are reasons why you would want to use the classic experience:
 
 1. You want to map multiple EDM SITs to the same schema.  
@@ -534,7 +534,7 @@ There are two EDM creation experiences, the new experience and the classic exper
 
     All schemas created using the classic experience or uploaded as an XML file using PowerShell are not viewable or manageable in the new experience.
 
-#### Defining the EDM data structure
+#### Define the EDM data structure
 - Reference
   - [Export Source Data](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-export-data?view=o365-worldwide)
 
@@ -550,29 +550,7 @@ Use the following rules to help you decide which columns you should use as prima
 
 Example:  if you have the columns `full name`, `date of birth`, `account number`, and `Social Security Number`, even first and last names may be common to different combinations of data you want to protect, but such strings don't follow easily identifiable patterns and may be difficult to define as a SIT. Date of birth can be easily identified but is not a good candidate for a primary field because multiple people may have the same date of birth.SSN and account numbers are good candidates for a primary field because they provide uniqueness.
 
-#### Export source data
-Reference
-- [Export source data](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-export-data?view=o365-worldwide)
-  
-Microsoft requires you to export your table of sensitive data to a text file. Later on, you'll use the [`EdmUploadAgent.exe`](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-hash-upload?view=o365-worldwide#links-to-edm-upload-agent-by-subscription-type) tool to securely upload a hash of this data to Microsoft. This hashed data will serve as the basis for Exact Data Match rules.
-
-**Step 1**: Create your sensitive data table by exporting the data to a text file in one of the following supported formats:
-- CSV (comma-separated values)
-- Tab-separated format (see [here](https://www.automateexcel.com/how-to/convert-delimited-text-file/))
-  - Useful in cases where your data may contain commas, e.g. street addresses
-- Pipe-separated format (see [here](https://www.automateexcel.com/how-to/convert-save-as-pipe-delimited/))
-
-Data file limitations
-- Up to 100 million rows of sensitive data
-- Up to 32 columns (fields) per data source
-- Up to 10 columns (fields) marked as searchable
-
-**Step 2**: Structure the sensitive data such that the first row includes the names of the fields used for EDM-based classification, e.g. "SSN", "birthdate", "firstname", "lastname".  The column headers cannot include spaces or underscores.
-
-**Step 3**: Pay attention to the data format. If field values contain commas, then use a tab-separated or a pipe-separated format.
-
-
-#### Create sample file (New Experience)
+#### Create sample file used for establishing EDM schema (New Experience)
 Reference
 - [Create EDM SIT sample file for the new experience](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-create-edm-sit-unified-ux-sample-file?view=o365-worldwide)
 
@@ -653,6 +631,27 @@ Select primary elements and SITs
 
 The rest of the process is the same.
 
+#### Export source data to a text file
+Reference
+- [Export source data](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-export-data?view=o365-worldwide)
+  
+Microsoft requires you to export your table of sensitive data to a text file. You use the [EDM Upload Agent (`EdmUploadAgent.exe`)](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-hash-upload?view=o365-worldwide#links-to-edm-upload-agent-by-subscription-type) to securely upload a hash of this data to Microsoft. This hashed data serves as the basis for Exact Data Match rules.
+
+**Step 1**: Create your sensitive data table by exporting the data to a text file in one of the following supported formats:
+- CSV (comma-separated values)
+- Tab-separated format (see [here](https://www.automateexcel.com/how-to/convert-delimited-text-file/))
+  - Useful in cases where your data may contain commas, e.g. street addresses
+- Pipe-separated format (see [here](https://www.automateexcel.com/how-to/convert-save-as-pipe-delimited/))
+
+Data file limitations
+- Up to 100 million rows of sensitive data
+- Up to 32 columns (fields) per data source
+- Up to 10 columns (fields) marked as searchable
+
+**Step 2**: Structure the sensitive data such that the first row includes the names of the fields used for EDM-based classification, e.g. "SSN", "birthdate", "firstname", "lastname".  The column headers cannot include spaces or underscores.
+
+**Step 3**: Pay attention to the data format. If field values contain commas, then use a tab-separated or a pipe-separated format.
+
 #### Upload the Sensitive Information Source Table (New and Classic Experience)
 - Reference
   - [Hash and upload the sensitive information source table for exact data match sensitive information types](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-hash-upload?view=o365-worldwide)
@@ -731,7 +730,7 @@ Run the following command to authorize the EDM Upload Agent
 You will be prompted to enter credentials for a user that has access to the EDM_DataUploaders security group.
 ![](img/2023-05-11-03-48-31.png) 
 
-##### Export the EDM Schema
+##### Export the EDM schema to XML file
 ###### Export the EDM Schema using `Get-DlpEdmSchema`
 - References
   - [Export of the EDM schema file in XML format](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-create-schema?view=o365-worldwide#export-of-the-edm-schema-file-in-xml-format)
@@ -762,7 +761,7 @@ Use the following command to export the EDM schema to an XML file.
 
 
 ##### EDM Upload Process
-###### Validate Sensitive Data Table
+###### Validate sensitive data table against schema
 The validation process detects the presence of special characters that may cause problems parsing the content. If the tool indicates a mismatch in the number of columns, it might be due to the presence of commas or quote characters within values that are being confused with column delimiters.
 
 If you find single quote characters or commas inside a value, you need to modify the data export process used and surround such columns with double quotes. For example, the person's name *Tom O'Neil* should be listed as *"Tom O'Neil"*. 
