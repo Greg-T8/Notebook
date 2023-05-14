@@ -62,12 +62,14 @@
         - [Install the EDM Upload Agent](#install-the-edm-upload-agent)
         - [Create EDM Folder structure](#create-edm-folder-structure)
         - [Authorize the EDM Upload Agent](#authorize-the-edm-upload-agent)
+      - [Export the EDM Schema](#export-the-edm-schema)
         - [Export the EDM Schema using `Get-DlpEdmSchema`](#export-the-edm-schema-using-get-dlpedmschema)
-      - [Export the EDM Schema using EdmUploadAgent.exe](#export-the-edm-schema-using-edmuploadagentexe)
-    - [EDM Upload Process](#edm-upload-process)
-      - [Validate Sensitive Data Table](#validate-sensitive-data-table)
-      - [Method 1: Hash and Upload](#method-1-hash-and-upload)
-      - [Check Upload Status](#check-upload-status)
+        - [Export the EDM Schema using EdmUploadAgent.exe](#export-the-edm-schema-using-edmuploadagentexe)
+      - [EDM Upload Process](#edm-upload-process)
+        - [Validate Sensitive Data Table](#validate-sensitive-data-table)
+        - [Method 1: Hash and Upload](#method-1-hash-and-upload)
+        - [Method 2: Separate Hash and Upload](#method-2-separate-hash-and-upload)
+        - [Check Upload Status](#check-upload-status)
 - [Document Fingerprinting](#document-fingerprinting)
   - [How document fingerprinting works](#how-document-fingerprinting-works)
   - [Supported file types](#supported-file-types)
@@ -729,6 +731,7 @@ Run the following command to authorize the EDM Upload Agent
 You will be prompted to enter credentials for a user that has access to the EDM_DataUploaders security group.
 ![](img/2023-05-11-03-48-31.png) 
 
+##### Export the EDM Schema
 ###### Export the EDM Schema using `Get-DlpEdmSchema`
 - References
   - [Export of the EDM schema file in XML format](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-create-schema?view=o365-worldwide#export-of-the-edm-schema-file-in-xml-format)
@@ -742,7 +745,7 @@ Set-Content -Path "C:\EDM\Schema\CustomerInformationSchema.xml" -Value $schema.E
 Here's what the schema loos like:
 ![](img/2023-05-10-03-20-28.png)
 
-##### Export the EDM Schema using EdmUploadAgent.exe
+###### Export the EDM Schema using EdmUploadAgent.exe
 Use the `/GetDataStore` option to retrieve the datastore name.
 ```
 .\EdmUploadAgent.exe /GetDataStore
@@ -758,8 +761,8 @@ Use the following command to export the EDM schema to an XML file.
 ![](img/2023-05-11-04-09-42.png)
 
 
-#### EDM Upload Process
-##### Validate Sensitive Data Table
+##### EDM Upload Process
+###### Validate Sensitive Data Table
 The validation process detects the presence of special characters that may cause problems parsing the content. If the tool indicates a mismatch in the number of columns, it might be due to the presence of commas or quote characters within values that are being confused with column delimiters.
 
 If you find single quote characters or commas inside a value, you need to modify the data export process used and surround such columns with double quotes. For example, the person's name *Tom O'Neil* should be listed as *"Tom O'Neil"*. 
@@ -776,8 +779,8 @@ Results should indicate a success.
 ![](img/2023-05-11-03-26-15.png)
 
 
-##### Method 1: Hash and Upload
-The following command hashes and uploads the sensitive information source table in one process. 
+###### Method 1: Hash and Upload
+The following command hashes and uploads the sensitive information source table in one process. The EDM Upload Agent automatically adds a salt value to the hashed data.  
 ```
 .\EdmUploadAgent.exe /UploadData /DataStoreName customerinformationschema /DataFile '..\Data\Sensitive Data Table.csv' /HashLocation '..\Hash\' /Schema '..\Schema\customerinformationschema.xml' /AllowedBadLinesPercentage 5
 ```
@@ -788,7 +791,26 @@ Use the `/AllowedBadPercentage` parameter when your sensitive information table 
 The result of the command is a table with hashed values. This table is stored in the Microsoft cloud.  
 ![](img/2023-05-11-04-16-28.png)
 
-##### Check Upload Status
+###### Method 2: Separate Hash and Upload
+It is best practice to separate the process of hashing and uploading the sensitive data so you can more easily isolate issues in the process. Once in production, keep the two steps separate in most cases. Performing the hashing process on an isolated computer and then transferring the file for upload to an Internet-facing computer ensures the actual data is never available in clear text form on a computer that could have been compromised due to its connection to the Internet.
+
+On the computer in the secure environment, run the following command:  
+```powershell
+$dataFile = "C:\EDM\Data\Sensitive Data Table.csv"
+$hashLocation = "C:\EDM\Hash\"
+$schemaFile = "C:\EDM\Schema\customerinformationschema.xml"
+.\EdmUploadAgent.exe /CreateHash /DataFile $dataFile /HashLocation $hashLocation /Schema $schemaFile /AllowedBadLinesPercentage 5
+```
+The process creates a hash file and a salt file.  
+![](img/2023-05-14-09-03-34.png)
+
+Copy these files to the computer you use to upload your sensitive information source table to your tenant.
+
+
+
+
+
+###### Check Upload Status
 Use the following command to get upload status.  
 ```
 .\EdmUploadAgent.exe /GetSession /DataStoreName customerinformationschema
