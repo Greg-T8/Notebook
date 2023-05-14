@@ -806,9 +806,10 @@ The process creates a hash file and a salt file.
 
 Copy these files to the computer you use to upload your sensitive information source table to your tenant.
 
-
-
-
+Run the following command to upload the hash file.  
+```powershell
+.\EdmUploadAgent.exe /UploadHash /DataStoreName customerinformationschema /HashFile 'C:\EDM\Hash\Sensitive Data Table.EdmHash'
+```
 
 ###### Check Upload Status
 Use the following command to get upload status.  
@@ -820,6 +821,7 @@ Use the following command to get upload status.
 
 Look for the status to be in **ProcessingInProgress**. Check again every few minutes until the status changes to **Completed**. Once the status is completed, your EDM data is ready for use. Depending on the size of the sensitive information source table file, this can take from a few minutes to several hours. 
 
+![](img/2023-05-14-09-11-55.png)
 
 
 
