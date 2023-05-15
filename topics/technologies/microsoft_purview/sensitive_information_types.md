@@ -852,8 +852,16 @@ You can upload data with the EDMUploadAgent to any given data store up to five t
 
 
 #### Create EDM SIT rules (Classic Experience)
-
+In the Microsoft Purview compliance portal, navigate to **Data Classification** > **Classifiers** > **EDM Classifiers** > **EDM sensitive info types**; then click **Create EDM sensitive info type**.
 ![](img/2023-05-15-04-59-16.png)
+
+Select the schema created from the classic experience. Note that schemas created from the new experience have the word *schema* appended.  
+
+![](img/2023-05-15-05-00-47.png)
+
+
+
+
 
 ## Document Fingerprinting
 [Microsoft Docs: Document Fingerprinting](https://learn.microsoft.com/en-us/microsoft-365/compliance/document-fingerprinting?view=o365-worldwide)
