@@ -51,13 +51,13 @@
     - [Services Supported by EDM](#services-supported-by-edm)
   - [Creating and Managing EDM SITs](#creating-and-managing-edm-sits)
     - [About the Classic and New EDM Creation Experiences](#about-the-classic-and-new-edm-creation-experiences)
+    - [Export source data to a text file](#export-source-data-to-a-text-file)
     - [Define the EDM data structure](#define-the-edm-data-structure)
     - [Create sample file used for establishing EDM schema (New Experience)](#create-sample-file-used-for-establishing-edm-schema-new-experience)
     - [Create EDM schema (New Experience)](#create-edm-schema-new-experience)
       - [Create EDM schema (New Experience) - Manual Method](#create-edm-schema-new-experience---manual-method)
-    - [Export source data to a text file](#export-source-data-to-a-text-file)
-    - [Create EDM SIT workflow (Classic Experience)](#create-edm-sit-workflow-classic-experience)
-    - [Upload the Sensitive Information Source Table (New Experience)](#upload-the-sensitive-information-source-table-new-experience)
+    - [Create EDM schema (Classic Experience)](#create-edm-schema-classic-experience)
+    - [Upload the Sensitive Information Source Table](#upload-the-sensitive-information-source-table)
       - [Prerequisites](#prerequisites)
         - [Create the **EDM\_DataUploaders** security group](#create-the-edm_datauploaders-security-group)
         - [Install the EDM Upload Agent](#install-the-edm-upload-agent)
@@ -71,6 +71,7 @@
         - [Method 1: Hash and Upload](#method-1-hash-and-upload)
         - [Method 2: Separate Hash and Upload](#method-2-separate-hash-and-upload)
         - [Check Upload Status](#check-upload-status)
+    - [Create EDM SIT rules (Classic Experience)](#create-edm-sit-rules-classic-experience)
 - [Document Fingerprinting](#document-fingerprinting)
   - [How document fingerprinting works](#how-document-fingerprinting-works)
   - [Supported file types](#supported-file-types)
@@ -535,6 +536,27 @@ There are two EDM creation experiences, the new experience and the classic exper
 
     All schemas created using the classic experience or uploaded as an XML file using PowerShell are not viewable or manageable in the new experience.
 
+#### Export source data to a text file
+Reference
+- [Export source data](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-export-data?view=o365-worldwide)
+  
+Microsoft requires you to export your table of sensitive data to a text file. You use the [EDM Upload Agent (`EdmUploadAgent.exe`)](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-hash-upload?view=o365-worldwide#links-to-edm-upload-agent-by-subscription-type) to securely upload a hash of this data to Microsoft. This hashed data serves as the basis for Exact Data Match rules.
+
+**Step 1**: Create your sensitive data table by exporting the data to a text file in one of the following supported formats:
+- CSV (comma-separated values)
+- Tab-separated format (see [here](https://www.automateexcel.com/how-to/convert-delimited-text-file/))
+  - Useful in cases where your data may contain commas, e.g. street addresses
+- Pipe-separated format (see [here](https://www.automateexcel.com/how-to/convert-save-as-pipe-delimited/))
+
+Data file limitations
+- Up to 100 million rows of sensitive data
+- Up to 32 columns (fields) per data source
+- Up to 10 columns (fields) marked as searchable
+
+**Step 2**: Structure the sensitive data such that the first row includes the names of the fields used for EDM-based classification, e.g. "SSN", "birthdate", "firstname", "lastname".  The column headers cannot include spaces or underscores.
+
+**Step 3**: Pay attention to the data format. If field values contain commas, then use a tab-separated or a pipe-separated format.
+
 #### Define the EDM data structure
 - Reference
   - [Export Source Data](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-export-data?view=o365-worldwide)
@@ -632,35 +654,30 @@ Select primary elements and SITs
 
 The rest of the process is the same.
 
-#### Export source data to a text file
+#### Create EDM schema (Classic Experience)
 Reference
-- [Export source data](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-export-data?view=o365-worldwide)
+- [Create the schema for EDM classic experience](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-create-schema?view=o365-worldwide)
   
-Microsoft requires you to export your table of sensitive data to a text file. You use the [EDM Upload Agent (`EdmUploadAgent.exe`)](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-hash-upload?view=o365-worldwide#links-to-edm-upload-agent-by-subscription-type) to securely upload a hash of this data to Microsoft. This hashed data serves as the basis for Exact Data Match rules.
-
-**Step 1**: Create your sensitive data table by exporting the data to a text file in one of the following supported formats:
-- CSV (comma-separated values)
-- Tab-separated format (see [here](https://www.automateexcel.com/how-to/convert-delimited-text-file/))
-  - Useful in cases where your data may contain commas, e.g. street addresses
-- Pipe-separated format (see [here](https://www.automateexcel.com/how-to/convert-save-as-pipe-delimited/))
-
-Data file limitations
-- Up to 100 million rows of sensitive data
-- Up to 32 columns (fields) per data source
-- Up to 10 columns (fields) marked as searchable
-
-**Step 2**: Structure the sensitive data such that the first row includes the names of the fields used for EDM-based classification, e.g. "SSN", "birthdate", "firstname", "lastname".  The column headers cannot include spaces or underscores.
-
-**Step 3**: Pay attention to the data format. If field values contain commas, then use a tab-separated or a pipe-separated format.
-
-
-#### Create EDM SIT workflow (Classic Experience)
 Here's the workflow at a glance:  
-
 ![](img/2023-05-15-04-23-18.png)
 
+In the Microsoft Purview compliance portal go to **Data Classification** > **Classifiers** > **EDM Classifiers** > **EDM Schemas**.  
+![](img/2023-05-15-04-33-18.png)  
 
-#### Upload the Sensitive Information Source Table (New Experience)
+Select **Create EDM Schema**.
+
+A couple of notes here:
+- The number of columns in your sensitive information table must match the number of fields in your schema. Order doesn't matter.
+- If you want to remove a schema, and it is already associated with an EDM SIT, you must first delete the EDM SIT, then you can delete the schema.
+- Deleting a schema that has a data store associated with it also deletes the data store within 24 hours.
+- 
+
+Use the **New EDM schema** wizard to create the schema.  Searchable fields are mapped to sensitive information types and may become primary fields for specifying SIT rule packages in the following steps. At least one field must be designated as searchable. Non-searchable fields may only be used for supporting evidence.
+
+![](img/2023-05-15-04-42-26.png)
+
+
+#### Upload the Sensitive Information Source Table
 - Reference
   - [Hash and upload the sensitive information source table for exact data match sensitive information types](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-hash-upload?view=o365-worldwide)
 
@@ -833,6 +850,10 @@ Look for the status to be in **ProcessingInProgress**. Check again every few min
 You can upload data with the EDMUploadAgent to any given data store up to five times per day.  You will receive an error message if attempting to upload more than five times.  
 ![](img/2023-05-14-09-53-43.png)
 
+
+#### Create EDM SIT rules (Classic Experience)
+
+![](img/2023-05-15-04-59-16.png)
 
 ## Document Fingerprinting
 [Microsoft Docs: Document Fingerprinting](https://learn.microsoft.com/en-us/microsoft-365/compliance/document-fingerprinting?view=o365-worldwide)
