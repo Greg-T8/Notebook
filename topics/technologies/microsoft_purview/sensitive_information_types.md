@@ -855,13 +855,23 @@ You can upload data with the EDMUploadAgent to any given data store up to five t
 In the Microsoft Purview compliance portal, navigate to **Data Classification** > **Classifiers** > **EDM Classifiers** > **EDM sensitive info types**; then click **Create EDM sensitive info type**.
 ![](img/2023-05-15-04-59-16.png)
 
-Select the schema created from the classic experience. Note that schemas created from the new experience have the word *schema* appended.  
+Select the schema created from the classic experience. This is one point where the classic workflow diverges from the new workflow. With the classic workflow you are able to associate more than one EDM SIT to a schema. This is not possible with the new workflow. Note that schemas created from the new experience have the word *schema* appended.  
 
 ![](img/2023-05-15-05-00-47.png)
 
+Confirm the schema fields.  
+![](img/2023-05-15-05-07-17.png)
 
+Define patterns for low, medium, and high confidence levels.  
+![](img/2023-05-15-05-10-26.png)
 
+Specify the recommended confidence level.  
+![](img/2023-05-15-05-11-01.png)
 
+Provide a name for the EDM SIT; then click **Done**.  
+![](img/2023-05-15-05-11-52.png)
+
+Note: You cannot change the name of the EDM SIT in the compliance portal. To change the name you must export to XML and import. 
 
 ## Document Fingerprinting
 [Microsoft Docs: Document Fingerprinting](https://learn.microsoft.com/en-us/microsoft-365/compliance/document-fingerprinting?view=o365-worldwide)
