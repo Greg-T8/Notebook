@@ -56,7 +56,8 @@
     - [Create EDM schema (New Experience)](#create-edm-schema-new-experience)
       - [Create EDM schema (New Experience) - Manual Method](#create-edm-schema-new-experience---manual-method)
     - [Export source data to a text file](#export-source-data-to-a-text-file)
-    - [Upload the Sensitive Information Source Table (New and Classic Experience)](#upload-the-sensitive-information-source-table-new-and-classic-experience)
+    - [Create EDM SIT workflow (Classic Experience)](#create-edm-sit-workflow-classic-experience)
+    - [Upload the Sensitive Information Source Table (New Experience)](#upload-the-sensitive-information-source-table-new-experience)
       - [Prerequisites](#prerequisites)
         - [Create the **EDM\_DataUploaders** security group](#create-the-edm_datauploaders-security-group)
         - [Install the EDM Upload Agent](#install-the-edm-upload-agent)
@@ -652,7 +653,14 @@ Data file limitations
 
 **Step 3**: Pay attention to the data format. If field values contain commas, then use a tab-separated or a pipe-separated format.
 
-#### Upload the Sensitive Information Source Table (New and Classic Experience)
+
+#### Create EDM SIT workflow (Classic Experience)
+Here's the workflow at a glance:  
+
+![](img/2023-05-15-04-23-18.png)
+
+
+#### Upload the Sensitive Information Source Table (New Experience)
 - Reference
   - [Hash and upload the sensitive information source table for exact data match sensitive information types](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-hash-upload?view=o365-worldwide)
 
@@ -824,24 +832,6 @@ Look for the status to be in **ProcessingInProgress**. Check again every few min
 
 You can upload data with the EDMUploadAgent to any given data store up to five times per day.  You will receive an error message if attempting to upload more than five times.  
 ![](img/2023-05-14-09-53-43.png)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ## Document Fingerprinting
