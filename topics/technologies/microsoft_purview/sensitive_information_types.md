@@ -16,6 +16,7 @@
 - [Links](#links)
 - [Exam Goals](#exam-goals)
 - [Contents](#contents)
+- [Identify Sensitive Information Types in Use](#identify-sensitive-information-types-in-use)
 - [Sensitivity Information Types Overview](#sensitivity-information-types-overview)
   - [Sensitive Information Type Patterns](#sensitive-information-type-patterns)
   - [Confidence Levels](#confidence-levels)
@@ -83,8 +84,29 @@
   - [Matching](#matching)
   - [Test a Fingerprint SIT](#test-a-fingerprint-sit)
   - [Validate DLP Fingerprint Functionality](#validate-dlp-fingerprint-functionality)
-- [Identify Sensitive Information Types in use](#identify-sensitive-information-types-in-use)
 - [PowerShell commands for Sensitive Information Types](#powershell-commands-for-sensitive-information-types)
+
+## Identify Sensitive Information Types in Use
+Use the command `Get-DlpSiDetectionsReport` to retrieve a report that contains information about sensitive information type detections. The *Si* stands for *Sensitive Information*. 
+![](img/20230556-035602.png)
+
+Use the following one-liner to provide the common names of the detected SITs.  
+```powershell
+Get-DlpSiDetectionsReport | Select-Object Date, @{n='SensitiveType'; e={Get-DlpSensitiveInformationType -Identity $_.SensitiveType | Select-Object -ExpandProperty Name}}, DocumentCount, ProtectionStatus
+```
+![](img/20230502-040242.png)
+
+Use `Get-DlpDataReport` to get more detailed information. Here are some examples:
+
+```
+$report = Get-DlpDataReport
+```
+![](img/20230513-041306.png)
+
+You may then expand on the report to reveal further information.  
+![](img/20230520-042041.png)
+
+
 
 ## Sensitivity Information Types Overview
 
@@ -1063,15 +1085,6 @@ The message trace indicates the email was blocked due to the **Patent Sharing Re
 
 Alternatively, you can use a mail flow rule in Exchange to block the fingerprint SIT.
 
-## Identify Sensitive Information Types in use
-Use the command `Get-DlpSiDetectionsReport` to retrieve a report that contains information about sensitive information type detections. The *Si* stands for *Sensitive Information*. 
-![](img/20230556-035602.png)
-
-Use the following one-liner to provide the common names of the detected SITs.  
-```powershell
-Get-DlpSiDetectionsReport | Select-Object Date, @{n='SensitiveType'; e={Get-DlpSensitiveInformationType -Identity $_.SensitiveType | Select-Object -ExpandProperty Name}}, DocumentCount, ProtectionStatus
-```
-![](img/20230502-040242.png)
 
 
 
