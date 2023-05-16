@@ -8,6 +8,9 @@ The following information is taken from the SC-400 study guide: https://learn.mi
 - Create and manage exact data match (EDM) classifiers
 - Implement document fingerprinting
 
+  Hours Committed: 28  
+  Dates: 4/26/23 - 5/16/23
+
 ## Create and manage trainable classifiers
 - Identify when to use trainable classifiers
 - Design and create a trainable classifier
