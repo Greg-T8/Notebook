@@ -908,8 +908,12 @@ Refresh the portal to confirm the name change.
 
 
 #### Test EDM SIT
+In the Microsoft Purview compliance portal, navigate to **Data Classification** > **Classifiers** > **Sensitive info types**; then locate the SIT and use the Test button.
 
+![](img/20230543-034346.png)
 
+Matches are determined by the number of supporting types found, as specified in the EDM SIT rules.  
+![](img/20230545-034536.png)
 
 ## Document Fingerprinting
 [Microsoft Docs: Document Fingerprinting](https://learn.microsoft.com/en-us/microsoft-365/compliance/document-fingerprinting?view=o365-worldwide)
