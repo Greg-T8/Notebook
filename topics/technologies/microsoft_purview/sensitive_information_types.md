@@ -890,7 +890,7 @@ You can upload data with the EDMUploadAgent to any given data store up to five t
 
 
 #### Create EDM SIT rules (Classic Experience)
-In the Microsoft Purview compliance portal, navigate to **Data Classification** > **Classifiers** > **EDM Classifiers** > **EDM sensitive info types**; then click **Create EDM sensitive info type**.
+In the Microsoft Purview compliance portal, navigate to **Data Classification** > **Classifiers** > **EDM Classifiers** > **EDM sensitive info types**; then click **Create EDM sensitive info type**.  
 ![](img/2023-05-15-04-59-16.png)
 
 Select the schema created from the classic experience. This is one point where the classic workflow diverges from the new workflow. With the classic workflow you are able to associate more than one EDM SIT to a schema. This is not possible with the new workflow. Note that schemas created from the new experience have the word *schema* appended.  
