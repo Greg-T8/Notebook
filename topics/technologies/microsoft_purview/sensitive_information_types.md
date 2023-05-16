@@ -83,6 +83,7 @@
   - [Matching](#matching)
   - [Test a Fingerprint SIT](#test-a-fingerprint-sit)
   - [Validate DLP Fingerprint Functionality](#validate-dlp-fingerprint-functionality)
+- [Identify Sensitive Information Types in use](#identify-sensitive-information-types-in-use)
 - [PowerShell commands for Sensitive Information Types](#powershell-commands-for-sensitive-information-types)
 
 ## Sensitivity Information Types Overview
@@ -519,7 +520,7 @@ References
 - [Get started with EDM SITs](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-based-sits-overview?view=o365-worldwide)
 
 #### About the Classic and New EDM Creation Experiences
-There are two EDM creation experiences, the new experience and the classic experience.  Use the new experience going forward. Here are reasons why you would want to use the classic experience:
+There are two EDM creation experiences, the new experience and the classic experience.  The classic experience provides more options/flexibility whereas the new experience is easier to use and involves less steps. Microsoft wants you to use the new experience going forward. Here are reasons why you would want to use the classic experience:
 
 1. You want to map multiple EDM SITs to the same schema.  
 
@@ -537,6 +538,7 @@ There are two EDM creation experiences, the new experience and the classic exper
 4. You need to edit EDM schemas that were created in the classic experience
 
     All schemas created using the classic experience or uploaded as an XML file using PowerShell are not viewable or manageable in the new experience.
+
 
 #### Export source data to a text file
 Reference
@@ -1060,6 +1062,18 @@ The message trace indicates the email was blocked due to the **Patent Sharing Re
 ![](img/2023-04-27-04-14-59.png)
 
 Alternatively, you can use a mail flow rule in Exchange to block the fingerprint SIT.
+
+## Identify Sensitive Information Types in use
+Use the command `Get-DlpSiDetectionsReport` to retrieve a report that contains information about sensitive information type detections. The *Si* stands for *Sensitive Information*. 
+![](img/20230556-035602.png)
+
+Use the following one-liner to provide the common names of the detected SITs.  
+```powershell
+Get-DlpSiDetectionsReport | Select-Object Date, @{n='SensitiveType'; e={Get-DlpSensitiveInformationType -Identity $_.SensitiveType | Select-Object -ExpandProperty Name}}, DocumentCount, ProtectionStatus
+```
+![](img/20230502-040242.png)
+
+
 
 ## PowerShell commands for Sensitive Information Types
 Unfortunately, PowerShell provides limited functionality for updating custom Sensitive Information Types (SITs). In most cases you must export and import XML. Therefore, use the portal when modifying SITs. 
