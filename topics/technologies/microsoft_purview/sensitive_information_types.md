@@ -72,6 +72,8 @@
         - [Method 2: Separate Hash and Upload](#method-2-separate-hash-and-upload)
         - [Check Upload Status](#check-upload-status)
     - [Create EDM SIT rules (Classic Experience)](#create-edm-sit-rules-classic-experience)
+    - [Rename an EDM SIT](#rename-an-edm-sit)
+    - [Test EDM SIT](#test-edm-sit)
 - [Document Fingerprinting](#document-fingerprinting)
   - [How document fingerprinting works](#how-document-fingerprinting-works)
   - [Supported file types](#supported-file-types)
@@ -558,9 +560,10 @@ Data file limitations
 **Step 3**: Pay attention to the data format. If field values contain commas, then use a tab-separated or a pipe-separated format.
 
 #### Define the EDM data structure
-- Reference
+- References
   - [Export Source Data](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-export-data?view=o365-worldwide)
-
+  - [Create exact data match SIT/rule package](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-create-rule-package?view=o365-worldwide#working-with-specific-types-of-data)
+  
 When defining your EDM sensitive type, determining the primary fields is the most critical decision.  Primary fields need to follow a detectable pattern and be defined as searchable fields (columns) in your EDM schema. Secondary fields don't need to follow any pattern since they'll be compared against all the text surrounding matches to the primary fields.
 
 Use the following rules to help you decide which columns you should use as primary fields:
@@ -572,6 +575,16 @@ Use the following rules to help you decide which columns you should use as prima
 - If a column you want to use as a primary field doesn't follow a detectable pattern, try to choose over better structured columns as primary elements.
 
 Example:  if you have the columns `full name`, `date of birth`, `account number`, and `Social Security Number`, even first and last names may be common to different combinations of data you want to protect, but such strings don't follow easily identifiable patterns and may be difficult to define as a SIT. Date of birth can be easily identified but is not a good candidate for a primary field because multiple people may have the same date of birth.SSN and account numbers are good candidates for a primary field because they provide uniqueness.
+
+Additional guidance:
+
+**Email Addresses**: Email addresses can be easy to identify, but because they are so common in content they may cause significant load in the system if used as a primary field. Use them only as secondary evidence. If they must be used as primary evidence, try to define a custom SIT that uses logic to exclude their use as `From` or `To` fields in emails and to exclude those with your company's email addresses to reduce the number of unnecessary strings that need to be matched.
+
+**Phone numbers**: Use phone numbers only as secondary elements. Phone numbers can come in many different formats, including or excluding country prefixes, area codes, and separators. To reduce false negatives while keeping load to a minimum, use them only as secondary elements. 
+
+**Person's names**: Don't use a person's names as primary elements if using a SIT based on a regular expression as the classification element for this EDM type, because they are difficult to distinguish from common words.
+
+If you must use a primary element that is hard to identify with a specific pattern, like a project code that could generator lots of matches to be processed, make sure you include keywords in the SIT you use as the classification element for your EDM type. Example, use the word `project` as required additional evidence in close proximity to the project name regular expression-based pattern.
 
 #### Create sample file used for establishing EDM schema (New Experience)
 Reference
@@ -871,7 +884,32 @@ Specify the recommended confidence level.
 Provide a name for the EDM SIT; then click **Done**.  
 ![](img/2023-05-15-05-11-52.png)
 
-Note: You cannot change the name of the EDM SIT in the compliance portal. To change the name you must export to XML and import. 
+#### Rename an EDM SIT
+You cannot change the name of the EDM SIT in the compliance portal. To change the name you must export to XML and import. 
+
+EDM types are stored in a separate rule package named after the schema. Use `Get-DlpSensitiveInformationTypeRulePackage` to retrieve this list.
+![](img/20230535-033549.png)
+
+Use the following commands to export the rule package to an XML file:  
+```powershell
+$rulepack = Get-DlpSensitiveInformationTypeRulePackage -Identity 'Customer Information'
+[System.IO.File]::WriteAllBytes("$env:USERPROFILE\Desktop\exportedRulePack.xml", $rulepack.SerializedClassificationRuleCollection)
+```
+Update the name and save the XML file.  
+![](img/20230539-033943.png)
+
+Then use the following command to upload the XML file:  
+```powershell
+Set-DlpSensitiveInformationTypeRulePackage -FileData ([System.IO.File]::ReadAllBytes("$env:USERPROFILE\Desktop\exportedRulePack.xml")) -Confirm:$false
+```
+
+Refresh the portal to confirm the name change.  
+![](img/20230541-034113.png)
+
+
+#### Test EDM SIT
+
+
 
 ## Document Fingerprinting
 [Microsoft Docs: Document Fingerprinting](https://learn.microsoft.com/en-us/microsoft-365/compliance/document-fingerprinting?view=o365-worldwide)
