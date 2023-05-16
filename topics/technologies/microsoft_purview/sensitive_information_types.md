@@ -150,6 +150,11 @@ Confidence Level Values
 - High: x > 75 
   - Matched items contain the fewest false positives but the most false negatives
 
+Here are the default values:
+- Low: 65
+- Medium: 75
+- High: 85
+
 Use high confidence levels patterns with low counts, say 5-10, and low confidence with high confidence matches, say 20 or more.
 
 ![](img/2023-04-24-03-21-57.png)
@@ -160,10 +165,6 @@ Confidence values are declared as "High", "Medium", and "Low" in the portal. Spe
 
 ![](img/2023-05-06-05-26-27.png)
 
-Here are the default values:
-- Low: 65
-- Medium: 75
-- High: 85
 
 ### Providing Accuracy Feedback
 You can view number of SIT matches in the Content Explorer.
