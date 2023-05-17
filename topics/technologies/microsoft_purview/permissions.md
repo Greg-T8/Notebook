@@ -24,9 +24,11 @@ The **Permissions** tab lists role groups. To view the Permissions tab, you need
 
 Here's a description of the role groups with the most permissions.
 
-| Role Group | Description |
-| - | - |
-| Organization Management | Members control permissions for accessing features in the compliance portal. Global admins are automatically added as members of this role group, but you won't see them in `Get-RoleGroupMember` or in the portal.  
+| Role Group | Role Assignment Count | Description |
+| - | - | - |
+| Organization Management | 38 | Members control permissions for accessing features in the compliance portal. Global admins are automatically added as members of this role group, but you won't see them in `Get-RoleGroupMember` or in the portal.|  
+| Compliance Administrator | 33 | ... |
+
 
 
 ## Use PowerShell to Manage Role Groups
