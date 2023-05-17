@@ -20,6 +20,7 @@
 - [Sensitivity Information Types Overview](#sensitivity-information-types-overview)
   - [Sensitive Information Type Patterns](#sensitive-information-type-patterns)
   - [Confidence Levels](#confidence-levels)
+  - [Reviewing Built-in Sensitive Information Types](#reviewing-built-in-sensitive-information-types)
   - [Providing Accuracy Feedback](#providing-accuracy-feedback)
   - [Creating Custom Sensitive Information Types](#creating-custom-sensitive-information-types)
   - [Sensitive Information Type Limits](#sensitive-information-type-limits)
@@ -159,11 +160,24 @@ Use high confidence levels patterns with low counts, say 5-10, and low confidenc
 
 ![](img/2023-04-24-03-21-57.png)
 
-See [US Social Security Number (SSN)](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-defn-us-social-security-number?view=o365-worldwide) as an example definition of an SIT.
+
 
 Confidence values are declared as "High", "Medium", and "Low" in the portal. Specific values are declared in the resulting XML file.
 
 ![](img/2023-05-06-05-26-27.png)
+
+### Reviewing Built-in Sensitive Information Types
+Use the following commands to export the built-in Microsoft sensitive information types to XML:  
+```powershell
+$rulepack = Get-DlpSensitiveInformationTypeRulePackage -Identity 'Microsoft Rule Package
+[System.IO.File]::WriteAllBytes("$env:USERPROFILE\Desktop\exportedRulePack.xml", $rulepack.SerializedClassificationRuleCollection)
+```
+
+You can view the resulting XML file in VS Code. 
+
+![](img/20230512-031209.png)
+
+See [US Social Security Number (SSN)](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-defn-us-social-security-number?view=o365-worldwide) as a reference for this sensitive information type.
 
 
 ### Providing Accuracy Feedback
