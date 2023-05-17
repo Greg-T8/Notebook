@@ -27,3 +27,11 @@ Here's a description of the role groups with the most permissions.
 | Role Group | Description |
 | - | - |
 | Organization Management | Members control permissions for accessing features in the compliance portal. Global admins are automatically added as members of this role group, but you won't see them in `Get-RoleGroupMember` or in the portal.  
+
+
+## Use PowerShell to Manage Role Groups
+Here are the commands...
+
+It's important to note the `-Identity` parameter in `Get-RoleGroupMember` is case sensitive. 
+
+![](img/20230526-042652.png)
