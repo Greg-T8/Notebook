@@ -1,8 +1,12 @@
 # Introduction to information protection and data lifecycle management in Microsoft Purview
-Sources
+## Sources
 - [Microsoft Docs: Information Protection](https://learn.microsoft.com/en-us/microsoft-365/compliance/information-protection?view=o365-worldwide)
 - Microsoft Learn: [SC-400: Implement Information Protection in Microsoft 365](https://learn.microsoft.com/en-us/training/paths/implement-information-protection/)
 - [Microsoft Purview Customer Experience Engineering (CxE)](https://microsoft.github.io/ComplianceCxE/)
+
+## Topics
+- [Purview Permissions Model](/topics/technologies/microsoft_purview/permissions.md)
+- [Sensitive Information Types](/topics/technologies/microsoft_purview/sensitive_information_types.md)
 
 ## Overview
 Data is exploding. Regulation is increasing. Discovering and managing data is challenging. 
