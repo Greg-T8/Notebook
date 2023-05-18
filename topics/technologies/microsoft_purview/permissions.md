@@ -86,7 +86,9 @@ Used the following PowerShell commands to pull this info:
 Get-RoleGroup | Select Name, @{n='No. Role Assignments';e={($_ | Select -ExpandProperty roleassignments).count}}, Description | Sort 'No. Role Assignments' -Descending | ft -auto
 ```
 
-
+```powershell
+((Get-RoleGroup | select -ExpandProperty roleassignments) -replace ".*/", '' | sort | ? {$_ -match "Organization Management"}).count
+```
 
 ## Use PowerShell to Manage Role Groups
 Here are the commands...
