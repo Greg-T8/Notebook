@@ -95,6 +95,99 @@ The following command uses the HTML line break tag `<br>`, which is needed for e
 Get-RoleGroup | Select Name, @{n='RoleCount';e={($_ | Select -ExpandProperty roles).count}}, @{n='Roles'; e={ ($_ | Select -ExpandProperty roles) -replace '.*/', '' -join '<br>'}}, Description | Sort RoleCount -Descending | Export-CSV $env:userprofile\desktop\roles.csv
 ```
 
+Here's a description of each role.
+
+| Role | Description |
+| - | - |
+| Attack Simulator Admin                         | Used to create and manage all aspects of attack simulation campaigns.  | 
+| Attack Simulator Payload Author                | Used to create and manage attack payloads that can be deployed by attack simulator administrator.  |
+| Audit Logs                                     | Lets people turn on and configure auditing for their Office 365 organization. This role also lets people view the organization’s audit reports, and then export these reports to a file.  |
+| Billing Admin                                  | Used to allow billing admin for selected feature.  |
+| Case Management                                | Lets people create, edit, delete, and control access to eDiscovery cases.  |
+| Communication                                  | Lets people create, edit, delete, and control access to communication.  |
+| Communication Compliance Admin                 | Used to manage policies in Communication Compliance feature.  |
+| Communication Compliance Analysis              | Used to perform investigation, remediation of the message violations in Communication Compliance feature. Can only view messages meta data.  |
+| Communication Compliance Case Management       | Used to access Communication Compliance case.  |
+| Communication Compliance Investigation         | Used to perform investigation, remediation, review message violations in Communication Compliance feature. Can view messages meta data & full message.  |
+| Communication Compliance Viewer                | Used to access reports & widgets in Communication Compliance feature.  |
+| Compliance Administrator                       | Lets people view and edit settings and reports for compliance features.  |
+| Compliance Manager Administration              | Manage template creation and modification.  |
+| Compliance Manager Assessment                  | Create assessments, implement improvement actions, and update test status for improvement actions.  |
+| Compliance Manager Contribution                | Create assessments and perform work to implement improvement actions.  |
+| Compliance Manager Reader                      | View all Compliance Manager content except for administrator functions.  |
+| Compliance Search                              | Lets people perform searches across mailboxes and get an estimate of the results.  |
+| Custodian                                      | Lets people create, edit, delete, and control access to custodian.  |
+| Data Classification Content Viewer             | Allow viewing in-place rendering of files in content explorer.  |
+| Data Classification Feedback Provider          | Allow providing feedback to classifiers in content explorer.  |
+| Data Classification Feedback Reviewer          | Allow reviewing feedback to classifiers in feedback explorer.  |
+| Data Classification List Viewer                | Allow viewing list of files in content explorer.  |
+| Data Connector Admin                           | Used to create and manage connectors to import and archive non-Microsoft data in Microsoft 365  |
+| Data Investigation Management                  | Lets people create, edit, delete, and control access to data investigation.  |
+| Data Map Reader                                | Data map readers can perform read on data map objects.  |
+| Data Map Writer                                | Data map writers can perform create, read, modify, and delete actions on data map objects and establish relationships between objects.  |
+| Device Management                              | Lets people view and edit settings and reports for device management features.  |
+| Disposition Management                         | Control permissions for accessing Manual Disposition in the Security & Compliance Center.  |
+| DLP Compliance Management                      | Lets people view and edit settings and reports for data loss prevention (DLP) policies.  |
+| Export                                         | Lets people export the mailbox and site content that was returned from a search.  |
+| Hold                                           | Lets people place content in mailboxes, sites, and public folders on hold. When on hold, a copy of the content is stored in a secure location. Content owners will still be able to modify or delete the original content.  |
+| IB Compliance Management                       |   |
+| Information Protection Admin                   | Create, edit, and delete DLP policies, sensitivity labels and their policies, and all classifier types. Manage endpoint DLP settings and simulation mode for auto-labeling policies.  |
+| Information Protection Analyst                 | Access and manage DLP alerts and activity explorer. View-only access to DLP policies, sensitivity labels and their policies, and all classifier types.  |
+| Information Protection Investigator            | Access and manage DLP alerts, activity explorer, and content explorer. View-only access to DLP policies, sensitivity labels and their policies, and all classifier types.  |
+| Information Protection Reader                  | View-only access to reports for DLP policies and sensitivity labels and their policies.  |
+| Insider Risk Management Admin                  | Lets people create, edit, delete, and control access to Insider Risk Management feature.  |
+| Insider Risk Management Analysis               |   |
+| Insider Risk Management Approval               | For internal approval use only.  |
+| Insider Risk Management Audit                  | Allow viewing Insider Risk audit trails.  |
+| Insider Risk Management Investigation          |   |
+| Insider Risk Management Permanent contribution |   |
+| Insider Risk Management Sessions               | For internal approval use only.  |
+| Insider Risk Management Temporary contribution |   |
+| Insights Reader                                |  A role that provides read-only access to all Insights reports in the Data Estate Insights app. Insights readers need to have at least data reader role access to a collection to view reports about that specific collection.  |
+| Knowledge Admin                                | Used to configure knowledge, learning, assign trainings and other intelligent features.  |
+| Manage Alerts                                  | Lets people view and edit the settings and reports for alerts.  |
+| Manage Review Set Tags                         |   |
+| MyBaseOptions                                  | This role enables individual users to view and modify the basic configuration of their own mailbox and associated settings.  |
+| Organization Configuration                     | Lets people run, view, and export audit reports and manage compliance policies for DLP, devices, and preservation.  |
+| Preview                                        | Lets people view a list of items that were returned from a content search. They'll also be able to open each item from the list to view its contents.  |
+| Privacy Management Admin                       | Used to manage policies in Privacy Management solution and has access to all funtionality of the solution.  |
+| Privacy Management Analysis                    | Used to perform investigation, remediation of the message violations in Privacy Management solution. Can only view messages meta data.  |
+| Privacy Management Investigation               | Used to perform investigation, remediation, review message violations in Privacy Management solution. Can view messages meta data & full message.  |
+| Privacy Management Permanent contribution      | Used to access Privacy Management case as a permanent contributor.  |
+| Privacy Management Temporary contribution      | Used to access Privacy Management case as a temporary contributor.  |
+| Privacy Management Viewer                      | Used to access dashboards & widgets in Privacy Management solution.  |
+| Purview Evaluation Administrator               | Used to create and manage M365 Purview Evaluation lab  |
+| Quarantine                                     | Allow viewing and releasing quarantined email.  |
+| RecordManagement                               | Allow viewing and editing configuration and reports for the Record Management feature.  |
+| Retention Management                           | Lets people manage retention policies.  |
+| Review                                         | Lets people use Office 365 Advanced eDiscovery to track, tag, analyze, and test documents that are assigned to them.  |
+| RMS Decrypt                                    | Lets people decrypt RMS-protected content when exporting search results.  |
+| Role Management                                | Lets people manage role group membership and create or delete custom role groups.  |
+| Scope Manager                                  | This role enables administrators to create, edit, delete, and control access to scoping features such as Adaptive Scopes in the organization.  |
+| Search And Purge                               | Lets people bulk-remove data that matches the criteria of a content search.  |
+| Security Administrator                         | Allows viewing and editing configuration and reports for Security features.  |
+| Security Reader                                | Allows viewing configuration and reports for Security features.  |
+| Sensitivity Label Administrator                | Lets people create, edit, delete, and view usage of sensitivity labels and their policies.  |
+| Sensitivity Label Reader                       | Lets people view the configuration and usage of sensitivity labels and their policies.  |
+| Service Assurance View                         | Lets people download the documents available on the Service Assurance section.  Content includes independent auditing and compliance documentation and trust-related guidance for using Office 365 features to manage regulatory compliance and security risks.  |
+| Subject Rights Request Admin                   | Used to manage subject rights requests.  |
+| Subject Rights Request Approver                | Used to approve subject rights requests.  |
+| Supervisory Review Administrator               | Lets people manage supervisory review policies, including which communications to review and who should perform the review.  |
+| Tag Contributor                                | This role enables viewing and updating of existing tags  |
+| Tag Manager                                    | This role enables viewing, updating, creation and deletion of tags  |
+| Tag Reader                                     | The role enables viewing of existing tags  |
+| Tenant AllowBlockList Manager                  | Lets people manage tenant allow block list settings.  |
+| View-Only Audit Logs                           | Lets people view and export their organization’s audit reports. Because these reports might contain sensitive information, this role should only be assigned to those with an explicit need to view this information.  |
+| View-Only Case                                 |   |
+| View-Only Device Management                    | Allow viewing configuration and reports for the Device Management feature.  |
+| View-Only DLP Compliance Management            | Lets people view the settings and reports for data loss prevention (DLP) policies.  |
+| View-Only IB Compliance Management             |   |
+| View-Only Manage Alerts                        | Allow viewing configuration and reports for the Manage Alerts feature.  |
+| View-Only Recipients                           | Lets people view information about users and groups.  |
+| View-Only Record Management                    | Allow viewing configuration and reports for the Record Management feature.  |
+| View-Only Retention Management                 | Allow viewing configuration and reports for the Retention Management feature.  |
+
+
 ## Use PowerShell to Manage Role Groups
 Here are the commands...
 
