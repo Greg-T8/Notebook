@@ -188,6 +188,11 @@ Here's a description of each role.
 | View-Only Retention Management                 | Allow viewing configuration and reports for the Retention Management feature.  |
 
 
+Here is the command used to pull this info...  
+```powershell
+get-managementrole | select name, description | sort name
+```
+
 ## Use PowerShell to Manage Role Groups
 Here are the commands...
 
