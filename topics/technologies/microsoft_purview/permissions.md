@@ -93,6 +93,8 @@ Get-RoleGroup | Select Name, @{n='No. Role Assignments';e={($_ | Select -ExpandP
 ## Use PowerShell to Manage Role Groups
 Here are the commands...
 
+![](img/20230508-040821.png)
+
 It's important to note the `-Identity` parameter in `Get-RoleGroupMember` is case sensitive. 
 
 ![](img/20230526-042652.png)
