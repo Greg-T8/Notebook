@@ -43,8 +43,6 @@ Get-ManagementRole | select name, description | sort name
 ## The Organization Management Role Group
 The Organization Management role group is the most powerful role group in Purview compliance. It has the most assigned roles (38) and is the only role group with the Role Management permission.  Global Admins are automatically added to the Organization Management role group, but you won't see them in the output of the `Get-RoleGroupMember` cmdlet.
 
-
-
 ## Use PowerShell to Manage Role Groups
 Here are the commands...
 

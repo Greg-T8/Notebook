@@ -16,6 +16,7 @@
 - [Links](#links)
 - [Exam Goals](#exam-goals)
 - [Contents](#contents)
+- [Permissions Required](#permissions-required)
 - [Identify Sensitive Information Types in Use](#identify-sensitive-information-types-in-use)
 - [Sensitivity Information Types Overview](#sensitivity-information-types-overview)
   - [Sensitive Information Type Patterns](#sensitive-information-type-patterns)
@@ -86,6 +87,18 @@
   - [Test a Fingerprint SIT](#test-a-fingerprint-sit)
   - [Validate DLP Fingerprint Functionality](#validate-dlp-fingerprint-functionality)
 - [PowerShell commands for Sensitive Information Types](#powershell-commands-for-sensitive-information-types)
+
+## Permissions Required
+Either of the following roles are required to perform operations for managing sensitive information types. You do not need to assign roles from both Azure AD and Microsoft Purview groups; one role assignment is sufficient.   
+
+Azure AD Roles
+- Global Administrator
+- Compliance Administrator
+- Global Reader
+
+Microsoft Purview Compliance Role Groups
+- Organization Management
+- Compliance Administrator
 
 ## Identify Sensitive Information Types in Use
 Use the command `Get-DlpSiDetectionsReport` to retrieve a report that contains information about sensitive information type detections. The *Si* stands for *Sensitive Information*. 
