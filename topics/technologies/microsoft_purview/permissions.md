@@ -13,10 +13,10 @@ There are several concepts for the RBAC model:
 - Role: grants permissions to do a set of tasks
 - Role Group: a set of roles that enable users to do their jobs across compliance solutions in the compliance portal
 
-You add users to role groups, and role groups contain multiple roles, with each role having a set of permissions.  
+You add users to role groups. Role groups contain multiple roles, with each role having a set of permissions.  
 ![](img/20230549-034923.png)
 
-You can create new role groups but you cannot create new roles. 
+You can create new role groups but you cannot create new roles. To make things confusing, there are roles with the same name as role groups.  For example, the Security Administrator role group contains the Security Administrator role, among other roles.  
 
 The **Permissions** tab lists role groups. To view the Permissions tab, you need to be an admin. Specifically, you need to be assigned the **Role Management** role, and that role is assigned only to the **Organization Management** role group by default. The **Role Management** role also allows you to view, create, and modify role groups. 
 
