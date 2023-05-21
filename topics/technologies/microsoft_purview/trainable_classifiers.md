@@ -5,6 +5,7 @@
 - [Get started with trainable classifiers](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-get-started-with?view=o365-worldwide)
 - [How to retrain a classifier in content explorer](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-how-to-retrain-content-explorer?view=o365-worldwide)
 - [Trainable classifier definitions](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-tc-definitions?view=o365-worldwide)
+- [Increase classifier accuracy](https://learn.microsoft.com/en-us/microsoft-365/compliance/data-classification-increase-accuracy?view=o365-worldwide)
 
 ## Exam Goals
 - Identify when to use trainable classifiers
@@ -24,7 +25,14 @@
 - [Retrain a Trainable Classifier](#retrain-a-trainable-classifier)
 
 ## Permissions Required
-TBD
+- Reference
+  - [Permissions](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-how-to-retrain-content-explorer?view=o365-worldwide#permissions)
+
+Accessing and Training Classifiers
+- Compliance Administrator
+- Compliance Data Administrator
+
+The roles above can be either the Azure AD roles or the Microsoft Purview compliance role groups. They are separate even though the have the same names.
 
 ## Overview
 Categorizing and labeling content so it can be protected and handled properly is the starting place for the information protection discipline. Microsoft Purview has three ways to classify content:
@@ -89,7 +97,14 @@ Creating and publishing a classifier for use in compliance solutions, such as re
 ## Retrain a Trainable Classifier
 References
 - [Retraining Classifiers](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-learn-about?view=o365-worldwide#retraining-classifiers)
+- [How to retrain a classifier in content explorer](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-how-to-retrain-content-explorer?view=o365-worldwide)
 
-You can help improve the accuracy of all custom trainable classifiers and by providing them with feedback on the accuracy of the classification that they perform.  This is called retraining, and follows this workflow.  
+A Microsoft 365 trainable classifier is a tool you can train to recognize various types of content by giving it samples to look at. Once trained, you can use it to identify items for application of Office sensitivity labels, communications compliance policies, and retention labels.
+
+
+
+You can help improve the accuracy of all custom trainable classifiers and by providing them with feedback on the accuracy of the classification that they perform.  This is called retraining, and follows this workflow. 
+
+Note: pre-trained classifiers cannot be re-trained. 
 
 ![](img/20230553-055316.png)
