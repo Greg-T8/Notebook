@@ -19,6 +19,9 @@
 - [Permissions Required](#permissions-required)
 - [Overview](#overview)
 - [When to use Trainable Classifiers](#when-to-use-trainable-classifiers)
+- [Design and Create a Trainable Classifier](#design-and-create-a-trainable-classifier)
+  - [Process flow for creating custom classifiers](#process-flow-for-creating-custom-classifiers)
+- [Retrain a Trainable Classifier](#retrain-a-trainable-classifier)
 
 ## Permissions Required
 TBD
@@ -46,6 +49,13 @@ You can view the trainable classifiers in content explorer by expanding **Traina
 
 ![](img/20230525-052558.png)
 
+**Types of Classifiers**
+There are two types of classifiers  
+- **pre-trained classifiers** - Microsoft has created and pre-trained multiple classifiers that you can start using without training them. These classifiers appear with the status `Ready to use`.  
+- **custom trainable classifiers** - If you have content identification and categorization needs that extend beyond that the pre-trained classifiers cover, you can create and train your own classifiers.
+
+See [Trainable classifiers definitions](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-tc-definitions?view=o365-worldwide#trainable-classifiers-definitions) for a complete list of trainable classifiers.
+
 ## When to use Trainable Classifiers
 Classifiers are available to use as a condition for 
 - Office auto-labeling with sensitivity labels
@@ -53,3 +63,33 @@ Classifiers are available to use as a condition for
 - Communication compliance
 - Sensitivity labels can use classifiers as conditions
 - Data loss prevention
+
+Note: classifiers only work for items that are not encrypted.
+
+## Design and Create a Trainable Classifier
+References
+- [Custom Classifiers](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-learn-about?view=o365-worldwide#custom-classifiers)
+
+You start by creating a custom trainable classifier by feeding it examples that are definitely in the category. Once it processes these examples, you test it by giving it a mix of both matching and non-matching examples. The classifier then makes predictions as to whether any given item falls into the category you're building. You then confirm its results, sorting out the true positives, true negatives, false positives, and false negatives to help increase the accuracy of its predictions.
+
+When you publish the classifier, it sorts through items in locations like SharePoint Online, Exchange, and OneDrive, and classifies the content. After you publish the classifier, you can continue to train it using a feedback process that is similar to the initial training process.
+
+Examples for which you can create trainable classifiers:
+- Legal documents - client attorney privilege, closing sets, statement of work
+- Strategic business documents - press releases, merger and acquisition, deals, business or marketing plans, intellectual property, patents, design docs
+- Pricing information - invoices, price quotes, work orders, bidding documents
+- Financial information - organizational investments, quarterly or annual results
+
+### Process flow for creating custom classifiers
+Creating and publishing a classifier for use in compliance solutions, such as retention policies and communication supervision, follows this flow. For more detail on creating a custom trainable classifier, see [Creating a custom classifier]().  The process starts by using seed data with a minimum of 50 samples. You then create the classifier and provide sample data, consisting of positive and negative samples. Finally, you provide feedback to the model and then publish the classifier.
+
+![](img/20230549-054907.png)
+
+
+## Retrain a Trainable Classifier
+References
+- [Retraining Classifiers](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-learn-about?view=o365-worldwide#retraining-classifiers)
+
+You can help improve the accuracy of all custom trainable classifiers and by providing them with feedback on the accuracy of the classification that they perform.  This is called retraining, and follows this workflow.  
+
+![](img/20230553-055316.png)
