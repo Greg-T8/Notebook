@@ -32,7 +32,7 @@ Accessing and Training Classifiers
 - Compliance Administrator
 - Compliance Data Administrator
 
-The roles above can be either the Azure AD roles or the Microsoft Purview compliance role groups. They are separate even though the have the same names.
+The roles above are the role groups in Microsoft Purview compliance portal; they are not the Azure AD roles with the same name!  The Azure AD roles with these names do not provide the same level of access in Microsoft Purview compliance portal.
 
 ## Overview
 Categorizing and labeling content so it can be protected and handled properly is the starting place for the information protection discipline. Microsoft Purview has three ways to classify content:
