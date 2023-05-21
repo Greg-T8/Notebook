@@ -9,13 +9,15 @@ The following information is taken from the SC-400 study guide: https://learn.mi
 - Implement document fingerprinting
 
   Hours Committed: 28  
-  Dates: 4/26/23 - 5/16/23
+  Dates: 4/26/23 - 5/20/23
 
-## Create and manage trainable classifiers
+## [Create and manage trainable classifiers](/topics/technologies/microsoft_purview/trainable_classifiers.md)
 - Identify when to use trainable classifiers
 - Design and create a trainable classifier
 - Test a trainable classifier
 - Retrain a trainable classifier
+
+Dates: 5/21/23 - current
 
 ## Implement and manage sensitivity labels
 - Implement roles and permissions for administering sensitivity labels
