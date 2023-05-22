@@ -43,7 +43,12 @@ View all role-based commands in Microsoft Purview.  Requires either Azure AD Glo
 
 Use the following PowerShell command to pull role group information:  
 ```powershell
-Get-RoleGroup | Select Name, @{n='RoleCount';e={($_ | Select -ExpandProperty roles).count}}, @{n='Roles'; e={ ($_ | Select -ExpandProperty roles) -replace '.*/', '' -join ', '}}, Description | Sort RoleCount -Descending | ft -wrap
+Get-RoleGroup | 
+    Select Name, @{n='RoleCount';e={($_ | 
+    Select -ExpandProperty roles).count}}, 
+        @{n='Roles'; e={ ($_ | Select -ExpandProperty roles) -replace '.*/', '' -join ', '}},
+        Description | 
+    Sort RoleCount -Descending | ft -wrap
 ```
 
 Use the following PowerShell command to pull role information:  
