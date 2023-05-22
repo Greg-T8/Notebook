@@ -48,8 +48,7 @@ Here are the commands...
 
 ![](img/20230508-040821.png)
 
-**Note**   
-The `-Identity` parameter in `Get-RoleGroupMember` is case sensitive. 
+**Note:** Unlike many other parameters in PowerShell, the `-Identity` parameter in `Get-RoleGroupMember` is case sensitive. 
 
 ![](img/20230526-042652.png)
 
