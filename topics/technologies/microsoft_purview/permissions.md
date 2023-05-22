@@ -28,17 +28,7 @@ You may view the corresponding Azure AD roles and Microsoft Purview compliance r
 
 See [Role groups in Microsoft Defender for Office 365 and Microsoft Purview compliance](https://learn.microsoft.com/en-us/microsoft-365/security/office-365-security/scc-permissions?toc=%2Fmicrosoft-365%2Fcompliance%2Ftoc.json&bc=%2Fmicrosoft-365%2Fbreadcrumb%2Ftoc.json&view=o365-worldwide#role-groups-in-microsoft-defender-for-office-365-and-microsoft-purview-compliance) for a table that lists the role groups along with their roles.
 
-You may use the following PowerShell command to pull role group information:  
-```powershell
-Get-RoleGroup | Select Name, @{n='RoleCount';e={($_ | Select -ExpandProperty roles).count}}, @{n='Roles'; e={ ($_ | Select -ExpandProperty roles) -replace '.*/', '' -join ', '}}, Description | Sort RoleCount -Descending | ft -wrap
-```
-
 See [Roles in Microsoft Defender for Office 365 and Microsoft Purview compliance](https://learn.microsoft.com/en-us/microsoft-365/security/office-365-security/scc-permissions?toc=%2Fmicrosoft-365%2Fcompliance%2Ftoc.json&bc=%2Fmicrosoft-365%2Fbreadcrumb%2Ftoc.json&view=o365-worldwide#roles-in-microsoft-defender-for-office-365-and-microsoft-purview-compliance) for a table that lists the available roles and the role groups they're assigned to by default.
-
-You may use the following PowerShell command to pull role information:  
-```powershell
-Get-ManagementRole | select name, description | sort name
-```
 
 ## The Organization Management Role Group
 The Organization Management role group is the most powerful role group in Purview compliance. It has the most assigned roles (38) and is the only role group with the Role Management permission.  Global Admins are automatically added to the Organization Management role group, but you won't see them in the output of the `Get-RoleGroupMember` cmdlet.
@@ -51,8 +41,17 @@ View all role-based commands in Microsoft Purview.  Requires either Azure AD Glo
 
 ![](img/20230526-042652.png)
 
-Use the following command to list all users and their corresponding Microsoft Purview role group membership:  
+Use the following PowerShell command to pull role group information:  
+```powershell
+Get-RoleGroup | Select Name, @{n='RoleCount';e={($_ | Select -ExpandProperty roles).count}}, @{n='Roles'; e={ ($_ | Select -ExpandProperty roles) -replace '.*/', '' -join ', '}}, Description | Sort RoleCount -Descending | ft -wrap
+```
 
+Use the following PowerShell command to pull role information:  
+```powershell
+Get-ManagementRole | select name, description | sort name
+```
+
+Use the following command to list all users and their corresponding Microsoft Purview role group membership:  
 ```powershell
 Write-Output (Get-RoleGroup) -PipelineVariable roleGroup | 
     % {Get-RoleGroupMember -Identity $_.Name} | 
