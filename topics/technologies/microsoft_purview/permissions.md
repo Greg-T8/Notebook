@@ -34,14 +34,17 @@ See [Roles in Microsoft Defender for Office 365 and Microsoft Purview compliance
 The Organization Management role group is the most powerful role group in Purview compliance. It has the most assigned roles (38) and is the only role group with the Role Management permission.  Global Admins are automatically added to the Organization Management role group, but you won't see them in the output of the `Get-RoleGroupMember` cmdlet.
 
 ## Use PowerShell to Manage Role Groups
-View all role-based commands in Microsoft Purview.  Requires either Azure AD Global Admin or Microsoft Purview Organization Management.  
-![](img/20230508-040821.png)
+View all role-based commands in Microsoft Purview.  Requires either Azure AD Global Admin or Microsoft Purview Organization Management. 
+```powershell
+Get-Command -Module tmp* -Noun *role*
+```
+![](img/20230556-055635.png)
 
-**Note:** Unlike many other parameters in PowerShell, the `-Identity` parameter in `Get-RoleGroupMember` is case sensitive. 
+**Note:** Unlike many other parameters in PowerShell, the `-Identity` parameter in `Get-RoleGroupMember` is case sensitive. In fact, it seems the `-Identity` parameter for all cmdlets for managing role groups is case sensitive. 
 
 ![](img/20230526-042652.png)
 
-Use the following PowerShell command to pull role group information:  
+Use the following PowerShell command to pull role group information, include number of roles and description of each role group:  
 ```powershell
 Get-RoleGroup | 
     Select Name, 
@@ -50,6 +53,7 @@ Get-RoleGroup |
         Description | 
     Sort RoleCount -Descending | ft -wrap
 ```
+![](img/20230526-062639.png)
 
 Use the following PowerShell command to pull role information:  
 ```powershell
@@ -67,3 +71,26 @@ Write-Output (Get-RoleGroup) -PipelineVariable roleGroup |
 A couple of things to note about this command:
 1. `Write-Output` is needed for `-PipelineVariable`, as this parameter doesn't seem to work for `Get-RoleGroup`
 2. The output of `Get-RoleGroupMember` includes the *PrimarySmtpAddress* property, but this property is not defined. The *Alias* property is the only property that has a defined email address.
+
+Use the following command to list all role groups with the specified management roles:  
+```powershell
+$managementRoles = 'Export', 'Preview
+Write-Output (Get-RoleGroup) -PipelineVariable roleGroup | 
+    Select -ExpandProperty Roles | 
+    ? ($_ -replace '*./', '') -in $managementRoles | 
+    Select @{n='Role Group'; e={$roleGroup.DisplayName}}, @{n='Role'; e={$_}}
+```
+![](img/20230524-062400.png)
+
+
+Use the following command to add a member to a role group:  
+```powershell
+Add-RoleGroupMember -Identity OrganizationManagement -Member AdeleV@tate0423sandbox.onmicrosoft.com
+```
+
+Use the following command to remove a member from a role group:  
+```powershell
+Remove-RoleGroupMember -Identity OrganizationManagement -Member 'Adele Vance'
+```
+
+In both commands above you may either use the UserPrincipalName or the Display Name properties. 
