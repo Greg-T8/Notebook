@@ -51,3 +51,13 @@ Here are the commands...
 It's important to note the `-Identity` parameter in `Get-RoleGroupMember` is case sensitive. 
 
 ![](img/20230526-042652.png)
+
+Use the following command to list all users and their corresponding Microsoft Purview role group membership:  
+
+```powershell
+Write-Output (Get-RoleGroup) -PipelineVariable roleGroup | % {Get-RoleGroupMember -Identity $_.Name} | Select @{n='Name'; e={$_.DisplayName}}, @{n='Alias'; e={$_.Alias}}, @{n='RoleGroup'; e={$roleGroup.DisplayName}} | Sort RoleGroup, DisplayName | ft -AutoSize
+```
+
+A couple of things to note about this command:
+1. `Write-Output` is needed for `-PipelineVariable`, as this parameter doesn't seem to work for `Get-RoleGroup`
+
