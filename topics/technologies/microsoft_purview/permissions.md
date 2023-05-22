@@ -48,16 +48,19 @@ Here are the commands...
 
 ![](img/20230508-040821.png)
 
-It's important to note the `-Identity` parameter in `Get-RoleGroupMember` is case sensitive. 
+NOTE: The `-Identity` parameter in `Get-RoleGroupMember` is case sensitive. 
 
 ![](img/20230526-042652.png)
 
 Use the following command to list all users and their corresponding Microsoft Purview role group membership:  
 
 ```powershell
-Write-Output (Get-RoleGroup) -PipelineVariable roleGroup | % {Get-RoleGroupMember -Identity $_.Name} | Select @{n='Name'; e={$_.DisplayName}}, @{n='Alias'; e={$_.Alias}}, @{n='RoleGroup'; e={$roleGroup.DisplayName}} | Sort RoleGroup, DisplayName | ft -AutoSize
+Write-Output (Get-RoleGroup) -PipelineVariable roleGroup | 
+    % {Get-RoleGroupMember -Identity $_.Name} | 
+    Select @{n='Name'; e={$_.DisplayName}}, @{n='Alias'; e={$_.Alias}}, @{n='RoleGroup'; e={$roleGroup.DisplayName}} | 
+    Sort RoleGroup, DisplayName | ft -AutoSize
 ```
 
 A couple of things to note about this command:
 1. `Write-Output` is needed for `-PipelineVariable`, as this parameter doesn't seem to work for `Get-RoleGroup`
-
+2. The output of `Get-RoleGroupMember` includes the *PrimarySmtpAddress* property, but this property is not defined. The *Alias* property is the only property that has a defined email address.
