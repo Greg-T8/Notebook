@@ -33,7 +33,7 @@ See [Roles in Microsoft Defender for Office 365 and Microsoft Purview compliance
 ## The Organization Management Role Group
 The Organization Management role group is the most powerful role group in Purview compliance. It has the most assigned roles (38) and is the only role group with the Role Management permission.  Global Admins are automatically added to the Organization Management role group, but you won't see them in the output of the `Get-RoleGroupMember` cmdlet.
 
-## Use PowerShell to Manage Role Groups
+## Use PowerShell to Microsoft Purview Compliance Permissions
 View all role-based commands in Microsoft Purview.  Requires either Azure AD Global Admin or Microsoft Purview Organization Management. 
 ```powershell
 Get-Command -Module tmp* -Noun *role*
@@ -57,6 +57,7 @@ Remove-RoleGroupMember -Identity OrganizationManagement -Member 'Adele Vance'
 
 In both commands above you may either use the UserPrincipalName or the Display Name properties. 
 
+### Get Role Group Details
 Use the following PowerShell command to pull role group information, include number of roles and description of each role group:  
 ```powershell
 Get-RoleGroup | 
@@ -67,11 +68,6 @@ Get-RoleGroup |
     Sort RoleCount -Descending | ft -wrap
 ```
 ![](img/20230526-062639.png)
-
-Use the following PowerShell command to pull role information:  
-```powershell
-Get-ManagementRole | select name, description | sort name
-```
 
 Use the following command to list all users and their corresponding Microsoft Purview role group membership:  
 ```powershell
@@ -86,12 +82,19 @@ A couple of things to note about this command:
 1. `Write-Output` is needed for `-PipelineVariable`, as this parameter doesn't seem to work for `Get-RoleGroup`
 2. The output of `Get-RoleGroupMember` includes the *PrimarySmtpAddress* property, but this property is not defined. The *Alias* property is the only property that has a defined email address.
 
+
+### Get Role Details
+Use the following PowerShell command to pull role information:  
+```powershell
+Get-ManagementRole | select Name, Description | sort Name
+```
+
 Use the following command to list all role groups with the specified management roles:  
 ```powershell
 $managementRoles = 'Export', 'Preview
 Write-Output (Get-RoleGroup) -PipelineVariable roleGroup | 
     Select -ExpandProperty Roles | 
     ? ($_ -replace '*./', '') -in $managementRoles | 
-    Select @{n='Role Group'; e={$roleGroup.DisplayName}}, @{n='Role'; e={$_}}
+    Select @{n='Role'; e={$_}}, @{n='Role Group'; e={$roleGroup.DisplayName}}
 ```
 ![](img/20230524-062400.png)
