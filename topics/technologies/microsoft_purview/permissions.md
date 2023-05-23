@@ -94,7 +94,7 @@ Use the following command to list all role groups with the specified management 
 $managementRoles = 'Export', 'Preview
 Write-Output (Get-RoleGroup) -PipelineVariable roleGroup | 
     Select -ExpandProperty Roles | 
-    ? ($_ -replace '*./', '') -in $managementRoles | 
+    ? ($_ -replace '.*/', '') -in $managementRoles | 
     Select @{n='Role'; e={$_}}, @{n='Role Group'; e={$roleGroup.DisplayName}}
 ```
 ![](img/20230524-062400.png)
