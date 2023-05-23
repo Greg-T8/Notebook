@@ -80,6 +80,7 @@ Get-RoleGroup |
 ```
 ![](img/20230552-035230.png)
 
+### List Membership in Role Group
 Use the following command to list all users and their corresponding Microsoft Purview role group membership:  
 ```powershell
 Write-Output (Get-RoleGroup) -PipelineVariable roleGroup | 
@@ -92,7 +93,6 @@ Write-Output (Get-RoleGroup) -PipelineVariable roleGroup |
 A couple of things to note about this command:
 1. `Write-Output` is needed for `-PipelineVariable`, as this parameter doesn't seem to work for `Get-RoleGroup`
 2. The output of `Get-RoleGroupMember` includes the *PrimarySmtpAddress* property, but this property is not defined. The *Alias* property is the only property that has a defined email address.
-
 
 ### Get Role Details
 Use the following PowerShell command to pull role information:  
@@ -132,3 +132,27 @@ Compare-Object $allManagementRoles $orgMgmtRoles | Sort InputObject
 ```
 For the example above, the results below show all roles which the Organization Management role group does not have.  
 ![](img/20230534-033453.png)
+
+Let's say you want to compare role assignments between the following two role groups - Compliance Administrator and Compliance Data Administrator.  You can use the following approach:  
+```powershell
+$complianceAdministratorRoles = Get-RoleGroup -Identity 'ComplianceAdministrator' |
+   Select -ExpandProperty Roles |
+   % {$_ -replace ".*/", ""}
+$complianceDataAdministratorRoles = Get-RoleGroup -Identity 'ComplianceDataAdministrator' |
+   Select -ExpandProperty Roles |
+   % {$_ -replace ".*/", ""}
+Compare-Object $complianceAdministratorRoles $complianceDataAdministratorRoles | Select -ExpandProperty InputObject
+```
+
+This command results in the following output:  
+![](img/20230521-042116.png)
+
+To get role details you can expand on this further:  
+```powershell
+Compare-Object $complianceAdministratorRoles $complianceDataAdministratorRoles | 
+   Select -ExpandProperty InputObject |
+   % {Get-ManagementRole -Identity $_} |
+   Select Name, Description | Sort Name
+```
+Here are the results which list the role details available in the Compliance Administrator role group but are not available in the Compliance Data Administrator role group:  
+![](img/20230522-042240.png)
