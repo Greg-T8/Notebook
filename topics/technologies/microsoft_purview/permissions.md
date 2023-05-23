@@ -91,7 +91,7 @@ Get-ManagementRole | select Name, Description | sort Name
 
 Use the following command to list all role groups with the specified management roles:  
 ```powershell
-$managementRoles = 'Export', 'Preview
+$managementRoles = 'Export', 'Preview'
 Write-Output (Get-RoleGroup) -PipelineVariable roleGroup | 
     Select -ExpandProperty Roles | 
     ? ($_ -replace '.*/', '') -in $managementRoles | 
