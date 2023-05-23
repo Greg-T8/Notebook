@@ -60,7 +60,7 @@ In both commands above you may either use the UserPrincipalName or the Display N
 ### Get Role Group Details
 Use the following PowerShell command to pull role group information, include number of roles and description of each role group:  
 ```powershell
-Get-RoleGroup | 
+Get-RoleGroup |
     Select Name, 
         @{n='RoleCount';e={($_ | Select -ExpandProperty roles).count}}, 
         @{n='Roles'; e={ ($_ | Select -ExpandProperty roles) -replace '.*/', '' -join ', '}},
@@ -68,6 +68,18 @@ Get-RoleGroup |
     Sort RoleCount -Descending | ft -wrap
 ```
 ![](img/20230526-062639.png)
+
+Here is another version of command that pulls detail for one role group.
+```powershell
+Get-RoleGroup |
+   ? DisplayName -eq 'Compliance Administrator' |
+   Select Name,
+       @{n='RoleCount';e={($_ | Select -ExpandProperty roles).count}},
+       @{n='Roles'; e={ ($_ | Select -ExpandProperty roles) -replace '.*/', '' -join "`n" }},
+       Description |
+   Sort RoleCount -Descending | ft -wrap
+```
+![](img/20230552-035230.png)
 
 Use the following command to list all users and their corresponding Microsoft Purview role group membership:  
 ```powershell
