@@ -40,9 +40,22 @@ Get-Command -Module tmp* -Noun *role*
 ```
 ![](img/20230556-055635.png)
 
-**Note:** Unlike many other parameters in PowerShell, the `-Identity` parameter in `Get-RoleGroupMember` is case sensitive. In fact, it seems the `-Identity` parameter for all cmdlets for managing role groups is case sensitive. 
+**Note:** Unlike many other parameters in PowerShell, the `-Identity` parameter in the cmdlets for managing role groups is case sensitive. You will get an error if you specify the wrong case:  
 
 ![](img/20230526-042652.png)
+
+### Manage Role Membership
+Use the following command to add a member to a role group:  
+```powershell
+Add-RoleGroupMember -Identity OrganizationManagement -Member AdeleV@tate0423sandbox.onmicrosoft.com
+```
+
+Use the following command to remove a member from a role group:  
+```powershell
+Remove-RoleGroupMember -Identity OrganizationManagement -Member 'Adele Vance'
+```
+
+In both commands above you may either use the UserPrincipalName or the Display Name properties. 
 
 Use the following PowerShell command to pull role group information, include number of roles and description of each role group:  
 ```powershell
@@ -82,16 +95,3 @@ Write-Output (Get-RoleGroup) -PipelineVariable roleGroup |
     Select @{n='Role Group'; e={$roleGroup.DisplayName}}, @{n='Role'; e={$_}}
 ```
 ![](img/20230524-062400.png)
-
-
-Use the following command to add a member to a role group:  
-```powershell
-Add-RoleGroupMember -Identity OrganizationManagement -Member AdeleV@tate0423sandbox.onmicrosoft.com
-```
-
-Use the following command to remove a member from a role group:  
-```powershell
-Remove-RoleGroupMember -Identity OrganizationManagement -Member 'Adele Vance'
-```
-
-In both commands above you may either use the UserPrincipalName or the Display Name properties. 
