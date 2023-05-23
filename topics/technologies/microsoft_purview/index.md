@@ -53,3 +53,7 @@ Learn More
 - [Data Loss Prevention](https://learn.microsoft.com/en-us/microsoft-365/compliance/dlp-learn-about-dlp?azure-portal=true&view=o365-worldwide)
 - [Microsoft Purview Data Lifecycle Management](https://learn.microsoft.com/en-us/microsoft-365/compliance/manage-data-governance?azure-portal=true&view=o365-worldwide)
 - [Records Management](https://learn.microsoft.com/en-us/microsoft-365/compliance/records-management?azure-portal=true&view=o365-worldwide)
+
+Info Protection concepts: https://learn.microsoft.com/en-us/information-protection/develop/concept-classification-labels
+
+![](img/20230536-143610.png)
