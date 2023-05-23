@@ -75,8 +75,7 @@ Get-RoleGroup |
    ? DisplayName -eq 'Compliance Administrator' |
    Select Name,
        @{n='RoleCount';e={($_ | Select -ExpandProperty roles).count}},
-       @{n='Roles'; e={ ($_ | Select -ExpandProperty roles) -replace '.*/', '' -join "`n" }},
-       Description |
+       @{n='Roles'; e={ ($_ | Select -ExpandProperty roles) -replace '.*/', '' -join "`n" }} |
    Sort RoleCount -Descending | ft -wrap
 ```
 ![](img/20230552-035230.png)
@@ -111,6 +110,17 @@ Write-Output (Get-RoleGroup) -PipelineVariable roleGroup |
    Select @{n='Role'; e={$role}}, @{n='RoleGroup';e={$roleGroup.DisplayName}}
 ```
 ![](img/20230527-032738.png)
+
+Use the following command to list role details for a role group:  
+```powershell
+Write-Output (Get-RoleGroup) -PipelineVariable roleGroup |
+  ? DisplayName -eq 'eDiscovery Manager' |
+  Select -ExpandProperty roles |
+  % { $_ -replace ".*/",'' } -PipelineVariable role |
+  % { Get-ManagementRole -Identity $_ } |
+  Select Name, Description | Sort Name
+```
+![](img/20230512-041220.png)
 
 ### Compare Role Assignments in Role Groups
 Use the following commands to compare role assignments between role groups.
