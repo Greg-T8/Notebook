@@ -99,3 +99,16 @@ Write-Output (Get-RoleGroup) -PipelineVariable roleGroup |
    Select @{n='Role'; e={$role}}, @{n='RoleGroup';e={$roleGroup.DisplayName}}
 ```
 ![](img/20230527-032738.png)
+
+### Compare Role Assignments in Role Groups
+Use the following commands to compare role assignments between role groups.
+
+```powershell
+$allmanagementRoles = Get-ManagementRole | Select -ExpandProperty Name
+$orgMgmtRoles = Get-RoleGroup -Identity 'OrganizationManagement' | select -ExpandProperty roles | % {$_ -replace ".*/", ""}
+Compare-Object $allManagementRoles $orgMgmtRoles | Sort InputObject
+```
+For the example above, the results show all roles which the Organization Management role group does not have.
+![](img/20230534-033453.png)
+
+
