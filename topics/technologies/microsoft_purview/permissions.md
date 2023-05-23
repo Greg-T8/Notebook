@@ -67,12 +67,11 @@ Write-Output (Get-RoleGroup) -PipelineVariable roleGroup |
     Select @{n='Name'; e={$_.DisplayName}}, @{n='Alias'; e={$_.Alias}}, @{n='RoleGroup'; e={$roleGroup.DisplayName}} | 
     Sort RoleGroup, DisplayName | ft -AutoSize
 ```
+![](img/20230529-062943.png)
 
 A couple of things to note about this command:
 1. `Write-Output` is needed for `-PipelineVariable`, as this parameter doesn't seem to work for `Get-RoleGroup`
 2. The output of `Get-RoleGroupMember` includes the *PrimarySmtpAddress* property, but this property is not defined. The *Alias* property is the only property that has a defined email address.
-
-![](img/20230529-062943.png)
 
 Use the following command to list all role groups with the specified management roles:  
 ```powershell
