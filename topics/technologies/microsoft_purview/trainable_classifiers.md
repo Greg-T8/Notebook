@@ -34,7 +34,11 @@ Accessing and Training Classifiers
 
 The roles above are the role groups in Microsoft Purview compliance portal; they are not the Azure AD roles with the same name!  The Azure AD roles with these names do not provide the same level of access in Microsoft Purview compliance portal.
 
-The following roles are used for providing feedback 
+To manage trainable classifiers, a user needs to be able to expand the Data Classification node in Microsoft Purview compliance portal. Standard users don't have visibility to this node.
+
+![](img/20230514-031406.png)
+
+
 
 ## Overview
 Categorizing and labeling content so it can be protected and handled properly is the starting place for the information protection discipline. Microsoft Purview has three ways to classify content:
