@@ -80,7 +80,7 @@ Get-RoleGroup |
 ```
 ![](img/20230552-035230.png)
 
-### List Membership in Role Group
+### Audit Membership in all Microsoft Purview Role Groups
 Use the following command to list all users and their corresponding Microsoft Purview role group membership:  
 ```powershell
 Write-Output (Get-RoleGroup) -PipelineVariable roleGroup | 

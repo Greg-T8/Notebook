@@ -34,6 +34,8 @@ Accessing and Training Classifiers
 
 The roles above are the role groups in Microsoft Purview compliance portal; they are not the Azure AD roles with the same name!  The Azure AD roles with these names do not provide the same level of access in Microsoft Purview compliance portal.
 
+The following roles are used for providing feedback 
+
 ## Overview
 Categorizing and labeling content so it can be protected and handled properly is the starting place for the information protection discipline. Microsoft Purview has three ways to classify content:
 1. Manually
