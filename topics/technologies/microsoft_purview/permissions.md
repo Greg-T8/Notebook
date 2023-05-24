@@ -57,6 +57,13 @@ Remove-RoleGroupMember -Identity OrganizationManagement -Member 'Adele Vance'
 
 In both commands above you may either use the UserPrincipalName or the Display Name properties. 
 
+### Remove a Member from all Role Groups
+Use the following command to remove a member from all assigned role groups in Microsoft Purview:  
+```powershell
+$users | % {Write-Output (Get-RoleGroup) -PipelineVariable roleGroup} | % {Get-RoleGroupMember -Identity $_.Name} | ? {$_.Alias -match $users} -PipelineVariable user
+
+```
+
 ### Get Role Group Details
 Use the following PowerShell command to pull role group information, include number of roles and description of each role group:  
 ```powershell
