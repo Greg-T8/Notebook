@@ -44,25 +44,6 @@ Get-Command -Module tmp* -Noun *role*
 
 ![](img/20230526-042652.png)
 
-### Manage Role Membership
-Use the following command to add a member to a role group:  
-```powershell
-Add-RoleGroupMember -Identity OrganizationManagement -Member AdeleV@tate0423sandbox.onmicrosoft.com
-```
-
-Use the following command to remove a member from a role group:  
-```powershell
-Remove-RoleGroupMember -Identity OrganizationManagement -Member 'Adele Vance'
-```
-
-In both commands above you may either use the UserPrincipalName or the Display Name properties. 
-
-### Remove a Member from all Role Groups
-Use the following command to remove a member from all assigned role groups in Microsoft Purview:  
-```powershell
-$users | % {Write-Output (Get-RoleGroup) -PipelineVariable roleGroup} | % {Get-RoleGroupMember -Identity $_.Name} | ? {$_.Alias -match $users} -PipelineVariable user
-
-```
 
 ### Get Role Group Details
 Use the following PowerShell command to pull role group information, include number of roles and description of each role group:  
@@ -86,20 +67,6 @@ Get-RoleGroup |
    Sort RoleCount -Descending | ft -wrap
 ```
 ![](img/20230552-035230.png)
-
-### Audit Membership in all Microsoft Purview Role Groups
-Use the following command to list all users and their corresponding Microsoft Purview role group membership:  
-```powershell
-Write-Output (Get-RoleGroup) -PipelineVariable roleGroup | 
-    % {Get-RoleGroupMember -Identity $_.Name} | 
-    Select @{n='Name'; e={$_.DisplayName}}, @{n='Alias'; e={$_.Alias}}, @{n='RoleGroup'; e={$roleGroup.DisplayName}} | 
-    Sort RoleGroup, DisplayName | ft -AutoSize
-```
-![](img/20230529-062943.png)
-
-A couple of things to note about this command:
-1. `Write-Output` is needed for `-PipelineVariable`, as this parameter doesn't seem to work for `Get-RoleGroup`
-2. The output of `Get-RoleGroupMember` includes the *PrimarySmtpAddress* property, but this property is not defined. The *Alias* property is the only property that has a defined email address.
 
 ### Get Role Details
 Use the following PowerShell command to pull role information:  
@@ -163,3 +130,50 @@ Compare-Object $complianceAdministratorRoles $complianceDataAdministratorRoles |
 ```
 Here are the results which list the role details available in the Compliance Administrator role group but are not available in the Compliance Data Administrator role group:  
 ![](img/20230522-042240.png)
+
+### Audit Membership in all Microsoft Purview Role Groups
+Use the following command to list all users and their corresponding Microsoft Purview role group membership:  
+```powershell
+Write-Output (Get-RoleGroup) -PipelineVariable roleGroup | 
+    % {Get-RoleGroupMember -Identity $_.Name} | 
+    Select @{n='Name'; e={$_.DisplayName}}, @{n='Alias'; e={$_.Alias}}, @{n='RoleGroup'; e={$roleGroup.DisplayName}} | 
+    Sort RoleGroup, DisplayName | ft -AutoSize
+```
+![](img/20230529-062943.png)
+
+A couple of things to note about this command:
+1. `Write-Output` is needed for `-PipelineVariable`, as this parameter doesn't seem to work for `Get-RoleGroup`
+2. The output of `Get-RoleGroupMember` includes the *PrimarySmtpAddress* property, but this property is not defined. The *Alias* property is the only property that has a defined email address.
+
+### Audit Membership for Specific Users
+Use the following command to list the Microsoft Purview role groups for a set of users:  
+```powershell
+$users = 'AdeleV@tate0423sandbox.onmicrosoft.com', 'DiegoS@tate0423sandbox.onmicrosoft.com'
+Write-Output $users -PipelineVariable user | 
+    % {Get-RoleGroup} -PipelineVariable roleGroup | 
+    % {Get-RoleGroupMember -Identity $_.Name} | 
+    ? {$_.Alias -eq $user} | 
+    Select @{n='User';e={$user}}, @{n='RoleGroup';e={$roleGroup.DisplayName}} | 
+    Sort User, RoleGroup
+```
+![](img/20230516-031646.png)
+
+### Manage Role Membership
+Use the following command to add a member to a role group:  
+```powershell
+Add-RoleGroupMember -Identity OrganizationManagement -Member AdeleV@tate0423sandbox.onmicrosoft.com
+```
+
+Use the following command to remove a member from a role group:  
+```powershell
+Remove-RoleGroupMember -Identity OrganizationManagement -Member 'Adele Vance'
+```
+
+In both commands above you may either use the UserPrincipalName or the Display Name properties. 
+
+### Remove a Member from all Role Groups
+Use the following command to remove a member from all assigned role groups in Microsoft Purview:  
+```powershell
+$users | % {Write-Output (Get-RoleGroup) -PipelineVariable roleGroup} | % {Get-RoleGroupMember -Identity $_.Name} | ? {$_.Alias -match $users} -PipelineVariable user
+
+```
