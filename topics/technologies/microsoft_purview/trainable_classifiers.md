@@ -18,6 +18,7 @@
 - [Exam Goals](#exam-goals)
 - [Contents](#contents)
 - [Permissions Required](#permissions-required)
+- [Licensing](#licensing)
 - [Overview](#overview)
 - [When to use Trainable Classifiers](#when-to-use-trainable-classifiers)
 - [Design and Create a Trainable Classifier](#design-and-create-a-trainable-classifier)
@@ -38,7 +39,15 @@ To manage trainable classifiers, a user needs to be able to expand the Data Clas
 
 ![](img/20230514-031406.png)
 
+A Global Admin must opt in for the tenant to create custom classifiers. This message first appears when accessing the Trainable Classifiers tab.  
 
+![](img/20230557-035736.png)
+
+## Licensing
+- Reference
+  - [Licensing Requirements](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-get-started-with?view=o365-worldwide#licensing-requirements)
+
+Trainable classifiers are an E5 feature. 
 
 ## Overview
 Categorizing and labeling content so it can be protected and handled properly is the starting place for the information protection discipline. Microsoft Purview has three ways to classify content:
