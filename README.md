@@ -13,6 +13,7 @@ Use the links below to discover more about my learning journey.
 - [Microsoft Purview](/topics/technologies/microsoft_purview/index.md)
   - [Permissions Model](/topics/technologies/microsoft_purview/permissions.md)
   - [Sensitive Information Types](/topics/technologies/microsoft_purview/sensitive_information_types.md)
+  - [Trainable Classifiers](/topics/technologies/microsoft_purview/trainable_classifiers.md)
 ## Tools
 - [PowerShell](/topics/tools/powershell/index.md)
   - [Practical Automation with PowerShell](topics/tools/powershell/practical-automation-with-powershell/index.md)
