@@ -8,6 +8,14 @@
 - [Purview Permissions Model](/topics/technologies/microsoft_purview/permissions.md)
 - [Sensitive Information Types](/topics/technologies/microsoft_purview/sensitive_information_types.md)
 
+## Licensing
+- [Microsoft 365 Guidance for Security & Compliance](https://learn.microsoft.com/en-us/office365/servicedescriptions/microsoft-365-service-descriptions/microsoft-365-tenantlevel-services-licensing-guidance/microsoft-365-security-compliance-licensing-guidance)
+  - Lists the service descriptions and license entitlements for each feature in Microsoft Purview
+  - Also links to comparison tables for various plans
+
+In general, licensing is required for any user that you intend to benefit from and/or access the service.  
+![](img/20230510-041054.png)
+
 ## Overview
 Data is exploding. Regulation is increasing. Discovering and managing data is challenging. 
 
