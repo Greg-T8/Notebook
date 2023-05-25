@@ -137,9 +137,9 @@ Use the following command to list all users and their corresponding Microsoft Pu
 Write-Output (Get-RoleGroup) -PipelineVariable roleGroup | 
     % {Get-RoleGroupMember -Identity $_.Name} | 
     Select @{n='Name'; e={$_.DisplayName}}, @{n='Alias'; e={$_.Alias}}, @{n='RoleGroup'; e={$roleGroup.DisplayName}} | 
-    Sort RoleGroup, DisplayName | ft -AutoSize
+    Sort RoleGroup, Name | ft -AutoSize
 ```
-![](img/20230529-062943.png)
+![](img/20230533-033314.png)
 
 A couple of things to note about this command:
 1. `Write-Output` is needed for `-PipelineVariable`, as this parameter doesn't seem to work for `Get-RoleGroup`
@@ -171,9 +171,14 @@ Remove-RoleGroupMember -Identity OrganizationManagement -Member 'Adele Vance'
 
 In both commands above you may either use the UserPrincipalName or the Display Name properties. 
 
-### Remove a Member from all Role Groups
+### Remove a Set of Users from all Role Groups
 Use the following command to remove a member from all assigned role groups in Microsoft Purview:  
 ```powershell
-$users | % {Write-Output (Get-RoleGroup) -PipelineVariable roleGroup} | % {Get-RoleGroupMember -Identity $_.Name} | ? {$_.Alias -match $users} -PipelineVariable user
-
+Write-Output $users -PipelineVariable user |
+    % {Get-RoleGroup} -PipelineVariable roleGroup | 
+    % {Get-RoleGroupMember -Identity $_.Name} | 
+    ? {$_.Alias -eq $user} | 
+    % {Remove-RoleGroupMember -Identity $roleGroup.Name -Member $user -Confirm:$false; ''} | 
+    Select @{n='User';e={$user}}, @{n='RoleGroup';e={$roleGroup.DisplayName}}, @{n='Status';e={'Removed'}}
 ```
+![](img/20230546-034627.png)
