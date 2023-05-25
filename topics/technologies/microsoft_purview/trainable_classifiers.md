@@ -54,7 +54,7 @@ Trainable classifiers are an E5 feature.
 Categorizing and labeling content so it can be protected and handled properly is the starting place for the information protection discipline. Microsoft Purview has three ways to classify content:
 1. Manually
 2. Automated pattern-matching
-3. Classifiers (machine learning)
+3. Classifier
 
 **Manual Classification**
 Manual classification requires human judgment and action. Users and admins categorize content as they encounter it. You can use either the pre-existing labels and sensitive information types or use custom created ones. You can then protect the content and manage its disposition.
@@ -67,7 +67,7 @@ These categorization methods include finding content by
 - Using the presence of exact match strings (see Exact Data Match)
 
 **Classifiers**
-This categorization method is well-suited to content that isn't easily identified by either the manual or automated pattern-matching methods. This method of categorization is more about using a classifier to identify an item based on what the item is, not by elements that are in the item (pattern matching). A classifier learns how to identify a type of content by looking at hundreds of examples of the content you're interested in identifying.
+This categorization method is based on Machine Learning and is well-suited to content that isn't easily identified by either the manual or automated pattern-matching methods. This method of categorization is more about using a classifier to identify an item based on what the item is, not by elements that are in the item (pattern matching). A classifier learns how to identify a type of content by looking at hundreds of examples of the content you're interested in identifying.
 
 You can view the trainable classifiers in content explorer by expanding **Trainable Classifiers** in the filters panel. 
 
