@@ -46,6 +46,7 @@ A Global Admin must opt in for the tenant to create custom classifiers. This mes
 ## Licensing
 - Reference
   - [Licensing Requirements](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-get-started-with?view=o365-worldwide#licensing-requirements)
+  - [Microsoft 365 Guidance for Security & Compliance Service Description](https://learn.microsoft.com/en-us/office365/servicedescriptions/microsoft-365-service-descriptions/microsoft-365-tenantlevel-services-licensing-guidance/microsoft-365-security-compliance-licensing-guidance)
 
 Trainable classifiers are an E5 feature. 
 
@@ -53,7 +54,7 @@ Trainable classifiers are an E5 feature.
 Categorizing and labeling content so it can be protected and handled properly is the starting place for the information protection discipline. Microsoft Purview has three ways to classify content:
 1. Manually
 2. Automated pattern-matching
-3. Classifiers
+3. Classifiers (machine learning)
 
 **Manual Classification**
 Manual classification requires human judgment and action. Users and admins categorize content as they encounter it. You can use either the pre-existing labels and sensitive information types or use custom created ones. You can then protect the content and manage its disposition.
