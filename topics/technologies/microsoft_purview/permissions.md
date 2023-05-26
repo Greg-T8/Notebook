@@ -185,4 +185,4 @@ Write-Output $users -PipelineVariable user |
 ```
 Note: the empty string `''` on the 5th line is to force output to the Select statement, as `Remove-RoleGroupMember` does not send any output to the pipeline.
 
-![](img/20230546-034627.png)
+![](img/20230540-034038.png)
