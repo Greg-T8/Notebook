@@ -175,6 +175,7 @@ In both commands above you may either use the UserPrincipalName or the Display N
 ### Remove a Set of Users from all Role Groups
 Use the following command to remove a member from all assigned role groups in Microsoft Purview:  
 ```powershell
+$users = 'AdeleV@tate0423sandbox.onmicrosoft.com'
 Write-Output $users -PipelineVariable user |
     % {Get-RoleGroup} -PipelineVariable roleGroup | 
     % {Get-RoleGroupMember -Identity $_.Name} | 
