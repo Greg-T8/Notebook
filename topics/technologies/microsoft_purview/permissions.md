@@ -85,7 +85,7 @@ Write-Output (Get-RoleGroup) -PipelineVariable roleGroup |
 ```
 ![](img/20230527-032738.png)
 
-The next command is the opposit of the one above. Use it to all management roles for a specified role group:  
+Use the following command to list all management roles for a specified role group:  
 ```powershell
 $roleGroup = 'Information Protection Analysts'
 Write-Output (Get-RoleGroup) |
@@ -149,7 +149,7 @@ A couple of things to note about this command:
 ### Audit Membership for Specific Users
 Use the following command to list the Microsoft Purview role groups for a set of users:  
 ```powershell
-$users = 'AdeleV@tate0423sandbox.onmicrosoft.com', 'DiegoS@tate0423sandbox.onmicrosoft.com'
+[array]$users = 'AdeleV@tate0423sandbox.onmicrosoft.com', 'DiegoS@tate0423sandbox.onmicrosoft.com'
 Write-Output $users -PipelineVariable user | 
     % {Get-RoleGroup} -PipelineVariable roleGroup | 
     % {Get-RoleGroupMember -Identity $_.Name} | 
