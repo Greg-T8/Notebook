@@ -85,7 +85,7 @@ Write-Output (Get-RoleGroup) -PipelineVariable roleGroup |
 ```
 ![](img/20230527-032738.png)
 
-Use the following command to list role details for a role group:  
+The next command is the opposit of the one above. Use it to all management roles for a specified role group:  
 ```powershell
 Write-Output (Get-RoleGroup) -PipelineVariable roleGroup |
   ? DisplayName -eq 'eDiscovery Manager' |
