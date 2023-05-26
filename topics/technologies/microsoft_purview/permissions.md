@@ -87,10 +87,11 @@ Write-Output (Get-RoleGroup) -PipelineVariable roleGroup |
 
 The next command is the opposit of the one above. Use it to all management roles for a specified role group:  
 ```powershell
-Write-Output (Get-RoleGroup) -PipelineVariable roleGroup |
-  ? DisplayName -eq 'eDiscovery Manager' |
+$roleGroup = 'Information Protection Analysts'
+Write-Output (Get-RoleGroup) |
+  ? DisplayName -eq "$roleGroup" |
   Select -ExpandProperty roles |
-  % { $_ -replace ".*/",'' } -PipelineVariable role |
+  % { $_ -replace ".*/",'' } |
   % { Get-ManagementRole -Identity $_ } |
   Select Name, Description | Sort Name
 ```
