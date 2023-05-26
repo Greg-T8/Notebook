@@ -172,6 +172,10 @@ Remove-RoleGroupMember -Identity OrganizationManagement -Member 'Adele Vance'
 
 In both commands above you may either use the UserPrincipalName or the Display Name properties. 
 
+Here are a couple of pointers to keep in mind when testing role membership:
+1. Close out the browser profile and relaunch it to catch the changes. Refreshing or even closing the tab and opening a new tab may not be sufficient.
+2. Allow up to 5-10 minutes for the changes to take effect.  
+
 ### Remove a Set of Users from all Role Groups
 Use the following command to remove a member from all assigned role groups in Microsoft Purview:  
 ```powershell
