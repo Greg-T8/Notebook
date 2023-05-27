@@ -82,10 +82,10 @@ function Get-PvRoleGroup {
         [string[]]$ManagementRole
     )
     Write-Output (Get-RoleGroup) -PipelineVariable roleGroup |
-    Select -ExpandProperty roles |
-    % { $_ -replace ".*/",'' } -PipelineVariable role |
-    ? { $_ -in $ManagementRole } |
-    Select @{n='Role'; e={$role}}, @{n='RoleGroup';e={$roleGroup.DisplayName}}
+        Select -ExpandProperty roles |
+        % { $_ -replace ".*/",'' } -PipelineVariable role |
+        ? { $_ -in $ManagementRole } |
+        Select @{n='Role'; e={$role}}, @{n='RoleGroup';e={$roleGroup.DisplayName}}
 }
 ```
 ![](img/20230503-050342.png)
@@ -97,11 +97,11 @@ function Get-PvManagementRole {
         [string]$RoleGroup
     )
     Write-Output (Get-RoleGroup) |
-    ? DisplayName -eq "$RoleGroup" |
-    Select -ExpandProperty roles |
-    % { $_ -replace ".*/",'' } |
-    % { Get-ManagementRole -Identity $_ } |
-    Select Name, Description | Sort Name
+        ? DisplayName -eq "$RoleGroup" |
+        Select -ExpandProperty roles |
+        % { $_ -replace ".*/",'' } |
+        % { Get-ManagementRole -Identity $_ } |
+        Select Name, Description | Sort Name
 }
 ```
 ![](img/20230558-045824.png)
