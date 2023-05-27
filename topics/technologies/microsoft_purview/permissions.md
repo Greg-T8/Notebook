@@ -144,10 +144,12 @@ Here are the results which list the role details available in the Compliance Adm
 ### Audit Membership in all Microsoft Purview Role Groups
 Use the following command to list all users and their corresponding Microsoft Purview role group membership:  
 ```powershell
-Write-Output (Get-RoleGroup) -PipelineVariable roleGroup | 
-    % {Get-RoleGroupMember -Identity $_.Name} | 
-    Select @{n='Name'; e={$_.DisplayName}}, @{n='Alias'; e={$_.Alias}}, @{n='RoleGroup'; e={$roleGroup.DisplayName}} | 
-    Sort RoleGroup, Name | ft -AutoSize
+function Get-PvAllRoleGroupAssignments {
+    Write-Output (Get-RoleGroup) -PipelineVariable roleGroup | 
+        % {Get-RoleGroupMember -Identity $_.Name} | 
+        Select @{n='Name'; e={$_.DisplayName}}, @{n='Alias'; e={$_.Alias}}, @{n='RoleGroup'; e={$roleGroup.DisplayName}} | 
+        Sort RoleGroup, Name
+}
 ```
 ![](img/20230533-033314.png)
 
