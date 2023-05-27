@@ -59,6 +59,7 @@ Get-RoleGroup |
 
 Here is another version of command that pulls detail for one role group.
 ```powershell
+
 Get-RoleGroup |
    ? DisplayName -eq 'Compliance Administrator' |
    Select Name,
@@ -87,6 +88,7 @@ function Get-PvRoleGroup {
     Select @{n='Role'; e={$role}}, @{n='RoleGroup';e={$roleGroup.DisplayName}}
 }
 ```
+![](img/20230503-050342.png)
 
 Use the following command to list all management roles for a specified role group:  
 ```powershell
@@ -192,14 +194,16 @@ Here are a couple of pointers to keep in mind when testing role membership:
 ### Remove a Set of Users from all Role Groups
 Use the following command to remove a member from all assigned role groups in Microsoft Purview:  
 ```powershell
-function Remove-PvRoleGroupAssignment {
-    $users = 'AdeleV@tate0423sandbox.onmicrosoft.com'
-    Write-Output $users -PipelineVariable user |
+function Remove-PvAllRoleGroupAssignments {
+    param(
+        [string[]]$User
+    )
+    Write-Output $User -PipelineVariable u |
         % {Get-RoleGroup} -PipelineVariable roleGroup | 
         % {Get-RoleGroupMember -Identity $_.Name} | 
-        ? {$_.Alias -eq $user} | 
-        % {Remove-RoleGroupMember -Identity $roleGroup.Name -Member $user -Confirm:$false; ''} | 
-        Select @{n='User';e={$user}}, @{n='RoleGroup';e={$roleGroup.DisplayName}}, @{n='Status';e={'Removed'}}
+        ? {$_.Alias -eq $u | 
+        % {Remove-RoleGroupMember -Identity $roleGroup.Name -Member $u -Confirm:$false; ''} | 
+        Select @{n='User';e={$u}}, @{n='RoleGroup';e={$roleGroup.DisplayName}}, @{n='Status';e={'Removed'}}
 }
 ```
 Note: the empty string `''` on the 5th line is to force output to the Select statement, as `Remove-RoleGroupMember` does not send any output to the pipeline.
