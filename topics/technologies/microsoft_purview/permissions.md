@@ -208,4 +208,4 @@ function Remove-PvAllRoleGroupAssignments {
 ```
 Note: the empty string `''` on the 5th line is to force output to the Select statement, as `Remove-RoleGroupMember` does not send any output to the pipeline.
 
-![](img/20230540-034038.png)
+![](img/20230517-051721.png)
