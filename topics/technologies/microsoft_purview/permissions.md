@@ -83,7 +83,7 @@ function Get-PvRoleGroup {
     Write-Output (Get-RoleGroup) -PipelineVariable roleGroup |
     Select -ExpandProperty roles |
     % { $_ -replace ".*/",'' } -PipelineVariable role |
-    ? { $_ -in $managementRoles } |
+    ? { $_ -in $ManagementRole } |
     Select @{n='Role'; e={$role}}, @{n='RoleGroup';e={$roleGroup.DisplayName}}
 }
 ```
