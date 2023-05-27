@@ -99,7 +99,7 @@ function Get-PvRoleGroupRoles {
     Select Name, Description | Sort Name
 }
 ```
-![](img/20230533-033341.png)
+[](img/20230557-045709.png)
 
 ### Compare Role Assignments in Role Groups
 Use the following commands to compare role assignments between role groups.
