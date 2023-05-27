@@ -149,13 +149,18 @@ A couple of things to note about this command:
 ### Audit Membership for Specific Users
 Use the following command to list the Microsoft Purview role groups for a set of users:  
 ```powershell
-[array]$users = 'AdeleV@tate0423sandbox.onmicrosoft.com', 'DiegoS@tate0423sandbox.onmicrosoft.com'
-Write-Output $users -PipelineVariable user | 
-    % {Get-RoleGroup} -PipelineVariable roleGroup | 
-    % {Get-RoleGroupMember -Identity $_.Name} | 
-    ? {$_.Alias -eq $user} | 
-    Select @{n='User';e={$user}}, @{n='RoleGroup';e={$roleGroup.DisplayName}} | 
-    Sort User, RoleGroup
+# List Microsoft Purview role groups for a set of users
+function Get-PvRoleGroupAssignment {
+    param(
+        [string[]]$Upn
+    )
+    Write-Output $Upn -PipelineVariable user | 
+        % {Get-RoleGroup} -PipelineVariable roleGroup | 
+        % {Get-RoleGroupMember -Identity $_.Name} | 
+        ? {$_.Alias -eq $user} | 
+        Select @{n='User';e={$user}}, @{n='RoleGroup';e={$roleGroup.DisplayName}} | 
+        Sort User, RoleGroup
+}
 ```
 ![](img/20230516-031646.png)
 
