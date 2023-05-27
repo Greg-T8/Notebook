@@ -201,7 +201,7 @@ function Remove-PvAllRoleGroupAssignments {
     Write-Output $Upn -PipelineVariable user |
         % {Get-RoleGroup} -PipelineVariable roleGroup | 
         % {Get-RoleGroupMember -Identity $_.Name} | 
-        ? {$_.Alias -eq $user | 
+        ? {$_.Alias -eq $user} | 
         % {Remove-RoleGroupMember -Identity $roleGroup.Name -Member $user -Confirm:$false; ''} | 
         Select @{n='User';e={$user}} @{n='RoleGroup';e={$roleGroup.DisplayName}}, @{n='Status';e={'Removed'}}
 }
