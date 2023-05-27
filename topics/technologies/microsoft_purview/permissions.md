@@ -87,13 +87,17 @@ Write-Output (Get-RoleGroup) -PipelineVariable roleGroup |
 
 Use the following command to list all management roles for a specified role group:  
 ```powershell
-$roleGroup = 'Information Protection Analysts'
-Write-Output (Get-RoleGroup) |
-  ? DisplayName -eq "$roleGroup" |
-  Select -ExpandProperty roles |
-  % { $_ -replace ".*/",'' } |
-  % { Get-ManagementRole -Identity $_ } |
-  Select Name, Description | Sort Name
+function Get-PvRoleGroupRoles {
+    param(
+        [string]$RoleGroup
+    )
+    Write-Output (Get-RoleGroup) |
+    ? DisplayName -eq "$roleGroup" |
+    Select -ExpandProperty roles |
+    % { $_ -replace ".*/",'' } |
+    % { Get-ManagementRole -Identity $_ } |
+    Select Name, Description | Sort Name
+}
 ```
 ![](img/20230533-033341.png)
 
@@ -186,10 +190,8 @@ Here are a couple of pointers to keep in mind when testing role membership:
 Use the following command to remove a member from all assigned role groups in Microsoft Purview:  
 ```powershell
 function Remove-PvRoleGroupAssignment {
-    param(
-        [string[]]$Upn
-    )
-    Write-Output $Upn -PipelineVariable user |
+    $users = 'AdeleV@tate0423sandbox.onmicrosoft.com'
+    Write-Output $users -PipelineVariable user |
         % {Get-RoleGroup} -PipelineVariable roleGroup | 
         % {Get-RoleGroupMember -Identity $_.Name} | 
         ? {$_.Alias -eq $user} | 
