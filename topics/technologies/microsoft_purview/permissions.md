@@ -151,7 +151,7 @@ function Get-PvAllRoleGroupAssignments {
         Sort RoleGroup, Name
 }
 ```
-![](img/20230533-033314.png)
+![](img/20230522-052214.png)
 
 A couple of things to note about this command:
 1. `Write-Output` is needed for `-PipelineVariable`, as this parameter doesn't seem to work for `Get-RoleGroup`
