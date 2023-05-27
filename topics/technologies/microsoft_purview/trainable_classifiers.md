@@ -37,17 +37,23 @@ Accessing the Data Classification > Classifiers > Trainable Classifiers Node
 - Compliance Administrator
 - Compliance Data Administrator
 
-Providing Feedback on Trainable Classifiers at Classification > Content Explorer
-- Content Explorer List Viewer
-- Content Explorer Content Viewer
-
-
-
-
-
-
-
 ![](img/20230514-031406.png)
+
+Providing Feedback on Trainable Classifiers at Classification > Content Explorer
+- Content Explorer Content Viewer
+- Content Explorer List Viewer
+- Data Estate Insights Readers
+- Information Protection
+- Information Protection Analysts
+- Information Protection Investigators
+- Privacy Management
+- Privacy Management Analysts
+- Privacy Management Investigators
+- Privacy Management Viewers
+
+![](img/20230534-053452.png)
+
+The role groups listed above all have the management roles *Data Classification Content Viewer* and *Data Classification List Viewer*. This management role is the least common management role across these role groups.
 
 A Global Admin must opt in for the tenant to create custom classifiers. This message first appears when accessing the Trainable Classifiers tab.  
 

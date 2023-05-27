@@ -92,7 +92,7 @@ function Get-PvRoleGroup {
 
 Use the following command to list all management roles for a specified role group:  
 ```powershell
-function Get-PvRoleGroupRoles {
+function Get-PvManagementRole {
     param(
         [string]$RoleGroup
     )
@@ -141,7 +141,7 @@ Compare-Object $complianceAdministratorRoles $complianceDataAdministratorRoles |
 Here are the results which list the role details available in the Compliance Administrator role group but are not available in the Compliance Data Administrator role group:  
 ![](img/20230522-042240.png)
 
-### Audit Membership in all Microsoft Purview Role Groups
+### Audit Membership for all Microsoft Purview Role Groups
 Use the following command to list all users and their corresponding Microsoft Purview role group membership:  
 ```powershell
 function Get-PvAllRoleGroupAssignments {
