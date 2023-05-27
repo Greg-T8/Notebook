@@ -203,7 +203,7 @@ function Remove-PvAllRoleGroupAssignments {
         % {Get-RoleGroupMember -Identity $_.Name} | 
         ? {$_.Alias -eq $user} | 
         % {Remove-RoleGroupMember -Identity $roleGroup.Name -Member $user -Confirm:$false; ''} | 
-        Select @{n='User';e={$user}} @{n='RoleGroup';e={$roleGroup.DisplayName}}, @{n='Status';e={'Removed'}}
+        Select @{n='User';e={$user}}, @{n='RoleGroup';e={$roleGroup.DisplayName}}, @{n='Status';e={'Removed'}}
 }
 ```
 Note: the empty string `''` on the 5th line is to force output to the Select statement, as `Remove-RoleGroupMember` does not send any output to the pipeline.
