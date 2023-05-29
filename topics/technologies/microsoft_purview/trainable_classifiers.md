@@ -6,6 +6,7 @@
 - [How to retrain a classifier in content explorer](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-how-to-retrain-content-explorer?view=o365-worldwide)
 - [Trainable classifier definitions](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-tc-definitions?view=o365-worldwide)
 - [Increase classifier accuracy](https://learn.microsoft.com/en-us/microsoft-365/compliance/data-classification-increase-accuracy?view=o365-worldwide)
+- [Microsoft built-in trainable classifier reference](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-tc-definitions?view=o365-worldwide)
 
 ## Exam Goals
 - Identify when to use trainable classifiers
@@ -26,8 +27,9 @@
     - [Seed content](#seed-content)
     - [Prerequisites](#prerequisites)
     - [Testing content](#testing-content)
-  - [How to create a trainable classifier (in 21 easy steps)](#how-to-create-a-trainable-classifier-in-21-easy-steps)
+  - [How to create a trainable classifier](#how-to-create-a-trainable-classifier)
 - [Retrain a Trainable Classifier](#retrain-a-trainable-classifier)
+  - [How to retrain a classifier in content explorer](#how-to-retrain-a-classifier-in-content-explorer)
 
 ## Permissions Required
 - Reference
@@ -94,10 +96,8 @@ You can view the trainable classifiers in content explorer by expanding **Traina
 
 **Types of Classifiers**
 There are two types of classifiers  
-- **pre-trained classifiers** - Microsoft has created and pre-trained multiple classifiers that you can start using without training them. These classifiers appear with the status `Ready to use`.  
+- **pre-trained classifiers** - Microsoft has created and pre-trained multiple classifiers that you can start using without training them. These classifiers appear with the status `Ready to use`. See [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-tc-definitions?view=o365-worldwide) for a list of the pre-trained classifier definitions. 
 - **custom trainable classifiers** - If you have content identification and categorization needs that extend beyond that the pre-trained classifiers cover, you can create and train your own classifiers.
-
-See [Trainable classifiers definitions](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-tc-definitions?view=o365-worldwide#trainable-classifiers-definitions) for a complete list of trainable classifiers.
 
 ## When to use Trainable Classifiers
 Classifiers are available to use as a condition for 
@@ -144,7 +144,7 @@ Once the trainable classifier has processed enough positive samples to build a p
 
 **Tip:** For best results, have at least 200 items in your test sample set with an even distribution of positive and negative matches. 
 
-### How to create a trainable classifier (in 21 easy steps)
+### How to create a trainable classifier
 1. Collect between 50-500 seed content items. These must be only samples that strongly represent the type of content you want the trainable classifier to positively identify as being in the category. See [Default crawled file name extensions and parsed file types in SharePoint server](https://learn.microsoft.com/en-us/sharepoint/technical-reference/default-crawled-file-name-extensions-and-parsed-file-types) for supported file types.
 
 **Important:** Make sure the items in your seed set are **strong** examples of this category. The trainable classifier initially builds its model based on what you seed it with. The classifier assumes all seed samples are strong positives and has no way of knowing if a sample is a weak or negative to match the category.
@@ -200,17 +200,22 @@ Once the trainable classifier has processed enough positive samples to build a p
 - [Auto-apply retention label policy based on a condition](https://learn.microsoft.com/en-us/microsoft-365/compliance/apply-retention-labels-automatically?view=o365-worldwide#configuring-conditions-for-auto-apply-retention-labels)
 - [Communication compliance](https://learn.microsoft.com/en-us/microsoft-365/compliance/communication-compliance?view=o365-worldwide)
 
-
 ## Retrain a Trainable Classifier
 References
 - [Retraining Classifiers](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-learn-about?view=o365-worldwide#retraining-classifiers)
 - [How to retrain a classifier in content explorer](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-how-to-retrain-content-explorer?view=o365-worldwide)
 
-A Microsoft 365 trainable classifier is a tool you can train to recognize various types of content by giving it samples to look at. Once trained, you can use it to identify items for application of Office sensitivity labels, communications compliance policies, and retention labels.
-
-
 You can help improve the accuracy of all custom trainable classifiers and by providing them with feedback on the accuracy of the classification that they perform.  This is called retraining, and follows this workflow. 
 
-Note: pre-trained classifiers cannot be re-trained. 
+**Note:** The built-in pre-trained classifiers cannot be re-trained. 
+
+**Note:** A classifier must already be published and in use before it can be retrained.
 
 ![](img/20230553-055316.png)
+
+You retrain your classifiers by evaluating the quality of the classifications made for items identified as being a match or not a match. After you make 30 evaluations for a classifier, it takes that feedback, and automatically retrains itself.  
+
+### How to retrain a classifier in content explorer
+1. Sign in to Microsoft Purview compliance portal and open Data Classification > Classifiers > Trainable classifiers
+
+2. Choose the trainable classifier you'll give feedback on.  
