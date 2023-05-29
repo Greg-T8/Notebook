@@ -24,6 +24,8 @@
 - [Design and Create a Trainable Classifier](#design-and-create-a-trainable-classifier)
   - [Process flow for creating custom classifiers](#process-flow-for-creating-custom-classifiers)
     - [Seed content](#seed-content)
+    - [Testing content](#testing-content)
+  - [How to create a trainable classifier (in 21 easy steps)](#how-to-create-a-trainable-classifier-in-21-easy-steps)
 - [Retrain a Trainable Classifier](#retrain-a-trainable-classifier)
 
 ## Permissions Required
@@ -55,7 +57,9 @@ A Global Admin must opt in for the tenant to create custom classifiers. This mes
 
 ![](img/20230557-035736.png)
 
-The opt-in takes 12 days for Microsoft 365 to complete a baseline evaluation of the organization's content. See [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-get-started-with?view=o365-worldwide#timeline).
+The opt-in takes 12 days for Microsoft 365 to complete a baseline evaluation of the organization's content. See [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-get-started-with?view=o365-worldwide#timeline). During this time the option to create a trainable classifier will be disabled.
+
+![](img/20230542-034225.png)
 
 ## Licensing
 - Reference
@@ -125,7 +129,29 @@ Creating and publishing a classifier for use in compliance solutions, such as re
 ![](img/20230549-054907.png)
 
 #### Seed content
-When you want a trainable classifier to independently and accurately identify an item as being in a particular category of content, you must first have to present it with many samples of the type of content that are in the category. This feeding of samples to the trainable classifier is known as *seeding*.  
+When you want a trainable classifier to independently and accurately identify an item as being in a particular category of content, you must first have to present it with many samples of the type of content that are in the category. This feeding of samples to the trainable classifier is known as *seeding*. Seed content is selected by a human and is judged to represent the category of the document. 
+
+**Note:** You need to have at least 50 positive samples and as many as 500. The trainable classifier will process up to the 500 most recent created samples (by file created date/time stamp). The more samples you provide, the more accurate the predictions the classifier will make. 
+
+#### Testing content
+Once the trainable classifier has processed enough positive samples to build a prediction model, you need to test the predictions it makes to see if the classifier can correctly distinguish between items that match the category and items that don't. You do this by selecting another, hopefully larger, set of human picked content that consists of samples that should fall into the category and samples that won't. You should test with different data than the initial seed data you first provided. Once it processes those, you manually go through the results and verify whether each prediction is correct, incorrect, or you aren't sure. The trainable classifier uses this feedback to improve its prediction model. 
+
+**Tip:** For best results, have at least 200 items in your test sample set with an even distribution of positive and negative matches. 
+
+### How to create a trainable classifier (in 21 easy steps)
+1. Collect between 50-500 seed content items. These must be only samples that strongly represent the type of content you want the trainable classifier to positively identify as being in the category. See [Default crawled file name extensions and parsed file types in SharePoint server](https://learn.microsoft.com/en-us/sharepoint/technical-reference/default-crawled-file-name-extensions-and-parsed-file-types) for supported file types.
+
+**Important:** Make sure the items in your seed set are **strong** examples of this category. The trainable classifier initially builds its model based on what you seed it with. The classifier assumes all seed samples are strong positives and has no way of knowing if a sample is a weak or negative to match the category.
+
+2. Place the seed content in a SharePoint Online folder that is dedicated to holding *the seed content only*. Make note of this site, library, and folder URL.
+
+**Tip:** If you create a new site and folder for your seed data, allow at least an hour for that location to be indexed before creating the trainable classifier that will use that seed data.
+
+3. Sign in to Microsoft Purview compliance portal with compliance admin or security admin role and access Data Classification > Classifiers > Trainable classifiers.
+
+4. Select **Create trainable classifier**
+
+
 
 
 ## Retrain a Trainable Classifier
@@ -134,7 +160,6 @@ References
 - [How to retrain a classifier in content explorer](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-how-to-retrain-content-explorer?view=o365-worldwide)
 
 A Microsoft 365 trainable classifier is a tool you can train to recognize various types of content by giving it samples to look at. Once trained, you can use it to identify items for application of Office sensitivity labels, communications compliance policies, and retention labels.
-
 
 
 You can help improve the accuracy of all custom trainable classifiers and by providing them with feedback on the accuracy of the classification that they perform.  This is called retraining, and follows this workflow. 
