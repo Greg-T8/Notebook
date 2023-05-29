@@ -23,6 +23,7 @@
 - [When to use Trainable Classifiers](#when-to-use-trainable-classifiers)
 - [Design and Create a Trainable Classifier](#design-and-create-a-trainable-classifier)
   - [Process flow for creating custom classifiers](#process-flow-for-creating-custom-classifiers)
+    - [Seed content](#seed-content)
 - [Retrain a Trainable Classifier](#retrain-a-trainable-classifier)
 
 ## Permissions Required
@@ -50,9 +51,11 @@ Providing Feedback on Trainable Classifiers at Classification > Content Explorer
 
 The role groups listed above have the management roles *Data Classification Content Viewer* and *Data Classification List Viewer*. 
 
-A Global Admin must opt in for the tenant to create custom classifiers. This message first appears when accessing the Trainable Classifiers tab.  
+A Global Admin must opt in for the tenant to create custom classifiers. This message first appears when accessing the Trainable Classifiers tab. 
 
 ![](img/20230557-035736.png)
+
+The opt-in takes 12 days for Microsoft 365 to complete a baseline evaluation of the organization's content. See [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-get-started-with?view=o365-worldwide#timeline).
 
 ## Licensing
 - Reference
@@ -104,6 +107,7 @@ Note: classifiers only work for items that are not encrypted.
 ## Design and Create a Trainable Classifier
 References
 - [Custom Classifiers](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-learn-about?view=o365-worldwide#custom-classifiers)
+- [Get started with trainable classifiers](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-get-started-with?view=o365-worldwide#timeline)
 
 You start by creating a custom trainable classifier by feeding it examples that are definitely in the category. Once it processes these examples, you test it by giving it a mix of both matching and non-matching examples. The classifier then makes predictions as to whether any given item falls into the category you're building. You then confirm its results, sorting out the true positives, true negatives, false positives, and false negatives to help increase the accuracy of its predictions.
 
@@ -119,6 +123,9 @@ Examples for which you can create trainable classifiers:
 Creating and publishing a classifier for use in compliance solutions, such as retention policies and communication supervision, follows this flow. For more detail on creating a custom trainable classifier, see [Creating a custom classifier]().  The process starts by using seed data with a minimum of 50 samples. You then create the classifier and provide sample data, consisting of positive and negative samples. Finally, you provide feedback to the model and then publish the classifier.
 
 ![](img/20230549-054907.png)
+
+#### Seed content
+When you want a trainable classifier to independently and accurately identify an item as being in a particular category of content, you must first have to present it with many samples of the type of content that are in the category. This feeding of samples to the trainable classifier is known as *seeding*.  
 
 
 ## Retrain a Trainable Classifier
