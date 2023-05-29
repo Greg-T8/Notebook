@@ -24,6 +24,7 @@
 - [Design and Create a Trainable Classifier](#design-and-create-a-trainable-classifier)
   - [Process flow for creating custom classifiers](#process-flow-for-creating-custom-classifiers)
     - [Seed content](#seed-content)
+    - [Prerequisites](#prerequisites)
     - [Testing content](#testing-content)
   - [How to create a trainable classifier (in 21 easy steps)](#how-to-create-a-trainable-classifier-in-21-easy-steps)
 - [Retrain a Trainable Classifier](#retrain-a-trainable-classifier)
@@ -106,7 +107,7 @@ Classifiers are available to use as a condition for
 - Sensitivity labels can use classifiers as conditions
 - Data loss prevention
 
-Note: classifiers only work for items that are not encrypted.
+**Note:** classifiers only work for items that are not encrypted.
 
 ## Design and Create a Trainable Classifier
 References
@@ -133,6 +134,11 @@ When you want a trainable classifier to independently and accurately identify an
 
 **Note:** You need to have at least 50 positive samples and as many as 500. The trainable classifier will process up to the 500 most recent created samples (by file created date/time stamp). The more samples you provide, the more accurate the predictions the classifier will make. 
 
+#### Prerequisites
+- 2 SharePoint Online document folders, one for the seed data and one for the test data. Allow at least an hour for SharePoint to index these files prior to creating the trainable classifier.
+- A seed sample containing strong positive and strong negative matches, evenly distributed.  50-500 items, 200 recommended.
+- A test sample containing at least 200 items, containing strong positives, strong negatives, and some that are not as obvious
+
 #### Testing content
 Once the trainable classifier has processed enough positive samples to build a prediction model, you need to test the predictions it makes to see if the classifier can correctly distinguish between items that match the category and items that don't. You do this by selecting another, hopefully larger, set of human picked content that consists of samples that should fall into the category and samples that won't. You should test with different data than the initial seed data you first provided. Once it processes those, you manually go through the results and verify whether each prediction is correct, incorrect, or you aren't sure. The trainable classifier uses this feedback to improve its prediction model. 
 
@@ -151,7 +157,48 @@ Once the trainable classifier has processed enough positive samples to build a p
 
 4. Select **Create trainable classifier**
 
+5. Fill in appropriate values for the `Name` and `Description` fields of the category of items you want this trainable classifier to identify.  
 
+6. Pick the SharePoint Online site, library, and folder URL for the seed content site for step 2. Choose `Add`. 
+
+7. Review the settings and choose `Create trainable classifier`. 
+
+8. Within 24 hours the trainable classifier will process the seed data and build a prediction model. The classifier status is `In Progress` while it processes the seed data. When the classifier is finished processing the seed data, the status changes to `Need test items`. 
+
+9. You can now view the details page by choosing the classifier.
+
+![](img/20230546-034603.png)
+
+10. Collect at least 200 test content items (10,000 max) for best results. These should be a mix of items that are strong positives, strong negatives, and some that are a little less obvious in their nature. 
+
+11. Place the test content in a SharePoint Online folder that is dedicated to holding the **test content only**. Make note of the SharePoint Online site, library, and folder URL.
+
+12. Choose `Add items to test`
+
+13. Pick the SharePoint Online site, library, and folder URL for the test content site.
+
+14. Finish the wizard by choosing `Done`. Your trainable classifier will take up to an hour to process the test files.
+
+15. When the trainable classifier is done processing your test files, the status on the details page will change to `Ready to review`. If you need to increase the sample size, choose `Add items to test` and allow the trainable classifier to process the additional items.
+
+![](img/20230554-035422.png)
+
+16. Choose `Tested items to review` tab to review items.
+
+17. Microsoft 365 will present 30 items at a time. Review them and in the `We predict this items is "Relevant". Do you agree?` box choose either `Yes` or `No` or `Not sure, skip to the next item`. Model accuracy is automatically updated every 30 items.
+
+![](img/20230558-035814.png)
+
+18. Review at least 200 items. Once the accuracy score has stabilized, the **publish** option will become available and the classifier status will say `Ready to use`. 
+
+![](img/20230559-035930.png)
+
+19. Publish the classifier.
+
+20. Once published your classifier will be available as a condition in the following areas
+- [Office auto-labeling with sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/apply-sensitivity-label-automatically?view=o365-worldwide)
+- [Auto-apply retention label policy based on a condition](https://learn.microsoft.com/en-us/microsoft-365/compliance/apply-retention-labels-automatically?view=o365-worldwide#configuring-conditions-for-auto-apply-retention-labels)
+- [Communication compliance](https://learn.microsoft.com/en-us/microsoft-365/compliance/communication-compliance?view=o365-worldwide)
 
 
 ## Retrain a Trainable Classifier
