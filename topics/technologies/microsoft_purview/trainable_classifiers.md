@@ -38,11 +38,12 @@
   - [Trainable Classifiers Permissions](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-how-to-retrain-content-explorer?view=o365-worldwide#permissions)
   - [Content Explorer Permissions](https://learn.microsoft.com/en-us/microsoft-365/compliance/data-classification-content-explorer?view=o365-worldwide#permissions)
 
-The roles below are the role groups in Microsoft Purview compliance portal; they are not the Azure AD roles with the same name!  The Azure AD roles with these names do not provide the same level of access in Microsoft Purview compliance portal.
-
 To manage trainable classifiers, a user needs to be able to expand the Data Classification node in Microsoft Purview compliance portal. Standard users don't have visibility to this node.
 
+The roles below are the role groups in Microsoft Purview compliance portal; they are not the Azure AD roles with the same name. The Azure AD roles with these names do not provide the same level of access in Microsoft Purview compliance portal.
+
 Accessing the Data Classification > Classifiers > Trainable Classifiers Node
+- Organization Administrator
 - Compliance Administrator
 - Compliance Data Administrator
 
