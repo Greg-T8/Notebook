@@ -54,7 +54,7 @@ Providing Feedback on Trainable Classifiers at Classification > Content Explorer
 
 ![](img/20230534-053452.png)
 
-The role groups listed above have the management roles *Data Classification Content Viewer* and *Data Classification List Viewer*. 
+The role groups listed above have the management roles *Data Classification Content Viewer* and *Data Classification List Viewer*. See [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/data-classification-content-explorer?view=o365-worldwide#permissions) for more info.
 
 A Global Admin must opt in for the tenant to create custom classifiers. This message first appears when accessing the Trainable Classifiers tab. 
 
