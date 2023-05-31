@@ -53,7 +53,9 @@ Providing Feedback on Trainable Classifiers at Classification > Content Explorer
 - Privacy Management
 - Privacy Management Investigators
 - Information Protection
+- Information Protection Admins
 - Information Protection Investigators
+- Information Protection Readers
 - Data Estate Insights Readers
 
 ![](img/20230534-053452.png)
