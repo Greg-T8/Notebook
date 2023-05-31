@@ -136,7 +136,7 @@ function Get-PvAllRoleGroupAssignments {
     Write-Output (Get-RoleGroup) -PipelineVariable roleGroup | 
         % {Get-RoleGroupMember -Identity $_.Name} | 
         Select @{n='Name'; e={$_.DisplayName}}, @{n='Alias'; e={$_.Alias}}, @{n='RoleGroup'; e={$roleGroup.DisplayName}} | 
-        Sort RoleGroup, Name
+        Sort Name, RoleGroup 
 }
 ```
 ![](img/20230522-052214.png)
