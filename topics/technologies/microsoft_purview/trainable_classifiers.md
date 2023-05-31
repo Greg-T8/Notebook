@@ -21,6 +21,9 @@
 - [Exam Goals](#exam-goals)
 - [Contents](#contents)
 - [Permissions Required](#permissions-required)
+  - [Trainable Classifiers](#trainable-classifiers-1)
+  - [Content Explorer](#content-explorer)
+  - [Scanning Opt-in](#scanning-opt-in)
 - [Licensing](#licensing)
 - [Overview](#overview)
 - [When to use Trainable Classifiers](#when-to-use-trainable-classifiers)
@@ -38,18 +41,25 @@
   - [Trainable Classifiers Permissions](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-how-to-retrain-content-explorer?view=o365-worldwide#permissions)
   - [Content Explorer Permissions](https://learn.microsoft.com/en-us/microsoft-365/compliance/data-classification-content-explorer?view=o365-worldwide#permissions)
 
-To manage trainable classifiers, a user needs to be able to expand the Data Classification node in Microsoft Purview compliance portal. Standard users don't have visibility to this node.
-
-The roles below are the role groups in Microsoft Purview compliance portal; they are not the Azure AD roles with the same name. The Azure AD roles with these names do not provide the same level of access in Microsoft Purview compliance portal.
-
-Accessing the Data Classification > Classifiers > Trainable Classifiers Node
-- Organization Administrator
-- Compliance Administrator
-- Compliance Data Administrator
+### Trainable Classifiers
+To manage trainable classifiers, a user needs to be able to expand the **Data Classification** node in Microsoft Purview compliance portal. Standard users don't have visibility to this node.
 
 ![](img/20230514-031406.png)
 
-Providing Feedback on Trainable Classifiers at Classification > Content Explorer
+The roles listed below come from Azure AD and Microsoft Purview. In Microsoft Purview, roles are called *role groups*.   
+
+Accessing the Data Classification > Classifiers > Trainable Classifiers Node
+- Global Administrator (Azure AD)
+- Organization Management (Microsoft Purview)
+- Compliance Administrator (Microsoft Purview)
+- Compliance Data Administrator (Microsoft Purview)
+
+### Content Explorer
+Content Explorer allows you to natively view scanned items and provide feedback for classifiers. It shows a current snapshot of the items that have a sensitivity label, a retention label, or have been classified as a sensitive information type. It also shows items that are classified by trainable classifiers.  
+
+**Note:** access to Content Explorer is highly restricted because it lest you read the contents of scanned files. The permissions in Content Explorer supersede permissions that are locally assigned to the items.
+
+The following Microsoft Purview role groups are required to provide feedback in Content Explorer: 
 - Privacy Management
 - Privacy Management Investigators
 - Information Protection
@@ -58,11 +68,15 @@ Providing Feedback on Trainable Classifiers at Classification > Content Explorer
 - Information Protection Readers
 - Data Estate Insights Readers
 
+**Note:** an Azure AD Global Admin can also use Content Explorer.
+
+
+To provide feedback in Content Explorer, you must be a member of a role group that has the *Data Classification Content Viewer* and *Data Classification List Viewer* roles. You will receive the following message if you are not a member of a role group that has these roles. See [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/data-classification-content-explorer?view=o365-worldwide#permissions) for more info.
+ 
 ![](img/20230534-053452.png)
 
-The role groups listed above have the management roles *Data Classification Content Viewer* and *Data Classification List Viewer*. See [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/data-classification-content-explorer?view=o365-worldwide#permissions) for more info.
-
-A Global Admin must opt in for the tenant to create custom classifiers. This message first appears when accessing the Trainable Classifiers tab. 
+### Scanning Opt-in
+A Global Admin must opt in to scan the organization's content. This message first appears when accessing the Trainable Classifiers tab. 
 
 ![](img/20230557-035736.png)
 
