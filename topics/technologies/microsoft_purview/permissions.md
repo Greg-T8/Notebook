@@ -63,22 +63,7 @@ Use the following PowerShell command to pull role information. In PowerShell, a 
 Get-ManagementRole | select Name, Description | sort Name
 ```
 
-Use the following command to list all role groups with the specified management roles:  
-```powershell
-function Get-PvRoleGroup {
-    param(
-        [string[]]$ManagementRole
-    )
-    Write-Output (Get-RoleGroup) -PipelineVariable roleGroup |
-        Select -ExpandProperty roles |
-        % { $_ -replace ".*/",'' } -PipelineVariable role |
-        ? { $_ -in $ManagementRole } |
-        Select @{n='Role'; e={$role}}, @{n='RoleGroup';e={$roleGroup.DisplayName}}
-}
-```
-![](img/20230503-050342.png)
-
-Use the following command to list all management roles for a specified role group:  
+Use the following command to list all management roles in a specified role group:  
 ```powershell
 function Get-PvManagementRole {
     param(
@@ -93,6 +78,21 @@ function Get-PvManagementRole {
 }
 ```
 ![](img/20230558-045824.png)
+
+Use the following command to list all role groups that contain the specified management role:
+```powershell
+function Get-PvRoleGroup {
+    param(
+        [string[]]$ManagementRole
+    )
+    Write-Output (Get-RoleGroup) -PipelineVariable roleGroup |
+        Select -ExpandProperty roles |
+        % { $_ -replace ".*/",'' } -PipelineVariable role |
+        ? { $_ -in $ManagementRole } |
+        Select @{n='Role'; e={$role}}, @{n='RoleGroup';e={$roleGroup.DisplayName}}
+}
+```
+![](img/20230503-050342.png)
 
 ### Compare Role Assignments in Role Groups
 Use the following commands to compare role assignments between role groups.
