@@ -58,7 +58,7 @@ Get-RoleGroup |
 ![](img/20230516-031652.png)
 
 ### Get Role Details
-Use the following PowerShell command to pull role information:  
+Use the following PowerShell command to pull role information. In PowerShell, a role is called a *management role*. 
 ```powershell
 Get-ManagementRole | select Name, Description | sort Name
 ```
