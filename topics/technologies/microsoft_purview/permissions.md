@@ -179,7 +179,7 @@ function Get-PvManagementRoleAssignment {
         Sort User, Role, RoleGroup
 }
 ```
-
+![](img/20230551-035141.png)
 
 ### Manage Role Membership
 Use the following command to add a member to a role group:  
