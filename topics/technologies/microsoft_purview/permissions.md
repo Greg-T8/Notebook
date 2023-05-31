@@ -146,7 +146,7 @@ A couple of things to note about this command:
 2. The output of `Get-RoleGroupMember` includes the *PrimarySmtpAddress* property, but this property is not defined. The *Alias* property is the only property that has a defined email address.
 
 ### Audit Membership for Specific Users
-Use the following command to list the Microsoft Purview role groups for a set of users:  
+Use the following command to list all role groups for a set of users:  
 ```powershell
 # List Microsoft Purview role groups for a set of users
 function Get-PvRoleGroupAssignment {
@@ -162,6 +162,23 @@ function Get-PvRoleGroupAssignment {
 }
 ```
 ![](img/20230544-044433.png)
+
+Use the following command to list all role groups and roles for a set of users:
+```powershell
+function Get-PvManagementRoleAssignment {
+    param(
+        [string[]]$Upn
+    )
+    Write-Output $Upn -PipelineVariable user |
+        % {Get-RoleGroup} -PipelineVariable roleGroup |
+        % {Get-RoleGroupMember -Identity $_.Name} |
+        ? {$_.Alias -eq $user} |
+        % {$roleGroup | Select -ExpandProperty Roles} |
+        % {$_ -replace ".*/", ''} -PipelineVariable role |
+        Select @{n='User';e={$user}}, @{n='Role';e={$role}}, @{n='RoleGroup';e={$roleGroup.DisplayName}} |
+        Sort User, Role, RoleGroup
+}
+```
 
 
 ### Manage Role Membership
