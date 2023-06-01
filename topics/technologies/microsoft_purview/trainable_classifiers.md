@@ -51,8 +51,8 @@ The roles listed below come from Azure AD and Microsoft Purview. In Microsoft Pu
 Accessing the Data Classification > Classifiers > Trainable Classifiers Node
 - Global Administrator (Azure AD)
 - Organization Management (Microsoft Purview)
-- Compliance Administrator (Microsoft Purview)
-- Compliance Data Administrator (Microsoft Purview)
+- Compliance Administrator (Microsoft Purview or Azure AD)
+- Compliance Data Administrator (Microsoft Purview or Azure AD)
 
 ### Content Explorer
 Content Explorer allows you to natively view scanned items and provide feedback for classifiers. It shows a current snapshot of the items that have a sensitivity label, a retention label, or have been classified as a sensitive information type. It also shows items that are classified by trainable classifiers.  
@@ -69,7 +69,6 @@ The following Microsoft Purview role groups are required to provide feedback in 
 - Data Estate Insights Readers
 
 **Note:** an Azure AD Global Admin can also use Content Explorer.
-
 
 To provide feedback in Content Explorer, you must be a member of a role group that has the *Data Classification Content Viewer* and *Data Classification List Viewer* roles. You will receive the following message if you are not a member of a role group that has these roles. See [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/data-classification-content-explorer?view=o365-worldwide#permissions) for more info.
  

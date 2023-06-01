@@ -33,6 +33,12 @@ See [Roles in Microsoft Defender for Office 365 and Microsoft Purview compliance
 ## The Organization Management Role Group
 The Organization Management role group is the most powerful role group in Purview compliance. It has the most assigned roles (38) and is the only role group with the Role Management permission.  Global Admins are automatically added to the Organization Management role group, but you won't see them in the output of the `Get-RoleGroupMember` cmdlet.
 
+## The Compliance Administrator Role Group
+The Compliance Administrator role exists in two separate places&mdash;in Azure AD and in Microsoft Purview. There are subtle differences between the two, with the Microsoft Purview role group having a slightly higher level of access:
+1. Permissions for the Azure AD role assignment take effect after the next browser restart. Permissions for the Microsoft Purview role assignment take 5-15 minutes to take effect, and still require a browser restart.
+2. The Microsoft Purview Compliance Administrator has visibility (but not access) to Data Classification > Content Explorer.  The Azure AD role does not.
+3. The 
+
 ## Use PowerShell to Microsoft Purview Compliance Permissions
 View all role-based commands in Microsoft Purview.  Requires either Azure AD Global Admin or Microsoft Purview Organization Management. 
 ```powershell
@@ -181,7 +187,7 @@ function Get-PvManagementRoleAssignment {
 ```
 ![](img/20230551-035141.png)
 
-Here is another version that uses the functions defined above:
+Here is another version that uses the functions defined above. This example shows that the role group *Information Protection* is a higher-privileged role group than *Information Protection Admins*.  
 ```powershell
 $ipa = Get-PvManagementRole -RoleGroup 'Information Protection Admins' | Select -ExpandProperty Name
 $ip = Get-PvManagementRole -RoleGroup 'Information Protection' | Select -ExpandProperty Name
