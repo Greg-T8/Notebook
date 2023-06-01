@@ -35,8 +35,8 @@ The Organization Management role group is the most powerful role group in Purvie
 
 ## The Compliance Administrator Role Group
 The Compliance Administrator role exists in two separate places&mdash;in Azure AD and in Microsoft Purview. There are subtle differences between the two, with the Microsoft Purview role group having a slightly higher level of access:
-1. Permissions for the Azure AD role assignment take effect after the next browser restart. Permissions for the Microsoft Purview role assignment take 5-15 minutes to take effect, and still require a browser restart.
-2. The Microsoft Purview Compliance Administrator has visibility (but not access) to Data Classification > Content Explorer.  The Azure AD role does not.
+1. Permissions for the Azure AD role assignment take effect after the next browser restart. Permissions for the Microsoft Purview role assignment take 5-15 minutes to take effect and require a browser restart.
+2. The Microsoft Purview Compliance Administrator has visibility (but not access) to Data Classification > Content Explorer.  The Azure AD role does not have any visibility to the Content Explorer node.
 3. The Microsoft Purview Compliance Administrator has access to Data Classification > Activity Explorer; the Azure AD Compliance administrator does not.
 4. The Microsoft Purview Compliance Administrator has access to the following areas in Microsoft Purview; the Azure AD Compliance Administrator does not:
    - Data Loss Prevention
@@ -47,6 +47,7 @@ The Compliance Administrator role exists in two separate places&mdash;in Azure A
    - Records Management
 5. The Azure AD Compliance Administrator has access to the following areas in Microsoft Purview; the Microsoft Purview Compliance Administrator does not:
    - Data Lifecycle Management > Exchange (Legacy)
+   - Insider Risk Management > Overview + Adaptive Protection
 
 ## Use PowerShell to Microsoft Purview Compliance Permissions
 View all role-based commands in Microsoft Purview.  Requires either Azure AD Global Admin or Microsoft Purview Organization Management. 
