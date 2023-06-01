@@ -181,6 +181,14 @@ function Get-PvManagementRoleAssignment {
 ```
 ![](img/20230551-035141.png)
 
+Here is another version that uses the functions defined above:
+```powershell
+$ipa = Get-PvManagementRole -RoleGroup 'Information Protection Admins' | Select -ExpandProperty Name
+$ip = Get-PvManagementRole -RoleGroup 'Information Protection' | Select -ExpandProperty Name
+Compare-Object $ip $ipa -IncludeEqual
+```
+![](img/20230636-033600.png)
+
 ### Manage Role Membership
 Use the following command to add a member to a role group:  
 ```powershell
