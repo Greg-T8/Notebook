@@ -49,6 +49,14 @@ The Compliance Administrator role exists in two separate places&mdash;in Azure A
    - Data Lifecycle Management > Exchange (Legacy)
    - Insider Risk Management > Overview + Adaptive Protection
 
+Here are where the permissions areas overlap:
+- Compliance Manager
+- Data Classification > Classifiers
+- Data Connectors
+- Roles & Scopes > Adaptive Scopes
+- Communication Compliance
+- Privacy Risk Management
+
 ## Use PowerShell to Microsoft Purview Compliance Permissions
 View all role-based commands in Microsoft Purview.  Requires either Azure AD Global Admin or Microsoft Purview Organization Management. 
 ```powershell
