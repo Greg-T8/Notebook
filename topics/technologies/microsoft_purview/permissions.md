@@ -57,6 +57,17 @@ Here are where the permissions areas overlap:
 - Communication Compliance
 - Privacy Risk Management
 
+## The Compliance Data Administrator Role Group
+Like the Compliance Administrator, there are similarly-named roles for Compliance Data Administrator in Azure AD and in Microsoft Purview.
+
+Unlike the Microsoft Purview Compliance Administrator, the Microsoft Purview Compliance Data Administrator has full access to data in Content Explorer. However, the Microsoft Purview Compliance Data Administrator does not have administrative access to other areas, including
+- Activity Explorer
+- Communication Compliance
+- eDiscovery
+- Data Loss Prevention
+
+
+
 ## Use PowerShell to Microsoft Purview Compliance Permissions
 View all role-based commands in Microsoft Purview.  Requires either Azure AD Global Admin or Microsoft Purview Organization Management. 
 ```powershell
