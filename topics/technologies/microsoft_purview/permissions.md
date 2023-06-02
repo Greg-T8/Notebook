@@ -31,13 +31,29 @@ See [Role groups in Microsoft Defender for Office 365 and Microsoft Purview comp
 See [Roles in Microsoft Defender for Office 365 and Microsoft Purview compliance](https://learn.microsoft.com/en-us/microsoft-365/security/office-365-security/scc-permissions?toc=%2Fmicrosoft-365%2Fcompliance%2Ftoc.json&bc=%2Fmicrosoft-365%2Fbreadcrumb%2Ftoc.json&view=o365-worldwide#roles-in-microsoft-defender-for-office-365-and-microsoft-purview-compliance) for a table that lists the available roles and the role groups they're assigned to by default.
 
 ## The Organization Management Role Group
-The Organization Management role group is the most powerful role group in Purview compliance. It has the most assigned roles (38) and is the only role group with the Role Management permission.  Global Admins are automatically added to the Organization Management role group, but you won't see them in the output of the `Get-RoleGroupMember` cmdlet.
+The Organization Management role group is the most powerful role group in Purview compliance. It has the highest count of assigned roles (38) and is the only role group which grants the ability to assign roles in Purview compliance.  Azure AD Global Admins are automatically added to the Organization Management role group, but you won't see them in the output of the `Get-RoleGroupMember` cmdlet.
 
-## The Compliance Administrator Role Group
-The Compliance Administrator role exists in two separate places&mdash;in Azure AD and in Microsoft Purview. There are subtle differences between the two, with the Microsoft Purview role group having a slightly higher level of access:
-1. Permissions for the Azure AD role assignment take effect after the next browser restart. Permissions for the Microsoft Purview role assignment take 5-15 minutes to take effect and require a browser restart.
+## Azure AD Roles vs Microsoft Purview Role Groups
+Azure AD and Microsoft Purview have the following similarly-named roles:
+- Compliance Administrator
+- Compliance Data Administrator
+- Security Administrator
+- Security Operator
+- Security Reader
+- Azure Information Protection Administrator (Azure AD)
+- Information Protection (Purview)
+- Information Protection Admins (Purview)
+
+For the most part, these roles have overlapping permission sets, but there are some notable differences.
+
+The main difference is upon assignment. In Azure AD, permissions assignment takes effect immediately after the next browser restart. In Microsoft Purview, permissions assignment may take 5-15 minutes and also requires a browser restart. When using PIM groups with Microsoft Purview role groups, this 5-15 minute delay 
+
+## The Compliance Administrator
+The Compliance Administrator role exists in two separate places&mdash;in Azure AD and in Purview compliance. There are subtle differences between the two, with the Microsoft Purview role group having a slightly higher level of access:
+
+Here are the differences between the Azure AD Compliance Administrator role and the Microsoft Purview Compliance Administrator role group:  
 2. The Microsoft Purview Compliance Administrator has visibility (but not access) to Data Classification > Content Explorer.  The Azure AD role does not have any visibility to the Content Explorer node.
-3. The Microsoft Purview Compliance Administrator has access to the following areas in Microsoft Purview; the Azure AD Compliance Administrator does not:
+3. The **Microsoft Purview Compliance Administrator** has access to the following areas in Microsoft Purview; the Azure AD Compliance Administrator does not:
    - Data Classification > Activity Explorer
    - Data Loss Prevention
    - Data Lifecycle Management > Microsoft 365
@@ -45,7 +61,7 @@ The Compliance Administrator role exists in two separate places&mdash;in Azure A
    - Information Protection
    - Information Barriers > Segments
    - Records Management
-4. The Azure AD Compliance Administrator has access to the following areas in Microsoft Purview; the Microsoft Purview Compliance Administrator does not:
+4. The **Azure AD Compliance Administrator** has access to the following areas in Microsoft Purview; the Microsoft Purview Compliance Administrator does not:
    - Data Lifecycle Management > Exchange (Legacy)
    - Insider Risk Management > Overview + Adaptive Protection
 
@@ -58,13 +74,28 @@ Here are where the permissions areas overlap:
 - Privacy Risk Management
 
 ## The Compliance Data Administrator Role Group
-Like the Compliance Administrator, there are similarly-named roles for Compliance Data Administrator in Azure AD and in Microsoft Purview.
+Like the Compliance Administrator, the Compliance Data Administrator has similarly-named roles in Azure AD and in Microsoft Purview. Their permission sets more closely align than the permissions sets between the Azure AD and Microsoft Purview Compliance Administrator roles.
 
-Unlike the Microsoft Purview Compliance Administrator, the Microsoft Purview Compliance Data Administrator has full access to data in Content Explorer. However, the Microsoft Purview Compliance Data Administrator does not have administrative access to other areas, including
-- Activity Explorer
-- Communication Compliance
-- eDiscovery
-- Data Loss Prevention
+The Compliance Data Administrator has access to the following areas:
+- Data Classification > Classifiers
+- Data Classification > Content Explorer (cannot list or view content)
+- Data Classification > Activity Explorer
+- Alerts, Policies, Roles & Scopes > Adaptive Scopes
+- Solutions
+  - Content Search
+  - Data Loss Prevention
+  - Information Protection
+  - Information Barriers
+  - Records Management
+  - Privacy Risk Management
+  - Subject Rights Request
+
+The Compliance Data Administrator does not have access to the following areas
+- Roles & Scopes > Permissions
+- Solutions
+  - Communication Compliance
+  - Data Lifecycle Management > Exchange (Legacy)
+  - Insider Risk Management
 
 
 
