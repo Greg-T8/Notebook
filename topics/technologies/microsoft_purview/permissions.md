@@ -1,5 +1,20 @@
 # Permissions, Roles, and Scopes in Microsoft Purview
 
+- [Links](#links)
+- [Overview](#overview)
+- [The Organization Management Role Group](#the-organization-management-role-group)
+- [Azure AD Roles vs Microsoft Purview Role Groups](#azure-ad-roles-vs-microsoft-purview-role-groups)
+- [The Compliance Administrator](#the-compliance-administrator)
+- [The Compliance Data Administrator](#the-compliance-data-administrator)
+- [Use PowerShell to Microsoft Purview Compliance Permissions](#use-powershell-to-microsoft-purview-compliance-permissions)
+  - [Get Role Group Details](#get-role-group-details)
+  - [Get Role Details](#get-role-details)
+  - [Compare Role Assignments in Role Groups](#compare-role-assignments-in-role-groups)
+  - [Audit Membership for all Microsoft Purview Role Groups](#audit-membership-for-all-microsoft-purview-role-groups)
+  - [Audit Membership for Specific Users](#audit-membership-for-specific-users)
+  - [Manage Role Membership](#manage-role-membership)
+  - [Remove a Set of Users from all Role Groups](#remove-a-set-of-users-from-all-role-groups)
+
 ## Links
 - [Permissions in the Microsoft Purview compliance portal](https://learn.microsoft.com/en-us/microsoft-365/compliance/microsoft-365-compliance-center-permissions?view=o365-worldwide)
 - [Roles and role groups in Microsoft Defender for Office 365 and Microsoft Purview compliance](https://learn.microsoft.com/en-us/microsoft-365/security/office-365-security/scc-permissions?toc=%2Fmicrosoft-365%2Fcompliance%2Ftoc.json&bc=%2Fmicrosoft-365%2Fbreadcrumb%2Ftoc.json&view=o365-worldwide)
@@ -33,14 +48,14 @@ See [Roles in Microsoft Defender for Office 365 and Microsoft Purview compliance
 ## The Organization Management Role Group
 The Organization Management role group is the most powerful role group in Purview compliance. It has the highest count of assigned roles (38) and is the only role group which grants the ability to assign roles in Purview compliance.  Azure AD Global Admins are automatically added to the Organization Management role group, but you won't see them in the output of the `Get-RoleGroupMember` cmdlet.
 
-The Organization Management role group has access to all areas in Microsoft Purview. However, it does not have access to all roles. Here are the following notable roles the Organization Management group does not have access to:  
+The Organization Management role group has access to all areas in Microsoft Purview. However, it does not have access to all roles. Here are the following notable roles the Organization Management group **does not** have access to:  
 - Export - Lets people export the mailbox and site content that was returned from a search.
 - Preview - Lets people view a list of items that were returned from a content search. They'll also be able to open each item from the list to view its contents.
 - RMS Decrypt - Lets people decrypt RMS-protected content when exporting search results.
 - Data Classification List Viewer - Allow viewing list of files in content explorer.
 - Data Classification Content Viewer - Allow viewing in-place rendering of files in content explorer.
 
-It's important to note that an Azure AD Global Admin can access and view items in Content Explorer while a person explicitly assigned to the Microsoft Purview Organization Management role group cannot.
+**Note:** An Azure AD Global Admin can access and view items in Content Explorer while a person explicitly assigned to the Microsoft Purview Organization Management role group cannot.
 
 ## Azure AD Roles vs Microsoft Purview Role Groups
 Azure AD and Microsoft Purview have the following similarly-named roles:
@@ -78,22 +93,20 @@ The Compliance Administrator has access to the following areas in Microsoft Purv
   - Records Management
   - Privacy Risk Management
 
-Note that the Azure AD Compliance Administrator has a slightly higher level of access than the Microsoft Purview Compliance Administrator
+**Note:** The Azure AD Compliance Administrator has a slightly higher level of access than the Microsoft Purview Compliance Administrator
 
 The Compliance Administrator does not have access to the following areas in Microsoft Purview: 
 - Data Classification > Content Explorer
 - Roles & Scopes > Permissions
 
 Additionally, the Compliance Administrator does not have access to the following notable Microsoft Purview roles (note, not role groups):
-- Review
-- Search and Purge
-- Export
-- RMS Decrypt
-- Data Classification List Viewer
-- Data Classification Content Viewer
+- Search and Purge - Lets people bulk-remove data that matches the criteria of a content search.
+- Export - Lets people export the mailbox and site content that was returned from a search.
+- RMS Decrypt - Lets people decrypt RMS-protected content when exporting search results.
+- Data Classification List Viewer - Allow viewing list of files in content explorer.
+- Data Classification Content Viewer - Allow viewing in-place rendering of files in content explorer.
 
-
-## The Compliance Data Administrator Role Group
+## The Compliance Data Administrator
 Like the Compliance Administrator, the Compliance Data Administrator has similarly-named roles in Azure AD and in Microsoft Purview. Their permission sets more closely align than the permissions sets between the Azure AD and Microsoft Purview Compliance Administrator roles.
 
 The Compliance Data Administrator has access to the following areas:
