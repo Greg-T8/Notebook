@@ -46,37 +46,49 @@ Azure AD and Microsoft Purview have the following similarly-named roles:
 
 For the most part, these roles have overlapping permission sets, but there are some notable differences.
 
-The main difference is upon assignment. In Azure AD, permissions assignment takes effect immediately after the next browser restart. In Microsoft Purview, permissions assignment may take 5-15 minutes and also requires a browser restart. When using PIM groups with Microsoft Purview role groups, this 5-15 minute delay 
+The main difference is upon assignment. In Azure AD, permissions assignment takes effect immediately after the next browser restart. In Microsoft Purview, permissions assignment may take 5-15 minutes and also requires a browser restart. When using PIM groups with Microsoft Purview role groups, you must take this delay into consideration.
 
 ## The Compliance Administrator
-The Compliance Administrator role exists in two separate places&mdash;in Azure AD and in Purview compliance. There are subtle differences between the two, with the Microsoft Purview role group having a slightly higher level of access:
-
-Here are the differences between the Azure AD Compliance Administrator role and the Microsoft Purview Compliance Administrator role group:  
-2. The Microsoft Purview Compliance Administrator has visibility (but not access) to Data Classification > Content Explorer.  The Azure AD role does not have any visibility to the Content Explorer node.
-3. The **Microsoft Purview Compliance Administrator** has access to the following areas in Microsoft Purview; the Azure AD Compliance Administrator does not:
-   - Data Classification > Activity Explorer
-   - Data Loss Prevention
-   - Data Lifecycle Management > Microsoft 365
-   - eDiscovery
-   - Information Protection
-   - Information Barriers > Segments
-   - Records Management
-4. The **Azure AD Compliance Administrator** has access to the following areas in Microsoft Purview; the Microsoft Purview Compliance Administrator does not:
-   - Data Lifecycle Management > Exchange (Legacy)
-   - Insider Risk Management > Overview + Adaptive Protection
-
-Here are where the permissions areas overlap:
+The Compliance Administrator has access to the following areas in Microsoft Purview:
 - Compliance Manager
 - Data Classification > Classifiers
+- Data Classification > Activity Explorer
 - Data Connectors
-- Roles & Scopes > Adaptive Scopes
-- Communication Compliance
-- Privacy Risk Management
+- Alerts, Policies, Roles & Scopes > Adaptive Scopes
+- Solutions
+  - Audit (Azure AD role only)
+  - Content Search
+  - Communication Compliance
+  - Data Loss Prevention
+  - eDiscovery
+  - Data Lifecycle Management > Microsoft 365
+  - Data Lifecycle Management > Exchange (legacy) (Azure AD role only)
+  - Information Protection
+  - Information Barriers
+  - Insider Risk Management
+  - Records Management
+  - Privacy Risk Management
+
+Note that the Azure AD Compliance Administrator has a slightly higher level of access than the Microsoft Purview Compliance Administrator
+
+The Compliance Administrator does not have access to the following areas in Microsoft Purview: 
+- Data Classification > Content Explorer
+- Roles & Scopes > Permissions
+
+Additionally, the Compliance Administrator does not have access to the following notable Microsoft Purview roles (note, not role groups):
+- Review
+- Search and Purge
+- Export
+- RMS Decrypt
+- Data Classification List Viewer
+- Data Classification Content Viewer
+
 
 ## The Compliance Data Administrator Role Group
 Like the Compliance Administrator, the Compliance Data Administrator has similarly-named roles in Azure AD and in Microsoft Purview. Their permission sets more closely align than the permissions sets between the Azure AD and Microsoft Purview Compliance Administrator roles.
 
 The Compliance Data Administrator has access to the following areas:
+- Compliance Manager
 - Data Classification > Classifiers
 - Data Classification > Content Explorer (cannot list or view content)
 - Data Classification > Activity Explorer
