@@ -33,6 +33,15 @@ See [Roles in Microsoft Defender for Office 365 and Microsoft Purview compliance
 ## The Organization Management Role Group
 The Organization Management role group is the most powerful role group in Purview compliance. It has the highest count of assigned roles (38) and is the only role group which grants the ability to assign roles in Purview compliance.  Azure AD Global Admins are automatically added to the Organization Management role group, but you won't see them in the output of the `Get-RoleGroupMember` cmdlet.
 
+The Organization Management role group has access to all areas in Microsoft Purview. However, it does not have access to all roles. Here are the following notable roles the Organization Management group does not have access to:  
+- Export - Lets people export the mailbox and site content that was returned from a search.
+- Preview - Lets people view a list of items that were returned from a content search. They'll also be able to open each item from the list to view its contents.
+- RMS Decrypt - Lets people decrypt RMS-protected content when exporting search results.
+- Data Classification List Viewer - Allow viewing list of files in content explorer.
+- Data Classification Content Viewer - Allow viewing in-place rendering of files in content explorer.
+
+It's important to note that an Azure AD Global Admin can access and view items in Content Explorer while a person explicitly assigned to the Microsoft Purview Organization Management role group cannot.
+
 ## Azure AD Roles vs Microsoft Purview Role Groups
 Azure AD and Microsoft Purview have the following similarly-named roles:
 - Compliance Administrator
