@@ -6,7 +6,7 @@
 - [Azure AD Roles vs Microsoft Purview Role Groups](#azure-ad-roles-vs-microsoft-purview-role-groups)
 - [The Compliance Administrator](#the-compliance-administrator)
 - [The Compliance Data Administrator](#the-compliance-data-administrator)
-- [Use PowerShell to Microsoft Purview Compliance Permissions](#use-powershell-to-microsoft-purview-compliance-permissions)
+- [Use PowerShell to Manage Microsoft Purview Compliance Permissions](#use-powershell-to-manage-microsoft-purview-compliance-permissions)
   - [Get Role Group Details](#get-role-group-details)
   - [Get Role Details](#get-role-details)
   - [Compare Role Assignments in Role Groups](#compare-role-assignments-in-role-groups)
@@ -133,7 +133,7 @@ The Compliance Data Administrator does not have access to the following areas
 
 
 
-## Use PowerShell to Microsoft Purview Compliance Permissions
+## Use PowerShell to Manage Microsoft Purview Compliance Permissions
 View all role-based commands in Microsoft Purview.  Requires either Azure AD Global Admin or Microsoft Purview Organization Management. 
 ```powershell
 Get-Command -Module tmp* -Noun *role*
