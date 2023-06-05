@@ -76,9 +76,10 @@ The main difference is upon assignment. In Azure AD, permissions assignment take
 The Compliance Administrator has access to the following areas in Microsoft Purview:
 - Compliance Manager
 - Data Classification > Classifiers
-- Data Classification > Activity Explorer
+- Data Classification > Content Explorer (category access) *
+- Data Classification > Activity Explorer *
 - Data Connectors
-- Alerts, Policies, Roles & Scopes > Adaptive Scopes
+- Alerts, Policies, Roles & Scopes > Adaptive Scopes *
 - Solutions
   - Content Search
   - Communication Compliance
@@ -92,13 +93,15 @@ The Compliance Administrator has access to the following areas in Microsoft Purv
   - Records Management * 
   - Privacy Risk Management
 
-**Note:** The Microsoft Purview Compliance Administrator role group has more access to features than the Azure AD Compliance Administrator role. 
+**Note:** The Microsoft Purview Compliance Administrator role group has access to more features than the Azure AD Compliance Administrator role. 
 - *: Microsoft Purview Compliance Administrator role group only
 - **: Azure AD Compliance Administrator role only
 
 The Compliance Administrator does not have access to the following areas in Microsoft Purview: 
-- Data Classification > Content Explorer
+- Data Classification > Content Explorer (list and view content)
 - Roles & Scopes > Permissions
+- Solutions
+  - Audit
 
 Additionally, the Compliance Administrator does not have access to the following Microsoft Purview roles (note, not role groups):
 - Search and Purge - Lets people bulk-remove data that matches the criteria of a content search.
