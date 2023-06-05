@@ -80,20 +80,21 @@ The Compliance Administrator has access to the following areas in Microsoft Purv
 - Data Connectors
 - Alerts, Policies, Roles & Scopes > Adaptive Scopes
 - Solutions
-  - Audit (Azure AD role only)
   - Content Search
   - Communication Compliance
-  - Data Loss Prevention
+  - Data Loss Prevention *
   - eDiscovery
-  - Data Lifecycle Management > Microsoft 365
-  - Data Lifecycle Management > Exchange (legacy) (Azure AD role only)
-  - Information Protection
-  - Information Barriers
+  - Data Lifecycle Management > Microsoft 365 * 
+  - Data Lifecycle Management > Exchange (legacy) ** 
+  - Information Protection * 
+  - Information Barriers > Segments * 
   - Insider Risk Management
-  - Records Management
+  - Records Management * 
   - Privacy Risk Management
 
-**Note:** The Azure AD Compliance Administrator has a slightly higher level of access than the Microsoft Purview Compliance Administrator
+**Note:** The Microsoft Purview Compliance Administrator role group has more access to features than the Azure AD Compliance Administrator role. 
+- *: Microsoft Purview Compliance Administrator role group only
+- **: Azure AD Compliance Administrator role only
 
 The Compliance Administrator does not have access to the following areas in Microsoft Purview: 
 - Data Classification > Content Explorer
@@ -109,7 +110,7 @@ Additionally, the Compliance Administrator does not have access to the following
 The list above is not exhaustive and only includes roles that I consider notable. 
 
 ## The Compliance Data Administrator
-Like the Compliance Administrator, the Compliance Data Administrator has similarly-named roles in Azure AD and in Microsoft Purview. Their permission sets more closely align than the permissions sets between the Azure AD and Microsoft Purview Compliance Administrator roles.
+Like the Compliance Administrator, the Compliance Data Administrator has similarly-named roles in Azure AD and in Microsoft Purview. 
 
 The Compliance Data Administrator has access to the following areas:
 - Compliance Manager
