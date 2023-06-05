@@ -76,7 +76,7 @@ The main difference is upon assignment. In Azure AD, permissions assignment take
 The Compliance Administrator has access to the following areas in Microsoft Purview:
 - Compliance Manager
 - Data Classification > Classifiers
-- Data Classification > Content Explorer (category access) *
+- Data Classification > Content Explorer (cannot list or view content) *
 - Data Classification > Activity Explorer *
 - Data Connectors
 - Alerts, Policies, Roles & Scopes > Adaptive Scopes *
@@ -93,9 +93,10 @@ The Compliance Administrator has access to the following areas in Microsoft Purv
   - Records Management * 
   - Privacy Risk Management
 
-**Note:** The Microsoft Purview Compliance Administrator role group has access to more features than the Azure AD Compliance Administrator role. 
 - *: Microsoft Purview Compliance Administrator role group only
 - **: Azure AD Compliance Administrator role only
+
+**Note:** The Microsoft Purview Compliance Administrator role group has access to more features than the Azure AD Compliance Administrator role. 
 
 The Compliance Administrator does not have access to the following areas in Microsoft Purview: 
 - Data Classification > Content Explorer (list and view content)
@@ -122,6 +123,7 @@ The Compliance Data Administrator has access to the following areas:
 - Data Classification > Activity Explorer
 - Alerts, Policies, Roles & Scopes > Adaptive Scopes
 - Solutions
+  - Audit **
   - Content Search
   - Data Loss Prevention
   - Information Protection
@@ -129,6 +131,9 @@ The Compliance Data Administrator has access to the following areas:
   - Records Management
   - Privacy Risk Management
   - Subject Rights Request
+
+- *: Microsoft Purview Compliance Administrator role group only
+- **: Azure AD Compliance Administrator role only
 
 The Compliance Data Administrator does not have access to the following areas
 - Roles & Scopes > Permissions
@@ -233,7 +238,12 @@ Compare-Object $complianceAdministratorRoles $complianceDataAdministratorRoles |
    Select Name, Description | Sort Name
 ```
 Here are the results which list the role details available in the Compliance Administrator role group but are not available in the Compliance Data Administrator role group:  
+
 ![](img/20230522-042240.png)
+
+Additional command to compare role groups:
+
+![](img/20230619-051915.png)
 
 ### Audit Membership for all Microsoft Purview Role Groups
 Use the following command to list all users and their corresponding Microsoft Purview role group membership:  
