@@ -99,12 +99,14 @@ The Compliance Administrator does not have access to the following areas in Micr
 - Data Classification > Content Explorer
 - Roles & Scopes > Permissions
 
-Additionally, the Compliance Administrator does not have access to the following notable Microsoft Purview roles (note, not role groups):
+Additionally, the Compliance Administrator does not have access to the following Microsoft Purview roles (note, not role groups):
 - Search and Purge - Lets people bulk-remove data that matches the criteria of a content search.
 - Export - Lets people export the mailbox and site content that was returned from a search.
 - RMS Decrypt - Lets people decrypt RMS-protected content when exporting search results.
 - Data Classification List Viewer - Allow viewing list of files in content explorer.
 - Data Classification Content Viewer - Allow viewing in-place rendering of files in content explorer.
+
+The list above is not exhaustive and only includes roles that I consider notable. 
 
 ## The Compliance Data Administrator
 Like the Compliance Administrator, the Compliance Data Administrator has similarly-named roles in Azure AD and in Microsoft Purview. Their permission sets more closely align than the permissions sets between the Azure AD and Microsoft Purview Compliance Administrator roles.
