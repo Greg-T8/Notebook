@@ -93,10 +93,11 @@ The Compliance Administrator has access to the following areas in Microsoft Purv
   - Records Management * 
   - Privacy Risk Management
 
-- *: Microsoft Purview Compliance Administrator role group only
-- **: Azure AD Compliance Administrator role only
+**Note:**
+- *: Applies only for the Microsoft Purview Compliance Administrator role group
+- **: Applies only for the Azure AD Compliance Administrator role
 
-**Note:** The Microsoft Purview Compliance Administrator role group has access to more features than the Azure AD Compliance Administrator role. 
+From above, the Microsoft Purview Compliance Administrator role group has access to more features than the Azure AD Compliance Administrator role. 
 
 The Compliance Administrator does not have access to the following areas in Microsoft Purview: 
 - Data Classification > Content Explorer (list and view content)
