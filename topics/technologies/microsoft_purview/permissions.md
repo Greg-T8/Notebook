@@ -115,33 +115,48 @@ Additionally, the Compliance Administrator does not have access to the following
 The list above is not exhaustive and only includes roles that I consider notable. 
 
 ## The Compliance Data Administrator
-Like the Compliance Administrator, the Compliance Data Administrator has similarly-named roles in Azure AD and in Microsoft Purview. 
+Like the Compliance Administrator, Azure AD and Microsoft Purview have similarly-named roles for the Compliance Data Administrator. 
 
 The Compliance Data Administrator has access to the following areas:
 - Compliance Manager
 - Data Classification > Classifiers
 - Data Classification > Content Explorer (cannot list or view content)
 - Data Classification > Activity Explorer
+- Data Connectors
 - Alerts, Policies, Roles & Scopes > Adaptive Scopes
 - Solutions
-  - Audit **
   - Content Search
+  - Communication Compliance *
   - Data Loss Prevention
+  - Data Lifecycle Management > Microsoft 365
   - Information Protection
   - Information Barriers
   - Records Management
   - Privacy Risk Management
   - Subject Rights Request
 
+**Note:**:  
 - *: Microsoft Purview Compliance Administrator role group only
 - **: Azure AD Compliance Administrator role only
 
 The Compliance Data Administrator does not have access to the following areas
 - Roles & Scopes > Permissions
 - Solutions
+  - Audit
   - Communication Compliance
   - Data Lifecycle Management > Exchange (Legacy)
   - Insider Risk Management
+
+Additionally, the Compliance Data Administrator does not have access to the following Microsoft Purview roles that the Compliance Administrator role group has:
+- Case Management - Lets people create, edit, delete, and control access to eDiscovery cases.
+- Communication Compliance Admin - Used to manage policies in Communication Compliance feature.
+- Communication Compliance Case Admin - Used to access Communication Compliance case.
+- Data Classification Feedback Provider - Allow providing feedback to classifiers in content explorer.
+- Data Classification Feedback Reviewer - Allow reviewing feedback to classifiers in feedback explorer.
+- Data Connector Admin - Used to create and manage connectors to import and archive non-Microsoft data in Microsoft 365
+- Data Investigation Management - Lets people create, edit, delete, and control access to data investigation.
+- Hold - Lets people place content in mailboxes, sites, and public folders on hold. When on hold, a copy of the content is stored in a secure location. Content owners will still be able to modify or delete the original content.
+- Insider Risk Management Admin - Lets people create, edit, delete, and control access to Insider Risk Management feature.
 
 
 
