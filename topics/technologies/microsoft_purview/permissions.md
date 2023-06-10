@@ -73,7 +73,7 @@ For the most part, these roles have overlapping permission sets, but there are s
 The main difference is upon assignment. In Azure AD, permissions assignment takes effect immediately after the next browser restart. In Microsoft Purview, permissions assignment may take 5-15 minutes and also requires a browser restart. When using PIM groups with Microsoft Purview role groups, you must take this delay into consideration.
 
 ## The Compliance Administrator
-The Compliance Administrator has access to the following areas in Microsoft Purview:  
+The Compliance Administrator has access to the following areas in Microsoft Purview:
 - Compliance Manager
 - Data Classification > Classifiers
 - Data Classification > Activity Explorer
