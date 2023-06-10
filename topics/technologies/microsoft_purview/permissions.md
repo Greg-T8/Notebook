@@ -6,7 +6,7 @@
 - [Azure AD Roles vs Microsoft Purview Role Groups](#azure-ad-roles-vs-microsoft-purview-role-groups)
 - [The Compliance Administrator](#the-compliance-administrator)
 - [The Compliance Data Administrator](#the-compliance-data-administrator)
-- [Use PowerShell to Microsoft Purview Compliance Permissions](#use-powershell-to-microsoft-purview-compliance-permissions)
+- [Use PowerShell to Manage Purview Permissions](#use-powershell-to-manage-purview-permissions)
   - [Get Role Group Details](#get-role-group-details)
   - [Get Role Details](#get-role-details)
   - [Compare Role Assignments in Role Groups](#compare-role-assignments-in-role-groups)
@@ -76,38 +76,45 @@ The main difference is upon assignment. In Azure AD, permissions assignment take
 The Compliance Administrator has access to the following areas in Microsoft Purview:
 - Compliance Manager
 - Data Classification > Classifiers
-- Data Classification > Activity Explorer
+- Data Classification > Content Explorer (cannot list or view content) *
+- Data Classification > Activity Explorer *
 - Data Connectors
-- Alerts, Policies, Roles & Scopes > Adaptive Scopes
+- Alerts, Policies, Roles & Scopes > Adaptive Scopes *
 - Solutions
-  - Audit (Azure AD role only)
   - Content Search
   - Communication Compliance
-  - Data Loss Prevention
+  - Data Loss Prevention *
   - eDiscovery
-  - Data Lifecycle Management > Microsoft 365
-  - Data Lifecycle Management > Exchange (legacy) (Azure AD role only)
-  - Information Protection
-  - Information Barriers
+  - Data Lifecycle Management > Microsoft 365 * 
+  - Data Lifecycle Management > Exchange (legacy) ** 
+  - Information Protection * 
+  - Information Barriers > Segments * 
   - Insider Risk Management
-  - Records Management
+  - Records Management * 
   - Privacy Risk Management
 
-**Note:** The Azure AD Compliance Administrator has a slightly higher level of access than the Microsoft Purview Compliance Administrator
+- *: Microsoft Purview Compliance Administrator role group only
+- **: Azure AD Compliance Administrator role only
+
+**Note:** The Microsoft Purview Compliance Administrator role group has access to more features than the Azure AD Compliance Administrator role. 
 
 The Compliance Administrator does not have access to the following areas in Microsoft Purview: 
-- Data Classification > Content Explorer
+- Data Classification > Content Explorer (list and view content)
 - Roles & Scopes > Permissions
+- Solutions
+  - Audit
 
-Additionally, the Compliance Administrator does not have access to the following notable Microsoft Purview roles (note, not role groups):
+Additionally, the Compliance Administrator does not have access to the following Microsoft Purview roles (note, not role groups):
 - Search and Purge - Lets people bulk-remove data that matches the criteria of a content search.
 - Export - Lets people export the mailbox and site content that was returned from a search.
 - RMS Decrypt - Lets people decrypt RMS-protected content when exporting search results.
 - Data Classification List Viewer - Allow viewing list of files in content explorer.
 - Data Classification Content Viewer - Allow viewing in-place rendering of files in content explorer.
 
+The list above is not exhaustive and only includes roles that I consider notable. 
+
 ## The Compliance Data Administrator
-Like the Compliance Administrator, the Compliance Data Administrator has similarly-named roles in Azure AD and in Microsoft Purview. Their permission sets more closely align than the permissions sets between the Azure AD and Microsoft Purview Compliance Administrator roles.
+Like the Compliance Administrator, the Compliance Data Administrator has similarly-named roles in Azure AD and in Microsoft Purview. 
 
 The Compliance Data Administrator has access to the following areas:
 - Compliance Manager
@@ -116,6 +123,7 @@ The Compliance Data Administrator has access to the following areas:
 - Data Classification > Activity Explorer
 - Alerts, Policies, Roles & Scopes > Adaptive Scopes
 - Solutions
+  - Audit **
   - Content Search
   - Data Loss Prevention
   - Information Protection
@@ -123,6 +131,9 @@ The Compliance Data Administrator has access to the following areas:
   - Records Management
   - Privacy Risk Management
   - Subject Rights Request
+
+- *: Microsoft Purview Compliance Administrator role group only
+- **: Azure AD Compliance Administrator role only
 
 The Compliance Data Administrator does not have access to the following areas
 - Roles & Scopes > Permissions
@@ -133,7 +144,7 @@ The Compliance Data Administrator does not have access to the following areas
 
 
 
-## Use PowerShell to Microsoft Purview Compliance Permissions
+## Use PowerShell to Manage Purview Permissions
 View all role-based commands in Microsoft Purview.  Requires either Azure AD Global Admin or Microsoft Purview Organization Management. 
 ```powershell
 Get-Command -Module tmp* -Noun *role*
@@ -227,7 +238,12 @@ Compare-Object $complianceAdministratorRoles $complianceDataAdministratorRoles |
    Select Name, Description | Sort Name
 ```
 Here are the results which list the role details available in the Compliance Administrator role group but are not available in the Compliance Data Administrator role group:  
+
 ![](img/20230522-042240.png)
+
+Additional command to compare role groups:
+
+![](img/20230619-051915.png)
 
 ### Audit Membership for all Microsoft Purview Role Groups
 Use the following command to list all users and their corresponding Microsoft Purview role group membership:  
