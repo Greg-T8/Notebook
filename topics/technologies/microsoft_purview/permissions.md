@@ -68,9 +68,7 @@ Azure AD and Microsoft Purview have the following similarly-named roles:
 - Information Protection (Purview)
 - Information Protection Admins (Purview)
 
-For the most part, these roles have overlapping permission sets, but there are some notable differences.
-
-The main difference is upon assignment. In Azure AD, permissions assignment takes effect immediately after the next browser restart. In Microsoft Purview, permissions assignment may take 5-15 minutes and also requires a browser restart. When using PIM groups with Microsoft Purview role groups, you must take this delay into consideration.
+For the most part, these roles have overlapping permission sets but there are some notable differences. The main difference is upon assignment. In Azure AD, permissions assignment takes effect immediately after the next browser restart. In Microsoft Purview, permissions assignment may take 5-15 minutes and also requires a browser restart. You must take this delay into consideration when using PIM to activate roles with Microsoft Purview role groups.
 
 ## The Compliance Administrator
 The Compliance Administrator has access to the following areas in Microsoft Purview:
@@ -115,18 +113,17 @@ Additionally, the Compliance Administrator does not have access to the following
 The list above is not exhaustive and only includes roles that I consider notable. 
 
 ## The Compliance Data Administrator
-Like the Compliance Administrator, Azure AD and Microsoft Purview have similarly-named roles for the Compliance Data Administrator. 
+Like the Compliance Administrator, Azure AD and Microsoft Purview have similarly-named roles for the Compliance Data Administrator. The Compliance Data Administrator has access to most features that the Compliance Administrator has access to except for eDiscovery, Communication Compliance, and Insider Risk Management.
 
 The Compliance Data Administrator has access to the following areas:
 - Compliance Manager
 - Data Classification > Classifiers
 - Data Classification > Content Explorer (cannot list or view content)
 - Data Classification > Activity Explorer
-- Data Connectors
+- Data Connectors (view only)
 - Alerts, Policies, Roles & Scopes > Adaptive Scopes
 - Solutions
   - Content Search
-  - Communication Compliance *
   - Data Loss Prevention
   - Data Lifecycle Management > Microsoft 365
   - Information Protection
@@ -135,19 +132,16 @@ The Compliance Data Administrator has access to the following areas:
   - Privacy Risk Management
   - Subject Rights Request
 
-**Note:**:  
-- *: Microsoft Purview Compliance Administrator role group only
-- **: Azure AD Compliance Administrator role only
-
 The Compliance Data Administrator does not have access to the following areas
 - Roles & Scopes > Permissions
 - Solutions
   - Audit
   - Communication Compliance
+  - eDiscovery
   - Data Lifecycle Management > Exchange (Legacy)
   - Insider Risk Management
 
-Additionally, the Compliance Data Administrator does not have access to the following Microsoft Purview roles that the Compliance Administrator role group has:
+Additionally, the Compliance Data Administrator does not have access to the following Microsoft Purview roles that the Compliance Administrator role group has access to:
 - Case Management - Lets people create, edit, delete, and control access to eDiscovery cases.
 - Communication Compliance Admin - Used to manage policies in Communication Compliance feature.
 - Communication Compliance Case Admin - Used to access Communication Compliance case.
@@ -157,8 +151,6 @@ Additionally, the Compliance Data Administrator does not have access to the foll
 - Data Investigation Management - Lets people create, edit, delete, and control access to data investigation.
 - Hold - Lets people place content in mailboxes, sites, and public folders on hold. When on hold, a copy of the content is stored in a secure location. Content owners will still be able to modify or delete the original content.
 - Insider Risk Management Admin - Lets people create, edit, delete, and control access to Insider Risk Management feature.
-
-
 
 ## Use PowerShell to Manage Purview Permissions
 View all role-based commands in Microsoft Purview.  Requires either Azure AD Global Admin or Microsoft Purview Organization Management. 
