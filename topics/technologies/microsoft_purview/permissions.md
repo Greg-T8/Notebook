@@ -81,20 +81,11 @@ The Compliance Administrator has access to the following areas in Microsoft Purv
 - Data Connectors
 - Alerts, Policies, Roles & Scopes > Adaptive Scopes *
 - Solutions
-  - Content Search
-  - Communication Compliance
-  - Data Loss Prevention *
-  - eDiscovery
-  - Data Lifecycle Management > Microsoft 365 * 
-  - Data Lifecycle Management > Exchange (legacy) ** 
-  - Information Protection * 
-  - Information Barriers > Segments * 
-  - Insider Risk Management
-  - Records Management * 
-  - Privacy Risk Management
 
 - *: Microsoft Purview Compliance Administrator role group only
 - **: Azure AD Compliance Administrator role only
+
+
 
 **Note:** The Microsoft Purview Compliance Administrator role group has access to more features than the Azure AD Compliance Administrator role. 
 
