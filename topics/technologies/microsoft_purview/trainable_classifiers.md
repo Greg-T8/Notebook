@@ -8,7 +8,6 @@
 - [Increase classifier accuracy](https://learn.microsoft.com/en-us/microsoft-365/compliance/data-classification-increase-accuracy?view=o365-worldwide)
 - [Microsoft built-in trainable classifier reference](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-tc-definitions?view=o365-worldwide)
 - [Increase classifier accuracy](https://learn.microsoft.com/en-us/microsoft-365/compliance/data-classification-increase-accuracy?view=o365-worldwide)
-- 
 
 ## Exam Goals
 - Identify when to use trainable classifiers
@@ -27,12 +26,13 @@
 - [Licensing](#licensing)
 - [Overview](#overview)
 - [When to use Trainable Classifiers](#when-to-use-trainable-classifiers)
-- [Design, Create, and Test a Trainable Classifier](#design-create-and-test-a-trainable-classifier)
+- [Design and Create a Trainable Classifier](#design-and-create-a-trainable-classifier)
   - [Process flow for creating custom classifiers](#process-flow-for-creating-custom-classifiers)
     - [Seed content](#seed-content)
     - [Prerequisites](#prerequisites)
     - [Testing content](#testing-content)
   - [How to create a trainable classifier](#how-to-create-a-trainable-classifier)
+- [Test a Trainable Classifier](#test-a-trainable-classifier)
 - [Retrain a Trainable Classifier](#retrain-a-trainable-classifier)
   - [How to retrain a classifier in content explorer](#how-to-retrain-a-classifier-in-content-explorer)
 
@@ -137,8 +137,8 @@ Classifiers are available to use as a condition for
 
 **Note:** classifiers only work for items that are not encrypted.
 
-## Design, Create, and Test a Trainable Classifier
-References
+## Design and Create a Trainable Classifier
+References:  
 - [Custom Classifiers](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-learn-about?view=o365-worldwide#custom-classifiers)
 - [Get started with trainable classifiers](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-get-started-with?view=o365-worldwide#timeline)
 
@@ -227,6 +227,9 @@ Once the trainable classifier has processed enough positive samples to build a p
 - [Office auto-labeling with sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/apply-sensitivity-label-automatically?view=o365-worldwide)
 - [Auto-apply retention label policy based on a condition](https://learn.microsoft.com/en-us/microsoft-365/compliance/apply-retention-labels-automatically?view=o365-worldwide#configuring-conditions-for-auto-apply-retention-labels)
 - [Communication compliance](https://learn.microsoft.com/en-us/microsoft-365/compliance/communication-compliance?view=o365-worldwide)
+
+## Test a Trainable Classifier
+
 
 ## Retrain a Trainable Classifier
 References
