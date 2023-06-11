@@ -1,26 +1,9 @@
 # Trainable Classifiers
 
-## Links
-- [Learn about trainable classifiers](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-learn-about?view=o365-worldwide)
-- [Get started with trainable classifiers](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-get-started-with?view=o365-worldwide)
-- [How to retrain a classifier in content explorer](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-how-to-retrain-content-explorer?view=o365-worldwide)
-- [Trainable classifier definitions](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-tc-definitions?view=o365-worldwide)
-- [Increase classifier accuracy](https://learn.microsoft.com/en-us/microsoft-365/compliance/data-classification-increase-accuracy?view=o365-worldwide)
-- [Microsoft built-in trainable classifier reference](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-tc-definitions?view=o365-worldwide)
-- [Increase classifier accuracy](https://learn.microsoft.com/en-us/microsoft-365/compliance/data-classification-increase-accuracy?view=o365-worldwide)
-- [Practical 365: Trainable Classifiers Lifecycle](https://practical365.com/lifecycle-trainable-classifier/) - good read
-- [Practical 365: Using Trainable Classifiers to Assign O365 Retention Labels](https://petri.com/using-trainable-classifiers-assign-office-365-retention-labels/)
-
-## Exam Goals
-- Identify when to use trainable classifiers
-- Design and create a trainable classifier
-- Test a trainable classifier
-- Retrain a trainable classifier
-
 ## Contents
+- [Contents](#contents)
 - [Links](#links)
 - [Exam Goals](#exam-goals)
-- [Contents](#contents)
 - [Permissions Required](#permissions-required)
   - [Trainable Classifiers](#trainable-classifiers-1)
   - [Content Explorer](#content-explorer)
@@ -37,6 +20,26 @@
 - [Test a Trainable Classifier](#test-a-trainable-classifier)
 - [Retrain a Trainable Classifier](#retrain-a-trainable-classifier)
   - [How to retrain a classifier in content explorer](#how-to-retrain-a-classifier-in-content-explorer)
+
+## Links
+- [Learn about trainable classifiers](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-learn-about?view=o365-worldwide)
+- [Get started with trainable classifiers](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-get-started-with?view=o365-worldwide)
+- [How to retrain a classifier in content explorer](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-how-to-retrain-content-explorer?view=o365-worldwide)
+- [Trainable classifier definitions](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-tc-definitions?view=o365-worldwide)
+- [Increase classifier accuracy](https://learn.microsoft.com/en-us/microsoft-365/compliance/data-classification-increase-accuracy?view=o365-worldwide)
+- [Microsoft built-in trainable classifier reference](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-tc-definitions?view=o365-worldwide)
+- [Increase classifier accuracy](https://learn.microsoft.com/en-us/microsoft-365/compliance/data-classification-increase-accuracy?view=o365-worldwide)
+- [Practical 365: Trainable Classifiers Lifecycle](https://practical365.com/lifecycle-trainable-classifier/) - good read
+- [Practical 365: Using Trainable Classifiers to Assign O365 Retention Labels](https://petri.com/using-trainable-classifiers-assign-office-365-retention-labels/)
+- [Microsoft Trainable Classifiers Whitepaper](https://techcommunity.microsoft.com/t5/security-compliance-and-identity/learn-how-microsoft-purview-information-protection-discovers-and/ba-p/3777181?attachment-id=59673)
+- [SharePoint Syntex vs Trainable Classifier](https://nexnovusconsulting-my.sharepoint.com/personal/joannecklein_nexnovus_com/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fjoannecklein%5Fnexnovus%5Fcom%2FDocuments%2FShared%20to%20Everyone%2FSyntex%20Classifier%20V%20Trainable%20Classifier%2Epdf&parent=%2Fpersonal%2Fjoannecklein%5Fnexnovus%5Fcom%2FDocuments%2FShared%20to%20Everyone&ga=1)
+
+## Exam Goals
+- Identify when to use trainable classifiers
+- Design and create a trainable classifier
+- Test a trainable classifier
+- Retrain a trainable classifier
+
 
 ## Permissions Required
 - Reference
@@ -143,14 +146,12 @@ Machine learning takes time and patience.  All you can do is deliver the best se
 
 To provide feedback, a trainable classifier must be in active use &mdash; it needs to be in use in a compliance policy to detect content. If the classifier is passive (unused), its predictive model is inert, and feedback will never be taken into account.
 
-
-
 ## Design and Create a Trainable Classifier
 References:  
 - [Custom Classifiers](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-learn-about?view=o365-worldwide#custom-classifiers)
 - [Get started with trainable classifiers](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-get-started-with?view=o365-worldwide#timeline)
 
-You start by creating a custom trainable classifier by feeding it examples that are definitely in the category. Once it processes these examples, you test it by giving it a mix of both matching and non-matching examples. The classifier then makes predictions as to whether any given item falls into the category you're building. You then confirm its results, sorting out the true positives, true negatives, false positives, and false negatives to help increase the accuracy of its predictions.
+You start by creating a custom trainable classifier by feeding it examples that are definitely in the category. It's helpful when all documents have a similar structure. Once it processes these examples, you test it by giving it a mix of both matching and non-matching examples. The classifier then makes predictions as to whether any given item falls into the category you're building. You then confirm its results, sorting out the true positives, true negatives, false positives, and false negatives to help increase the accuracy of its predictions.
 
 When you publish the classifier, it sorts through items in locations like SharePoint Online, Exchange, and OneDrive, and classifies the content. After you publish the classifier, you can continue to train it using a feedback process that is similar to the initial training process.
 
