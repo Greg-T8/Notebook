@@ -8,6 +8,7 @@
 - [Increase classifier accuracy](https://learn.microsoft.com/en-us/microsoft-365/compliance/data-classification-increase-accuracy?view=o365-worldwide)
 - [Microsoft built-in trainable classifier reference](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-tc-definitions?view=o365-worldwide)
 - [Increase classifier accuracy](https://learn.microsoft.com/en-us/microsoft-365/compliance/data-classification-increase-accuracy?view=o365-worldwide)
+- [Practical 365: Trainable Classifiers Lifecycle](https://practical365.com/lifecycle-trainable-classifier/) - good read
 
 ## Exam Goals
 - Identify when to use trainable classifiers
@@ -116,6 +117,7 @@ These categorization methods include finding content by
 **Classifiers**
 This categorization method is based on Machine Learning and is well-suited to content that isn't easily identified by either the manual or automated pattern-matching methods. This method of categorization is more about using a classifier to identify an item based on what the item is, not by elements that are in the item (pattern matching). A classifier learns how to identify a type of content by looking at hundreds of examples of the content you're interested in identifying.
 
+
 You can view the trainable classifiers in content explorer by expanding **Trainable Classifiers** in the filters panel. 
 
 ![](img/20230525-052558.png)
@@ -126,14 +128,18 @@ There are two types of classifiers
 - **custom trainable classifiers** - If you have content identification and categorization needs that extend beyond that the pre-trained classifiers cover, you can create and train your own classifiers.
 
 ## When to use Trainable Classifiers
-Classifiers are available to use as a condition for 
-- Office auto-labeling with sensitivity labels
-- Auto-apply retention policy based on a condition
-- Communication compliance
-- Sensitivity labels can use classifiers as conditions
-- Data loss prevention
+Here are some use cases for trainable classifiers:  
+- Sensitivity labels:  find content and apply in an auto-label policy
+- Retention labels: find content and apply in an auto-label policy
+- Data Loss Prevention (DLP): Check for sensitive content
+- Communication compliance: check employee messages
+- Find content in Content Explorer
 
 **Note:** classifiers only work for items that are not encrypted.
+
+It's possible that a new trainable classifier will appear accurate until it starts working in compliance policies. For this reason you should deploy new trainable classifiers in limited circumstances to make sure the classifier works as intended. If it doesn't, and feedback with good and bad matches don't improve the prediction model over time, you might need to delete the classifier and start the training process again. If this happens, use a different set of sample documents, including examples where the previous iteration of the classifier did not detect content accurately.
+
+Machine learning takes time and patience.  All you can do is deliver the best set of seed content and wait for the model to complete its processing. And then maybe wait again for a few more days. 
 
 ## Design and Create a Trainable Classifier
 References:  
@@ -187,11 +193,15 @@ Once the trainable classifier has processed enough positive samples to build a p
 
 6. Pick the SharePoint Online site, library, and folder URL for the seed content site for step 2. Choose `Add`. 
 
+![](img/20230610-041001.png)
+
 7. Review the settings and choose `Create trainable classifier`. 
+
+![](img/20230611-041131.png)
 
 8. Within 24 hours the trainable classifier will process the seed data and build a prediction model. The classifier status is `In Progress` while it processes the seed data. When the classifier is finished processing the seed data, the status changes to `Need test items`. 
 
-9. You can now view the details page by choosing the classifier.
+9.  You can now view the details page by choosing the classifier.
 
 ![](img/20230546-034603.png)
 
