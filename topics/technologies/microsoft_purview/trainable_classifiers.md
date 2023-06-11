@@ -42,13 +42,11 @@
   - [Content Explorer Permissions](https://learn.microsoft.com/en-us/microsoft-365/compliance/data-classification-content-explorer?view=o365-worldwide#permissions)
 
 ### Trainable Classifiers
-To manage trainable classifiers, a user needs to be able to expand the **Data Classification** node in Microsoft Purview compliance portal. Standard users don't have visibility to this node.
+To manage trainable classifiers, a user needs to access the **Data Classification** node in Microsoft Purview compliance portal.
 
 ![](img/20230514-031406.png)
 
-The roles listed below come from Azure AD and Microsoft Purview. In Microsoft Purview, roles are called *role groups*.   
-
-Accessing the Data Classification > Classifiers > Trainable Classifiers Node
+The following roles are able to access the Data Classification > Classifiers > Trainable Classifiers node:  
 - Global Administrator (Azure AD)
 - Organization Management (Microsoft Purview)
 - Compliance Administrator (Microsoft Purview or Azure AD)
@@ -72,7 +70,7 @@ The following Microsoft Purview role groups have access provide feedback in Cont
 - Information Protection Readers
 - Data Estate Insights Readers
 
-**Note:**: An Azure AD Global Administrator can also use Content Explorer. 
+**Note:**: An Azure AD Global Administrator also has full access to Content Explorer. 
 
 The following high-privileged Microsoft Purview role groups are able to open the Content Explorer node but do not have access to view files in Content Explorer:
 - Organization Management
