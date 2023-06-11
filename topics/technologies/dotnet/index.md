@@ -34,3 +34,7 @@ At runtime, CoreCLR loads the IL code from the assembly, the **just-in-time (JIT
 
 The benefit of this two-step process is that Microsoft can create CLRs for Linux and macOS as well as for Windows.  The same IL code runs everywhere because of the second compilation step, which generates code for the native OS and CPU instruction set.
 
+## Create a Console App
+Use the following command to create a new console app:  `dotnet new console`.  
+
+![](img/20230646-164605.png)
