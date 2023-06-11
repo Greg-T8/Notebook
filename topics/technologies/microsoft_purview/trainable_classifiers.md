@@ -9,6 +9,7 @@
 - [Microsoft built-in trainable classifier reference](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-tc-definitions?view=o365-worldwide)
 - [Increase classifier accuracy](https://learn.microsoft.com/en-us/microsoft-365/compliance/data-classification-increase-accuracy?view=o365-worldwide)
 - [Practical 365: Trainable Classifiers Lifecycle](https://practical365.com/lifecycle-trainable-classifier/) - good read
+- [Practical 365: Using Trainable Classifiers to Assign O365 Retention Labels](https://petri.com/using-trainable-classifiers-assign-office-365-retention-labels/)
 
 ## Exam Goals
 - Identify when to use trainable classifiers
@@ -117,7 +118,6 @@ These categorization methods include finding content by
 **Classifiers**
 This categorization method is based on Machine Learning and is well-suited to content that isn't easily identified by either the manual or automated pattern-matching methods. This method of categorization is more about using a classifier to identify an item based on what the item is, not by elements that are in the item (pattern matching). A classifier learns how to identify a type of content by looking at hundreds of examples of the content you're interested in identifying.
 
-
 You can view the trainable classifiers in content explorer by expanding **Trainable Classifiers** in the filters panel. 
 
 ![](img/20230525-052558.png)
@@ -131,7 +131,7 @@ There are two types of classifiers
 Here are some use cases for trainable classifiers:  
 - Sensitivity labels:  find content and apply in an auto-label policy
 - Retention labels: find content and apply in an auto-label policy
-- Data Loss Prevention (DLP): Check for sensitive content
+- Data Loss Prevention (DLP): Check for sensitive content to block external sharing
 - Communication compliance: check employee messages
 - Find content in Content Explorer
 
@@ -140,6 +140,10 @@ Here are some use cases for trainable classifiers:
 It's possible that a new trainable classifier will appear accurate until it starts working in compliance policies. For this reason you should deploy new trainable classifiers in limited circumstances to make sure the classifier works as intended. If it doesn't, and feedback with good and bad matches don't improve the prediction model over time, you might need to delete the classifier and start the training process again. If this happens, use a different set of sample documents, including examples where the previous iteration of the classifier did not detect content accurately.
 
 Machine learning takes time and patience.  All you can do is deliver the best set of seed content and wait for the model to complete its processing. And then maybe wait again for a few more days. 
+
+To provide feedback, a trainable classifier must be in active use &mdash; it needs to be in use in a compliance policy to detect content. If the classifier is passive (unused), its predictive model is inert, and feedback will never be taken into account.
+
+
 
 ## Design and Create a Trainable Classifier
 References:  
