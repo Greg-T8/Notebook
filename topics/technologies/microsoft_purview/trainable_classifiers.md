@@ -254,12 +254,35 @@ You can help improve the accuracy of all custom trainable classifiers and by pro
 **Notes:**
 - The built-in pre-trained classifiers cannot be re-trained. 
 - A classifier must already be published and in use before it can be retrained.
+- By default, only the user who creates a custom classifier can train and review predictions made by the classifier
 
 ![](img/20230553-055316.png)
 
 You retrain your classifiers by evaluating the quality of the classifications made for items identified as being a match or not a match. After you make 30 evaluations for a classifier, it takes that feedback, and automatically retrains itself.  
 
 ### How to retrain a classifier in content explorer
-1. Sign in to Microsoft Purview compliance portal and open Data Classification > Classifiers > Trainable classifiers
+The documentation seems to indicate that, as of this time, retraining is only supported in the scenario of auto-applying retention labels to Exchange items using a classifier as a condition. 
 
-2. Choose the trainable classifier you'll give feedback on.  
+1. Sign in to Microsoft Purview compliance portal and open Data Classification > Content Explorer
+
+2. In Content Explorer, expand to the custom trainable classifier you created.
+
+**Note**: it can take up to 8 days for aggregated items to appear under the trainable classifier in Content Explorer
+
+3. Under the trainable classifier, choose an item and open it. 
+
+If an item has an entry in the **Retention label** column, it means the item was classified as a `match`. If an item doesn't have an entry in the **Retention label** column, it means it was classified as a `close match`. 
+
+4. Choose **Provide feedback**
+
+5. In the **Detailed feedback** pane, if the item is a true positive, choose **Match**.  If was incorrectly labeled, choose **Not a match**. 
+
+6. If there's another classifier that's appropriate, choose **Suggest other trainable classifiers**. Note: I have not been able to find this option.
+
+7. Choose **Send feedback** to send your evaluation of the match, not a match classifications and suggest other trainable classifiers. When you've provided 30 instances of feedback to a classifier, it will automatically retrain. Retraining can take from 1 to 4 hours.  Classifiers can only be retrained 2x per day.
+
+Retraining information goes to the classifier in your tenant.  It does not go back to Microsoft.
+
+8. Open **Trainable Classifiers**
+
+9. 
