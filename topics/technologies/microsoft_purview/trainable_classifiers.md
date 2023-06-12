@@ -251,9 +251,9 @@ References
 
 You can help improve the accuracy of all custom trainable classifiers and by providing them with feedback on the accuracy of the classification that they perform.  This is called retraining, and follows this workflow. 
 
-**Note:** The built-in pre-trained classifiers cannot be re-trained. 
-
-**Note:** A classifier must already be published and in use before it can be retrained.
+**Notes:**
+- The built-in pre-trained classifiers cannot be re-trained. 
+- A classifier must already be published and in use before it can be retrained.
 
 ![](img/20230553-055316.png)
 

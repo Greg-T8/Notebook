@@ -42,3 +42,6 @@ Use the following command to create a new console app:
 
 This command targets your latest .NET SDK version by default.  Use the `-f` switch to specify a target framework, e.g:  
 ```dotnet new console -f net6.0```
+
+Use the command `dotnet run` to compile and execute the program:  
+![](img/20230659-165904.png)
