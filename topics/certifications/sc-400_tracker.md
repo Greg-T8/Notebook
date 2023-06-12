@@ -8,8 +8,9 @@ The following information is taken from the SC-400 study guide: https://learn.mi
 - Create and manage exact data match (EDM) classifiers
 - Implement document fingerprinting
 
-  Hours Committed: 28  
-  Dates: 4/26/23 - 5/20/23
+Learning Effort:  
+- Hours Committed: 28  
+- Dates: 4/26/23 - 5/20/23
 
 ## [Create and manage trainable classifiers](/topics/technologies/microsoft_purview/trainable_classifiers.md)
 - Identify when to use trainable classifiers
@@ -17,7 +18,8 @@ The following information is taken from the SC-400 study guide: https://learn.mi
 - Test a trainable classifier
 - Retrain a trainable classifier
 
-Dates: 5/21/23 - current
+Learning Effort:
+- Dates: 5/21/23 - current
 
 ## Implement and manage sensitivity labels
 - Implement roles and permissions for administering sensitivity labels
