@@ -11,15 +11,15 @@
 - [Licensing](#licensing)
 - [Overview](#overview)
 - [When to use Trainable Classifiers](#when-to-use-trainable-classifiers)
-- [Design and Create a Trainable Classifier](#design-and-create-a-trainable-classifier)
+- [Design, Create, and Test a Trainable Classifier](#design-create-and-test-a-trainable-classifier)
   - [Process flow for creating custom classifiers](#process-flow-for-creating-custom-classifiers)
     - [Seed content](#seed-content)
     - [Prerequisites](#prerequisites)
     - [Testing content](#testing-content)
   - [How to create a trainable classifier](#how-to-create-a-trainable-classifier)
-- [Test a Trainable Classifier](#test-a-trainable-classifier)
 - [Retrain a Trainable Classifier](#retrain-a-trainable-classifier)
   - [How to retrain a classifier in content explorer](#how-to-retrain-a-classifier-in-content-explorer)
+  - [Republishing Recommendations](#republishing-recommendations)
 
 ## Links
 - [Learn about trainable classifiers](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-learn-about?view=o365-worldwide)
@@ -146,7 +146,7 @@ Machine learning takes time and patience.  All you can do is deliver the best se
 
 To provide feedback, a trainable classifier must be in active use &mdash; it needs to be in use in a compliance policy to detect content. If the classifier is passive (unused), its predictive model is inert, and feedback will never be taken into account.
 
-## Design and Create a Trainable Classifier
+## Design, Create, and Test a Trainable Classifier
 References:  
 - [Custom Classifiers](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-learn-about?view=o365-worldwide#custom-classifiers)
 - [Get started with trainable classifiers](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-get-started-with?view=o365-worldwide#timeline)
@@ -241,8 +241,6 @@ Once the trainable classifier has processed enough positive samples to build a p
 - [Auto-apply retention label policy based on a condition](https://learn.microsoft.com/en-us/microsoft-365/compliance/apply-retention-labels-automatically?view=o365-worldwide#configuring-conditions-for-auto-apply-retention-labels)
 - [Communication compliance](https://learn.microsoft.com/en-us/microsoft-365/compliance/communication-compliance?view=o365-worldwide)
 
-## Test a Trainable Classifier
-
 
 ## Retrain a Trainable Classifier
 References
@@ -285,4 +283,25 @@ Retraining information goes to the classifier in your tenant.  It does not go ba
 
 8. Open **Trainable Classifiers**
 
-9. 
+9. The classifier that was used in your Communications compliance policy will appear under the **Re-training** heading.
+
+![](img/20230605-040525.png)
+
+10. Once retraining completes, choose the classifier to open the retraining overview.
+
+![](img/20230606-040603.png)
+
+11. Review the recommended action, and the prediction comparisons of the retrained and currently published versions of the classifier.
+
+12. If you are satisfied with the results of the training, choose **Re-publish**
+
+13. If you aren't satisfied, you can choose to provide more feedback to the classifier in Content Explorer and start another retraining cycle. Or you can do nothing, in which the currently published version of the classifier will be used.
+
+### Republishing Recommendations
+After retraining, Microsoft evaluates the classifier's performance on both the items with feedback and any items originally used to train the classifier.
+
+For built-in models, items used to train the classifier are the items used by Microsoft to build the model.
+
+For custom models, items used in the original training are from the SharePoint sites you added for test and review.
+
+Microsoft compares the performance numbers on both sets for the retrained and published classifier to provide a recommendation on whether there was an improvement to republish.
