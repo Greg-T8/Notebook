@@ -7,6 +7,7 @@
 ## Topics
 - [Purview Permissions Model](/topics/technologies/microsoft_purview/permissions.md)
 - [Sensitive Information Types](/topics/technologies/microsoft_purview/sensitive_information_types.md)
+- [Trainable Classifiers](/topics/technologies/microsoft_purview/trainable_classifiers.md)
 
 ## Licensing
 - [Microsoft 365 Guidance for Security & Compliance](https://learn.microsoft.com/en-us/office365/servicedescriptions/microsoft-365-service-descriptions/microsoft-365-tenantlevel-services-licensing-guidance/microsoft-365-security-compliance-licensing-guidance)
