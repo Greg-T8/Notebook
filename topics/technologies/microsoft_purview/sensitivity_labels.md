@@ -44,5 +44,18 @@ Use cases for sensitivity labels:
 - Extend sensitivity labels to Power BI
 - Extend sensitivity labels to Microsoft Purview Data Map
   - these are files and schematized assets that include SQL, Azure SQL, Azure Synapse, Azure Cosmos DB, and AWS RDS
-- Extend sensitivity labels to third-party apps and services using the [Microsoft Information Protecion SDK](https://learn.microsoft.com/en-us/information-protection/develop/overview)
-- 
+- Extend sensitivity labels to third-party apps and services using the [Microsoft Information Protection SDK](https://learn.microsoft.com/en-us/information-protection/develop/overview)
+- Label content without using any protection settings
+  - Helps to provide a visual mapping of your organization's data sensitivity
+  - You can use labels to generate reports; can always apply protection later
+
+See [Common scenarios for sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/get-started-with-sensitivity-labels?view=o365-worldwide#common-scenarios-for-sensitivity-labels)
+
+A sensitivity label is stored in clear text in the metadata for files and emails. This allows third-party apps and services to read it and apply their own protective actions. It also means the label stays with the content, no matter where it's stored or saved.
+
+Sensitivity labels can do the following things:
+- Encrypt
+- Mark content
+
+
+https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels?view=o365-worldwide#what-sensitivity-labels-can-do
