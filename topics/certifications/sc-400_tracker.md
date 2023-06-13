@@ -22,7 +22,7 @@ Learning Effort:
 - Hours Committed: 7 
 - Dates: 5/21/23 - 6/12/23
 
-## Implement and manage sensitivity labels
+## [Implement and manage sensitivity labels](/topics/technologies/microsoft_purview/sensitivity_labels.md)
 - Implement roles and permissions for administering sensitivity labels
 - Define and create sensitivity labels
 - Configure and manage sensitivity label policies
