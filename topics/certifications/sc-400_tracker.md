@@ -19,7 +19,8 @@ Learning Effort:
 - Retrain a trainable classifier
 
 Learning Effort:
-- Dates: 5/21/23 - current
+- Hours Committed: 7 
+- Dates: 5/21/23 - 6/12/23
 
 ## Implement and manage sensitivity labels
 - Implement roles and permissions for administering sensitivity labels
@@ -29,6 +30,10 @@ Learning Effort:
 - Monitor data classification and label usage by using Content explorer, Activity explorer, and audit search
 - Apply bulk classification to on-premises data by using the Microsoft Purview Information Protection scanner
 - Manage protection settings and marking for applied sensitivity labels
+
+Learning Effort:
+- Hours Committed: 
+- Dates: 6/13/23 - current
 
 ## Design and implement encryption for email messages
 - Design an email encryption solution based on methods available in Microsoft 365
