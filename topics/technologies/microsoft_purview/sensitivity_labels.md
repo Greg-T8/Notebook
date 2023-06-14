@@ -11,6 +11,7 @@
   - [Sublabels (Grouping Labels)](#sublabels-grouping-labels)
   - [Editing or Deleting a Sensitivity Label](#editing-or-deleting-a-sensitivity-label)
   - [What Label Policies Can Do](#what-label-policies-can-do)
+- [Permissions](#permissions)
 
 ## Links
 - [Learn about sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels?view=o365-worldwide)
@@ -123,3 +124,7 @@ There's no limit to the number of labels you can create and publish, with one ex
 After you create a label policy, allow up to 24 hours for the changes to replicate through the org. 
 
 There's no limit to the number of labels you can create and publish, with one exception: If the label applies encryption that specifies the users and permissions, there's a maximum of 500 labels per tenant. However, as a best practice to lower admin overhead and reduce complexity, try to keep the number of labels to a minimum. Real-world deployments have proved effectiveness to be noticeably reduced when users have more than 5 main labels or more than 5 sublabels per main label.
+
+
+## Permissions
+https://learn.microsoft.com/en-us/microsoft-365/compliance/get-started-with-sensitivity-labels?view=o365-worldwide#permissions-required-to-create-and-manage-sensitivity-labels
