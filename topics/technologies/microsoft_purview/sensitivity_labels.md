@@ -8,6 +8,9 @@
 - [Overview](#overview)
   - [Label Scopes](#label-scopes)
   - [Label Priority (Order Matters)](#label-priority-order-matters)
+  - [Sublabels (Grouping Labels)](#sublabels-grouping-labels)
+  - [Editing or Deleting a Sensitivity Label](#editing-or-deleting-a-sensitivity-label)
+  - [What Label Policies Can Do](#what-label-policies-can-do)
 
 ## Links
 - [Learn about sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels?view=o365-worldwide)
@@ -89,3 +92,34 @@ The ordering of sublabels is used with automatic labeling, though. When you conf
 
 ![](img/20230604-040455.png)
 
+### Sublabels (Grouping Labels)
+With sublabels, you can group one or more labels below a parent label that a user sees in an Office app. Sublabels are simply a way to present labels to users in logical groups. Sublabels don't inherit any settings from their parent label, except for their label color. When you publish a sublabel for a user, that user can then apply that sublabel to content and containers, but can't apply just the parent label.
+
+Don't choose a parent label as the default label, or configure a parent label to be automatically applied (or recommended). If you do, the parent label can't be applied.
+
+![](img/20230612-041227.png)
+
+### Editing or Deleting a Sensitivity Label
+If you delete a sensitivity label from the admin portal, the label isn't automatically removed from content, and any protection settings continue to be enforced on content that had that label applied.
+
+If you edit a sensitivity label, the version of the label that was applied to content is what's enforced on that content.
+
+### What Label Policies Can Do
+After you create your sensitivity labels, you need to publish them to make them available to people and services in your organization. The sensitivity labels can then be applied to Office documents and emails, and other items that support sensitivity labels.
+
+Unlike retention labels, which are published to locations such as Exchange mailboxes, sensitivity labels are published to users or groups.
+
+When you configure a label policy, you can:
+- **Choose which users and groups see the labels**:  Labels can be published to any specific user or email-enabled security group, distribution group, or M365 Group (which can have dynamic membership)
+- **Specify a default label** for unlabeled documents, email and meeting invites, new containers, and Power BI content. Consider using a default label to set a base level of protection settings that you want applied to all of your content. However, without user training, this setting can result in accurate labeling. It's usually not a good idea to set encryption as a default label to documents. As an excample, in the need to share externally, many orgs may not have apps that support the encryption, or they might not use an account that can be authorized. See [Sharing encrypted documents with external users](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-office-apps?view=o365-worldwide#sharing-encrypted-documents-with-external-users)
+- **Require a justification for changing a label**: If a user tries to remove a label or replace it with a label that has a lower-order priority, you can require the user provide a justification to perform this action. Administrators can read the justification reason in Activity Explorer.
+- **Require users to apply a label** for different types of items and the containers that support sensitivity labels. This is also known as mandatory labeling. Consider using this option to increase your labeling coverage. However, without training, this setting can lead to inaccurate labeling and will frustrate your users. For containers, a label must be assigned at the time the group or site is created. 
+- **Provide help link to a custom help page**. 
+
+After you create a label policy, allow up to 24 hours for the changes to replicate through the org. 
+
+There's no limit to the number of labels you can create and publish, with one exception: If the label applies encryption that specifies the users and permissions, there's a maximum of 500 labels per tenant. However, as a best practice to lower admin overhead and reduce complexity, try to keep the number of labels to a minimum. Real-world deployments have proved effectiveness to be noticeably reduced when users have more than 5 main labels or more htan 5 sublabels per main label.
+
+After you create a label policy, allow up to 24 hours for the changes to replicate through the org. 
+
+There's no limit to the number of labels you can create and publish, with one exception: If the label applies encryption that specifies the users and permissions, there's a maximum of 500 labels per tenant. However, as a best practice to lower admin overhead and reduce complexity, try to keep the number of labels to a minimum. Real-world deployments have proved effectiveness to be noticeably reduced when users have more than 5 main labels or more than 5 sublabels per main label.
