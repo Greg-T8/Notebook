@@ -5,12 +5,15 @@
 - [Links](#links)
 - [Exam Goals](#exam-goals)
 - [Licensing](#licensing)
-- [Introduction](#introduction)
+- [Overview](#overview)
+  - [Label Scopes](#label-scopes)
 
 ## Links
 - [Learn about sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels?view=o365-worldwide)
 - [Create a well-designed data classification framework](https://learn.microsoft.com/en-us/compliance/assurance/assurance-create-data-classification-framework)
 - [Microsoft Information Protection SDK: Classification label concepts](https://learn.microsoft.com/en-us/information-protection/develop/concept-classification-labels)
+- [Microsoft roadmap for sensitivity labels](https://www.microsoft.com/en-us/microsoft-365/roadmap?filters=Worldwide%20(Standard%20Multi-Tenant)&searchterms=label)
+- [End-user documentation for sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/get-started-with-sensitivity-labels?view=o365-worldwide#end-user-documentation-for-sensitivity-labels)
 - [Licensing for sensitivity labels](https://learn.microsoft.com/en-us/office365/servicedescriptions/microsoft-365-service-descriptions/microsoft-365-tenantlevel-services-licensing-guidance/microsoft-365-security-compliance-licensing-guidance#microsoft-purview-information-protection-sensitivity-labeling)
 
 ## Exam Goals
@@ -28,7 +31,7 @@ Reference
 
 In general, an E5 license is required for each user who accesses protected documents in locations that use automatic labeling. An E3 license is required when using manual labeling.  
   
-## Introduction
+## Overview
 To collaborate with others both inside and outside the organization, content no longer stays behind a firewall&mdash;it can roam everywhere across devices, apps, and services. When this data roams, you want it to be protected in a way that meets the org's business and compliance policies.
 
 Sensitivity labels let you classify and protect your organization's data, while making sure that user productivity and their ability to collaborate isn't hindered.
@@ -55,8 +58,20 @@ See [Common scenarios for sensitivity labels](https://learn.microsoft.com/en-us/
 A sensitivity label is stored in clear text in the metadata for files and emails. This allows third-party apps and services to read it and apply their own protective actions. It also means the label stays with the content, no matter where it's stored or saved.
 
 Sensitivity labels can do the following things:
-- Encrypt
-- Mark content
+- Encrypt: documents, emails, and meeting invites
+- Mark content: watermarks, headers, and footers
+- Protect content in containers: SharePoint sites, M365 Groups, Teams
+- Apply the label automatically to files and emails, or recommend a label
+- Set the default sharing link type, e.g. sharing links inherit permissions from the label
 
+See [Manage sensitivity labels in Office apps](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-office-apps?view=o365-worldwide) for more configuration options.
 
-https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels?view=o365-worldwide#what-sensitivity-labels-can-do
+### Label Scopes
+When you create a sensitivity label, you're asked to configure the label's scope, which determines two things:
+- Which label settings you can configure for that label
+- The availability of the label to apps and services, which includes whether users can see and select the label
+
+The scope configuration allows you to have sensitivity labels that are just for documents and emails, and can't be selected for containers. Alternatively, you can have labels just for containers and not for documents and emails.
+
+![](img/20230648-034828.png)
+
