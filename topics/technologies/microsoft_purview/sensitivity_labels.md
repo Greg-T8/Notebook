@@ -13,7 +13,8 @@
   - [What Label Policies Can Do](#what-label-policies-can-do)
   - [Label Policy (Priority Matters)](#label-policy-priority-matters)
   - [Built-in Labeling for the Office Apps](#built-in-labeling-for-the-office-apps)
-- [Permissions](#permissions)
+  - [Label Taxonomy](#label-taxonomy)
+- [Roles and Permissions](#roles-and-permissions)
 
 ## Links
 - [Learn about sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels?view=o365-worldwide)
@@ -161,5 +162,32 @@ See [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivit
 - Permanently disconnected computers
 - Standalone editions of Office, i.e. "Perpetual Office", rather than subscription-based Office
 
-## Permissions
-https://learn.microsoft.com/en-us/microsoft-365/compliance/get-started-with-sensitivity-labels?view=o365-worldwide#permissions-required-to-create-and-manage-sensitivity-labels
+### Label Taxonomy
+See [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/mip-easy-trials?view=o365-worldwide#default-sensitivity-labels) for Microsoft's default sensitivity labels. 
+
+## Roles and Permissions
+- Reference
+  - [Permissions required to create and manage sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/get-started-with-sensitivity-labels?view=o365-worldwide#permissions-required-to-create-and-manage-sensitivity-labels)
+
+The following role groups have permissions for managing sensitivity labels:
+- Information Protection
+- Information Protection Admins
+- Information Protection Analysts
+- Information Protection Investigators
+- Information Protection Readers
+
+The **Information Protection** role group is the most privileged of this bunch and has the following roles that **Information Protection Admins** doesn't have:  
+- Data Classification Content Viewer - Allow viewing in-place rendering of files in content explorer.
+- Data Classification List Viewer - Allow viewing list of files in content explorer.
+- Information Protection Analyst - Access and manage DLP alerts and activity explorer. View-only access to DLP policies, sensitivity labels and their policies, and all classifier types.
+- Information Protection Investigator - Access and manage DLP alerts, activity explorer, and content explorer. View-only access to DLP policies, sensitivity labels and their policies, and all classifier types.
+- Information Protection Reader - View-only access to reports for DLP policies and sensitivity labels and their policies.
+
+The **Information Protection Admins** role group has only the following roles:
+- Information Protection Admin - Create, edit, and delete DLP policies, sensitivity labels and their policies, and all classifier types. Manage endpoint DLP settings and simulation mode for auto-labeling policies.
+- Purview Evaluation Administrator - Used to create and manage M365 Purview Evaluation lab
+
+
+
+
+Alternatively you can create a new role group and add the **Sensitivity Label Administrator** role.  For a read-only group, use **Sensitivity Label Reader**. 
