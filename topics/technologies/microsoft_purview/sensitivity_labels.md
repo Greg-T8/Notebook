@@ -15,6 +15,7 @@
   - [Built-in Labeling for the Office Apps](#built-in-labeling-for-the-office-apps)
   - [Label Taxonomy](#label-taxonomy)
 - [Roles and Permissions](#roles-and-permissions)
+- [Define and Create Sensitivity Labels](#define-and-create-sensitivity-labels)
 
 ## Links
 - [Learn about sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels?view=o365-worldwide)
@@ -205,3 +206,6 @@ The **Information Protection Readers** role group has the following role:
 - Information Protection Reader - View-only access to reports for DLP policies and sensitivity labels and their policies.
 
 Alternatively you can create a new role group and add the **Sensitivity Label Administrator** role.  For a read-only group, use **Sensitivity Label Reader**. 
+
+## Define and Create Sensitivity Labels
+https://learn.microsoft.com/en-us/microsoft-365/compliance/create-sensitivity-labels?view=o365-worldwide
