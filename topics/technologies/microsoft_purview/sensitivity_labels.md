@@ -155,5 +155,11 @@ Here's a list of features supported by built-in labeling for Office apps:
 * Support for account switching
 * Users can't disable labeling
 
+See [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-aip?view=o365-worldwide#features-not-planned-to-be-supported-by-built-in-labeling-for-office-apps) for a list of features Microsoft does not plan to support:
+- Application of labels to Office 97-2003 formats, e.g. .doc files
+- Local usage logging to the Windows Event log
+- Permanently disconnected computers
+- Standalone editions of Office, i.e. "Perpetual Office", rather than subscription-based Office
+
 ## Permissions
 https://learn.microsoft.com/en-us/microsoft-365/compliance/get-started-with-sensitivity-labels?view=o365-worldwide#permissions-required-to-create-and-manage-sensitivity-labels
