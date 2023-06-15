@@ -11,6 +11,8 @@
   - [Sublabels (Grouping Labels)](#sublabels-grouping-labels)
   - [Editing or Deleting a Sensitivity Label](#editing-or-deleting-a-sensitivity-label)
   - [What Label Policies Can Do](#what-label-policies-can-do)
+  - [Label Policy (Priority Matters)](#label-policy-priority-matters)
+  - [Built-in Labeling for the Office Apps](#built-in-labeling-for-the-office-apps)
 - [Permissions](#permissions)
 
 ## Links
@@ -20,6 +22,7 @@
 - [Microsoft roadmap for sensitivity labels](https://www.microsoft.com/en-us/microsoft-365/roadmap?filters=Worldwide%20(Standard%20Multi-Tenant)&searchterms=label)
 - [End-user documentation for sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/get-started-with-sensitivity-labels?view=o365-worldwide#end-user-documentation-for-sensitivity-labels)
 - [Licensing for sensitivity labels](https://learn.microsoft.com/en-us/office365/servicedescriptions/microsoft-365-service-descriptions/microsoft-365-tenantlevel-services-licensing-guidance/microsoft-365-security-compliance-licensing-guidance#microsoft-purview-information-protection-sensitivity-labeling)
+- [Partner solutions that integrate with Microsoft Information Protection](https://techcommunity.microsoft.com/t5/security-compliance-and-identity/microsoft-information-protection-showcases-integrated-partner/ba-p/262657)
 
 ## Exam Goals
 - Implement roles and permissions for administering sensitivity labels
@@ -125,6 +128,32 @@ After you create a label policy, allow up to 24 hours for the changes to replica
 
 There's no limit to the number of labels you can create and publish, with one exception: If the label applies encryption that specifies the users and permissions, there's a maximum of 500 labels per tenant. However, as a best practice to lower admin overhead and reduce complexity, try to keep the number of labels to a minimum. Real-world deployments have proved effectiveness to be noticeably reduced when users have more than 5 main labels or more than 5 sublabels per main label.
 
+### Label Policy (Priority Matters)
+You make your sensitivity labels available to users by publishing them in a sensitivity policy that appears in a list on the **Label Policies** page. Just like sensitivity labels, the order of the sensitivity label policies is important because it reflects their priority: The label policy with the lowest priority is shown at the top of the list with the lowest order number, and the label policy with the highest priority is shown at the bottom of the list with the highest priority number. 
+
+A label policy consists of:
+* A set of labels 
+* The users and groups that will be assigned the policy with labels
+* The scope of the policy and policy settings for that scope (such as default label)
+
+You can include a user in multiple label policies, and the user will get all the sensitivity labels and settings from those policies. If there's a conflict in settings from multiple policies, the settings from the policy with the highest priority (highest order number) is applied. In other words, the highest priority wins for each setting.
+
+If you're not seeing the label policy setting behavior that you expect for a user or group, check the order of the sensitivity label policies. You might need to move a policy down. 
+
+![](img/20230607-030710.png)
+
+### Built-in Labeling for the Office Apps
+Built-in labels (as opposed to labels provided by the soon-to-be-retired AIP client) require a subscription edition of Office apps. Standalone editions of Office aren't supported. See [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-aip?view=o365-worldwide#benefits-of-using-built-in-labeling-for-office-apps-vs-the-aip-add-in)
+
+Here's a list of features supported by built-in labeling for Office apps:
+* Intelligent classification services for automatic and recommended labeling, i.e. trainable classifiers, exact data match, and named entities
+* Sensitivity bar that's integrated into existing user workflows
+* PDF support
+* Protect meeting invites, with their attachments and responses
+* For custom permissions, the ability to assign different permissions to users and groups
+* Encrypt-only emails
+* Support for account switching
+* Users can't disable labeling
 
 ## Permissions
 https://learn.microsoft.com/en-us/microsoft-365/compliance/get-started-with-sensitivity-labels?view=o365-worldwide#permissions-required-to-create-and-manage-sensitivity-labels
