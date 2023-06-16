@@ -15,6 +15,7 @@
   - [Built-in Labeling for the Office Apps](#built-in-labeling-for-the-office-apps)
   - [Label Taxonomy](#label-taxonomy)
 - [Roles and Permissions](#roles-and-permissions)
+  - [Manage the AIP Super User Feature](#manage-the-aip-super-user-feature)
 - [Define and Create Sensitivity Labels](#define-and-create-sensitivity-labels)
 
 ## Links
@@ -189,11 +190,17 @@ See the full list and descriptions [here](https://microsoft.github.io/Compliance
   - [Permissions required to create and manage sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/get-started-with-sensitivity-labels?view=o365-worldwide#permissions-required-to-create-and-manage-sensitivity-labels)
 
 The following role groups have permissions for managing sensitivity labels:
-- Information Protection
-- Information Protection Admins
+- Organization Management*
+- Compliance Administrator*
+- Compliance Data Administrator*
+- Information Protection*
+- Information Protection Admins*
 - Information Protection Analysts
 - Information Protection Investigators
 - Information Protection Readers
+
+Note:  
+  - Items with an asterisk (*) have the ability to activate and manage the AIP super user feature
 
 The **Information Protection** role group is the most privileged of this bunch and has the following roles: 
 - Information Protection Admin - Create, edit, and delete DLP policies, sensitivity labels and their policies, and all classifier types. Manage endpoint DLP settings and simulation mode for auto-labeling policies.
@@ -224,6 +231,9 @@ The **Information Protection Readers** role group has the following role:
 - Information Protection Reader - View-only access to reports for DLP policies and sensitivity labels and their policies.
 
 Alternatively you can create a new role group and add the **Sensitivity Label Administrator** role.  For a read-only group, use **Sensitivity Label Reader**. 
+
+### Manage the AIP Super User Feature
+See https://learn.microsoft.com/en-us/azure/information-protection/configure-super-users
 
 ## Define and Create Sensitivity Labels
 https://learn.microsoft.com/en-us/microsoft-365/compliance/create-sensitivity-labels?view=o365-worldwide
