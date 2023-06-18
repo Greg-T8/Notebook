@@ -273,15 +273,23 @@ Get-Label | Select Priority, ContentType, Name, ImmutableId, DisplayName | ft -A
 ![](img/20230652-045204.png)
 
 
-You can also use the `-Identity` parameter to get a specific label. However, you must use the label's GUID or Name. You cannot use the label's display name. The label's GUID is mapped to the `ImmutableId` property. In the case of Microsoft's default labels, the ImmutableId is the same as the label's Name. But these values will be different for labels that you create. 
+You can use the `-Identity` parameter to get a specific label. However, you must use the label's GUID or Name. **You cannot use the label's display name.** The label's GUID is mapped to the `ImmutableId` property. In the case of Microsoft's default labels, the ImmutableId is the same as the label's Name (see above). However, these values will be different for custom labels that you create.
+
+![](img/20230657-045742.png)
 
 
 ### Removing Sensitivity Labels and Policies
 To remove a sensitivity label, you must first remove the label from all label policies. Use the following commands to remove a label from a label policy:
 
 ```powershell
-# Get the label policy
-$label = Get-Label -Name "Label Policy Name"
-
-# Remove the label from the label policy
-$
+function Remove-LabelFromPolicy {
+    param (
+        [Parameter(Mandatory=$true)]
+        [string]$LabelName, # The Name or ImmutableId of the label, not the Display Name
+        [Parameter(Mandatory=$true)]
+        [string]$LabelPolicyName
+    )
+    $label = Get-Label -Name $LabelName
+    Set-LabelPolicy -Identity $LabelPolicyName -RemoveLabel $label
+}
+```
