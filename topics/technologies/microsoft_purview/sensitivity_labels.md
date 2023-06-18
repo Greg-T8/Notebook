@@ -13,11 +13,17 @@
   - [What Label Policies Can Do](#what-label-policies-can-do)
   - [Label Policy (Priority Matters)](#label-policy-priority-matters)
   - [Built-in Labeling for the Office Apps](#built-in-labeling-for-the-office-apps)
-  - [Label Taxonomy](#label-taxonomy)
+  - [Defining Label Taxonomy](#defining-label-taxonomy)
 - [Roles and Permissions](#roles-and-permissions)
   - [Manage the AIP Super User Feature](#manage-the-aip-super-user-feature)
 - [Define and Create Sensitivity Labels](#define-and-create-sensitivity-labels)
-  - [Creating Sensitivity Labels](#creating-sensitivity-labels)
+- [Use PowerShell to manage Sensitivity Labels](#use-powershell-to-manage-sensitivity-labels)
+  - [Install the AIP PowerShell Module](#install-the-aip-powershell-module)
+  - [Connect to the AIP Service](#connect-to-the-aip-service)
+  - [Create a Sensitivity Label](#create-a-sensitivity-label)
+  - [Create a Sensitivity Label Policy](#create-a-sensitivity-label-policy)
+  - [Getting Sensitivity Labels and Policies](#getting-sensitivity-labels-and-policies)
+  - [Removing Sensitivity Labels and Policies](#removing-sensitivity-labels-and-policies)
 
 ## Links
 - [Learn about sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels?view=o365-worldwide)
@@ -167,24 +173,29 @@ See [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivit
 - Permanently disconnected computers
 - Standalone editions of Office, i.e. "Perpetual Office", rather than subscription-based Office
 
-### Label Taxonomy
+### Defining Label Taxonomy
 Defining the right label taxonomy and protection policies is the most critical step in a Microsoft Purview Information Protection deployment. Labels will be the interface for users to understand content sensitivity, how it matches company policies, and will be the primary input for users to flag content that needs to be protected.
 
 A good label taxonomy needs to meet business and/or regulatory needs, be intuitively understandable by users, provide good policy tips, and be easy to use. It should not prevent users from doing their jobs, while at the same time help prevent instances of data leakage or misuse and address compliance requirements.
 
-Eligible customers (new and existing) can activate a set of default protection labels and policies. See [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/mip-easy-trials?view=o365-worldwide#default-sensitivity-labels).
+
+See [Create a well-designed data classification framework](https://learn.microsoft.com/en-us/compliance/assurance/assurance-create-data-classification-framework) for further guidance.
 
 Best Practices
-- Use label names that intuitively resonate with your users. Don't use acronyms. Use short, meaningful words, e.g. "Confidential", "Secret"
-- Consider label order. Avoid terms that may be ambiguous. Don't use terms where not all users might agree on whether "Confidential" or "Secret" is the most sensitive label; use "Confidential" and "Highly Confidential" instead.
--  Use sublabels with intent. Labels are used to represent the actual sensitivity  of the content that is labeled. Sublabels represent variations in the protection or the scope of the content. 
--  Keep it simple with no more than 5 top labels and 5 sublabels
+- Start small and keep it simple.  
 -  Define labels that will last a long time
--  Compartmentalize sparingly. Using sublabels to give rights to people in specific departments is good practice, but you should use this capability in moderation. Limit the number of sublabels for departments to a small number and stick with it.
 - Start with what threats you are trying to prevent, e.g. users from accidentally putting sensitive data where unauthorized users can view it. Based on those requirements, define the minimal controls that must be there to ensure those scenarios don't happen.
+- Use label names that intuitively resonate with your users. Don't use acronyms. Use short, meaningful words, e.g. "Confidential", "Secret"
+- Avoid terms that may be ambiguous. Don't use terms where not all users might agree on whether "Confidential" or "Secret" is the most sensitive label; use "Confidential" and "Highly Confidential" instead.
+-  Use sublabels with intent. Labels are used to represent the actual sensitivity  of the content that is labeled. Sublabels represent variations in the protection or the scope of the content. 
+-  Compartmentalize sparingly. Using sublabels to give rights to people in specific departments is good practice, but you should use this capability in moderation. Limit the number of sublabels for departments to a small number and stick with it.
 - Involve different teams to review your proposed label taxonomy. Defining labels is not an IT security task alone, and early feedback will help you define a label taxonomy that will work for a long time
 
 See the full list and descriptions [here](https://microsoft.github.io/ComplianceCxE/dag/mip-dlp/)
+
+Eligible customers (new and existing) can activate a set of default protection labels and policies. See [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/mip-easy-trials?view=o365-worldwide#default-sensitivity-labels).
+
+![](img/20230628-042825.png)
 
 ## Roles and Permissions
 - Reference
@@ -237,6 +248,40 @@ Alternatively you can create a new role group and add the **Sensitivity Label Ad
 See https://learn.microsoft.com/en-us/azure/information-protection/configure-super-users
 
 ## Define and Create Sensitivity Labels
-https://learn.microsoft.com/en-us/microsoft-365/compliance/create-sensitivity-labels?view=o365-worldwide
+Reference
+- [Create and configure sensitivity labels and their policies](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-sensitivity-labels?view=o365-worldwide)
 
-### Creating Sensitivity Labels
+By default, tenants do not have any labels, so you must create them. Sensitivity labels are provided using two steps:
+1. Create the label
+2. Publish the label to users using a label policy
+
+See [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-sensitivity-labels?view=o365-worldwide#create-and-configure-sensitivity-labels) for the process.  
+
+
+## Use PowerShell to manage Sensitivity Labels
+
+### Install the AIP PowerShell Module
+### Connect to the AIP Service
+### Create a Sensitivity Label
+### Create a Sensitivity Label Policy
+
+### Getting Sensitivity Labels and Policies
+Use `Get-Label` to get a list of all sensitivity labels in your tenant. Or use this command:  
+```powershell
+Get-Label | Select Priority, ContentType, Name, ImmutableId, DisplayName | ft -AutoSize
+```
+![](img/20230652-045204.png)
+
+
+You can also use the `-Identity` parameter to get a specific label. However, you must use the label's GUID or Name. You cannot use the label's display name. The label's GUID is mapped to the `ImmutableId` property. In the case of Microsoft's default labels, the ImmutableId is the same as the label's Name. But these values will be different for labels that you create. 
+
+
+### Removing Sensitivity Labels and Policies
+To remove a sensitivity label, you must first remove the label from all label policies. Use the following commands to remove a label from a label policy:
+
+```powershell
+# Get the label policy
+$label = Get-Label -Name "Label Policy Name"
+
+# Remove the label from the label policy
+$
