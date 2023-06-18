@@ -17,6 +17,7 @@
 - [Roles and Permissions](#roles-and-permissions)
   - [Manage the AIP Super User Feature](#manage-the-aip-super-user-feature)
 - [Define and Create Sensitivity Labels](#define-and-create-sensitivity-labels)
+  - [Creating Sensitivity Labels](#creating-sensitivity-labels)
 
 ## Links
 - [Learn about sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels?view=o365-worldwide)
@@ -200,7 +201,7 @@ The following role groups have permissions for managing sensitivity labels:
 - Information Protection Readers
 
 Note:  
-  - Items with an asterisk (*) have the ability to activate and manage the AIP super user feature
+  - Items with an asterisk (*) have the ability to activate and manage the AIP super user feature (need to confirm this)
 
 The **Information Protection** role group is the most privileged of this bunch and has the following roles: 
 - Information Protection Admin - Create, edit, and delete DLP policies, sensitivity labels and their policies, and all classifier types. Manage endpoint DLP settings and simulation mode for auto-labeling policies.
@@ -237,3 +238,5 @@ See https://learn.microsoft.com/en-us/azure/information-protection/configure-sup
 
 ## Define and Create Sensitivity Labels
 https://learn.microsoft.com/en-us/microsoft-365/compliance/create-sensitivity-labels?view=o365-worldwide
+
+### Creating Sensitivity Labels
