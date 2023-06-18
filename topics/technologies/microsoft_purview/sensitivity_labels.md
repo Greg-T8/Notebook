@@ -18,10 +18,6 @@
   - [Manage the AIP Super User Feature](#manage-the-aip-super-user-feature)
 - [Define and Create Sensitivity Labels](#define-and-create-sensitivity-labels)
 - [Use PowerShell to manage Sensitivity Labels](#use-powershell-to-manage-sensitivity-labels)
-  - [Install the AIP PowerShell Module](#install-the-aip-powershell-module)
-  - [Connect to the AIP Service](#connect-to-the-aip-service)
-  - [Create a Sensitivity Label](#create-a-sensitivity-label)
-  - [Create a Sensitivity Label Policy](#create-a-sensitivity-label-policy)
   - [Getting Sensitivity Labels and Policies](#getting-sensitivity-labels-and-policies)
   - [Removing Sensitivity Labels and Policies](#removing-sensitivity-labels-and-policies)
 
@@ -259,37 +255,33 @@ See [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-sen
 
 
 ## Use PowerShell to manage Sensitivity Labels
-
-### Install the AIP PowerShell Module
-### Connect to the AIP Service
-### Create a Sensitivity Label
-### Create a Sensitivity Label Policy
+The commands for managing sensitivity labels are found in the Exchange Online Management PowerShell module. Use `Connect-IPPSession` to connect to Exchange Online and then use the following commands to manage sensitivity labels and policies.
 
 ### Getting Sensitivity Labels and Policies
-Use `Get-Label` to get a list of all sensitivity labels in your tenant. Or use this command:  
+Use `Get-Label` to get a list of all sensitivity labels in your tenant. 
 ```powershell
-Get-Label | Select Priority, ContentType, Name, ImmutableId, DisplayName | ft -AutoSize
+Get-Label | Select Priority, ContentType, Name, ExchangeObjectId, DisplayName | ft -AutoSize
 ```
-![](img/20230652-045204.png)
+![](img/20230613-051304.png)
 
-
-You can use the `-Identity` parameter to get a specific label. However, you must use the label's GUID or Name. **You cannot use the label's display name.** The label's GUID is mapped to the `ImmutableId` property. In the case of Microsoft's default labels, the ImmutableId is the same as the label's Name (see above). However, these values will be different for custom labels that you create.
+Use the `-Identity` parameter to get a specific label. However, you must use the label's GUID or Name. **You cannot use the label's display name.** The label's GUID is mapped to the `ExchangeObjectId` property. In the case of Microsoft's default labels, the ExchangeObjectId is the same as the label's Name (see above). However, these values will be different for custom labels that you create.
 
 ![](img/20230657-045742.png)
 
-
 ### Removing Sensitivity Labels and Policies
-To remove a sensitivity label, you must first remove the label from all label policies. Use the following commands to remove a label from a label policy:
+To remove a sensitivity label, you must first remove the label from all label policies. Use the following commands to remove a label from a single label policy:
 
 ```powershell
 function Remove-LabelFromPolicy {
     param (
         [Parameter(Mandatory=$true)]
-        [string]$LabelName, # The Name or ImmutableId of the label, not the Display Name
+        [string]$LabelName, # The Name or ExchangeObjectId of the label, not the Display Name
         [Parameter(Mandatory=$true)]
         [string]$LabelPolicyName
     )
-    $label = Get-Label -Name $LabelName
-    Set-LabelPolicy -Identity $LabelPolicyName -RemoveLabel $label
+    $label = Get-Label -Identity $LabelName
+    Set-LabelPolicy -Identity $LabelPolicyName -RemoveLabel $label.Name
 }
 ```
+
+![](img/20230623-052344.png)
