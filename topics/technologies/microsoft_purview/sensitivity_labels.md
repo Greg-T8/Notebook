@@ -20,6 +20,7 @@
 - [Use PowerShell to manage Sensitivity Labels](#use-powershell-to-manage-sensitivity-labels)
   - [Getting Sensitivity Labels and Policies](#getting-sensitivity-labels-and-policies)
   - [Removing Sensitivity Labels and Policies](#removing-sensitivity-labels-and-policies)
+  - [Creating a new Label Policy](#creating-a-new-label-policy)
 
 ## Links
 - [Learn about sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels?view=o365-worldwide)
@@ -257,14 +258,22 @@ See [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-sen
 ## Use PowerShell to manage Sensitivity Labels
 The commands for managing sensitivity labels are found in the Exchange Online Management PowerShell module. Use `Connect-IPPSession` to connect to Exchange Online and then use the following commands to manage sensitivity labels and policies.
 
-### Getting Sensitivity Labels and Policies
-Use `Get-Label` to get a list of all sensitivity labels in your tenant. 
-```powershell
-Get-Label | Select Priority, ContentType, Name, ExchangeObjectId, DisplayName | ft -AutoSize
-```
-![](img/20230613-051304.png)
+Documentation for managing labels through PowerShell can be found at [Policy and Compliance](https://learn.microsoft.com/en-us/powershell/module/exchange/?view=exchange-ps#policy-and-compliance). 
 
-Use the `-Identity` parameter to get a specific label. However, you must use the label's GUID or Name. **You cannot use the label's display name.** The label's GUID is mapped to the `ExchangeObjectId` property. In the case of Microsoft's default labels, the ExchangeObjectId is the same as the label's Name (see above). However, these values will be different for custom labels that you create.
+Run `Get-Command -Module tmp* -noun *label*` to see the available commands.
+
+![](img/20230654-115431.png)
+
+
+### Getting Sensitivity Labels and Policies
+Run `Get-Label` to get a list of all sensitivity labels in your tenant. 
+```powershell
+Get-Label | Select Priority, ContentType, DisplayName, ParentLabelDisplayName, Name, ExchangeObjectId, ParentId | ft -AutoSize
+```
+![](img/20230606-120634.png)
+
+
+Use the `-Identity` parameter to get a specific label. Specify the label's GUID or Name property. Unfortunately, **you cannot use the label's Display Name.** The label's GUID is mapped to the `ExchangeObjectId` property. In the case of Microsoft's default labels, the ExchangeObjectId is the same as the label's Name (see above). However, these values will be different for custom labels that you create.
 
 ![](img/20230657-045742.png)
 
@@ -272,16 +281,35 @@ Use the `-Identity` parameter to get a specific label. However, you must use the
 To remove a sensitivity label, you must first remove the label from all label policies. Use the following commands to remove a label from a single label policy:
 
 ```powershell
-function Remove-LabelFromPolicy {
+function Remove-PvLabelFromPolicy {
     param (
-        [Parameter(Mandatory=$true)]
-        [string]$LabelName, # The Name or ExchangeObjectId of the label, not the Display Name
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory=$true,ParameterSetName='Single')]
+        [string]$LabelName, # The Name or ExchangeObjectId of the label, not the DisplayName
+        [Parameter(Mandatory=$true,ParameterSetName='All')]
+        [switch]$All,
         [string]$LabelPolicyName
     )
-    $label = Get-Label -Identity $LabelName
-    Set-LabelPolicy -Identity $LabelPolicyName -RemoveLabel $label.Name
+    switch ($PSCmdlet.ParameterSetName) {
+        'Single' {
+            $label = Get-Label -Identity $LabelName
+            Set-LabelPolicy -Identity $LabelPolicyName -RemoveLabel $label.Name
+        }
+        'All' {
+            $labelPolicy = Get-LabelPolicy -Identity $LabelPolicyName
+            $labelPolicy.Labels | ForEach-Object {
+                Set-LabelPolicy -Identity $LabelPolicyName -RemoveLabel $_.Name
+            }
+        }
+    }
 }
 ```
 
 ![](img/20230623-052344.png)
+
+### Creating a new Label Policy
+Use the following command to create a new label policy.  
+
+```powerhsell
+function New-PvLabelPolicy {
+    
+}
