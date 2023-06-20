@@ -285,7 +285,9 @@ Get-LabelPolicy | Select Name, Priority, CreatedBy, WhenChanged, ExchangeObjectI
 
 The command output doesn't make it easy to understand which labels are part of which policies. To get a better view of the labels in each policy, use the following command:
 ```powershell
-
+Get-LabelPolicy -Pv labelPolicy |
+ Select -ExpandProperty ScopedLabels |
+ % {get-Label -Identity $_ -pv label}
 ```
 
 
