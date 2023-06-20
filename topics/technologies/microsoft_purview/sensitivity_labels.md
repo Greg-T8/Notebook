@@ -273,9 +273,21 @@ Get-Label | Select Priority, ContentType, DisplayName, ParentLabelDisplayName, N
 ![](img/20230606-120634.png)
 
 
-Use the `-Identity` parameter to get a specific label. Specify the label's GUID or Name property. Unfortunately, **you cannot use the label's Display Name.** The label's GUID is mapped to the `ExchangeObjectId` property. In the case of Microsoft's default labels, the ExchangeObjectId is the same as the label's Name (see above). However, these values will be different for custom labels that you create.
+Use the `-Identity` parameter to get a specific label. **You cannot specify the label's DisplayName property for the `Identity` parameter.** Insteady, you must specify the label's GUID or Name property. The label's GUID is the `ExchangeObjectId`. In the case of Microsoft's default labels, the ExchangeObjectId is the same as the label's Name (see above). However, these two values will be different for custom labels that you create.
 
 ![](img/20230657-045742.png)
+
+Use `Get-LabelPolicy` to get a list of all label policies in your tenant. 
+```powershell
+Get-LabelPolicy | Select Name, Priority, CreatedBy, WhenChanged, ExchangeObjectId, Labels, ScopedLabels | ft -AutoSize
+```
+![](img/20230610-041038.png)
+
+The command output doesn't make it easy to understand which labels are part of which policies. To get a better view of the labels in each policy, use the following command:
+```powershell
+
+```
+
 
 ### Removing Sensitivity Labels and Policies
 To remove a sensitivity label, you must first remove the label from all label policies. Use the following commands to remove a label from a single label policy:
@@ -283,11 +295,11 @@ To remove a sensitivity label, you must first remove the label from all label po
 ```powershell
 function Remove-PvLabelFromPolicy {
     param (
+        [string]$LabelPolicyName
         [Parameter(Mandatory=$true,ParameterSetName='Single')]
         [string]$LabelName, # The Name or ExchangeObjectId of the label, not the DisplayName
         [Parameter(Mandatory=$true,ParameterSetName='All')]
         [switch]$All,
-        [string]$LabelPolicyName
     )
     switch ($PSCmdlet.ParameterSetName) {
         'Single' {
