@@ -273,7 +273,7 @@ Get-Label | Select Priority, ContentType, DisplayName, ParentLabelDisplayName, N
 ![](img/20230606-120634.png)
 
 
-Use the `-Identity` parameter to get a specific label. **You cannot specify the label's DisplayName property for the `Identity` parameter.** Insteady, you must specify the label's GUID or Name property. The label's GUID is the `ExchangeObjectId`. In the case of Microsoft's default labels, the ExchangeObjectId is the same as the label's Name (see above). However, these two values will be different for custom labels that you create.
+Use the `-Identity` parameter to get a specific label. This parameter takes the label's Name property or GUID (ExchangeObjectId). **You cannot specify the label's DisplayName property for the `Identity` parameter.** In the case of Microsoft's default labels (see above picture), the ExchangeObjectId is the same as the label's Name. However, these two values will be different for custom labels that you create
 
 ![](img/20230657-045742.png)
 
@@ -285,10 +285,41 @@ Get-LabelPolicy | Select Name, Priority, CreatedBy, WhenChanged, ExchangeObjectI
 
 The command output doesn't make it easy to understand which labels are part of which policies. To get a better view of the labels in each policy, use the following command:
 ```powershell
-Get-LabelPolicy -Pv labelPolicy |
- Select -ExpandProperty ScopedLabels |
- % {get-Label -Identity $_ -pv label}
+function Get-PvLabelPolicy {
+    $labels = Get-Label | Select-Object Name, Priority,
+        @{n = 'LabelPath'; e = {
+            if ($_.ParentId) {
+                "$( $_.ParentLabelDisplayName ) > $( $_.DisplayName )"
+            }
+            else {
+                "$( $_.DisplayName )"
+            }
+        }}
+
+    Get-LabelPolicy -WarningAction Ignore | Select-Object Name, Priority, CreatedBy, WhenChanged, ExchangeObjectId,
+        @{n = 'Labels'; e = {
+            $sortedLabels = [System.Collections.Generic.List[PSCustomObject]]@()
+            foreach ($l in $_.Labels) {
+                foreach ($m in $labels) {
+                    if ($l -eq $m.Name) {
+                        $sortedLabels.Add(
+                            [PSCustomObject]@{
+                                Name = $m.Name
+                                Priority = $m.Priority
+                                LabelPath = $m.LabelPath
+                            }
+                        )
+                    }
+                }
+            }
+            $sortedLabels | Sort-Object Priority | Select -ExpandProperty LabelPath
+        }}
+}
+Get-PvLabelPolicy | Tee-Object -Variable results
+$results | Select Name, @{n='Labels';e={$_.Labels -join "`n"}}
 ```
+This command outputs the label policies and corresponding labels in an easy-to-read format.
+
 
 
 ### Removing Sensitivity Labels and Policies
