@@ -320,7 +320,7 @@ $results | Select Name, @{n='Labels';e={$_.Labels -join "`n"}} | ft -wrap
 ```
 This command outputs the label policies and corresponding labels in an easy-to-read format.
 
-
+![](img/20230623-042332.png)
 
 ### Removing Sensitivity Labels and Policies
 To remove a sensitivity label, you must first remove the label from all label policies. Use the following commands to remove a label from a single label policy:
