@@ -317,6 +317,7 @@ function Get-PvLabelPolicy {
 }
 Get-PvLabelPolicy | Tee-Object -Variable results
 $results | Select Name, @{n='Labels';e={$_.Labels -join "`n"}} | ft -wrap
+
 ```
 This command outputs the label policies and corresponding labels in an easy-to-read format.
 
