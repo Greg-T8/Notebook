@@ -283,7 +283,7 @@ Get-LabelPolicy | Select Name, Priority, CreatedBy, WhenChanged, ExchangeObjectI
 ```
 ![](img/20230610-041038.png)
 
-The command output doesn't make it easy to understand which labels are part of which policies. To get a better view of the labels in each policy, use the following command:
+The command output prints the labels, but it doesn't make it easy to understand which labels are part of which policies. Use the following command to get a better view of the labels in each policy:  
 ```powershell
 function Get-PvLabelPolicy {
     $labels = Get-Label | Select-Object Name, Priority,
@@ -324,21 +324,21 @@ This command outputs the label policies and corresponding labels in an easy-to-r
 ![](img/20230623-042332.png)
 
 ### Removing Sensitivity Labels and Policies
-To remove a sensitivity label, you must first remove the label from all label policies. Use the following commands to remove a label from a single label policy:
+To remove a sensitivity label, you must first remove the label from all label policies. Use the following commands to remove a label from a single label policy or all policies:
 
 ```powershell
 function Remove-PvLabelFromPolicy {
     param (
-        [string]$LabelPolicyName
+        [string]$LabelPolicyName,
         [Parameter(Mandatory=$true,ParameterSetName='Single')]
         [string]$LabelName, # The Name or ExchangeObjectId of the label, not the DisplayName
         [Parameter(Mandatory=$true,ParameterSetName='All')]
-        [switch]$All,
+        [switch]$All
     )
     switch ($PSCmdlet.ParameterSetName) {
         'Single' {
-            $label = Get-Label -Identity $LabelName
-            Set-LabelPolicy -Identity $LabelPolicyName -RemoveLabel $label.Name
+            $label = Get-Label -Identity $LabelName 
+            Set-LabelPolicy -Identity $LabelPolicyName -RemoveLabel $label.Name -WarningAction Ignore
         }
         'All' {
             $labelPolicy = Get-LabelPolicy -Identity $LabelPolicyName
