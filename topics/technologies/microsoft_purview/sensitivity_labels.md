@@ -19,6 +19,7 @@
 - [Define and Create Sensitivity Labels](#define-and-create-sensitivity-labels)
 - [Use PowerShell to manage Sensitivity Labels](#use-powershell-to-manage-sensitivity-labels)
   - [Getting Sensitivity Labels and Policies](#getting-sensitivity-labels-and-policies)
+  - [Creating Sensitivity Labels and Policies](#creating-sensitivity-labels-and-policies)
   - [Removing Sensitivity Labels and Policies](#removing-sensitivity-labels-and-policies)
   - [Creating a new Label Policy](#creating-a-new-label-policy)
 
@@ -283,7 +284,7 @@ Get-LabelPolicy | Select Name, Priority, CreatedBy, WhenChanged, ExchangeObjectI
 ```
 ![](img/20230610-041038.png)
 
-The command output prints the labels, but it doesn't make it easy to understand which labels are part of which policies. Use the following command to get a better view of the labels in each policy:  
+The command output from above prints the labels but it doesn't make it easy to understand which labels are part of which policies. Use the following command to get a better view of the labels in each policy:  
 ```powershell
 function Get-PvLabelPolicy {
     param(
@@ -334,13 +335,35 @@ Get-PvLabelPolicy | Tee-Object -Variable results
 $results | Select Name, @{n='Labels';e={$_.Labels -join "`n"}} | ft -wrap
 
 ```
-This command outputs the label policies and corresponding labels in an easy-to-read format.
+Use the `-TreeView` option to list the labels in order of priority.
 
 ![](img/20230657-035712.png)
 
 You can also run the command without any options to obtain the ExchangeObjectId.
 
 ![](img/20230657-035759.png)
+
+### Creating Sensitivity Labels and Policies
+Use `New-Label` to create a new sensitivity label. However, this command requires three parameters, `Name`, `DisplayName`, and `Tooltip`. When needing to create new labels quickly, such as in a test environment, you may use the following command to create a new label with only specifying the `DisplayName` property.
+```powershell
+function New-PvLabel {
+    param(
+        [Parameter(Mandatory)]
+        [string]$DisplayName,
+        [string]$OrgPrefix = 'myorg',
+        [string]$Tooltip = 'TBD'
+    )
+    $guid = (New-Guid).ToString().Substring(0,8)
+    $labelName = "$OrgPrefix`_$guid"
+    try {
+        New-Label -DisplayName $DisplayName -Name $labelName -Tooltip $Tooltip -ErrorAction stop -WarningAction ignore
+    } catch {
+        Write-Warning $_.Exception.Message
+    }
+}
+```
+![](img/20230624-042415.png)
+
 
 
 
