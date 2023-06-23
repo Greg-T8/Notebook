@@ -286,7 +286,10 @@ Get-LabelPolicy | Select Name, Priority, CreatedBy, WhenChanged, ExchangeObjectI
 The command output prints the labels, but it doesn't make it easy to understand which labels are part of which policies. Use the following command to get a better view of the labels in each policy:  
 ```powershell
 function Get-PvLabelPolicy {
-    $labels = Get-Label | Select-Object Name, Priority,
+    param(
+        [switch]$TreeView
+    )
+    $labels = Get-Label | Select-Object Name, Priority, ExchangeObjectId,
         @{n = 'LabelPath'; e = {
             if ($_.ParentId) {
                 "$( $_.ParentLabelDisplayName ) > $( $_.DisplayName )"
@@ -296,24 +299,36 @@ function Get-PvLabelPolicy {
             }
         }}
 
-    Get-LabelPolicy -WarningAction Ignore | Select-Object Name, Priority, CreatedBy, WhenChanged, ExchangeObjectId,
-        @{n = 'Labels'; e = {
-            $sortedLabels = [System.Collections.Generic.List[PSCustomObject]]@()
-            foreach ($l in $_.Labels) {
-                foreach ($m in $labels) {
-                    if ($l -eq $m.Name) {
+    $labelLookup = @{}
+    foreach ($l in $labels) {
+        $labelLookup[$l.Name] = $l
+    }
+
+    $results = Get-LabelPolicy -WarningAction Ignore | 
+        Select-Object Name, Priority, CreatedBy, WhenChanged, ExchangeObjectId,
+            @{n = 'Labels'; e = {
+                $sortedLabels = [System.Collections.Generic.List[PSCustomObject]]::new()
+                foreach ($l in $_.Labels) {
+                    if ($labelLookup.ContainsKey($l)) {
                         $sortedLabels.Add(
                             [PSCustomObject]@{
-                                Name = $m.Name
-                                Priority = $m.Priority
-                                LabelPath = $m.LabelPath
+                                Name = $l
+                                Priority = $labelLookup[$l].Priority
+                                LabelPath = $labelLookup[$l].LabelPath
                             }
                         )
                     }
                 }
-            }
-            $sortedLabels | Sort-Object Priority | Select -ExpandProperty LabelPath
-        }}
+                $sortedLabels | Sort-Object Priority | Select-Object -ExpandProperty LabelPath
+            }}
+        
+    if ($PSBoundParameters.TreeView) {
+        $results | Select-Object Name, 
+            @{n='Labels';e={$_.Labels -join "`n"}} |
+            Format-Table -wrap
+    } else {
+        $results
+    }
 }
 Get-PvLabelPolicy | Tee-Object -Variable results
 $results | Select Name, @{n='Labels';e={$_.Labels -join "`n"}} | ft -wrap
@@ -321,7 +336,13 @@ $results | Select Name, @{n='Labels';e={$_.Labels -join "`n"}} | ft -wrap
 ```
 This command outputs the label policies and corresponding labels in an easy-to-read format.
 
-![](img/20230623-042332.png)
+![](img/20230657-035712.png)
+
+You can also run the command without any options to obtain the ExchangeObjectId.
+
+![](img/20230657-035759.png)
+
+
 
 ### Removing Sensitivity Labels and Policies
 To remove a sensitivity label, you must first remove the label from all label policies. Use the following commands to remove a label from a single label policy or all policies:
