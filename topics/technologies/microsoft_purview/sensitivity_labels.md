@@ -273,6 +273,14 @@ Get-Label | Select Priority, ContentType, DisplayName, ParentLabelDisplayName, N
 ```
 ![](img/20230606-120634.png)
 
+Wrapped in a function, this looks like
+```powershell
+function Get-PvLabel {
+    Get-Label | Select-Object Priority, ContentType, DisplayName, 
+        ParentLabelDisplayName, Name, ExchangeObjectId, ParentId | 
+        Format-Table -AutoSize
+}
+```
 
 Use the `-Identity` parameter to get a specific label. This parameter takes the label's Name property or GUID (ExchangeObjectId). **You cannot specify the label's DisplayName property for the `Identity` parameter.** In the case of Microsoft's default labels (see above picture), the ExchangeObjectId is the same as the label's Name. However, these two values will be different for custom labels that you create
 

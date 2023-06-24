@@ -1,11 +1,17 @@
 $run = '$main1'
 
 $main1 = {
-    New-PvLabel -DisplayName 'External'
+
 }
 
 $main2 = {
 
+}
+
+function Get-PvLabel {
+    Get-Label | Select-Object Priority, ContentType, DisplayName, 
+        ParentLabelDisplayName, Name, ExchangeObjectId, ParentId | 
+        Format-Table -AutoSize
 }
 
 function Get-PvLabelPolicy {
@@ -69,6 +75,10 @@ function New-PvLabel {
     } catch {
         Write-Warning $_.Exception.Message
     }
+}
+
+function New-PvLabelPolicy {
+
 }
 
 $run = Invoke-Expression $run
