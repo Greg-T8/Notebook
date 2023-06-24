@@ -4,9 +4,6 @@ $main1 = {
 
 }
 
-$main2 = {
-
-}
 
 function Get-PvLabel {
     Get-Label | Select-Object Priority, ContentType, DisplayName, 
@@ -78,7 +75,21 @@ function New-PvLabel {
 }
 
 function New-PvLabelPolicy {
-
+    param(
+        [Parameter(Mandatory)]
+        [string]$Name,
+        [Parameter(Mandatory)]
+        [string[]]$Labels
+    )
+    $labelPolicy = @{
+        Name = $Name
+        Labels = $Labels
+    }
+    try {
+        New-LabelPolicy @labelPolicy -ErrorAction stop -WarningAction ignore
+    } catch {
+        Write-Warning $_.Exception.Message
+    }
 }
 
 $run = Invoke-Expression $run

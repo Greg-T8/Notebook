@@ -257,7 +257,7 @@ See [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-sen
 
 
 ## Use PowerShell to manage Sensitivity Labels
-The commands for managing sensitivity labels are found in the Exchange Online Management PowerShell module. Use `Connect-IPPSession` to connect to Exchange Online and then use the following commands to manage sensitivity labels and policies.
+The commands for managing sensitivity labels are found in [Security & Compliance PowerShell](https://learn.microsoft.com/en-us/powershell/exchange/scc-powershell?view=exchange-ps). Use `Connect-IPPSession` in the Exchange Online Management PowerShell module to manage sensitivity labels and policies.
 
 Documentation for managing labels through PowerShell can be found at [Policy and Compliance](https://learn.microsoft.com/en-us/powershell/module/exchange/?view=exchange-ps#policy-and-compliance). 
 
