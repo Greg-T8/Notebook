@@ -364,8 +364,7 @@ function New-PvLabel {
 ```
 ![](img/20230624-042415.png)
 
-
-
+**Pro Tip**: As the company adopts the labeling system, the need to change label names may come up.  You can always change the `DisplayName` but you can't change the `Name`. Use a convention for the `Name` parameter such as `myorg_` followed by a GUID. This will allow you to change the `DisplayName` without having to recreate the label.
 
 ### Removing Sensitivity Labels and Policies
 To remove a sensitivity label, you must first remove the label from all label policies. Use the following commands to remove a label from a single label policy or all policies:
