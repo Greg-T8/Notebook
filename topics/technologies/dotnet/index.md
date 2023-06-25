@@ -2,9 +2,8 @@
 
 Most of my notes are taken from [C# 11 and .NET 7 Modern Cross-Platform Development Fundamentals](https://www.amazon.com/11-NET-Cross-Platform-Development-Fundamentals-ebook/dp/B0B7SKMDYQ/ref=sr_1_1?keywords=modern+cross-platform+development&qid=1686430651&sprefix=modern+cross-plat%2Caps%2C111&sr=8-1)
 
-![](img/20230627-162703.png)
-
 ## Resources
+- [C# Documentation](https://learn.microsoft.com/en-us/dotnet/csharp/)
 - [GitHub repoistory for Modern Cross-Platform Development Fundamentals](https://github.com/markjprice/cs11dotnet7)
 
 ## Introduction
@@ -34,14 +33,46 @@ At runtime, CoreCLR loads the IL code from the assembly, the **just-in-time (JIT
 
 The benefit of this two-step process is that Microsoft can create CLRs for Linux and macOS as well as for Windows.  The same IL code runs everywhere because of the second compilation step, which generates code for the native OS and CPU instruction set.
 
-## Create a Console App
+## Helpful Commands
+See the [dotnet command reference](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet).
+
 Use the following command to create a new console app:  
 ```dotnet new console``` 
 
 ![](img/20230646-164605.png)
 
-This command targets your latest .NET SDK version by default.  Use the `-f` switch to specify a target framework, e.g:  
-```dotnet new console -f net6.0```
+This command targets your latest .NET SDK version by default.  Use the `-f` switch to specify a target framework, e.g: `dotnet new console -f net6.0`
 
 Use the command `dotnet run` to compile and execute the program:  
 ![](img/20230659-165904.png)
+
+Use `dotnet --list-sdks` to list the installed SDKs:  
+![](img/20230655-145556.png)
+
+Use `dotnet --list-runtimes` to list the installed runtimes:  
+![](img/20230656-145619.png)
+
+Use `dotnet --info` to list other information in addition to the installed SDKs and runtimes:  
+![](img/20230657-145721.png)
+
+Use `dotnet --version` to list the which version of the .NET SDK is being used:  
+![](img/20230605-150542.png)
+
+See [Configure language version](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/configure-language-version) for information on enabling a specific language version compiler.
+
+You can specify the language version in the project file:  
+![](img/20230659-155936.png)
+
+Getting a list of language versions is tricky. See [this explanation](https://github.com/dotnet/docs/issues/27101#issuecomment-1172989898) for more info. Using this technique, you can uncover the supported language versions, even for preview releases:  
+
+![](img/20230601-160143.png)
+
+## Troubleshooting Visual Studio
+
+### Build Error - Unable to find packages
+When creating a new application and building it for the first time, you may get an error like this:
+![](img/20230656-155606.png)
+
+The error message is related to missing package sources from the NuGet package manager.  To fix this, open the NuGet package manager settings and verify the package source URL has been added:
+
+![](img/20230658-155829.png)
