@@ -86,7 +86,7 @@ function New-PvLabelPolicy {
         Labels = $Labels
     }
     try {
-        New-LabelPolicy @labelPolicy -ErrorAction stop -WarningAction ignore
+        New-LabelPolicy @labelPolicy -ErrorAction stop -WarningAction ignore | Out-Null
     } catch {
         Write-Warning $_.Exception.Message
     }

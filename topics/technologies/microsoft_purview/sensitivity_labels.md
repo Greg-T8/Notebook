@@ -406,7 +406,22 @@ function Remove-PvLabelFromPolicy {
 ### Creating a new Label Policy
 Use the following command to create a new label policy.  
 
-```powerhsell
+```powershell
 function New-PvLabelPolicy {
-    
+    param(
+        [Parameter(Mandatory)]
+        [string]$Name,
+        [Parameter(Mandatory)]
+        [string[]]$Labels
+    )
+    $labelPolicy = @{
+        Name = $Name
+        Labels = $Labels
+    }
+    try {
+        New-LabelPolicy @labelPolicy -ErrorAction stop -WarningAction ignore | Out-Null
+    } catch {
+        Write-Warning $_.Exception.Message
+    }
 }
+```
