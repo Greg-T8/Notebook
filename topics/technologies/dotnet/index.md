@@ -76,3 +76,5 @@ When creating a new application and building it for the first time, you may get 
 The error message is related to missing package sources from the NuGet package manager.  To fix this, open the NuGet package manager settings and verify the package source URL has been added:
 
 ![](img/20230658-155829.png)
+
+See [Visual Studio Package Sources](https://learn.microsoft.com/en-us/nuget/consume-packages/install-use-packages-visual-studio#package-sources) for more details.
