@@ -18,10 +18,10 @@
   - [Manage the AIP Super User Feature](#manage-the-aip-super-user-feature)
 - [Define and Create Sensitivity Labels](#define-and-create-sensitivity-labels)
 - [Use PowerShell to manage Sensitivity Labels](#use-powershell-to-manage-sensitivity-labels)
-  - [Getting Sensitivity Labels and Policies](#getting-sensitivity-labels-and-policies)
-  - [Creating a Sensitivity Label](#creating-a-sensitivity-label)
-  - [Creating a new Label Policy](#creating-a-new-label-policy)
-  - [Removing Sensitivity Labels and Policies](#removing-sensitivity-labels-and-policies)
+  - [Get Info on Sensitivity Labels and Policies](#get-info-on-sensitivity-labels-and-policies)
+  - [Create a Sensitivity Label](#create-a-sensitivity-label)
+  - [Create a Label Policy](#create-a-label-policy)
+  - [Removing a Sensitivity Label from a Label Policy](#removing-a-sensitivity-label-from-a-label-policy)
 
 ## Links
 - [Learn about sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels?view=o365-worldwide)
@@ -266,7 +266,7 @@ Run `Get-Command -Module tmp* -noun *label*` to see the available commands.
 ![](img/20230654-115431.png)
 
 
-### Getting Sensitivity Labels and Policies
+### Get Info on Sensitivity Labels and Policies
 Run `Get-Label` to get a list of all sensitivity labels in your tenant. 
 ```powershell
 Get-Label | Select Priority, ContentType, DisplayName, ParentLabelDisplayName, Name, ExchangeObjectId, ParentId | ft -AutoSize
@@ -282,7 +282,7 @@ function Get-PvLabel {
 }
 ```
 
-Use the `-Identity` parameter to get a specific label. This parameter takes the label's Name property or GUID (ExchangeObjectId). **You cannot specify the label's DisplayName property for the `Identity` parameter.** In the case of Microsoft's default labels (see above picture), the ExchangeObjectId is the same as the label's Name. However, these two values will be different for custom labels that you create
+Use the `-Identity` parameter to get a specific label. This parameter takes the label's Name property or GUID (ExchangeObjectId). **You cannot specify the label's DisplayName property for the `Identity` parameter.** In the case of Microsoft's default labels (see above picture), the `ExchangeObjectId` is the same as the label's `Name`. However, these two values will be different for custom labels that you create
 
 ![](img/20230657-045742.png)
 
@@ -351,7 +351,7 @@ You can also run the command without any options to obtain the ExchangeObjectId.
 
 ![](img/20230657-035759.png)
 
-### Creating a Sensitivity Label
+### Create a Sensitivity Label
 Use `New-Label` to create a new sensitivity label. This command requires three parameters, `Name`, `DisplayName`, and `Tooltip`. When needing to create new labels quickly, such as in a test environment, you may use the following command to create a new label with only specifying the `DisplayName` property.
 ```powershell
 function New-PvLabel {
@@ -374,7 +374,7 @@ function New-PvLabel {
 
 **ProTip!** As the company adopts the labeling system, the need to change label names may come up.  You can always change the `DisplayName` but you can't change the `Name`. Use a convention for the `Name` parameter such as `myorg_` followed by a GUID. This will allow you to change the `DisplayName` without having to recreate the label.
 
-### Creating a new Label Policy
+### Create a Label Policy
 Use the following command to create a new label policy. You cannot change the policy name once it is created. To change the name, you must delete the policy and create a new one.  
 ```powershell
 function New-PvLabelPolicy {
@@ -398,15 +398,14 @@ function New-PvLabelPolicy {
 ![](img/20230637-033711.png)
 
 
-### Removing Sensitivity Labels and Policies
-To remove a sensitivity label, you must first remove the label from all label policies. Use the following commands to remove a label from a single label policy or all policies:
-
+### Removing a Sensitivity Label from a Label Policy
+Let's say you want to delete a sensitivity label. Before you can delete it, you must it removing it all policies. Use the following commands to remove a label from a single label policy or all policies:
 ```powershell
 function Remove-PvLabelFromPolicy {
     param (
-        [string]$LabelPolicyName,
+        [string]$LabelName,
         [Parameter(Mandatory=$true,ParameterSetName='Single')]
-        [string]$LabelName, # The Name or ExchangeObjectId of the label, not the DisplayName
+        [string]$LabelPolicyName,
         [Parameter(Mandatory=$true,ParameterSetName='All')]
         [switch]$All
     )
@@ -416,7 +415,7 @@ function Remove-PvLabelFromPolicy {
             Set-LabelPolicy -Identity $LabelPolicyName -RemoveLabel $label.Name -WarningAction Ignore
         }
         'All' {
-            $labelPolicy = Get-LabelPolicy -Identity $LabelPolicyName
+            $labelPolicy = Get-LabelPolicy
             $labelPolicy.Labels | ForEach-Object {
                 Set-LabelPolicy -Identity $LabelPolicyName -RemoveLabel $_.Name
             }

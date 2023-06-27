@@ -92,5 +92,25 @@ function New-PvLabelPolicy {
     }
 }
 
+function Remove-PvLabelFromPolicy {
+    param (
+        [string]$LabelName,
+        [Parameter(Mandatory=$true,ParameterSetName='Single')]
+        [string]$LabelPolicyName,
+        [Parameter(Mandatory=$true,ParameterSetName='All')]
+        [switch]$All
+    )
+    switch ($PSCmdlet.ParameterSetName) {
+        'Single' {
+            $label = Get-Label -Identity $LabelName 
+            Set-LabelPolicy -Identity $LabelPolicyName -RemoveLabel $label.Name -WarningAction Ignore
+        }
+        'All' {
+            $labelPolicy = Get-LabelPolicy
+            $labelPolicy.Labels | Where-Object { $_ -eq }
+        }
+    }
+}
+
 $run = Invoke-Expression $run
 & $run
