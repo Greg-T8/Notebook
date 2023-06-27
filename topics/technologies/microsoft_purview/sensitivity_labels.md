@@ -21,7 +21,9 @@
   - [Get Info on Sensitivity Labels and Policies](#get-info-on-sensitivity-labels-and-policies)
   - [Create a Sensitivity Label](#create-a-sensitivity-label)
   - [Create a Label Policy](#create-a-label-policy)
-  - [Removing a Sensitivity Label from a Label Policy](#removing-a-sensitivity-label-from-a-label-policy)
+  - [Add a Sensitivity Label to a Label Policy](#add-a-sensitivity-label-to-a-label-policy)
+  - [Set the Parent Label for a Sensitivity Label](#set-the-parent-label-for-a-sensitivity-label)
+  - [Remove a Sensitivity Label from a Label Policy](#remove-a-sensitivity-label-from-a-label-policy)
 
 ## Links
 - [Learn about sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels?view=o365-worldwide)
@@ -397,8 +399,22 @@ function New-PvLabelPolicy {
 ```
 ![](img/20230637-033711.png)
 
+### Add a Sensitivity Label to a Label Policy
+Use the following command to add one or more labels to a label policy:  
+```powershell
+Set-LabelPolicy -Identity 'My Label Policy' -AddLabel 'ExchangeObjectId or Name'
+```
+![](img/20230658-035835.png)
 
-### Removing a Sensitivity Label from a Label Policy
+### Set the Parent Label for a Sensitivity Label
+Use the following command to set the parent label for a label:  
+```powershell
+Set-Label -Identity 'ExchangeObjectId or Name' -ParentLabel 'ExchangeObjectId or Name'
+```
+![](img/20230612-041236.png)
+
+
+### Remove a Sensitivity Label from a Label Policy
 Let's say you want to delete a sensitivity label. Before you can delete it, you must it removing it all policies. Use the following commands to remove a label from a single label policy or all policies:
 ```powershell
 function Remove-PvLabelFromPolicy {
