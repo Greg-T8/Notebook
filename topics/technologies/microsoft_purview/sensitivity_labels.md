@@ -375,7 +375,7 @@ function New-PvLabel {
 **ProTip!** As the company adopts the labeling system, the need to change label names may come up.  You can always change the `DisplayName` but you can't change the `Name`. Use a convention for the `Name` parameter such as `myorg_` followed by a GUID. This will allow you to change the `DisplayName` without having to recreate the label.
 
 ### Creating a new Label Policy
-Use the following command to create a new label policy.  
+Use the following command to create a new label policy. You cannot change the policy name once it is created. To change the name, you must delete the policy and create a new one.  
 ```powershell
 function New-PvLabelPolicy {
     param(
@@ -395,7 +395,7 @@ function New-PvLabelPolicy {
     }
 }
 ```
-
+![](img/20230637-033711.png)
 
 
 ### Removing Sensitivity Labels and Policies
@@ -426,10 +426,10 @@ function Remove-PvLabelFromPolicy {
 ```
 ![](img/20230623-052344.png)
 
-To remove a label policy, use `Remove-LabelPolicy`. This command requires the `Identity` parameter which takes the label policy's Name or ExchangeObjectId. After executing the command, the label policy will be placed in a pending deletion state. Allow some time...
+To remove a label policy, use `Remove-LabelPolicy`. This command requires the `Identity` parameter which takes the label policy's `Name` or `ExchangeObjectId`. After executing the command, the label policy will be placed in a pending deletion state. Allow 5-10 minutes for the deletion process to complete.
 
 Run the following command to check the deletion state:
 ```powershell
-Get-LabelPolicy -Identity 0bddff4f-b841-4814-93e1-7f54ac597c35 | Select Name, Mode, DistributionStatus
+Get-LabelPolicy -Identity <Name or ExchangeObjectId> | Select Name, Mode, DistributionStatus
 ```
 ![](img/20230624-032455.png)
