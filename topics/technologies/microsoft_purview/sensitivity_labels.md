@@ -19,9 +19,9 @@
 - [Define and Create Sensitivity Labels](#define-and-create-sensitivity-labels)
 - [Use PowerShell to manage Sensitivity Labels](#use-powershell-to-manage-sensitivity-labels)
   - [Getting Sensitivity Labels and Policies](#getting-sensitivity-labels-and-policies)
-  - [Creating Sensitivity Labels and Policies](#creating-sensitivity-labels-and-policies)
-  - [Removing Sensitivity Labels and Policies](#removing-sensitivity-labels-and-policies)
+  - [Creating a Sensitivity Label](#creating-a-sensitivity-label)
   - [Creating a new Label Policy](#creating-a-new-label-policy)
+  - [Removing Sensitivity Labels and Policies](#removing-sensitivity-labels-and-policies)
 
 ## Links
 - [Learn about sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels?view=o365-worldwide)
@@ -351,8 +351,8 @@ You can also run the command without any options to obtain the ExchangeObjectId.
 
 ![](img/20230657-035759.png)
 
-### Creating Sensitivity Labels and Policies
-Use `New-Label` to create a new sensitivity label. However, this command requires three parameters, `Name`, `DisplayName`, and `Tooltip`. When needing to create new labels quickly, such as in a test environment, you may use the following command to create a new label with only specifying the `DisplayName` property.
+### Creating a Sensitivity Label
+Use `New-Label` to create a new sensitivity label. This command requires three parameters, `Name`, `DisplayName`, and `Tooltip`. When needing to create new labels quickly, such as in a test environment, you may use the following command to create a new label with only specifying the `DisplayName` property.
 ```powershell
 function New-PvLabel {
     param(
@@ -372,7 +372,31 @@ function New-PvLabel {
 ```
 ![](img/20230624-042415.png)
 
-**ProTip!** As the company adopts the labeling system the need to change label names may come up.  You can always change the `DisplayName` but you can't change the `Name`. Use a convention for the `Name` parameter such as `myorg_` followed by a GUID. This will allow you to change the `DisplayName` without having to recreate the label.
+**ProTip!** As the company adopts the labeling system, the need to change label names may come up.  You can always change the `DisplayName` but you can't change the `Name`. Use a convention for the `Name` parameter such as `myorg_` followed by a GUID. This will allow you to change the `DisplayName` without having to recreate the label.
+
+### Creating a new Label Policy
+Use the following command to create a new label policy.  
+```powershell
+function New-PvLabelPolicy {
+    param(
+        [Parameter(Mandatory)]
+        [string]$Name,
+        [Parameter(Mandatory)]
+        [string[]]$Labels
+    )
+    $labelPolicy = @{
+        Name = $Name
+        Labels = $Labels
+    }
+    try {
+        New-LabelPolicy @labelPolicy -ErrorAction stop -WarningAction ignore | Out-Null
+    } catch {
+        Write-Warning $_.Exception.Message
+    }
+}
+```
+
+
 
 ### Removing Sensitivity Labels and Policies
 To remove a sensitivity label, you must first remove the label from all label policies. Use the following commands to remove a label from a single label policy or all policies:
@@ -400,28 +424,12 @@ function Remove-PvLabelFromPolicy {
     }
 }
 ```
-
 ![](img/20230623-052344.png)
 
-### Creating a new Label Policy
-Use the following command to create a new label policy.  
+To remove a label policy, use `Remove-LabelPolicy`. This command requires the `Identity` parameter which takes the label policy's Name or ExchangeObjectId. After executing the command, the label policy will be placed in a pending deletion state. Allow some time...
 
+Run the following command to check the deletion state:
 ```powershell
-function New-PvLabelPolicy {
-    param(
-        [Parameter(Mandatory)]
-        [string]$Name,
-        [Parameter(Mandatory)]
-        [string[]]$Labels
-    )
-    $labelPolicy = @{
-        Name = $Name
-        Labels = $Labels
-    }
-    try {
-        New-LabelPolicy @labelPolicy -ErrorAction stop -WarningAction ignore | Out-Null
-    } catch {
-        Write-Warning $_.Exception.Message
-    }
-}
+Get-LabelPolicy -Identity 0bddff4f-b841-4814-93e1-7f54ac597c35 | Select Name, Mode, DistributionStatus
 ```
+![](img/20230624-032455.png)
