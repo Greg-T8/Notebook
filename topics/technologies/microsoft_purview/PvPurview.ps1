@@ -94,6 +94,7 @@ function New-PvLabelPolicy {
 
 function Remove-PvLabelFromPolicy {
     param (
+        # Must be the label Name property, not the ExchangeObjectId
         [string]$LabelName,
         [Parameter(Mandatory=$true,ParameterSetName='Single')]
         [string]$LabelPolicyName,
@@ -106,8 +107,12 @@ function Remove-PvLabelFromPolicy {
             Set-LabelPolicy -Identity $LabelPolicyName -RemoveLabel $label.Name -WarningAction Ignore
         }
         'All' {
-            $labelPolicy = Get-LabelPolicy
-            $labelPolicy.Labels | Where-Object { $_ -eq }
+            Write-Output (Get-LabelPolicy) -PipelineVariable labelPolicy |
+                Select-Object -ExpandProperty Labels |
+                Where-Object { $_ -eq $LabelName } | 
+                ForEach-Object { 
+                    Set-LabelPolicy -Identity $labelPolicy.Name -RemoveLabel $_ -WarningAction Ignore
+                }
         }
     }
 }
