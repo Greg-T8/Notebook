@@ -407,7 +407,7 @@ Set-LabelPolicy -Identity 'My Label Policy' -AddLabel 'ExchangeObjectId or Name'
 ![](img/20230658-035835.png)
 
 ### Set the Parent Label for a Sensitivity Label
-Use the following command to set the parent label for a label:  
+Setting a parent label can only be done through PowerShell. Use the following command to set the parent label for a label:  
 ```powershell
 Set-Label -Identity 'ExchangeObjectId or Name' -ParentLabel 'ExchangeObjectId or Name'
 ```
