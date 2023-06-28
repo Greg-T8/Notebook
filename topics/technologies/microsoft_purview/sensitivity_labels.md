@@ -119,7 +119,7 @@ Don't choose a parent label as the default label, or configure a parent label to
 ![](img/20230612-041227.png)
 
 ### Editing or Deleting a Sensitivity Label
-If you delete a sensitivity label from the admin portal, the label isn't automatically removed from content, and any protection settings continue to be enforced on content that had that label applied.
+If you delete a sensitivity label from the admin portal, the label isn't automatically removed from content, and any protection settings continue to be enforced on content that had that label applied. However, some caveats apply. See [Removing and deleting labels](#removing-and-deleting-labels).
 
 If you edit a sensitivity label, the version of the label that was applied to content is what's enforced on that content.
 
@@ -139,7 +139,7 @@ After you create a label policy, allow up to 24 hours for the changes to replica
 
 There's no limit to the number of labels you can create and publish, with one exception: If the label applies encryption that specifies the users and permissions, there's a maximum of 500 labels per tenant. However, as a best practice to lower admin overhead and reduce complexity, try to keep the number of labels to a minimum. Real-world deployments have proved effectiveness to be noticeably reduced when users have more than 5 main labels or more htan 5 sublabels per main label.
 
-After you create a label policy, allow up to 24 hours for the changes to replicate through the org. 
+After you create a label policy, allow up to 24 hours for the changes to replicate through the org. See [Define and create sensitivity labels](#define-and-create-sensitivity-labels). 
 
 There's no limit to the number of labels you can create and publish, with one exception: If the label applies encryption that specifies the users and permissions, there's a maximum of 500 labels per tenant. However, as a best practice to lower admin overhead and reduce complexity, try to keep the number of labels to a minimum. Real-world deployments have proved effectiveness to be noticeably reduced when users have more than 5 main labels or more than 5 sublabels per main label.
 
@@ -260,7 +260,7 @@ By default, tenants do not have any labels, so you must create them. Sensitivity
 
 See [Create and configure sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-sensitivity-labels?view=o365-worldwide#create-and-configure-sensitivity-labels) for the process.  
 
-Allow up to 24 hours for labels and their settings to become available.  Per [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-sensitivity-labels?view=o365-worldwide#when-to-expect-new-labels-and-changes-to-take-effect):  
+Per [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-sensitivity-labels?view=o365-worldwide#when-to-expect-new-labels-and-changes-to-take-effect), allow up to 24 hours for labels and their settings to become available.  
 
 ![](img/20230633-033336.png)
 
