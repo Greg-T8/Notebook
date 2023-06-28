@@ -15,7 +15,7 @@
   - [Built-in Labeling for the Office Apps](#built-in-labeling-for-the-office-apps)
   - [Defining Label Taxonomy](#defining-label-taxonomy)
 - [Roles and Permissions](#roles-and-permissions)
-  - [Manage the AIP Super User Feature](#manage-the-aip-super-user-feature)
+  - [Manage the Azure Information Protection Service](#manage-the-azure-information-protection-service)
 - [Define and Create Sensitivity Labels](#define-and-create-sensitivity-labels)
   - [Removing and Deleting Labels](#removing-and-deleting-labels)
 - [Use PowerShell to manage Sensitivity Labels](#use-powershell-to-manage-sensitivity-labels)
@@ -247,8 +247,11 @@ The **Information Protection Readers** role group has the following role:
 
 Alternatively you can create a new role group and add the **Sensitivity Label Administrator** role.  For a read-only group, use **Sensitivity Label Reader**. 
 
-### Manage the AIP Super User Feature
-See https://learn.microsoft.com/en-us/azure/information-protection/configure-super-users
+### Manage the Azure Information Protection Service
+See the following links for more information: 
+- [Configure super users](https://docs.microsoft.com/en-us/azure/information-protection/configure-super-users)
+- [Azure Information Protection](https://learn.microsoft.com/en-us/powershell/azure/aip/overview?view=azureipps) - provides documentation on the **AIPService** and **AzureInformationProtection** PowerShell modules.
+
 
 ## Define and Create Sensitivity Labels
 By default, tenants do not have any labels, so you must create them. Sensitivity labels are provided using two steps:
