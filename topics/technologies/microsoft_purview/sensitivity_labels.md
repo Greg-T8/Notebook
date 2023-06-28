@@ -25,6 +25,7 @@
   - [Set the Parent Label for a Sensitivity Label](#set-the-parent-label-for-a-sensitivity-label)
   - [Remove a Sensitivity Label from a Label Policy](#remove-a-sensitivity-label-from-a-label-policy)
   - [Remove a Label Policy](#remove-a-label-policy)
+  - [Remove a Sensitivity Label](#remove-a-sensitivity-label)
 
 ## Links
 - [Learn about sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels?view=o365-worldwide)
@@ -448,10 +449,21 @@ Here's an example that removes the **Personal** label from all label policies:
 
 
 ### Remove a Label Policy
-To remove a label policy, use `Remove-LabelPolicy`. This command requires the `Identity` parameter which takes the label policy's `Name` or `ExchangeObjectId`. After executing the command, the label policy will be placed in a pending deletion state. Allow 5-10 minutes for the deletion process to complete.
+Use `Remove-LabelPolicy` to remove a label policy. This command requires the `Identity` parameter which takes the label policy's `Name` or `ExchangeObjectId`. After executing the command, the label policy will be placed in a pending deletion state. Allow 5-10 minutes for the deletion process to complete.
 
 Run the following command to check the deletion state:
 ```powershell
 Get-LabelPolicy -Identity <Name or ExchangeObjectId> | Select Name, Mode, DistributionStatus
 ```
 ![](img/20230624-032455.png)
+
+
+### Remove a Sensitivity Label
+Prior to removing a sensitivity label you must make sure that the label is not assigned to any label policies. Use the following command to remove a label:
+```powershell
+Remove-Label -Identity <Name or ExchangeObjectId>
+```
+
+After executing the command, the label will be placed in a pending deletion state. Allow 5-10 minutes for the deletion process to complete.
+
+![](img/20230626-032657.png)
