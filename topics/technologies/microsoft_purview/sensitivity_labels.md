@@ -259,6 +259,9 @@ By default, tenants do not have any labels, so you must create them. Sensitivity
 
 See [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-sensitivity-labels?view=o365-worldwide#create-and-configure-sensitivity-labels) for the process.  
 
+Allow up to 24 hours for labels and their settings to become available.  Per [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-sensitivity-labels?view=o365-worldwide#when-to-expect-new-labels-and-changes-to-take-effect):  
+
+![](img/20230633-033336.png)
 
 ## Use PowerShell to manage Sensitivity Labels
 The commands for managing sensitivity labels are found in [Security & Compliance PowerShell](https://learn.microsoft.com/en-us/powershell/exchange/scc-powershell?view=exchange-ps). Use `Connect-IPPSession` in the Exchange Online Management PowerShell module to manage sensitivity labels and policies.
