@@ -17,6 +17,7 @@
 - [Roles and Permissions](#roles-and-permissions)
   - [Manage the AIP Super User Feature](#manage-the-aip-super-user-feature)
 - [Define and Create Sensitivity Labels](#define-and-create-sensitivity-labels)
+  - [Removing and Deleting Labels](#removing-and-deleting-labels)
 - [Use PowerShell to manage Sensitivity Labels](#use-powershell-to-manage-sensitivity-labels)
   - [Get Info on Sensitivity Labels and Policies](#get-info-on-sensitivity-labels-and-policies)
   - [Create a Sensitivity Label](#create-a-sensitivity-label)
@@ -250,18 +251,36 @@ Alternatively you can create a new role group and add the **Sensitivity Label Ad
 See https://learn.microsoft.com/en-us/azure/information-protection/configure-super-users
 
 ## Define and Create Sensitivity Labels
-Reference
-- [Create and configure sensitivity labels and their policies](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-sensitivity-labels?view=o365-worldwide)
-
 By default, tenants do not have any labels, so you must create them. Sensitivity labels are provided using two steps:
 1. Create the label
 2. Publish the label to users using a label policy
 
-See [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-sensitivity-labels?view=o365-worldwide#create-and-configure-sensitivity-labels) for the process.  
+See [Create and configure sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-sensitivity-labels?view=o365-worldwide#create-and-configure-sensitivity-labels) for the process.  
 
 Allow up to 24 hours for labels and their settings to become available.  Per [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-sensitivity-labels?view=o365-worldwide#when-to-expect-new-labels-and-changes-to-take-effect):  
 
 ![](img/20230633-033336.png)
+
+See [Create and configure sensitivity labels and their policies](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-sensitivity-labels?view=o365-worldwide) for more info.
+
+### Removing and Deleting Labels
+You can't delete a label if it's still in a label policy. Removing a label from a label policy is less risky than deleting the label, as you can always add it back if needed. When you remove a label from a label policy, users will no longer be able to select that label for use in the Office apps. However, if an item already has that label, then users will continue to see that label is applied. Same applies for any containers that have the label applied&mdash;users will continue to see that label is applied to the container.
+
+In comparison, when you delete a label:
+
+* If the label applied encryption, the underlying protection template is archived so that previously protected content can still be opened. 
+
+* For documents stored in SharePoint and OneDrive, you won't see the sensitivity label applied in the app, and the label name no longer appears in the **Sensitivity** column in SharePoint. If the deleted label applied encryption and the services can process the encrypted contents, the encryption is removed. The label information remains in the file's metadata, apps can no longer map the label ID to a display name, so users will assume the file isn't labeled.
+
+* For documents stored outside of SharePoint and OneDrive, the label information remains in the file's metadata, but without the label ID to name mapping, users don't see the applied label name displayed. If the deleted label applied encryption, the encryption remains and users still see the name and description of the now archived protection template.
+
+* For containers, such as sites in SharePoint and Teams: The label is removed any settings that were configured with that label are no longer enforced. This action typically takes 48-72 hours for SharePoint sites, and can be quicker for Teams and Microsoft 365 Groups.
+
+* Be aware that without a GUID-to-name mapping available after you delete a label, deleted labels can display as GUIDs rather than label names in applications such as content explorer and activity explorer.
+
+As with all label changes, removing a sensitivity label from a label policy or deleting a sensitivity label takes time to replicate to all users and services.
+
+See [Removing and deleting labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-sensitivity-labels?view=o365-worldwide#removing-and-deleting-labels) for more info.
 
 ## Use PowerShell to manage Sensitivity Labels
 The commands for managing sensitivity labels are found in [Security & Compliance PowerShell](https://learn.microsoft.com/en-us/powershell/exchange/scc-powershell?view=exchange-ps). Use `Connect-IPPSession` in the Exchange Online Management PowerShell module to manage sensitivity labels and policies.
