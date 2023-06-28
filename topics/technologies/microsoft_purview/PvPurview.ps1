@@ -94,7 +94,7 @@ function New-PvLabelPolicy {
 
 function Remove-PvLabelFromPolicy {
     param (
-        # Must be the label Name property, not the ExchangeObjectId
+        # Must be the label Name property, not the ExchangeObjectId or DisplayName
         [string]$LabelName,
         [Parameter(Mandatory=$true,ParameterSetName='Single')]
         [string]$LabelPolicyName,

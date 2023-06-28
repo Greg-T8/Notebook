@@ -24,6 +24,7 @@
   - [Add a Sensitivity Label to a Label Policy](#add-a-sensitivity-label-to-a-label-policy)
   - [Set the Parent Label for a Sensitivity Label](#set-the-parent-label-for-a-sensitivity-label)
   - [Remove a Sensitivity Label from a Label Policy](#remove-a-sensitivity-label-from-a-label-policy)
+  - [Remove a Label Policy](#remove-a-label-policy)
 
 ## Links
 - [Learn about sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels?view=o365-worldwide)
@@ -415,10 +416,11 @@ Set-Label -Identity 'ExchangeObjectId or Name' -ParentLabel 'ExchangeObjectId or
 
 
 ### Remove a Sensitivity Label from a Label Policy
-Let's say you want to delete a sensitivity label. Before you can delete it, you must it removing it all policies. Use the following commands to remove a label from a single label policy or all policies:
+Let's say you want to delete a sensitivity label. Before you can delete it you must it remove it from all policies. Use the following commands to remove a label from a single label policy or all policies:
 ```powershell
 function Remove-PvLabelFromPolicy {
     param (
+        # Must be the label Name property, not the ExchangeObjectId or DisplayName
         [string]$LabelName,
         [Parameter(Mandatory=$true,ParameterSetName='Single')]
         [string]$LabelPolicyName,
@@ -431,16 +433,21 @@ function Remove-PvLabelFromPolicy {
             Set-LabelPolicy -Identity $LabelPolicyName -RemoveLabel $label.Name -WarningAction Ignore
         }
         'All' {
-            $labelPolicy = Get-LabelPolicy
-            $labelPolicy.Labels | ForEach-Object {
-                Set-LabelPolicy -Identity $LabelPolicyName -RemoveLabel $_.Name
-            }
+            Write-Output (Get-LabelPolicy) -PipelineVariable labelPolicy |
+                Select-Object -ExpandProperty Labels |
+                Where-Object { $_ -eq $LabelName } | 
+                ForEach-Object { 
+                    Set-LabelPolicy -Identity $labelPolicy.Name -RemoveLabel $_ -WarningAction Ignore
+                }
         }
     }
 }
 ```
-![](img/20230623-052344.png)
+Here's an example that removes the **Personal** label from all label policies:  
+![](img/20230617-031746.png)
 
+
+### Remove a Label Policy
 To remove a label policy, use `Remove-LabelPolicy`. This command requires the `Identity` parameter which takes the label policy's `Name` or `ExchangeObjectId`. After executing the command, the label policy will be placed in a pending deletion state. Allow 5-10 minutes for the deletion process to complete.
 
 Run the following command to check the deletion state:
