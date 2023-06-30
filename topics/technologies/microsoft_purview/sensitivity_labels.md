@@ -286,6 +286,8 @@ As with all label changes, removing a sensitivity label from a label policy or d
 See [Removing and deleting labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-sensitivity-labels?view=o365-worldwide#removing-and-deleting-labels) for more info.
 
 ## Use PowerShell to manage Sensitivity Labels
+
+**Security & Compliance PowerShell**  
 The commands for managing sensitivity labels are found in [Security & Compliance PowerShell](https://learn.microsoft.com/en-us/powershell/exchange/scc-powershell?view=exchange-ps). Use `Connect-IPPSession` in the Exchange Online Management PowerShell module to manage sensitivity labels and policies.
 
 Documentation for managing labels through PowerShell can be found at [Policy and Compliance](https://learn.microsoft.com/en-us/powershell/module/exchange/?view=exchange-ps#policy-and-compliance). 
@@ -293,6 +295,17 @@ Documentation for managing labels through PowerShell can be found at [Policy and
 Run `Get-Command -Module tmp* -noun *label*` to see the available commands.
 
 ![](img/20230654-115431.png)
+
+**AIP Service**
+The [AIPService](https://learn.microsoft.com/en-us/powershell/module/aipservice/?view=azureipps) PowerShell module provides additional commands for managing the underlying RMS service and templates. Notable commands include
+- `Connect-AipService`
+- `Get-AipServiceTemplate`
+- `Get-AipServiceTemplateProperty`
+- `Get-AipSuperUser`
+- `Get-AipSuperUserGroup`
+- `Get-AipSuperUserFeature`
+
+After you delete a sensitivity label, the underlying RMS template remains in the AIP service. This allows users to be able to open protected documents even after a label is removed.
 
 
 ### Get Info on Sensitivity Labels and Policies
