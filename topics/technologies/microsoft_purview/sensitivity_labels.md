@@ -27,6 +27,7 @@
   - [Remove a Sensitivity Label from a Label Policy](#remove-a-sensitivity-label-from-a-label-policy)
   - [Remove a Label Policy](#remove-a-label-policy)
   - [Remove a Sensitivity Label](#remove-a-sensitivity-label)
+  - [Get the Relationship Between a Label and an RMS Template](#get-the-relationship-between-a-label-and-an-rms-template)
 
 ## Links
 - [Learn about sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels?view=o365-worldwide)
@@ -505,3 +506,16 @@ Remove-Label -Identity <Name or ExchangeObjectId>
 After executing the command, the label will be placed in a pending deletion state. Allow 5-10 minutes for the deletion process to complete.
 
 ![](img/20230626-032657.png)
+
+### Get the Relationship Between a Label and an RMS Template
+When you delete a label that uses protection, the underlying RMS template remains in the AzureRMS service. It is usually desirable to allow these templates to remain in the service so that users can continue to decrypt documents that were encrypted with the template. 
+
+Use `Get-AipServiceTemplate` to list all the Azure RMS templates, including those corresponding to deleted labels:  
+![](img/20230616-041627.png)
+
+Then use `Get-AipServiceTemplate` with the `-TemplateId` parameter to list the details of a specific template:  
+![](img/20230617-041727.png)
+
+Note the `LabelId` property. This is the `ExchangeObjectId` or `Guid` property of the label.
+![](img/20230619-041927.png)
+
