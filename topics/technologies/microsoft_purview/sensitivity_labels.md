@@ -28,6 +28,8 @@
   - [Remove a Label Policy](#remove-a-label-policy)
   - [Remove a Sensitivity Label](#remove-a-sensitivity-label)
   - [Get the Relationship Between a Label and an RMS Template](#get-the-relationship-between-a-label-and-an-rms-template)
+  - [Back Up an RMS Template](#back-up-an-rms-template)
+  - [Remove an RMS Template](#remove-an-rms-template)
 
 ## Links
 - [Learn about sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels?view=o365-worldwide)
@@ -519,3 +521,12 @@ Then use `Get-AipServiceTemplate` with the `-TemplateId` parameter to list the d
 Note the `LabelId` property. This is the `ExchangeObjectId` or `Guid` property of the label.
 ![](img/20230619-041927.png)
 
+### Back Up an RMS Template
+Use `Export-AipServiceTemplate` to back up an RMS template.  
+
+
+
+### Remove an RMS Template
+In some cases you may want to completely remove an RMS template from the AIP service.  To do this use `Remove-AIPServiceTemplate` with the `-TemplateId` parameter. **Warning**: This will remove the template from the AIP service and prevent users from decrypting documents that were encrypted with the template. As an additional note, you can only remove templates that you have created. The [Microsoft documentation](https://learn.microsoft.com/en-us/powershell/module/aipservice/remove-aipservicetemplate?view=azureipps) indicates you can only delete templates that you have created for your organization and that you cannot delete the default templates. However, in testing I 
+was able to delete the default templates.
+![](img/20230710-051013.png)

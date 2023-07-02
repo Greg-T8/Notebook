@@ -117,5 +117,28 @@ function Remove-PvLabelFromPolicy {
     }
 }
 
+function Export-PvAzureRMSTemplates {
+    param(
+        [Parameter(Mandatory, ParameterSetName='All')]
+        [switch]$All,
+        [Parameter(Mandatory, ParameterSetName='Single')]
+        [string]$TemplateId,
+        [Parameter(Mandatory)]
+        [string]$Path
+    )
+    $ErrorActionPreference = 'Stop'
+    $templateIds = @()
+    if ($PSCmdlet.ParameterSetName -eq 'All') {
+        $templates = Get-AipServiceTemplate
+        $templateIds += $templates | Select-Object -ExpandProperty TemplateId | Select-Object -ExpandProperty Guid
+    } else {
+        $templateIds += $TemplateId
+    }
+    foreach ($t in $templateIds) {
+        $templatePath = $Path + "\" + $t + ".xml"
+        Export-AipServiceTemplate -TemplateId $t -Path $templatePath -Force
+    }
+}
+
 $run = Invoke-Expression $run
 & $run
