@@ -1,7 +1,7 @@
 $run = '$main1'
 
 $main1 = {
-
+    Export-PvAzureRMSTemplates -All -FolderPath "$env:USERPROFILE\Desktop\Backup"
 }
 
 
@@ -118,15 +118,19 @@ function Remove-PvLabelFromPolicy {
 }
 
 function Export-PvAzureRMSTemplates {
+    # This function backs up an Azure RMS template to an XML file. The XML file is named after the template's GUID.
     param(
         [Parameter(Mandatory, ParameterSetName='All')]
         [switch]$All,
         [Parameter(Mandatory, ParameterSetName='Single')]
         [string]$TemplateId,
         [Parameter(Mandatory)]
-        [string]$Path
+        [string]$FolderPath
     )
     $ErrorActionPreference = 'Stop'
+    if (-not (Test-Path $FolderPath)) {
+        New-Item -Path $FolderPath -ItemType Directory | Out-Null
+    }
     $templateIds = @()
     if ($PSCmdlet.ParameterSetName -eq 'All') {
         $templates = Get-AipServiceTemplate
@@ -135,7 +139,7 @@ function Export-PvAzureRMSTemplates {
         $templateIds += $TemplateId
     }
     foreach ($t in $templateIds) {
-        $templatePath = $Path + "\" + $t + ".xml"
+        $templatePath = $FolderPath + "\" + $t + ".xml"
         Export-AipServiceTemplate -TemplateId $t -Path $templatePath -Force
     }
 }

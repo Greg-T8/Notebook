@@ -522,9 +522,35 @@ Note the `LabelId` property. This is the `ExchangeObjectId` or `Guid` property o
 ![](img/20230619-041927.png)
 
 ### Back Up an RMS Template
-Use `Export-AipServiceTemplate` to back up an RMS template.  
-
-
+Use `Export-AipServiceTemplate` to back up an RMS template to an XML file. The file details include the template's name, public key and signature, tenant ID and label ID.  
+```powershell
+function Export-PvAzureRMSTemplates {
+    # This function backs up an Azure RMS template to an XML file. The XML file is named after the template's GUID.
+    param(
+        [Parameter(Mandatory, ParameterSetName='All')]
+        [switch]$All,
+        [Parameter(Mandatory, ParameterSetName='Single')]
+        [string]$TemplateId,
+        [Parameter(Mandatory)]
+        [string]$FolderPath
+    )
+    $ErrorActionPreference = 'Stop'
+    if (-not (Test-Path $FolderPath)) {
+        New-Item -Path $FolderPath -ItemType Directory | Out-Null
+    }
+    $templateIds = @()
+    if ($PSCmdlet.ParameterSetName -eq 'All') {
+        $templates = Get-AipServiceTemplate
+        $templateIds += $templates | Select-Object -ExpandProperty TemplateId | Select-Object -ExpandProperty Guid
+    } else {
+        $templateIds += $TemplateId
+    }
+    foreach ($t in $templateIds) {
+        $templatePath = $FolderPath + "\" + $t + ".xml"
+        Export-AipServiceTemplate -TemplateId $t -Path $templatePath -Force
+    }
+}
+```
 
 ### Remove an RMS Template
 In some cases you may want to completely remove an RMS template from the AIP service.  To do this use `Remove-AIPServiceTemplate` with the `-TemplateId` parameter. **Warning**: This will remove the template from the AIP service and prevent users from decrypting documents that were encrypted with the template. As an additional note, you can only remove templates that you have created. The [Microsoft documentation](https://learn.microsoft.com/en-us/powershell/module/aipservice/remove-aipservicetemplate?view=azureipps) indicates you can only delete templates that you have created for your organization and that you cannot delete the default templates. However, in testing I 
