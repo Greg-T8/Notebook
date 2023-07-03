@@ -30,6 +30,7 @@
   - [Get the Relationship Between a Label and an RMS Template](#get-the-relationship-between-a-label-and-an-rms-template)
   - [Back Up an RMS Template](#back-up-an-rms-template)
   - [Remove an RMS Template](#remove-an-rms-template)
+  - [Restore an RMS Template](#restore-an-rms-template)
 
 ## Links
 - [Learn about sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels?view=o365-worldwide)
@@ -308,8 +309,9 @@ The [AIPService](https://learn.microsoft.com/en-us/powershell/module/aipservice/
 - `Get-AipSuperUserGroup`
 - `Get-AipSuperUserFeature`
 
-After you delete a sensitivity label, the underlying RMS template remains in the AIP service. This allows users to be able to open protected documents even after a label is removed.
+The AIPService PowerShell module only works in Windows PowerShell. It does not work in PowerShell Core.
 
+After you delete a sensitivity label, the underlying RMS template remains in the AIP service, allowing users to be able to open protected documents even after a label is removed.
 
 ### Get Info on Sensitivity Labels and Policies
 Run `Get-Label` to get a list of all sensitivity labels in your tenant. 
@@ -512,14 +514,26 @@ After executing the command, the label will be placed in a pending deletion stat
 ### Get the Relationship Between a Label and an RMS Template
 When you delete a label that uses protection, the underlying RMS template remains in the AzureRMS service. It is usually desirable to allow these templates to remain in the service so that users can continue to decrypt documents that were encrypted with the template. 
 
+**From Security and Compliance PowerShell**  
+Use `Get-Label` with the `-IncludeDetailedLabelActions` switch to list the encryption template Id:
+```powershell
+Get-Label -IncludeDetailedLabelActions -Identity <Name> | select DisplayName, EncryptionTemplateId
+```
+![](img/20230722-042203.png)
+
+
+
+**From AIPService PowerShell**  
 Use `Get-AipServiceTemplate` to list all the Azure RMS templates, including those corresponding to deleted labels:  
 ![](img/20230616-041627.png)
 
 Then use `Get-AipServiceTemplate` with the `-TemplateId` parameter to list the details of a specific template:  
 ![](img/20230617-041727.png)
 
-Note the `LabelId` property. This is the `ExchangeObjectId` or `Guid` property of the label.
+Note the `LabelId` property in the above screenshot. This is the `ExchangeObjectId` or `Guid` property of the label.
 ![](img/20230619-041927.png)
+
+
 
 ### Back Up an RMS Template
 Use `Export-AipServiceTemplate` to back up an RMS template to an XML file. The file details include the template's name, public key and signature, tenant ID and label ID.  
@@ -553,6 +567,15 @@ function Export-PvAzureRMSTemplates {
 ```
 
 ### Remove an RMS Template
-In some cases you may want to completely remove an RMS template from the AIP service.  To do this use `Remove-AIPServiceTemplate` with the `-TemplateId` parameter. **Warning**: This will remove the template from the AIP service and prevent users from decrypting documents that were encrypted with the template. As an additional note, you can only remove templates that you have created. The [Microsoft documentation](https://learn.microsoft.com/en-us/powershell/module/aipservice/remove-aipservicetemplate?view=azureipps) indicates you can only delete templates that you have created for your organization and that you cannot delete the default templates. However, in testing I 
+In some cases you may want to completely remove an RMS template from the AIP service.  To do this use `Remove-AIPServiceTemplate` with the `-TemplateId` parameter. **Warning**: This will remove the template from the AIP service and prevent users from decrypting documents that were encrypted with the template. Make sure you back up the template before removing in case you need to restore it.
+
+ As an additional note, you can only remove templates that you have created. The [Microsoft documentation](https://learn.microsoft.com/en-us/powershell/module/aipservice/remove-aipservicetemplate?view=azureipps) indicates you can only delete templates that you have created for your organization and that you cannot delete the default templates. However, in testing I 
 was able to delete the default templates.
 ![](img/20230710-051013.png)
+
+If you remove an Azure RMS template that's still linked to a label, then you will receive a warning message when retrieving details about the label:  
+![](img/20230725-042539.png)
+
+### Restore an RMS Template
+Use `Import-AipServiceTemplate` to restore an RMS template from an XML file. Given that RMS templates are unique to the tenant, you can only restore templates that were backed up from the same tenant.  
+![](img/20230727-042727.png)
