@@ -29,6 +29,7 @@
   - [Remove a Sensitivity Label](#remove-a-sensitivity-label)
   - [Get the Relationship Between a Label and an RMS Template](#get-the-relationship-between-a-label-and-an-rms-template)
   - [Back Up an RMS Template](#back-up-an-rms-template)
+  - [Rename an RMS Template](#rename-an-rms-template)
   - [Remove an RMS Template](#remove-an-rms-template)
   - [Restore an RMS Template](#restore-an-rms-template)
 
@@ -512,16 +513,18 @@ After executing the command, the label will be placed in a pending deletion stat
 ![](img/20230626-032657.png)
 
 ### Get the Relationship Between a Label and an RMS Template
-When you delete a label that uses protection, the underlying RMS template remains in the AzureRMS service. It is usually desirable to allow these templates to remain in the service so that users can continue to decrypt documents that were encrypted with the template. 
+When you delete a label that uses protection, the underlying protection template remains in the Azure RMS service. It is usually desirable to allow these templates to remain in the service so that users can continue to decrypt documents that were encrypted with the template. 
+
+However, when you find yourself with a large number of templates you don't need, such as in testing, you may want to remove unused templates from the Azure RMS service.  To do this, you need to know the relationship between the label and the template so that you don't delete a template that is still in use.
+
+
 
 **From Security and Compliance PowerShell**  
 Use `Get-Label` with the `-IncludeDetailedLabelActions` switch to list the encryption template Id:
 ```powershell
-Get-Label -IncludeDetailedLabelActions -Identity <Name> | select DisplayName, EncryptionTemplateId
+Get-Label -IncludeDetailedLabelActions | select DisplayName, Name, ExchangeObjectId, EncryptionTemplateId
 ```
-![](img/20230722-042203.png)
-
-
+![](img/20230702-060249.png)
 
 **From AIPService PowerShell**  
 Use `Get-AipServiceTemplate` to list all the Azure RMS templates, including those corresponding to deleted labels:  
@@ -538,7 +541,6 @@ The `LabelId` property from `Get-AipServiceTemplate` (in the prior screenshot) c
 Get-Label | Select DisplayName, Name, ExchangeObjectId, Guid
 ```
 ![](img/20230619-041927.png)
-
 
 
 ### Back Up an RMS Template
@@ -571,6 +573,9 @@ function Export-PvAzureRMSTemplates {
     }
 }
 ```
+
+### Rename an RMS Template
+
 
 ### Remove an RMS Template
 In some cases you may want to completely remove an RMS template from the AIP service.  To do this use `Remove-AIPServiceTemplate` with the `-TemplateId` parameter. **Warning**: This will remove the template from the AIP service and prevent users from decrypting documents that were encrypted with the template. Make sure you back up the template before removing in case you need to restore it.
