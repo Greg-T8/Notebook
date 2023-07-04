@@ -527,10 +527,16 @@ Get-Label -IncludeDetailedLabelActions -Identity <Name> | select DisplayName, En
 Use `Get-AipServiceTemplate` to list all the Azure RMS templates, including those corresponding to deleted labels:  
 ![](img/20230616-041627.png)
 
-Then use `Get-AipServiceTemplate` with the `-TemplateId` parameter to list the details of a specific template:  
-![](img/20230617-041727.png)
+Here's a command showing some of the more helpful properties: 
+```powershell
+Get-AipServiceTemplate | Select TemplateId, Names, Status, LabelId
+```
+![](img/20230734-053431.png)
 
-Note the `LabelId` property in the above screenshot. This is the `ExchangeObjectId` or `Guid` property of the label.
+The `LabelId` property from `Get-AipServiceTemplate` (in the prior screenshot) corresponds to the `ExchangeObjectId` or `Guid` property from `Get-Label` (in the screenshot below).
+```powershell
+Get-Label | Select DisplayName, Name, ExchangeObjectId, Guid
+```
 ![](img/20230619-041927.png)
 
 
