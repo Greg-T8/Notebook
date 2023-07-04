@@ -515,26 +515,23 @@ After executing the command, the label will be placed in a pending deletion stat
 ### Get the Relationship Between a Label and an RMS Template
 When you delete a label that uses protection, the underlying protection template remains in the Azure RMS service. It is usually desirable to allow these templates to remain in the service so that users can continue to decrypt documents that were encrypted with the template. 
 
-However, when you find yourself with a large number of templates you don't need, such as in testing, you may want to remove unused templates from the Azure RMS service.  To do this, you need to know the relationship between the label and the template so that you don't delete a template that is still in use.
-
-
+However, when you find yourself with a large number of templates you don't need, such as in testing, you may want to remove unused templates from the Azure RMS service. You may also want to rename templates that are no longer in use to prevent confusion. To do this, you need to know the relationship between the label and the template so that you don't delete a template that is still in use.
 
 **From Security and Compliance PowerShell**  
-Use `Get-Label` with the `-IncludeDetailedLabelActions` switch to list the encryption template Id:
+Use `Get-Label` with the `-IncludeDetailedLabelActions` switch to list the ID of the RMS template used by the label, i.e. the `EncryptionTemplateId` property:  
 ```powershell
 Get-Label -IncludeDetailedLabelActions | select DisplayName, Name, ExchangeObjectId, EncryptionTemplateId
 ```
 ![](img/20230702-060249.png)
 
 **From AIPService PowerShell**  
-Use `Get-AipServiceTemplate` to list all the Azure RMS templates, including those corresponding to deleted labels:  
-![](img/20230616-041627.png)
-
-Here's a command showing some of the more helpful properties: 
+Use the `LabelId` property from `Get-AipServiceTemplate` to find the label that corresponds to the template:  
 ```powershell
-Get-AipServiceTemplate | Select TemplateId, Names, Status, LabelId
+[array](Get-AipServiceTemplate) | Select TemplateId, Names, Status, LabelId
 ```
-![](img/20230734-053431.png)
+![](img/20230708-060835.png)
+
+The `Get-AipServiceTemplate` command has atypical PowerShell behavior. As a result, you may need to cast `Get-AipServiceTemplate` to an array for it to work properly with the PowerShell pipeline.  
 
 The `LabelId` property from `Get-AipServiceTemplate` (in the prior screenshot) corresponds to the `ExchangeObjectId` or `Guid` property from `Get-Label` (in the screenshot below).
 ```powershell
@@ -575,6 +572,7 @@ function Export-PvAzureRMSTemplates {
 ```
 
 ### Rename an RMS Template
+
 
 
 ### Remove an RMS Template
