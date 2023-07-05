@@ -27,8 +27,9 @@
   - [Remove a Sensitivity Label from a Label Policy](#remove-a-sensitivity-label-from-a-label-policy)
   - [Remove a Label Policy](#remove-a-label-policy)
   - [Remove a Sensitivity Label](#remove-a-sensitivity-label)
-  - [Get the Relationship Between a Label and an RMS Template](#get-the-relationship-between-a-label-and-an-rms-template)
-  - [Back Up an RMS Template](#back-up-an-rms-template)
+  - [Get the Relationship Between a Label and an Azure RMS Template](#get-the-relationship-between-a-label-and-an-azure-rms-template)
+  - [Determine if Label Has Been Used](#determine-if-label-has-been-used)
+  - [Back Up an Azure RMS Template](#back-up-an-azure-rms-template)
   - [Rename an RMS Template](#rename-an-rms-template)
   - [Remove an RMS Template](#remove-an-rms-template)
   - [Restore an RMS Template](#restore-an-rms-template)
@@ -321,7 +322,7 @@ Get-Label | Select Priority, ContentType, DisplayName, ParentLabelDisplayName, N
 ```
 ![](img/20230606-120634.png)
 
-Wrapped in a function, this looks like
+Wrapped in a function, this looks like:  
 ```powershell
 function Get-PvLabel {
     Get-Label | Select-Object Priority, ContentType, DisplayName, 
@@ -512,7 +513,7 @@ After executing the command, the label will be placed in a pending deletion stat
 
 ![](img/20230626-032657.png)
 
-### Get the Relationship Between a Label and an RMS Template
+### Get the Relationship Between a Label and an Azure RMS Template
 When you delete a label that uses protection, the underlying protection template remains in the Azure RMS service. It is usually desirable to allow these templates to remain in the service so that users can continue to decrypt documents that were encrypted with the template. 
 
 However, when you find yourself with a large number of templates you don't need, such as in testing, you may want to remove unused templates from the Azure RMS service. You may also want to rename templates that are no longer in use to prevent confusion. To do this, you need to know the relationship between the label and the template so that you don't delete a template that is still in use.
@@ -531,6 +532,8 @@ Use the `LabelId` property from `Get-AipServiceTemplate` to find the label that 
 ```
 ![](img/20230708-060835.png)
 
+A status of `Published` indicates that the template is in use by a label policy.  A status of `Archived` indicates the template is not in use by a label policy.
+
 The `Get-AipServiceTemplate` command has atypical PowerShell behavior. As a result, you may need to cast `Get-AipServiceTemplate` to an array for it to work properly with the PowerShell pipeline.  
 
 The `LabelId` property from `Get-AipServiceTemplate` (in the prior screenshot) corresponds to the `ExchangeObjectId` or `Guid` property from `Get-Label` (in the screenshot below).
@@ -539,8 +542,10 @@ Get-Label | Select DisplayName, Name, ExchangeObjectId, Guid
 ```
 ![](img/20230619-041927.png)
 
+### Determine if Label Has Been Used
 
-### Back Up an RMS Template
+
+### Back Up an Azure RMS Template
 Use `Export-AipServiceTemplate` to back up an RMS template to an XML file. The file details include the template's name, public key and signature, tenant ID and label ID.  
 ```powershell
 function Export-PvAzureRMSTemplates {
