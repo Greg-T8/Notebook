@@ -21,6 +21,7 @@
 - [Use PowerShell to manage Sensitivity Labels](#use-powershell-to-manage-sensitivity-labels)
   - [Get Info on Sensitivity Labels and Policies](#get-info-on-sensitivity-labels-and-policies)
   - [Create a Sensitivity Label](#create-a-sensitivity-label)
+  - [Use a Custom Color for a Sensitivity Label](#use-a-custom-color-for-a-sensitivity-label)
   - [Create a Label Policy](#create-a-label-policy)
   - [Add a Sensitivity Label to a Label Policy](#add-a-sensitivity-label-to-a-label-policy)
   - [Set the Parent Label for a Sensitivity Label](#set-the-parent-label-for-a-sensitivity-label)
@@ -422,6 +423,14 @@ function New-PvLabel {
 ![](img/20230624-042415.png)
 
 **ProTip!** As the company adopts the labeling system, the need to change label names may come up.  You can always change the `DisplayName` but you can't change the `Name`. Use a convention for the `Name` parameter such as `myorg_` followed by a GUID. This will allow you to change the `DisplayName` without having to recreate the label.
+
+### Use a Custom Color for a Sensitivity Label
+The Compliance portal only lets you select from a limited number of colors for a sensitivity label. However, you can use PowerShell to set a custom color for a label. The following command will set the color to a light blue.  
+```powershell
+Set-Label -Identity '<Name or ExchangeObjectId>' -AdvancedSettings @{Color="#40e0e0"}
+```
+![](img/20230733-033302.png)
+
 
 ### Create a Label Policy
 Use the following command to create a new label policy. You cannot change the policy name once it is created. To change the name, you must delete the policy and create a new one.  
