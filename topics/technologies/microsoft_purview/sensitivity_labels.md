@@ -553,6 +553,12 @@ Get-Label | Select DisplayName, Name, ExchangeObjectId, Guid
 ![](img/20230619-041927.png)
 
 ### Determine if Label Has Been Used
+You have three options for determining if a label has been used:
+
+* Microsoft Purview Compliance > Activity Explorer - 1 month limit
+* Microsoft Purview Compliance Portal > Audit - 6 month limit
+* PowerShell Search-UnifiedLog cmdlet - 12 month limit
+
 
 
 ### Back Up an Azure RMS Template
