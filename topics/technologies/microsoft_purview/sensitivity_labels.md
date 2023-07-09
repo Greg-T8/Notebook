@@ -553,16 +553,18 @@ Get-Label | Select DisplayName, Name, ExchangeObjectId, Guid
 ![](img/20230619-041927.png)
 
 ### Determine if Label Has Been Used
-You have three options for determining if a label has been used:
+You have four options for determining if a label has been used:
 
 * Microsoft Purview Compliance > Activity Explorer
 * Microsoft Purview Compliance Portal > Audit
 * PowerShell Search-UnifiedLog cmdlet
+* Microsoft Defender for Cloud Apps > Activity Log
 
-Activity Explorer has a 1-month limit. The Audit feature and `Search-UnifiedLog` cmdlet have a 90-day limit for non-E5 users and a 365-day limit for E5 users.  See [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/audit-solutions-overview?view=o365-worldwide#comparison-of-key-capabilities) for more details.
+Microsoft Purview Compliance Activity Explorer has a 1-month search window. The Microsoft Purview Audit feature and `Search-UnifiedLog` cmdlet have a 90-day search window for non-E5-licensed users and a 365-day search window for E5-licensed users.  See [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/audit-solutions-overview?view=o365-worldwide#comparison-of-key-capabilities) for more details.
 
-Additionally, Microsoft Defender for Cloud Apps stores its activity data for 180 days. See [here](https://learn.microsoft.com/en-us/defender-cloud-apps/cas-compliance-trust#data-retention).
+Microsoft Defender for Cloud Apps stores its activity data for 180 days. See [here](https://learn.microsoft.com/en-us/defender-cloud-apps/cas-compliance-trust#data-retention).
 
+In all cases, the data returned from these searches yields the label's ID and not the label's friendly name. So you will need to perform additional steps to match the label ID with the label name.
 
 
 ### Back Up an Azure RMS Template
