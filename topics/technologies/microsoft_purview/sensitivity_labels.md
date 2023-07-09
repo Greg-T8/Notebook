@@ -555,9 +555,13 @@ Get-Label | Select DisplayName, Name, ExchangeObjectId, Guid
 ### Determine if Label Has Been Used
 You have three options for determining if a label has been used:
 
-* Microsoft Purview Compliance > Activity Explorer - 1 month limit
-* Microsoft Purview Compliance Portal > Audit - 6 month limit
-* PowerShell Search-UnifiedLog cmdlet - 12 month limit
+* Microsoft Purview Compliance > Activity Explorer
+* Microsoft Purview Compliance Portal > Audit
+* PowerShell Search-UnifiedLog cmdlet
+
+Activity Explorer has a 1-month limit. The Audit feature and `Search-UnifiedLog` cmdlet have a 90-day limit for non-E5 users and a 365-day limit for E5 users.  See [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/audit-solutions-overview?view=o365-worldwide#comparison-of-key-capabilities) for more details.
+
+Additionally, Microsoft Defender for Cloud Apps stores its activity data for 180 days. See [here](https://learn.microsoft.com/en-us/defender-cloud-apps/cas-compliance-trust#data-retention).
 
 
 
