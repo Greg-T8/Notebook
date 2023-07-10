@@ -560,12 +560,13 @@ You have four options for determining if a label has been used:
 * PowerShell Search-UnifiedLog cmdlet
 * Microsoft Defender for Cloud Apps > Activity Log
 
-Microsoft Purview Compliance Activity Explorer has a 1-month search window. The Microsoft Purview Audit feature and `Search-UnifiedLog` cmdlet have a 90-day search window for non-E5-licensed users and a 365-day search window for E5-licensed users.  See [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/audit-solutions-overview?view=o365-worldwide#comparison-of-key-capabilities) for more details.
+Microsoft Purview Compliance Activity Explorer has a 30-day search window (see [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/data-classification-activity-explorer?view=o365-worldwide)). The Microsoft Purview Audit feature and `Search-UnifiedLog` cmdlet have a 90-day search window for non-E5-licensed users and a 365-day search window for E5-licensed users (see [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/audit-solutions-overview?view=o365-worldwide#comparison-of-key-capabilities)).
 
-Microsoft Defender for Cloud Apps stores its activity data for 180 days. See [here](https://learn.microsoft.com/en-us/defender-cloud-apps/cas-compliance-trust#data-retention).
+Microsoft Defender for Cloud Apps stores its activity data for 180 days (see [here](https://learn.microsoft.com/en-us/defender-cloud-apps/cas-compliance-trust#data-retention)).
 
-In all cases, the data returned from these searches yields the label's ID and not the label's friendly name. So you will need to perform additional steps to match the label ID with the label name.
+In all cases, the data returned from these searches yields the label's immutable ID and not the label's friendly name. So you will need to perform additional steps to match the label ID with the label name.
 
+The article, [Analyzing the Use of Sensitivity Labels without the Activity Explorer](https://office365itpros.com/2022/11/15/sensitivity-labels-analysis/) references a script [AnalyzeSensitivityLabelUsage.ps1](https://github.com/12Knocksinna/Office365itpros/blob/master/AnalyzeSensitivityLabelUsage.PS1) that can be used 
 
 ### Back Up an Azure RMS Template
 Use `Export-AipServiceTemplate` to back up an RMS template to an XML file. The file details include the template's name, public key and signature, tenant ID and label ID.  
