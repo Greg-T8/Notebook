@@ -570,13 +570,20 @@ The article, [Analyzing the Use of Sensitivity Labels without the Activity Explo
 - **SensitivityLabelApplied**: 
   - Scenario A: A user labels a document using one of the Office desktop apps (Word, Excel, or PowerPoint). In this case the record type property is *SensitivityLabelAction*.
   - Scenario B: A site owner or administrator applies a sensitivity label to a SharePoint site. In this case the record type property is *SharePoint*.
-- **FileSensitivityLabelApplied**: A document is labeled by Office on the web or from an auto-labeling policy
+- **FileSensitivityLabelApplied**: A document is labeled from an Office on the web app or from an auto-labeling policy
 - **SensitivityLabelUpdated**: A user changes a sensitivity label from one of the Office desktop apps (Word, Excel, or PowerPoint)
 - **MipLabel**: Events related to the detection in the transport pipeline of email messages that have been tagged (manually or automatically) with sensitivity labels.
 
-See [Sensitivity label activities](https://learn.microsoft.com/en-us/microsoft-365/compliance/audit-log-activities?view=o365-worldwide#sensitivity-label-activities) for a list of all events from using sensitivity labels.
+This script does not report on the following events:
+- **SiteSensitivityLabelApplied**: A sensitivity label was applied to a SharePoint site or Teams site that isn't group connected
+- **SiteSensitivityLabelRemoved**: A sensitivity label was removed from a SharePoint site or Teams site that isn't group connected
+- **FileSensitivityLabelChanged**: A user changed a sensitivity label (upgrade or downgrade) for an Office document either by using Office on the web or from an auto-labeling policy.
+- **SiteSensitivityLabelChanged**: A different sensitivity label was applied to a SharePoint site or Teams site that isn't group-connected.
+- **FileSensitivityLabelRemoved**: A sensitivity label was removed by using Office on the web, an auto-labeling policy, or by [Unlock-SPOSensitivityLabelEncryptedFile](https://learn.microsoft.com/en-us/powershell/module/sharepoint-online/unlock-sposensitivitylabelencryptedfile?view=sharepoint-ps). 
+- **SensitivityLabelRemoved**: A sensitivity label is removed by using the Office desktop apps
+- **DocumentSensitivityMismatchDetected**: User uploads a document to a site that's protected with a sensitivity label and the document has a higher priority sensitivity label than the sensitivity label applied to the site.  This event isn't triggered if a document has a lower priority sensitivity label. See [Analyzing Document Label Mismatch Audit Records](https://office365itpros.com/2022/08/23/document-label-mismatch-audit/.)
 
-See []
+See [Sensitivity label activities](https://learn.microsoft.com/en-us/microsoft-365/compliance/audit-log-activities?view=o365-worldwide#sensitivity-label-activities) for a list of all events from using sensitivity labels. See [Purview Information Protection Connector Reference](https://learn.microsoft.com/en-us/azure/sentinel/microsoft-purview-record-types-activities) for a list of all audit log record types.
 
 ### Back Up an Azure RMS Template
 Use `Export-AipServiceTemplate` to back up an RMS template to an XML file. The file details include the template's name, public key and signature, tenant ID and label ID.  
