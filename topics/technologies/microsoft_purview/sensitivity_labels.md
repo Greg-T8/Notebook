@@ -566,7 +566,17 @@ Microsoft Defender for Cloud Apps stores its activity data for 180 days (see [he
 
 In all cases, the data returned from these searches yields the label's immutable ID and not the label's friendly name. So you will need to perform additional steps to match the label ID with the label name.
 
-The article, [Analyzing the Use of Sensitivity Labels without the Activity Explorer](https://office365itpros.com/2022/11/15/sensitivity-labels-analysis/) references a script [AnalyzeSensitivityLabelUsage.ps1](https://github.com/12Knocksinna/Office365itpros/blob/master/AnalyzeSensitivityLabelUsage.PS1) that can be used 
+The article, [Analyzing the Use of Sensitivity Labels without the Activity Explorer](https://office365itpros.com/2022/11/15/sensitivity-labels-analysis/) references a script [AnalyzeSensitivityLabelUsage.ps1](https://github.com/12Knocksinna/Office365itpros/blob/master/AnalyzeSensitivityLabelUsage.PS1) that can be used to report sensitivity label usage. This script audits the following information protection events:
+- **SensitivityLabelApplied**: 
+  - Scenario A: A user labels a document using one of the Office desktop apps (Word, Excel, or PowerPoint). In this case the record type property is *SensitivityLabelAction*.
+  - Scenario B: A site owner or administrator applies a sensitivity label to a SharePoint site. In this case the record type property is *SharePoint*.
+- **FileSensitivityLabelApplied**: A document is labeled by Office on the web or from an auto-labeling policy
+- **SensitivityLabelUpdated**: A user changes a sensitivity label from one of the Office desktop apps (Word, Excel, or PowerPoint)
+- **MipLabel**: Events related to the detection in the transport pipeline of email messages that have been tagged (manually or automatically) with sensitivity labels.
+
+See [Sensitivity label activities](https://learn.microsoft.com/en-us/microsoft-365/compliance/audit-log-activities?view=o365-worldwide#sensitivity-label-activities) for a list of all events from using sensitivity labels.
+
+See []
 
 ### Back Up an Azure RMS Template
 Use `Export-AipServiceTemplate` to back up an RMS template to an XML file. The file details include the template's name, public key and signature, tenant ID and label ID.  
