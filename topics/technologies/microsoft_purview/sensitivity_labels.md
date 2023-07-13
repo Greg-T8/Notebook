@@ -617,7 +617,7 @@ function Export-PvAzureRMSTemplates {
 ```
 
 ### Rename an RMS Template
-
+Test commit.
 
 
 ### Remove an RMS Template
