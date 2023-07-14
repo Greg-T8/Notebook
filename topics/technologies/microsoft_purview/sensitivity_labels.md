@@ -627,3 +627,9 @@ If you remove an Azure RMS template that's still linked to a label, then you wil
 ### Restore an RMS Template
 Use `Import-AipServiceTemplate` to restore an RMS template from an XML file. Given that RMS templates are unique to the tenant, you can only restore templates that were backed up from the same tenant.  
 ![](img/20230727-042727.png)
+
+
+
+[!NOTE]
+
+Testing a note box
