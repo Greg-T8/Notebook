@@ -31,7 +31,6 @@
   - [Get the Relationship Between a Label and an Azure RMS Template](#get-the-relationship-between-a-label-and-an-azure-rms-template)
   - [Determine if Label Has Been Used](#determine-if-label-has-been-used)
   - [Back Up an Azure RMS Template](#back-up-an-azure-rms-template)
-  - [Rename an RMS Template](#rename-an-rms-template)
   - [Remove an RMS Template](#remove-an-rms-template)
   - [Restore an RMS Template](#restore-an-rms-template)
 
@@ -615,13 +614,8 @@ function Export-PvAzureRMSTemplates {
     }
 }
 ```
-
-### Rename an RMS Template
-Test commit.
-
-
 ### Remove an RMS Template
-In some cases you may want to completely remove an RMS template from the AIP service.  To do this use `Remove-AIPServiceTemplate` with the `-TemplateId` parameter. **Warning**: This will remove the template from the AIP service and prevent users from decrypting documents that were encrypted with the template. Make sure you back up the template before removing in case you need to restore it.
+In some cases you may want to completely remove an RMS template from the AIP service.  To do this use `Remove-AIPServiceTemplate` with the `-TemplateId` parameter. Global Admin permissions are required. **Warning**: This will remove the template from the AIP service and prevent users from decrypting documents that were encrypted with the template. Make sure you back up the template before removing in case you need to restore it.
 
  As an additional note, you can only remove templates that you have created. The [Microsoft documentation](https://learn.microsoft.com/en-us/powershell/module/aipservice/remove-aipservicetemplate?view=azureipps) indicates you can only delete templates that you have created for your organization and that you cannot delete the default templates. However, in testing I 
 was able to delete the default templates.
