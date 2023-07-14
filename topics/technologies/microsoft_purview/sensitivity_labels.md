@@ -630,6 +630,6 @@ Use `Import-AipServiceTemplate` to restore an RMS template from an XML file. Giv
 
 
 
-[!NOTE]
+[!TIP]
 
 Testing a note box
