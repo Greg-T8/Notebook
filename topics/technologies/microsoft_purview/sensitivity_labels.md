@@ -538,7 +538,7 @@ Get-Label -IncludeDetailedLabelActions | select DisplayName, Name, ExchangeObjec
 **From AIPService PowerShell**  
 Use the `LabelId` property from `Get-AipServiceTemplate` to find the label that corresponds to the template:  
 ```powershell
-[array](Get-AipServiceTemplate) | Select TemplateId, Names, Status, LabelId
+[array](Get-AipServiceTemplate) | Select TemplateId, Status, LabelId, Names
 ```
 ![](img/20230708-060835.png)
 
@@ -550,7 +550,7 @@ The `LabelId` property from `Get-AipServiceTemplate` (in the prior screenshot) c
 ```powershell
 Get-Label | Select DisplayName, Name, ExchangeObjectId, Guid
 ```
-![](img/20230619-041927.png)
+![](img/20230749-034935.png)
 
 ### Determine if Label Has Been Used
 You have four options for determining if a label has been used:
