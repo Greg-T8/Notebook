@@ -14,6 +14,8 @@
   - [Label Policy (Priority Matters)](#label-policy-priority-matters)
   - [Built-in Labeling for the Office Apps](#built-in-labeling-for-the-office-apps)
   - [Defining Label Taxonomy](#defining-label-taxonomy)
+  - [External Sharing](#external-sharing)
+  - [PDF Support](#pdf-support)
 - [Roles and Permissions](#roles-and-permissions)
   - [Manage the Azure Information Protection Service](#manage-the-azure-information-protection-service)
 - [Define and Create Sensitivity Labels](#define-and-create-sensitivity-labels)
@@ -206,6 +208,11 @@ See the full list and descriptions [here](https://microsoft.github.io/Compliance
 Eligible customers (new and existing) can activate a set of default protection labels and policies. See [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/mip-easy-trials?view=o365-worldwide#default-sensitivity-labels).
 
 ![](img/20230628-042825.png)
+
+### External Sharing
+
+
+### PDF Support
 
 ## Roles and Permissions
 - Reference
