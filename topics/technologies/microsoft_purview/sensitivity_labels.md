@@ -19,6 +19,7 @@
 - [Define and Create Sensitivity Labels](#define-and-create-sensitivity-labels)
   - [Removing and Deleting Labels](#removing-and-deleting-labels)
 - [Protecting SharePoint Sites, Teams, and Groups with Sensitivity Labels](#protecting-sharepoint-sites-teams-and-groups-with-sensitivity-labels)
+  - [Enabling PDF Support](#enabling-pdf-support)
 - [Use PowerShell to manage Sensitivity Labels](#use-powershell-to-manage-sensitivity-labels)
   - [Get Info on Sensitivity Labels and Policies](#get-info-on-sensitivity-labels-and-policies)
   - [Create a Sensitivity Label](#create-a-sensitivity-label)
@@ -297,7 +298,16 @@ See [Removing and deleting labels](https://learn.microsoft.com/en-us/microsoft-3
 Sensitivity labels for SharePoint sites, Teams, and Microsoft 365 Groups is not enabled by default. You must take several steps to enable sensitivity labels for these containers. See [Use sensitivity labels with teams, groups, and sites](https://learn.microsoft.com/en-us/purview/sensitivity-labels-teams-groups-sites).
 
 **Step 1: Enable sensitivity label support for groups in PowerShell**  
-Follow the guidance [here](https://learn.microsoft.com/en-us/azure/active-directory/enterprise-users/groups-assign-sensitivity-labels#enable-sensitivity-label-support-in-powershell) to configure the `EnableMIPLabels` setting for groups. You may need to create 
+Follow the guidance [here](https://learn.microsoft.com/en-us/azure/active-directory/enterprise-users/groups-assign-sensitivity-labels#enable-sensitivity-label-support-in-powershell) to set the `EnableMIPLabels` setting for groups to `True`. New tenants do not have a directory setting for groups, so you must create one. See [here](https://learn.microsoft.com/en-us/azure/active-directory/enterprise-users/groups-settings-cmdlets#template-settings) for a description of each template setting. Here are the default settings:
+
+![](img/20230830-043058.png)
+
+
+
+
+
+### Enabling PDF Support
+See https://learn.microsoft.com/en-us/purview/sensitivity-labels-sharepoint-onedrive-files?view=o365-worldwide#enable-the-preview-by-using-microsoft-powershell-opt-in
 
 
 ## Use PowerShell to manage Sensitivity Labels
