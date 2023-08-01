@@ -302,7 +302,8 @@ Follow the guidance [here](https://learn.microsoft.com/en-us/azure/active-direct
 
 ![](img/20230830-043058.png)
 
-
+**Step 2: Synchronize sensitivity labels with Azure AD**
+As a global administrator, run `Execute-AzureADLabelSync` in a Windows PowerShell session.  This command may fail in newer PowerShell versions. This command also has a tendancy to fail in general.
 
 
 
