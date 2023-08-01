@@ -14,12 +14,11 @@
   - [Label Policy (Priority Matters)](#label-policy-priority-matters)
   - [Built-in Labeling for the Office Apps](#built-in-labeling-for-the-office-apps)
   - [Defining Label Taxonomy](#defining-label-taxonomy)
-  - [External Sharing](#external-sharing)
-  - [PDF Support](#pdf-support)
 - [Roles and Permissions](#roles-and-permissions)
   - [Manage the Azure Information Protection Service](#manage-the-azure-information-protection-service)
 - [Define and Create Sensitivity Labels](#define-and-create-sensitivity-labels)
   - [Removing and Deleting Labels](#removing-and-deleting-labels)
+- [Protecting SharePoint Sites, Teams, and Groups with Sensitivity Labels](#protecting-sharepoint-sites-teams-and-groups-with-sensitivity-labels)
 - [Use PowerShell to manage Sensitivity Labels](#use-powershell-to-manage-sensitivity-labels)
   - [Get Info on Sensitivity Labels and Policies](#get-info-on-sensitivity-labels-and-policies)
   - [Create a Sensitivity Label](#create-a-sensitivity-label)
@@ -209,11 +208,6 @@ Eligible customers (new and existing) can activate a set of default protection l
 
 ![](img/20230628-042825.png)
 
-### External Sharing
-
-
-### PDF Support
-
 ## Roles and Permissions
 - Reference
   - [Permissions required to create and manage sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/get-started-with-sensitivity-labels?view=o365-worldwide#permissions-required-to-create-and-manage-sensitivity-labels)
@@ -298,6 +292,13 @@ In comparison, when you delete a label:
 As with all label changes, removing a sensitivity label from a label policy or deleting a sensitivity label takes time to replicate to all users and services.
 
 See [Removing and deleting labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-sensitivity-labels?view=o365-worldwide#removing-and-deleting-labels) for more info.
+
+## Protecting SharePoint Sites, Teams, and Groups with Sensitivity Labels
+Sensitivity labels for SharePoint sites, Teams, and Microsoft 365 Groups is not enabled by default. You must take several steps to enable sensitivity labels for these containers. See [Use sensitivity labels with teams, groups, and sites](https://learn.microsoft.com/en-us/purview/sensitivity-labels-teams-groups-sites).
+
+**Step 1: Enable sensitivity label support for groups in PowerShell**  
+Follow the guidance [here](https://learn.microsoft.com/en-us/azure/active-directory/enterprise-users/groups-assign-sensitivity-labels#enable-sensitivity-label-support-in-powershell) to configure the `EnableMIPLabels` setting for groups. You may need to create 
+
 
 ## Use PowerShell to manage Sensitivity Labels
 
