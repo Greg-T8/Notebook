@@ -302,8 +302,16 @@ Follow the guidance [here](https://learn.microsoft.com/en-us/azure/active-direct
 
 ![](img/20230830-043058.png)
 
-**Step 2: Synchronize sensitivity labels with Azure AD**
-As a global administrator, run `Execute-AzureADLabelSync` in a Windows PowerShell session.  This command may fail in newer PowerShell versions. This command also has a tendancy to fail in general.
+**Step 2: Synchronize sensitivity labels with Azure AD**  
+As a global administrator, run `Execute-AzureADLabelSync` in a Windows PowerShell session. 
+
+![](img/20230807-030748.png)
+
+This command is tricky to get working. I've only had success when running in the following scenarios:
+1. Running in Windows PowerShell, not modern PowerShell
+2. After introducing the **Groups & Sites** scope to a label, waiting overnight, and then running the command
+
+In other scenarios, the command may time out after 5 minutes with a JSON error.
 
 
 
