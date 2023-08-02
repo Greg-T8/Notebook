@@ -313,6 +313,12 @@ This command is tricky to get working. I've only had success when running in the
 
 In other scenarios, the command may time out after 5 minutes with a JSON error.
 
+In my case, the Sensitivity Label option for Microsoft 365 Groups appeared only after creating a Team, not a Microsoft 365 Group, and specifying a sensitivity label for the Team.
+
+![](img/20230821-032128.png)
+
+Once you apply a sensitivity label you cannot change it.
+
 
 
 ### Enabling PDF Support
