@@ -317,8 +317,7 @@ In my case, the Sensitivity Label option for Microsoft 365 Groups appeared only 
 
 ![](img/20230821-032128.png)
 
-Once you apply a sensitivity label you cannot change it.
-
+See the Microsoft Groups article [Assign sensitivity labels](https://learn.microsoft.com/en-us/azure/active-directory/enterprise-users/groups-assign-sensitivity-labels) for more info on changing, removing, and troubleshooting labels for Microsoft 365 Groups.
 
 
 ### Enabling PDF Support
