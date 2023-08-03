@@ -19,6 +19,7 @@
 - [Define and Create Sensitivity Labels](#define-and-create-sensitivity-labels)
   - [Removing and Deleting Labels](#removing-and-deleting-labels)
 - [Protecting SharePoint Sites, Teams, and Groups with Sensitivity Labels](#protecting-sharepoint-sites-teams-and-groups-with-sensitivity-labels)
+  - [Applying a Sensitivity Label to Content Automatically](#applying-a-sensitivity-label-to-content-automatically)
   - [Enabling PDF Support](#enabling-pdf-support)
 - [Use PowerShell to manage Sensitivity Labels](#use-powershell-to-manage-sensitivity-labels)
   - [Get Info on Sensitivity Labels and Policies](#get-info-on-sensitivity-labels-and-policies)
@@ -320,9 +321,17 @@ In my case, the Sensitivity Label option for Microsoft 365 Groups appeared only 
 See the Microsoft Groups article [Assign sensitivity labels](https://learn.microsoft.com/en-us/azure/active-directory/enterprise-users/groups-assign-sensitivity-labels) for more info on changing, removing, and troubleshooting labels for Microsoft 365 Groups.
 
 
+### Applying a Sensitivity Label to Content Automatically
+https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically
+
+
+
 ### Enabling PDF Support
 See https://learn.microsoft.com/en-us/purview/sensitivity-labels-sharepoint-onedrive-files?view=o365-worldwide#enable-the-preview-by-using-microsoft-powershell-opt-in
 
+https://learn.microsoft.com/en-us/purview/ome-faq#are-pdf-file-attachments-supported-
+
+![](img/20230836-043600.png)
 
 ## Use PowerShell to manage Sensitivity Labels
 
