@@ -59,10 +59,9 @@
 - Manage protection settings and marking for applied sensitivity labels
 
 ## Licensing
-Reference
-- [Microsoft Purview Information Protection - Sensitivity Labeling](https://learn.microsoft.com/en-us/office365/servicedescriptions/microsoft-365-service-descriptions/microsoft-365-tenantlevel-services-licensing-guidance/microsoft-365-security-compliance-licensing-guidance#microsoft-purview-information-protection-sensitivity-labeling)
+- [Microsoft Purview Information Protection: Sensitivity Labeling service description](https://learn.microsoft.com/en-us/office365/servicedescriptions/microsoft-365-service-descriptions/microsoft-365-tenantlevel-services-licensing-guidance/microsoft-365-security-compliance-licensing-guidance#microsoft-purview-information-protection-sensitivity-labeling)
 
-In general, an E5 license is required for each user who accesses protected documents in locations that use automatic labeling. An E3 license is required when using manual labeling.  
+An E5 license is required for each user who accesses protected documents in locations that use automatic labeling. An E3 license is required when using manual labeling. Labeling by using a default label is considered manual labeling, as the user has the option to accept or change the label. By default, information protection features are applied at the tenant level for all users within the tenant.
   
 ## Overview
 To collaborate with others both inside and outside the organization, content no longer stays behind a firewall&mdash;it can roam everywhere across devices, apps, and services. When this data roams, you want it to be protected in a way that meets the org's business and compliance policies.
