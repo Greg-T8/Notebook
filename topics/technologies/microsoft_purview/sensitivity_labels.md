@@ -7,11 +7,10 @@
 - [Licensing](#licensing)
 - [Overview](#overview)
   - [Label Scopes](#label-scopes)
-  - [Label Priority (Order Matters)](#label-priority-order-matters)
-  - [Sublabels (Grouping Labels)](#sublabels-grouping-labels)
+  - [Label Priority](#label-priority)
+  - [Sublabels](#sublabels)
   - [Editing or Deleting a Sensitivity Label](#editing-or-deleting-a-sensitivity-label)
-  - [What Label Policies Can Do](#what-label-policies-can-do)
-  - [Label Policy (Priority Matters)](#label-policy-priority-matters)
+  - [Label Policy](#label-policy)
   - [Built-in Labeling for the Office Apps](#built-in-labeling-for-the-office-apps)
   - [Defining Label Taxonomy](#defining-label-taxonomy)
   - [External Access](#external-access)
@@ -91,16 +90,16 @@ The scope configuration allows you to have sensitivity labels that are just for 
 
 See [Labeling in Microsoft Purview](https://learn.microsoft.com/en-us/azure/purview/create-sensitivity-label) for applying labels to Azure assets in Microsoft Purview Data Map.
 
-### Label Priority (Order Matters)
+### Label Priority
 When you create sensitivity labels, they appear in a list on the **Information Protection > Labels** page. In this list, the order of the labels is important because it reflects their priority. You want your most restrictive sensitivity label, such as Highly Confidential, to appear at the bottom of your list, and your least restrictive label to appear at the top.
 
-You can apply just one sensitivity label to an item, such as an email, document, or container. If you set an option that requires your users to provide a justification for changing a label to lower sensitivity, the order of this list identifies the lower sensitivity.  **However, this option does not apply to sublabels that share the priority of their parent label.**
+You can apply just one sensitivity label to an item, such as an email, document, or container. If you set an option that requires your users to provide a justification for changing a label to lower sensitivity, the order of this list identifies the lower sensitivity. However, users are not required to provide justification when changing to a lower priority *within a sublabel*. 
 
-The ordering of sublabels is used with automatic labeling, though. When you configure auto-labeling policies, multiple matches can result for more than one label. Then, the last sensitive label is selected, and then if applicable, the last sublabel. When you configure sublabels themselves (rather than auto-labeling policies) for automatic labeling, the behavior is a little different when sublabels share the same parent label. For example, a sublabel configured for automatic labeling is preferred over a sublabel configured for recommended labeling. See [How multiple conditions are evaluated when they apply to more than one label](https://learn.microsoft.com/en-us/microsoft-365/compliance/apply-sensitivity-label-automatically?view=o365-worldwide#how-multiple-conditions-are-evaluated-when-they-apply-to-more-than-one-label)
+The ordering of sublabels is also used with automatic labeling. When you configure auto-labeling policies, multiple matches can result for more than one label. Then, the last sensitive label is selected, and then if applicable, the last sublabel. When you configure sublabels themselves (rather than auto-labeling policies) for automatic labeling, the behavior is a little different when sublabels share the same parent label. For example, a sublabel configured for automatic labeling is preferred over a sublabel configured for recommended labeling. See [How multiple conditions are evaluated when they apply to more than one label](https://learn.microsoft.com/en-us/microsoft-365/compliance/apply-sensitivity-label-automatically?view=o365-worldwide#how-multiple-conditions-are-evaluated-when-they-apply-to-more-than-one-label)
 
 ![](img/20230604-040455.png)
 
-### Sublabels (Grouping Labels)
+### Sublabels
 With sublabels, you can group one or more labels below a parent label that a user sees in an Office app. Sublabels are simply a way to present labels to users in logical groups. Sublabels don't inherit any settings from their parent label, except for their label color. When you publish a sublabel for a user, that user can then apply that sublabel to content and containers, but can't apply just the parent label.
 
 Don't choose a parent label as the default label, or configure a parent label to be automatically applied (or recommended). If you do, the parent label can't be applied.
@@ -112,7 +111,7 @@ If you delete a sensitivity label from the admin portal, the label isn't automat
 
 If you edit a sensitivity label, the version of the label that was applied to content is what's enforced on that content.
 
-### What Label Policies Can Do
+### Label Policy
 After you create your sensitivity labels, you need to publish them to make them available to people and services in your organization. The sensitivity labels can then be applied to Office documents and emails, and other items that support sensitivity labels.
 
 Unlike retention labels, which are published to locations such as Exchange mailboxes, sensitivity labels are published to users or groups.
@@ -130,7 +129,6 @@ After you create a label policy, allow up to 24 hours for the changes to replica
 
 There's no limit to the number of labels you can create and publish, with one exception: If the label applies encryption that specifies the users and permissions, there's a maximum of 500 labels per tenant. However, as a best practice to lower admin overhead and reduce complexity, try to keep the number of labels to a minimum. Real-world deployments have proved effectiveness to be noticeably reduced when users have more than 5 main labels or more than 5 sublabels per main label.
 
-### Label Policy (Priority Matters)
 You make your sensitivity labels available to users by publishing them in a sensitivity policy that appears in a list on the **Label Policies** page. Just like sensitivity labels, the order of the sensitivity label policies is important because it reflects their priority: The label policy with the lowest priority is shown at the top of the list with the lowest order number, and the label policy with the highest priority is shown at the bottom of the list with the highest priority number. 
 
 A label policy consists of:
@@ -143,6 +141,8 @@ You can include a user in multiple label policies, and the user will get all the
 If you're not seeing the label policy setting behavior that you expect for a user or group, check the order of the sensitivity label policies. You might need to move a policy down. 
 
 ![](img/20230607-030710.png)
+
+The label policy at the bottom has the highest order number and therefore prevails over the other policies.
 
 ### Built-in Labeling for the Office Apps
 Built-in labels (as opposed to labels provided by the soon-to-be-retired AIP client) require a subscription edition of Office apps. Standalone editions of Office aren't supported. See [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-aip?view=o365-worldwide#benefits-of-using-built-in-labeling-for-office-apps-vs-the-aip-add-in)
@@ -188,9 +188,28 @@ Eligible customers (new and existing) can activate a set of default protection l
 ![](img/20230628-042825.png)
 
 ### External Access
-Accessing protected content requires authentication with a Microsoft Service Account (MSA) associated with an email address. This means a user must have a Microsoft account in some tenant to access protected content.
+Users must have an account in Azure AD to access protected content. By default, users will be authenticated without any additional configuration. If users don't have an Azure AD account, they must have a guest account in your tenant. 
+- [Sharing encrypted documents with external users](https://learn.microsoft.com/en-us/purview/sensitivity-labels-office-apps?view=o365-worldwide#sharing-encrypted-documents-with-external-users). 
+- [Conditional Access policies and encrypted documents](https://learn.microsoft.com/en-us/purview/encryption-azure-ad-configuration#conditional-access-policies-and-encrypted-documents)
 
-See [Configure secure document collaboration](https://learn.microsoft.com/en-us/previous-versions/azure/information-protection/secure-collaboration-documents) for more info.
+![](img/20230801-060110.png)
+
+![](img/20230802-060201.png)
+
+To facilitate guest account creation you have two options:
+1. Create the guest account manually
+2. Use [SharePoint and OneDrive integration with Azure AD B2B](https://learn.microsoft.com/en-us/sharepoint/sharepoint-azureb2b-integration) so that guest accounts are automatically created when your users share links.
+
+See [Guest accounts for external users to open encrypted documents](https://learn.microsoft.com/en-us/purview/encryption-azure-ad-configuration#guest-accounts-for-external-users-to-open-encrypted-documents).
+
+Users must use an Azure RMS-enlightened application to access protected content. This list includes
+- Microsoft 365 Apps
+- Office Professional Plus 2013, 2016, and 2019
+- Office 2016 for Mac, Office 2019 for Mac
+
+See [Application support for protection](https://learn.microsoft.com/en-us/azure/information-protection/requirements-applications#rms-enlightened-applications).
+
+With regard to label visibility, users outside the organization do not see the label name. However, they do see the content markings, e.g. header or footer, and the name and description of the underlying Azure RMS protection template. The description of the Azure RMS template pulls from the description of the label, so external users do ultimately see the label description. See [Support for external users and labeled content](https://learn.microsoft.com/en-us/purview/sensitivity-labels-office-apps?view=o365-worldwide#support-for-external-users-and-labeled-content).
 
 ## Roles and Permissions
 - Reference
