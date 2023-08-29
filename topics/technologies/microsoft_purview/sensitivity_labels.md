@@ -71,37 +71,10 @@ To collaborate with others both inside and outside the organization, content no 
 
 Sensitivity labels let you classify and protect your organization's data, while making sure that user productivity and their ability to collaborate isn't hindered.
 
-However, adopting a company-wide information protection framework involves a culture shift and therefore requires strong support from the executive team.
 
-Sensitivity labels can be applied manually using the [Sensitivity Bar](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-office-apps?view=o365-worldwide#sensitivity-bar) in the Office apps. Sensitivity labels also have [PDF support](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-office-apps?view=o365-worldwide#pdf-support).
+Sensitivity labels can be applied manually using the [Sensitivity Bar](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-office-apps?view=o365-worldwide#sensitivity-bar) in the Office apps. Sensitivity labels also have [PDF support](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-office-apps?view=o365-worldwide#pdf-support). See [Common scenarios for sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/get-started-with-sensitivity-labels?view=o365-worldwide#common-scenarios-for-sensitivity-labels). A sensitivity label is stored in clear text in the metadata for files and emails. This allows third-party apps and services to read it and apply their own protective actions. It also means the label stays with the content, no matter where it's stored or saved.
 
-Use cases for sensitivity labels:
-- Provide protection settings that include encryption and content markings
-- Protect content in Office apps across different platforms and devices
-- Protect content in third-party apps and services
-  - e.g. in Microsoft Defender for Cloud Apps, you can protect content in SalesForce, Box, or DropBox
-- Protect containers, e.g. Teams, M365 Groups, and SharePoint sites
-- Protect meetings and chat
-- Extend sensitivity labels to Power BI
-- Extend sensitivity labels to Microsoft Purview Data Map
-  - these are files and schematized assets that include SQL, Azure SQL, Azure Synapse, Azure Cosmos DB, and AWS RDS
-- Extend sensitivity labels to third-party apps and services using the [Microsoft Information Protection SDK](https://learn.microsoft.com/en-us/information-protection/develop/overview)
-- Label content without using any protection settings
-  - Helps to provide a visual mapping of your organization's data sensitivity
-  - You can use labels to generate reports; can always apply protection later
-
-See [Common scenarios for sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/get-started-with-sensitivity-labels?view=o365-worldwide#common-scenarios-for-sensitivity-labels)
-
-A sensitivity label is stored in clear text in the metadata for files and emails. This allows third-party apps and services to read it and apply their own protective actions. It also means the label stays with the content, no matter where it's stored or saved.
-
-Sensitivity labels can do the following things:
-- Encrypt: documents, emails, and meeting invites
-- Mark content: watermarks, headers, and footers
-- Protect content in containers: SharePoint sites, M365 Groups, Teams
-- Apply the label automatically to files and emails, or recommend a label
-- Set the default sharing link type, e.g. sharing links inherit permissions from the label
-
-See [Manage sensitivity labels in Office apps](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-office-apps?view=o365-worldwide) for more configuration options.
+Before starting, know that adopting a company-wide information protection framework involves a culture shift and therefore requires strong support from the executive team.
 
 ### Label Scopes
 When you create a sensitivity label, you're asked to configure the label's scope, which determines two things:
@@ -112,7 +85,9 @@ The scope configuration allows you to have sensitivity labels that are just for 
 
 ![](img/20230648-034828.png)
 
-Note: Applying sensitivity labels to containers, such as Teams and sites, does not mean the resulting files and emails will inherit the label. Instead, sensitivity labels applied to Teams and sites controls access to the container itself. See [Use sensitivity labels with Teams, groups, and sites](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-teams-groups-sites?view=o365-worldwide#how-to-enable-sensitivity-labels-for-containers-and-synchronize-labels) for enabling scopes for containers.
+**Note:** Applying sensitivity labels to containers, such as Teams and sites, does not mean the resulting files and emails will inherit the label. Instead, sensitivity labels applied to Teams and sites controls access to the container itself. See [Use sensitivity labels with Teams, groups, and sites](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-teams-groups-sites?view=o365-worldwide#how-to-enable-sensitivity-labels-for-containers-and-synchronize-labels) for enabling scopes for containers.
+
+![](img/20230831-053108.png)
 
 See [Labeling in Microsoft Purview](https://learn.microsoft.com/en-us/azure/purview/create-sensitivity-label) for applying labels to Azure assets in Microsoft Purview Data Map.
 
@@ -148,8 +123,6 @@ When you configure a label policy, you can:
 - **Require a justification for changing a label**: If a user tries to remove a label or replace it with a label that has a lower-order priority, you can require the user provide a justification to perform this action. Administrators can read the justification reason in Activity Explorer.
 - **Require users to apply a label** for different types of items and the containers that support sensitivity labels. This is also known as mandatory labeling. Consider using this option to increase your labeling coverage. However, without training, this setting can lead to inaccurate labeling and will frustrate your users. For containers, a label must be assigned at the time the group or site is created. 
 - **Provide help link to a custom help page**. 
-
-After you create a label policy, allow up to 24 hours for the changes to replicate through the org. 
 
 There's no limit to the number of labels you can create and publish, with one exception: If the label applies encryption that specifies the users and permissions, there's a maximum of 500 labels per tenant. However, as a best practice to lower admin overhead and reduce complexity, try to keep the number of labels to a minimum. Real-world deployments have proved effectiveness to be noticeably reduced when users have more than 5 main labels or more htan 5 sublabels per main label.
 
