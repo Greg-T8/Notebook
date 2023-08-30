@@ -13,7 +13,7 @@
   - [Label Policy](#label-policy)
   - [Built-in Labeling for the Office Apps](#built-in-labeling-for-the-office-apps)
   - [Defining Label Taxonomy](#defining-label-taxonomy)
-  - [External Access](#external-access)
+  - [External Access and Visibility](#external-access-and-visibility)
 - [Roles and Permissions](#roles-and-permissions)
   - [Manage the Azure Information Protection Service](#manage-the-azure-information-protection-service)
 - [Define and Create Sensitivity Labels](#define-and-create-sensitivity-labels)
@@ -185,12 +185,12 @@ Eligible customers (new and existing) can activate a set of default protection l
 
 In my experience, I recommend using a set of five labels as a starting point. Each of these labels are standard labels and not sublabels. I only recommend using sublabels when you have a clear need for them. Reason for this recommendation is that users may be overwhelmed when having to look for the right label to apply amongst a group of sublabels.
 
-### External Access
+### External Access and Visibility
 Users must have an account in Azure AD to access protected content. By default, users will be authenticated without any additional configuration. If users don't have an Azure AD account, they must have a guest account in your tenant. 
 - [Sharing encrypted documents with external users](https://learn.microsoft.com/en-us/purview/sensitivity-labels-office-apps?view=o365-worldwide#sharing-encrypted-documents-with-external-users). 
 - [Conditional Access policies and encrypted documents](https://learn.microsoft.com/en-us/purview/encryption-azure-ad-configuration#conditional-access-policies-and-encrypted-documents)
 
-![](img/20230801-060110.png)
+![](img/20230801-060110.png )
 
 ![](img/20230802-060201.png)
 
@@ -198,7 +198,7 @@ To facilitate guest account creation you have two options:
 1. Create the guest account manually
 2. Use [SharePoint and OneDrive integration with Azure AD B2B](https://learn.microsoft.com/en-us/sharepoint/sharepoint-azureb2b-integration) so that guest accounts are automatically created when your users share links.
 
-See [Guest accounts for external users to open encrypted documents](https://learn.microsoft.com/en-us/purview/encryption-azure-ad-configuration#guest-accounts-for-external-users-to-open-encrypted-documents).
+See [Guest accounts for external users to open encrypted documents](https://learn.microsoft.com/en-us/purview/encryption-azure-ad-configuration#guest-accounts-for-external-users-to-open-encrypted-documents). Also see [Invitation redemption flow](https://learn.microsoft.com/en-us/azure/active-directory/external-identities/redemption-experience#invitation-redemption-flow).
 
 Users must use an Azure RMS-enlightened application to access protected content. This list includes
 - Microsoft 365 Apps
