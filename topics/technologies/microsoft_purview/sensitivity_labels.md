@@ -66,14 +66,12 @@ An E5 license is required for each user who accesses protected documents in loca
 No license is necessary for someone who only opens and accesses the content in protected files.
   
 ## Overview
-To collaborate with others both inside and outside the organization, content no longer stays behind a firewall&mdash;it can roam everywhere across devices, apps, and services. When this data roams, you want it to be protected in a way that meets the org's business and compliance policies.
+Sensitivity labels let you classify and protect your organization's data, while making sure that user productivity and their ability to collaborate isn't hindered. 
 
-Sensitivity labels let you classify and protect your organization's data, while making sure that user productivity and their ability to collaborate isn't hindered.
-
+IMPORTANT: Adopting a company-wide information protection framework means that users will be required to make choices on the classification of files they work with. Therefore, an information protection framework involves a culture shift and generally requires strong support from the executive team.
 
 Sensitivity labels can be applied manually using the [Sensitivity Bar](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-office-apps?view=o365-worldwide#sensitivity-bar) in the Office apps. Sensitivity labels also have [PDF support](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-office-apps?view=o365-worldwide#pdf-support). See [Common scenarios for sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/get-started-with-sensitivity-labels?view=o365-worldwide#common-scenarios-for-sensitivity-labels). A sensitivity label is stored in clear text in the metadata for files and emails. This allows third-party apps and services to read it and apply their own protective actions. It also means the label stays with the content, no matter where it's stored or saved.
 
-Before starting, know that adopting a company-wide information protection framework involves a culture shift and therefore requires strong support from the executive team.
 
 ### Label Scopes
 When you create a sensitivity label, you're asked to configure the label's scope, which determines two things:
@@ -84,7 +82,7 @@ The scope configuration allows you to have sensitivity labels that are just for 
 
 ![](img/20230648-034828.png)
 
-**Note:** Applying sensitivity labels to containers, such as Teams and sites, does not mean the resulting files and emails will inherit the label. Instead, sensitivity labels applied to Teams and sites controls access to the container itself. See [Use sensitivity labels with Teams, groups, and sites](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-teams-groups-sites?view=o365-worldwide#how-to-enable-sensitivity-labels-for-containers-and-synchronize-labels) for enabling scopes for containers.
+**Note:** Applying sensitivity labels to containers, such as Teams and sites, does not mean the resulting files and emails will inherit the label. Instead, sensitivity labels applied to Teams and sites control access to the container itself. See [Use sensitivity labels with Teams, groups, and sites](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-teams-groups-sites?view=o365-worldwide#how-to-enable-sensitivity-labels-for-containers-and-synchronize-labels) for enabling scopes for containers.
 
 ![](img/20230831-053108.png)
 
@@ -118,16 +116,14 @@ Unlike retention labels, which are published to locations such as Exchange mailb
 
 When you configure a label policy, you can:
 - **Choose which users and groups see the labels**:  Labels can be published to any specific user or email-enabled security group, distribution group, or M365 Group (which can have dynamic membership)
-- **Specify a default label** for unlabeled documents, email and meeting invites, new containers, and Power BI content. Consider using a default label to set a base level of protection settings that you want applied to all of your content. However, without user training, this setting can result in accurate labeling. It's usually not a good idea to set encryption as a default label to documents. As an excample, in the need to share externally, many orgs may not have apps that support the encryption, or they might not use an account that can be authorized. See [Sharing encrypted documents with external users](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-office-apps?view=o365-worldwide#sharing-encrypted-documents-with-external-users)
+- **Specify a default label** for unlabeled documents, email and meeting invites, new containers, and Power BI content. Consider using a default label to set a base level of protection settings that you want applied to all of your content. However, without user training, this setting can result in accurate labeling. It's usually not a good idea to set encryption as a default label to documents. As an example, in the need to share externally, many orgs may not have apps that support the encryption, or they might not use an account that can be authorized. See [Sharing encrypted documents with external users](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-office-apps?view=o365-worldwide#sharing-encrypted-documents-with-external-users)
 - **Require a justification for changing a label**: If a user tries to remove a label or replace it with a label that has a lower-order priority, you can require the user provide a justification to perform this action. Administrators can read the justification reason in Activity Explorer.
 - **Require users to apply a label** for different types of items and the containers that support sensitivity labels. This is also known as mandatory labeling. Consider using this option to increase your labeling coverage. However, without training, this setting can lead to inaccurate labeling and will frustrate your users. For containers, a label must be assigned at the time the group or site is created. 
 - **Provide help link to a custom help page**. 
 
-There's no limit to the number of labels you can create and publish, with one exception: If the label applies encryption that specifies the users and permissions, there's a maximum of 500 labels per tenant. However, as a best practice to lower admin overhead and reduce complexity, try to keep the number of labels to a minimum. Real-world deployments have proved effectiveness to be noticeably reduced when users have more than 5 main labels or more htan 5 sublabels per main label.
+There's no limit to the number of labels you can create and publish, with one exception: If the label applies encryption that specifies the users and permissions, there's a maximum of 500 labels per tenant. However, as a best practice to lower admin overhead and reduce complexity, try to keep the number of labels to a minimum. Real-world deployments have proved effectiveness to be noticeably reduced when users have more than 5 main labels or more than 5 sublabels per main label.
 
 After you create a label policy, allow up to 24 hours for the changes to replicate through the org. See [Define and create sensitivity labels](#define-and-create-sensitivity-labels). 
-
-There's no limit to the number of labels you can create and publish, with one exception: If the label applies encryption that specifies the users and permissions, there's a maximum of 500 labels per tenant. However, as a best practice to lower admin overhead and reduce complexity, try to keep the number of labels to a minimum. Real-world deployments have proved effectiveness to be noticeably reduced when users have more than 5 main labels or more than 5 sublabels per main label.
 
 You make your sensitivity labels available to users by publishing them in a sensitivity policy that appears in a list on the **Label Policies** page. Just like sensitivity labels, the order of the sensitivity label policies is important because it reflects their priority: The label policy with the lowest priority is shown at the top of the list with the lowest order number, and the label policy with the highest priority is shown at the bottom of the list with the highest priority number. 
 
@@ -145,7 +141,7 @@ If you're not seeing the label policy setting behavior that you expect for a use
 The label policy at the bottom has the highest order number and therefore prevails over the other policies.
 
 ### Built-in Labeling for the Office Apps
-Built-in labels (as opposed to labels provided by the soon-to-be-retired AIP client) require a subscription edition of Office apps. Standalone editions of Office aren't supported. See [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-aip?view=o365-worldwide#benefits-of-using-built-in-labeling-for-office-apps-vs-the-aip-add-in)
+Built-in labels (as opposed to labels provided by the soon-to-be-retired AIP client) require a subscription edition of Office apps. Standalone editions of Office aren't supported. See [Benefits of using built-in labeling for Office apps vs. the AIP add-in](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-aip?view=o365-worldwide#benefits-of-using-built-in-labeling-for-office-apps-vs-the-aip-add-in).
 
 Here's a list of features supported by built-in labeling for Office apps:
 * Intelligent classification services for automatic and recommended labeling, i.e. trainable classifiers, exact data match, and named entities
@@ -183,9 +179,11 @@ Best Practices
 
 See the full list and descriptions [here](https://microsoft.github.io/ComplianceCxE/dag/mip-dlp/)
 
-Eligible customers (new and existing) can activate a set of default protection labels and policies. See [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/mip-easy-trials?view=o365-worldwide#default-sensitivity-labels).
+Eligible customers (new and existing) can activate a set of default protection labels and policies. See [Default Sensitivity Labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/mip-easy-trials?view=o365-worldwide#default-sensitivity-labels).
 
 ![](img/20230628-042825.png)
+
+In my experience, I recommend using a set of five labels as a starting point. Each of these labels are standard labels and not sublabels. I only recommend using sublabels when you have a clear need for them. Reason for this recommendation is that users may be overwhelmed when having to look for the right label to apply amongst a group of sublabels.
 
 ### External Access
 Users must have an account in Azure AD to access protected content. By default, users will be authenticated without any additional configuration. If users don't have an Azure AD account, they must have a guest account in your tenant. 
