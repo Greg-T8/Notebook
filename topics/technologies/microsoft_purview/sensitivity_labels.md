@@ -7,17 +7,15 @@
 - [Licensing](#licensing)
 - [Overview](#overview)
   - [Label Scopes](#label-scopes)
-  - [Label Priority](#label-priority)
-  - [Sublabels](#sublabels)
+  - [Labels and Sublabels](#labels-and-sublabels)
+  - [Define and Create Sensitivity Labels](#define-and-create-sensitivity-labels)
   - [Editing or Deleting a Sensitivity Label](#editing-or-deleting-a-sensitivity-label)
   - [Label Policy](#label-policy)
   - [Built-in Labeling for the Office Apps](#built-in-labeling-for-the-office-apps)
   - [Defining Label Taxonomy](#defining-label-taxonomy)
   - [External Access and Visibility](#external-access-and-visibility)
-- [Roles and Permissions](#roles-and-permissions)
-  - [Manage the Azure Information Protection Service](#manage-the-azure-information-protection-service)
-- [Define and Create Sensitivity Labels](#define-and-create-sensitivity-labels)
-  - [Removing and Deleting Labels](#removing-and-deleting-labels)
+- [Roles and Permissions in Microsoft Purview](#roles-and-permissions-in-microsoft-purview)
+- [Manage the Azure Information Protection Service](#manage-the-azure-information-protection-service)
 - [Protecting SharePoint Sites, Teams, and Groups with Sensitivity Labels](#protecting-sharepoint-sites-teams-and-groups-with-sensitivity-labels)
   - [Applying a Sensitivity Label to Content Automatically](#applying-a-sensitivity-label-to-content-automatically)
   - [Enabling PDF Support](#enabling-pdf-support)
@@ -59,16 +57,15 @@
 - Manage protection settings and marking for applied sensitivity labels
 
 ## Licensing
-- [Microsoft Licensing Guidance: Purview Information Protection](https://learn.microsoft.com/en-us/office365/servicedescriptions/microsoft-365-service-descriptions/microsoft-365-tenantlevel-services-licensing-guidance/microsoft-365-security-compliance-licensing-guidance#microsoft-purview-information-protection-sensitivity-labeling)
-
 An E5 license is required for each user who accesses protected documents in locations that use automatic labeling. An E3 license is required when using manual labeling. Labeling by using a default label is considered manual labeling, as the user has the option to accept or change the label. By default, information protection features are applied at the tenant level for all users within the tenant.
 
 No license is necessary for someone who only opens and accesses the content in protected files.
+
+[Microsoft Licensing Guidance: Purview Information Protection](https://learn.microsoft.com/en-us/office365/servicedescriptions/microsoft-365-service-descriptions/microsoft-365-tenantlevel-services-licensing-guidance/microsoft-365-security-compliance-licensing-guidance#microsoft-purview-information-protection-sensitivity-labeling)
+
   
 ## Overview
 Sensitivity labels let you classify and protect your organization's data, while making sure that user productivity and their ability to collaborate isn't hindered. 
-
-IMPORTANT: Adopting a company-wide information protection framework means that users will be required to make choices on the classification of files they work with. Therefore, an information protection framework involves a culture shift and generally requires strong support from the executive team.
 
 Sensitivity labels can be applied manually using the [Sensitivity Bar](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-office-apps?view=o365-worldwide#sensitivity-bar) in the Office apps. Sensitivity labels also have [PDF support](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-office-apps?view=o365-worldwide#pdf-support). See [Common scenarios for sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/get-started-with-sensitivity-labels?view=o365-worldwide#common-scenarios-for-sensitivity-labels). A sensitivity label is stored in clear text in the metadata for files and emails. This allows third-party apps and services to read it and apply their own protective actions. It also means the label stays with the content, no matter where it's stored or saved.
 
@@ -88,31 +85,58 @@ The scope configuration allows you to have sensitivity labels that are just for 
 
 See [Labeling in Microsoft Purview](https://learn.microsoft.com/en-us/azure/purview/create-sensitivity-label) for applying labels to Azure assets in Microsoft Purview Data Map.
 
-### Label Priority
+### Labels and Sublabels
 When you create sensitivity labels, they appear in a list on the **Information Protection > Labels** page. In this list, the order of the labels is important because it reflects their priority. You want your most restrictive sensitivity label, such as Highly Confidential, to appear at the bottom of your list, and your least restrictive label to appear at the top.
 
 You can apply just one sensitivity label to an item, such as an email, document, or container. If you set an option that requires your users to provide a justification for changing a label to lower sensitivity, the order of this list identifies the lower sensitivity. However, users are not required to provide justification when changing to a lower priority *within a sublabel*. 
 
-The ordering of sublabels is also used with automatic labeling. When you configure auto-labeling policies, multiple matches can result for more than one label. Then, the last sensitive label is selected, and then if applicable, the last sublabel. When you configure sublabels themselves (rather than auto-labeling policies) for automatic labeling, the behavior is a little different when sublabels share the same parent label. For example, a sublabel configured for automatic labeling is preferred over a sublabel configured for recommended labeling. See [How multiple conditions are evaluated when they apply to more than one label](https://learn.microsoft.com/en-us/microsoft-365/compliance/apply-sensitivity-label-automatically?view=o365-worldwide#how-multiple-conditions-are-evaluated-when-they-apply-to-more-than-one-label)
-
 ![](img/20230604-040455.png)
 
-### Sublabels
-With sublabels, you can group one or more labels below a parent label that a user sees in an Office app. Sublabels are simply a way to present labels to users in logical groups. Sublabels don't inherit any settings from their parent label, except for their label color. When you publish a sublabel for a user, that user can then apply that sublabel to content and containers, but can't apply just the parent label.
-
-Don't choose a parent label as the default label, or configure a parent label to be automatically applied (or recommended). If you do, the parent label can't be applied.
+With sublabels, you can group one or more labels below a parent label that a user sees in an Office app. Sublabels are simply a way to present labels to users in logical groups. Sublabels don't inherit any settings from their parent label, except for their label color. When you publish a sublabel for a user, that user can then apply that sublabel to content and containers, but can't apply just the parent label. Don't choose a parent label as the default label, or configure a parent label to be automatically applied (or recommended). If you do, the parent label can't be applied.
 
 ![](img/20230612-041227.png)
+
+The ordering of sublabels is used with automatic labeling. When you configure auto-labeling policies, multiple matches can result for more than one label. Then, the last sensitive label is selected, and then if applicable, the last sublabel. When you configure sublabels themselves (rather than auto-labeling policies) for automatic labeling, the behavior is a little different when sublabels share the same parent label. For example, a sublabel configured for automatic labeling is preferred over a sublabel configured for recommended labeling. See [How multiple conditions are evaluated when they apply to more than one label](https://learn.microsoft.com/en-us/microsoft-365/compliance/apply-sensitivity-label-automatically?view=o365-worldwide#how-multiple-conditions-are-evaluated-when-they-apply-to-more-than-one-label)
+
+### Define and Create Sensitivity Labels
+By default, tenants do not have any labels, so you must create them. Sensitivity labels are provided using two steps:
+1. Create the label
+2. Publish the label to users using a label policy
+
+See [Create and configure sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-sensitivity-labels?view=o365-worldwide#create-and-configure-sensitivity-labels) for the process.  
+
+Per [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-sensitivity-labels?view=o365-worldwide#when-to-expect-new-labels-and-changes-to-take-effect), allow up to 24 hours for labels and their settings to become available.  
+
+![](img/20230633-033336.png)
+
+See [Create and configure sensitivity labels and their policies](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-sensitivity-labels?view=o365-worldwide) for more info.
 
 ### Editing or Deleting a Sensitivity Label
 If you delete a sensitivity label from the admin portal, the label isn't automatically removed from content, and any protection settings continue to be enforced on content that had that label applied. However, some caveats apply. See [Removing and deleting labels](#removing-and-deleting-labels).
 
 If you edit a sensitivity label, the version of the label that was applied to content is what's enforced on that content.
 
-### Label Policy
-After you create your sensitivity labels, you need to publish them to make them available to people and services in your organization. The sensitivity labels can then be applied to Office documents and emails, and other items that support sensitivity labels.
+You can't delete a label if it's still in a label policy. Removing a label from a label policy is less risky than deleting the label, as you can always add it back if needed. When you remove a label from a label policy, users will no longer be able to select that label for use in the Office apps. However, if an item already has that label, then users will continue to see that label is applied. Same applies for any containers that have the label applied&mdash;users will continue to see that label is applied to the container.
 
-Unlike retention labels, which are published to locations such as Exchange mailboxes, sensitivity labels are published to users or groups.
+In comparison, when you delete a label:
+
+* If the label applied encryption, the underlying protection template is archived so that previously protected content can still be opened. 
+
+* For documents stored in SharePoint and OneDrive, you won't see the sensitivity label applied in the app, and the label name no longer appears in the **Sensitivity** column in SharePoint. If the deleted label applied encryption and the services can process the encrypted contents, the encryption is removed. The label information remains in the file's metadata, apps can no longer map the label ID to a display name, so users will assume the file isn't labeled.
+
+* For documents stored outside of SharePoint and OneDrive, the label information remains in the file's metadata, but without the label ID to name mapping, users don't see the applied label name displayed. If the deleted label applied encryption, the encryption remains and users still see the name and description of the now archived protection template.
+
+* For containers, such as sites in SharePoint and Teams: The label is removed any settings that were configured with that label are no longer enforced. This action typically takes 48-72 hours for SharePoint sites, and can be quicker for Teams and Microsoft 365 Groups.
+
+* Be aware that without a GUID-to-name mapping available after you delete a label, deleted labels can display as GUIDs rather than label names in applications such as content explorer and activity explorer.
+
+As with all label changes, removing a sensitivity label from a label policy or deleting a sensitivity label takes time to replicate to all users and services.
+
+See [Removing and deleting labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-sensitivity-labels?view=o365-worldwide#removing-and-deleting-labels) for more info.
+
+
+### Label Policy
+After you create your sensitivity labels, you need to publish them to make them available to people and services in your organization. The sensitivity labels can then be applied to Office documents and emails, and other items that support sensitivity labels. Unlike retention labels, which are published to locations such as Exchange mailboxes, sensitivity labels are published to users or groups.
 
 When you configure a label policy, you can:
 - **Choose which users and groups see the labels**:  Labels can be published to any specific user or email-enabled security group, distribution group, or M365 Group (which can have dynamic membership)
@@ -164,11 +188,11 @@ Defining the right label taxonomy and protection policies is the most critical s
 
 A good label taxonomy needs to meet business and/or regulatory needs, be intuitively understandable by users, provide good policy tips, and be easy to use. It should not prevent users from doing their jobs, while at the same time help prevent instances of data leakage or misuse and address compliance requirements.
 
-
 See [Create a well-designed data classification framework](https://learn.microsoft.com/en-us/compliance/assurance/assurance-create-data-classification-framework) for further guidance.
 
-Best Practices
-- Start small and keep it simple.  
+**Good Practices**
+-  Start small and keep it simple. 
+-  Start with labels and only introduce sublabels when you have a clear need for them, as users may have a tough time finding nested labels
 -  Define labels that will last a long time
 - Start with what threats you are trying to prevent, e.g. users from accidentally putting sensitive data where unauthorized users can view it. Based on those requirements, define the minimal controls that must be there to ensure those scenarios don't happen.
 - Use label names that intuitively resonate with your users. Don't use acronyms. Use short, meaningful words, e.g. "Confidential", "Secret"
@@ -181,7 +205,6 @@ See the full list and descriptions [here](https://microsoft.github.io/Compliance
 
 Eligible customers (new and existing) can activate a set of default protection labels and policies. See [Default Sensitivity Labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/mip-easy-trials?view=o365-worldwide#default-sensitivity-labels).
 
-![](img/20230628-042825.png)
 
 In my experience, I recommend using a set of five labels as a starting point. Each of these labels are standard labels and not sublabels. I only recommend using sublabels when you have a clear need for them. Reason for this recommendation is that users may be overwhelmed when having to look for the right label to apply amongst a group of sublabels.
 
@@ -209,9 +232,7 @@ See [Application support for protection](https://learn.microsoft.com/en-us/azure
 
 With regard to label visibility, users outside the organization do not see the label name. However, they do see the content markings, e.g. header or footer, and the name and description of the underlying Azure RMS protection template. The description of the Azure RMS template pulls from the description of the label, so external users do ultimately see the label description. See [Support for external users and labeled content](https://learn.microsoft.com/en-us/purview/sensitivity-labels-office-apps?view=o365-worldwide#support-for-external-users-and-labeled-content).
 
-## Roles and Permissions
-- Reference
-  - [Permissions required to create and manage sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/get-started-with-sensitivity-labels?view=o365-worldwide#permissions-required-to-create-and-manage-sensitivity-labels)
+## Roles and Permissions in Microsoft Purview
 
 The following role groups have permissions for managing sensitivity labels:
 - Organization Management*
@@ -223,8 +244,7 @@ The following role groups have permissions for managing sensitivity labels:
 - Information Protection Investigators
 - Information Protection Readers
 
-Note:  
-  - Items with an asterisk (*) have the ability to activate and manage the AIP super user feature (need to confirm this)
+**Note:** Items with an asterisk (*) have the ability to activate and manage the AIP super user feature (need to confirm this)
 
 The **Information Protection** role group is the most privileged of this bunch and has the following roles: 
 - Information Protection Admin - Create, edit, and delete DLP policies, sensitivity labels and their policies, and all classifier types. Manage endpoint DLP settings and simulation mode for auto-labeling policies.
@@ -256,43 +276,14 @@ The **Information Protection Readers** role group has the following role:
 
 Alternatively you can create a new role group and add the **Sensitivity Label Administrator** role.  For a read-only group, use **Sensitivity Label Reader**. 
 
-### Manage the Azure Information Protection Service
+For more info see:
+- [Permissions required to create and manage sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/get-started-with-sensitivity-labels?view=o365-worldwide#permissions-required-to-create-and-manage-sensitivity-labels)
+
+## Manage the Azure Information Protection Service
 See the following links for more information: 
 - [Configure super users](https://docs.microsoft.com/en-us/azure/information-protection/configure-super-users)
 - [Azure Information Protection](https://learn.microsoft.com/en-us/powershell/azure/aip/overview?view=azureipps) - provides documentation on the **AIPService** and **AzureInformationProtection** PowerShell modules.
 
-
-## Define and Create Sensitivity Labels
-By default, tenants do not have any labels, so you must create them. Sensitivity labels are provided using two steps:
-1. Create the label
-2. Publish the label to users using a label policy
-
-See [Create and configure sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-sensitivity-labels?view=o365-worldwide#create-and-configure-sensitivity-labels) for the process.  
-
-Per [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-sensitivity-labels?view=o365-worldwide#when-to-expect-new-labels-and-changes-to-take-effect), allow up to 24 hours for labels and their settings to become available.  
-
-![](img/20230633-033336.png)
-
-See [Create and configure sensitivity labels and their policies](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-sensitivity-labels?view=o365-worldwide) for more info.
-
-### Removing and Deleting Labels
-You can't delete a label if it's still in a label policy. Removing a label from a label policy is less risky than deleting the label, as you can always add it back if needed. When you remove a label from a label policy, users will no longer be able to select that label for use in the Office apps. However, if an item already has that label, then users will continue to see that label is applied. Same applies for any containers that have the label applied&mdash;users will continue to see that label is applied to the container.
-
-In comparison, when you delete a label:
-
-* If the label applied encryption, the underlying protection template is archived so that previously protected content can still be opened. 
-
-* For documents stored in SharePoint and OneDrive, you won't see the sensitivity label applied in the app, and the label name no longer appears in the **Sensitivity** column in SharePoint. If the deleted label applied encryption and the services can process the encrypted contents, the encryption is removed. The label information remains in the file's metadata, apps can no longer map the label ID to a display name, so users will assume the file isn't labeled.
-
-* For documents stored outside of SharePoint and OneDrive, the label information remains in the file's metadata, but without the label ID to name mapping, users don't see the applied label name displayed. If the deleted label applied encryption, the encryption remains and users still see the name and description of the now archived protection template.
-
-* For containers, such as sites in SharePoint and Teams: The label is removed any settings that were configured with that label are no longer enforced. This action typically takes 48-72 hours for SharePoint sites, and can be quicker for Teams and Microsoft 365 Groups.
-
-* Be aware that without a GUID-to-name mapping available after you delete a label, deleted labels can display as GUIDs rather than label names in applications such as content explorer and activity explorer.
-
-As with all label changes, removing a sensitivity label from a label policy or deleting a sensitivity label takes time to replicate to all users and services.
-
-See [Removing and deleting labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-sensitivity-labels?view=o365-worldwide#removing-and-deleting-labels) for more info.
 
 ## Protecting SharePoint Sites, Teams, and Groups with Sensitivity Labels
 Sensitivity labels for SharePoint sites, Teams, and Microsoft 365 Groups is not enabled by default. You must take several steps to enable sensitivity labels for these containers. See [Use sensitivity labels with teams, groups, and sites](https://learn.microsoft.com/en-us/purview/sensitivity-labels-teams-groups-sites).
@@ -667,9 +658,3 @@ If you remove an Azure RMS template that's still linked to a label, then you wil
 ### Restore an RMS Template
 Use `Import-AipServiceTemplate` to restore an RMS template from an XML file. Given that RMS templates are unique to the tenant, you can only restore templates that were backed up from the same tenant.  
 ![](img/20230727-042727.png)
-
-
-
-[!TIP]
-
-Testing a note box
