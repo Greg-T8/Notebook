@@ -1,15 +1,15 @@
 # Microsoft Certification Page
 My goal is to achieve the following certifications:
-- Microsoft Certified: Information Protection Administrator Associate by 8/31/23
-- Microsoft Certified: Security Operations Analyst Associate by 12/31/23
-- Microsoft Certified: Azure Security Engineer Associate by 4/28/24
-- Microsoft Certified: Identity and Access Administrator Associate by 8/31/24
-- Microsoft Certified: Cybersecurity Architect Expert by 12/31/24
+- Microsoft Certified: Information Protection Administrator Associate
+- Microsoft Certified: Security Operations Analyst Associate
+- Microsoft Certified: Azure Security Engineer Associate
+- Microsoft Certified: Identity and Access Administrator Associate
+- Microsoft Certified: Cybersecurity Architect Expert
 
-I am currently studying for the Microsoft Certified: Information Protection Administrator Associate. My approach is to commit 1.5 hours a day by using the Study Guide resources and documenting my learnings in this notebook.  
+I am currently studying for the Microsoft Certified: Information Protection Administrator Associate.  
 
 ## Microsoft Security Engineer Role Certifications
-As of April 2023, here are the current certifications for the **Security Engineer** role.
+As of April 2023, the following certifications fall under the **Security Engineer** role.
 
 | Certification | Exam |
 | - | - |
