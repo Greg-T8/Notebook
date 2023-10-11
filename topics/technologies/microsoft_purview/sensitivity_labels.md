@@ -71,9 +71,11 @@ When you create a sensitivity label, you're asked to configure the label's scope
 See [Learn about sensitivity labels](https://learn.microsoft.com/en-us/purview/sensitivity-labels?view=o365-worldwide)
 
 ### Container Support for Sensitivity Labels
-Containers include Teams, SharePoint sites, and Microsoft 365 Groups. Sensitivity labels can be applied to these containers, but the labels do not apply to the files within the containers. To protect files within Teams and SharePoint sites you must apply sensitivity labels to the files themselves (either manually or automatically) or to the SharePoint document library. See [Use sensitivity labels with Teams, groups, and sites](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-teams-groups-sites?view=o365-worldwide#how-to-enable-sensitivity-labels-for-containers-and-synchronize-labels) for enabling scopes for containers.
+Containers include Teams, SharePoint sites, and Microsoft 365 Groups. Sensitivity labels can be applied to these containers, but the labels do not apply to the files within the containers. To protect files within Teams and SharePoint sites you must apply sensitivity labels to the files themselves (either manually or automatically) or to the SharePoint document library.
 
 <img src='img/20230831-053108.png' width='600px'>
+
+See [Use sensitivity labels with Teams, groups, and sites](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-teams-groups-sites?view=o365-worldwide#how-to-enable-sensitivity-labels-for-containers-and-synchronize-labels) for enabling scopes for containers.
 
 ### Define and Create Sensitivity Labels
 By default, tenants do not have any labels, so you must create them. Sensitivity labels are provided using two steps:
@@ -133,7 +135,8 @@ Eligible customers (new and existing) can activate a set of default protection l
 ### External Access
 Users must have an account in Entra ID to access protected content. Microsoft Office 365 customers will be authenticated without any additional configuration.  Non-Microsoft customers must meet two requirements:
 1. The user must have they must have a guest account in your tenant. 
-2. The user must have sign up for an [Azure RMS for Individuals](https://learn.microsoft.com/en-us/azure/information-protection/rms-for-individuals). Sign-up link: https://aka.ms/rmsindividuals.
+2. The user must sign up for an [Azure RMS for Individuals](https://learn.microsoft.com/en-us/azure/information-protection/rms-for-individuals). 
+   - Sign-up link: https://aka.ms/rmsindividuals.
 
 See the following articles:
 - [Sharing encrypted documents with external users](https://learn.microsoft.com/en-us/purview/sensitivity-labels-office-apps?view=o365-worldwide#sharing-encrypted-documents-with-external-users).   
@@ -147,7 +150,9 @@ To facilitate guest account creation you have two options:
 
 The authentication experience for non-Microsoft customers varies depending on whether the user has registered for a Microsoft account. If the user has not registered for a Microsoft account then the user will be prompted for a one-time passcode. If the user has registered for a Microsoft account then the user will be prompted to sign in with their Microsoft account. See [Invitation Redemption Workflow](https://docs.microsoft.com/en-us/azure/active-directory/external-identities/redemption-experience#invitation-redemption-flow). 
 
-Registering for a Microsoft account is a separate process than registering for Azure RMS for Individuals. An Azure RMS for Individuals registration is required; a Microsoft account is not required.  Users may use a Microsoft account to avoid the one-time passcode prompt.  However, when opening documents, especially protected PDFs, uses will need to authenticate a second time with their Azure RMS for Individuals account.  
+Registering for a Microsoft account is a separate process than registering for Azure RMS for Individuals. Users may use a Microsoft account to avoid the one-time passcode prompt. An Azure RMS for Individuals registration is required to open protected PDFs. However, when opening documents, especially protected PDFs, users will need to authenticate a second time with their Azure RMS for Individuals account. If a user has registered for both a Microsoft account and an Azure RMS for Individuals account, then the user may face need to choose between "Work or school account" and "Personal account".  In this case the correct option is "Work or school", which corresponds to the Azure RMS for Individuals account.
+
+![](img/20231011-031155.png)
 
 More helpful links:
 - [Guest accounts for external users to open encrypted documents](https://learn.microsoft.com/en-us/purview/encryption-azure-ad-configuration#guest-accounts-for-external-users-to-open-encrypted-documents). 
