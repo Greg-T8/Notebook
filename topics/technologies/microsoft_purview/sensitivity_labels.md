@@ -154,6 +154,25 @@ Registering for a Microsoft account is a separate process than registering for A
 
 ![](img/20231011-031155.png)
 
+See the following workflow for external users:
+
+```mermaid
+---
+title: External User Authentication Workflow
+---
+flowchart TD
+    A[Start] --> B[Employee emails protected 
+        document to external user]
+    A[Start] --> C[Employee uses sharing link 
+        to with external user]
+    B --> D{{External user is a Microsoft customer}}
+    C --> D
+    D-- No --> F["`External user has signed up for 
+        **Azure RMS for Individuals**`"]
+    D-- Yes --> E[External user can open document]
+    F --> E
+```
+
 More helpful links:
 - [Guest accounts for external users to open encrypted documents](https://learn.microsoft.com/en-us/purview/encryption-azure-ad-configuration#guest-accounts-for-external-users-to-open-encrypted-documents). 
 - [Invitation redemption flow](https://learn.microsoft.com/en-us/azure/active-directory/external-identities/redemption-experience#invitation-redemption-flow).
@@ -213,8 +232,7 @@ The **Information Protection Readers** role group has the following role:
 
 Alternatively you can create a new role group and add the **Sensitivity Label Administrator** role.  For a read-only group, use **Sensitivity Label Reader**. 
 
-For more info see:
-- [Permissions required to create and manage sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/get-started-with-sensitivity-labels?view=o365-worldwide#permissions-required-to-create-and-manage-sensitivity-labels)
+See [Permissions required to create and manage sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/get-started-with-sensitivity-labels?view=o365-worldwide#permissions-required-to-create-and-manage-sensitivity-labels)
 
 ## Manage the Azure Information Protection Service
 See the following links for more information: 
