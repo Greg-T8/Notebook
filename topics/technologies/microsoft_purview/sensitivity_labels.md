@@ -10,6 +10,8 @@
   - [Built-in Labeling for the Office Apps](#built-in-labeling-for-the-office-apps)
   - [Label Taxonomy](#label-taxonomy)
   - [External Access](#external-access)
+    - [Azure RMS for Individuals](#azure-rms-for-individuals)
+    - [Guest Account Requirement](#guest-account-requirement)
 - [Roles and Permissions in Microsoft Purview](#roles-and-permissions-in-microsoft-purview)
 - [Manage the Azure Information Protection Service](#manage-the-azure-information-protection-service)
 - [Protecting SharePoint Sites, Teams, and Groups with Sensitivity Labels](#protecting-sharepoint-sites-teams-and-groups-with-sensitivity-labels)
@@ -41,7 +43,7 @@
 - [End-user documentation for sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/get-started-with-sensitivity-labels?view=o365-worldwide#end-user-documentation-for-sensitivity-labels)
 - [Licensing for sensitivity labels](https://learn.microsoft.com/en-us/office365/servicedescriptions/microsoft-365-service-descriptions/microsoft-365-tenantlevel-services-licensing-guidance/microsoft-365-security-compliance-licensing-guidance#microsoft-purview-information-protection-sensitivity-labeling)
 - [Partner solutions that integrate with Microsoft Information Protection](https://techcommunity.microsoft.com/t5/security-compliance-and-identity/microsoft-information-protection-showcases-integrated-partner/ba-p/262657)
-- [Unified Labeling Support Tool](https://github.com/microsoft/UnifiedLabelingSupportTool)
+- [Unified Labeling Support Tool](https://github.com/microsoft/UnifiedLabelingSupportTool) - PowerShell module for troubleshooting sensitivity labels and Azure RMS templates
 
 ## Licensing for Sensitivity Labels
 The following licenses are required for using Information Protection features:
@@ -115,7 +117,7 @@ Defining the right label taxonomy and protection policies is the most critical s
 
 A good label taxonomy needs to meet business and/or regulatory needs, be intuitively understandable by users, provide good policy tips, and be easy to use. It should not prevent users from doing their jobs, while at the same time help prevent instances of data leakage or misuse and address compliance requirements.
 
-See [Create a well-designed data classification framework](https://learn.microsoft.com/en-us/compliance/assurance/assurance-create-data-classification-framework) for further guidance.
+See [Create a well-designed data classification framework](https://learn.microsoft.com/en-us/compliance/assurance/assurance-create-data-classification-framework) for further guidance. Eligible customers (new and existing) can activate a set of default protection labels and policies. See [Default Sensitivity Labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/mip-easy-trials?view=o365-worldwide#default-sensitivity-labels).
 
 **Good Practices**
 -  Start small and keep it simple. 
@@ -130,14 +132,25 @@ See [Create a well-designed data classification framework](https://learn.microso
 
 See the full list and descriptions [here](https://microsoft.github.io/ComplianceCxE/dag/mip-dlp/)
 
-Eligible customers (new and existing) can activate a set of default protection labels and policies. See [Default Sensitivity Labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/mip-easy-trials?view=o365-worldwide#default-sensitivity-labels).
-
 ### External Access
 Users must have an account in Entra ID to access protected content. Microsoft Office 365 customers will be authenticated without any additional configuration.  Non-Microsoft customers must meet two requirements:
-1. The user must have they must have a guest account in your tenant. 
-2. The user must sign up for an [Azure RMS for Individuals](https://learn.microsoft.com/en-us/azure/information-protection/rms-for-individuals). 
-   - Sign-up link: https://aka.ms/rmsindividuals.
+1. The user must sign up for an Azure RMS for Individuals account.
+2. The user must have must have a guest account in your tenant. 
 
+#### Azure RMS for Individuals
+Sensitivity labels use Azure RMS to protect content. Azure RMS uses Entra ID to authenticate access. When a user signs up for an [Azure RMS for Individuals](https://learn.microsoft.com/en-us/azure/information-protection/rms-for-individuals) account, the service creates an unmanaged Azure tenant and directory for the organization with an account for the user, so that this user (and subsequent users) can then authenticate to the Azure RMS service. See [Azure RMS FAQ](https://learn.microsoft.com/en-us/azure/information-protection/faqs-rms#when-i-share-a-protected-document-with-somebody-outside-my-company-how-does-that-user-get-authenticated).  
+
+Use the following sign-up link to create an Azure RMS for Individuals account: https://aka.ms/rms-signup 
+
+In fact, any registered user can sign in to the Azure tenant and view other user accounts that have been created.  
+
+<img src='img/20231000-040033.png' width=900/>
+
+Furthermore, on tenant creation, the service places **Microsoft Rights Management Services** as the only Global Administrator.
+
+<img src='img/20231056-035634.png' width=900/>
+
+#### Guest Account Requirement
 See the following articles:
 - [Sharing encrypted documents with external users](https://learn.microsoft.com/en-us/purview/sensitivity-labels-office-apps?view=o365-worldwide#sharing-encrypted-documents-with-external-users).   
     <img src='img/20230801-060110.png' width=500px>
