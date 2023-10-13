@@ -150,6 +150,8 @@ Furthermore, on tenant creation, the service places **Microsoft Rights Managemen
 
 <img src='img/20231056-035634.png' width=900/>
 
+If there is a need to take over the unmanaged tenant, Microsoft provides the following guidance for an admin takeover: [Take over an unmanaged directory as administrator in Microsoft Entra ID](https://learn.microsoft.com/en-us/azure/active-directory/enterprise-users/domains-admin-takeover).
+
 #### Guest Account Requirement
 See the following articles:
 - [Sharing encrypted documents with external users](https://learn.microsoft.com/en-us/purview/sensitivity-labels-office-apps?view=o365-worldwide#sharing-encrypted-documents-with-external-users).   
