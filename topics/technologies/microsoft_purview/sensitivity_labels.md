@@ -142,11 +142,11 @@ Sensitivity labels use Azure RMS to protect content. Azure RMS uses Entra ID to 
 
 Use the following sign-up link to create an Azure RMS for Individuals account: https://aka.ms/rms-signup 
 
-In fact, any registered user can sign in to the Azure tenant and view other user accounts that have been created.  
+Any registered user can sign in to the Azure tenant and view other user accounts that have been created.  
 
 <img src='img/20231000-040033.png' width=900/>
 
-Furthermore, on tenant creation, the service places **Microsoft Rights Management Services** as the only Global Administrator.
+On tenant creation, the service places **Microsoft Rights Management Services** as the only Global Administrator.
 
 <img src='img/20231056-035634.png' width=900/>
 
