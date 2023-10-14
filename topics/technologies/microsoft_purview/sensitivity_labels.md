@@ -153,6 +153,12 @@ On tenant creation, the service places **Microsoft Rights Management Services** 
 If there is a need to take over the unmanaged tenant, Microsoft provides the following guidance for an admin takeover: [Take over an unmanaged directory as administrator in Microsoft Entra ID](https://learn.microsoft.com/en-us/azure/active-directory/enterprise-users/domains-admin-takeover).
 
 #### Guest Account Requirement
+If your organization uses conditional access policies for guest accounts, then a guest account must be created for the external user.
+
+You can configure an exception for the Azure Information Protection application: 
+https://learn.microsoft.com/en-us/azure/information-protection/faqs#i-see-azure-information-protection-is-listed-as-an-available-cloud-app-for-conditional-accesshow-does-this-work
+
+
 See the following articles:
 - [Sharing encrypted documents with external users](https://learn.microsoft.com/en-us/purview/sensitivity-labels-office-apps?view=o365-worldwide#sharing-encrypted-documents-with-external-users).   
     <img src='img/20230801-060110.png' width=500px>
