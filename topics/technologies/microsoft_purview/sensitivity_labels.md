@@ -157,6 +157,7 @@ For Microsoft customers in managed tenants, use the External Identities inbound 
 
 
 https://learn.microsoft.com/en-us/azure/active-directory/external-identities/authentication-conditional-access#mfa-for-microsoft-entra-external-users
+https://learn.microsoft.com/en-us/azure/active-directory/external-identities/authentication-conditional-access#mfa-for-non-azure-ad-external-users
 
 
 You can configure an exception for the Azure Information Protection application:  
