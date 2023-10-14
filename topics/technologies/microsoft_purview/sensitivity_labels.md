@@ -156,7 +156,7 @@ If your organization uses requires MFA for guest users, then a guest account mus
 For Microsoft customers in managed tenants, use the External Identities inbound cross-tenant access settings to trust MFA registration from other tenants. See [Cross-tenant Access Organizational Settings](https://learn.microsoft.com/en-us/azure/active-directory/external-identities/cross-tenant-access-overview#organizational-settings).
 
 
-
+https://learn.microsoft.com/en-us/azure/active-directory/external-identities/authentication-conditional-access#mfa-for-microsoft-entra-external-users
 
 
 You can configure an exception for the Azure Information Protection application:  
