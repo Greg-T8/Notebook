@@ -11,7 +11,8 @@
   - [Label Taxonomy](#label-taxonomy)
   - [External Access](#external-access)
     - [Azure RMS for Individuals](#azure-rms-for-individuals)
-    - [Guest Account Requirement](#guest-account-requirement)
+    - [MFA Requirements](#mfa-requirements)
+      - [Trust Other Tenant MFA Registrations](#trust-other-tenant-mfa-registrations)
 - [Roles and Permissions in Microsoft Purview](#roles-and-permissions-in-microsoft-purview)
 - [Manage the Azure Information Protection Service](#manage-the-azure-information-protection-service)
 - [Protecting SharePoint Sites, Teams, and Groups with Sensitivity Labels](#protecting-sharepoint-sites-teams-and-groups-with-sensitivity-labels)
@@ -150,9 +151,20 @@ On tenant creation, the service places **Microsoft Rights Management Services** 
 
 If there is a need to take over the unmanaged tenant, Microsoft provides the following guidance for an admin takeover: [Take over an unmanaged directory as administrator in Microsoft Entra ID](https://learn.microsoft.com/en-us/azure/active-directory/enterprise-users/domains-admin-takeover).
 
-#### Guest Account Requirement
-If your organization requires MFA for guest users, then a guest account must exist in your organization's tenant before external users can open protected documents. This requirement stems from the fact that multi-factor authentication takes place within the resource tenant, not the guest tenant. See [MFA for Microsoft Entra external users](https://learn.microsoft.com/en-us/azure/active-directory/external-identities/authentication-conditional-access#mfa-for-microsoft-entra-external-users) and [MFA for non-Azure AD external users](https://learn.microsoft.com/en-us/azure/active-directory/external-identities/authentication-conditional-access#mfa-for-non-azure-ad-external-users).
+#### MFA Requirements
+If your organization requires MFA for guest users, then a guest account must exist in your organization's tenant before external users can open protected documents. This requirement stems from the fact that the resource tenant, not the guest tenant, is always responsible for MFA. See [MFA for Microsoft Entra external users](https://learn.microsoft.com/en-us/azure/active-directory/external-identities/authentication-conditional-access#mfa-for-microsoft-entra-external-users) and [MFA for non-Azure AD external users](https://learn.microsoft.com/en-us/azure/active-directory/external-identities/authentication-conditional-access#mfa-for-non-azure-ad-external-users).
 
+Users will receive the following error message when a guest account does not exist.  This message applies for both Microsoft and non-Microsoft customers. The user receives this message after authenticating with MFA.
+
+![](img/20231045-034512.png)
+
+You have two options for avoiding this error:
+
+1. Trust MFA registrations from other tenants, or
+2. Create a guest account in your tenant
+
+##### Trust Other Tenant MFA Registrations
+For users who have an account in Entra ID, Microsoft recommends using [External Identities cross-tenant access settings](https://learn.microsoft.com/en-us/azure/active-directory/external-identities/cross-tenant-access-overview#organizational-settings) to trust MFA claims from other tenants.  See [Conditional Access policies and encrypted documents](https://learn.microsoft.com/en-us/purview/encryption-azure-ad-configuration#conditional-access-policies-and-encrypted-documents).
 
 
 
@@ -161,9 +173,8 @@ However, you can implement several configurations to avoid the need for a guest 
 
 For Microsoft customers in managed tenants, use the External Identities inbound cross-tenant access settings to trust MFA registration from other tenants. See [Cross-tenant Access Organizational Settings](https://learn.microsoft.com/en-us/azure/active-directory/external-identities/cross-tenant-access-overview#organizational-settings).
 
+<img src='img/20231000-040023.png' width=500px>
 
-https://learn.microsoft.com/en-us/azure/active-directory/external-identities/authentication-conditional-access#mfa-for-microsoft-entra-external-users
-https://learn.microsoft.com/en-us/azure/active-directory/external-identities/authentication-conditional-access#mfa-for-non-azure-ad-external-users
 
 
 You can configure an exception for the Azure Information Protection application:  
@@ -177,6 +188,8 @@ See the following articles:
     <img src='img/20230801-060110.png' width=500px>
 - [Conditional Access policies and encrypted documents](https://learn.microsoft.com/en-us/purview/encryption-azure-ad-configuration#conditional-access-policies-and-encrypted-documents)  
     <img src='img/20230802-060201.png' width=500px>
+
+
 
 To facilitate guest account creation you have two options:
 1. Create the guest account manually
