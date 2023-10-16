@@ -11,8 +11,11 @@
   - [Label Taxonomy](#label-taxonomy)
   - [External Access](#external-access)
     - [Azure RMS for Individuals](#azure-rms-for-individuals)
-    - [MFA Requirements](#mfa-requirements)
-      - [Trust Other Tenant MFA Registrations](#trust-other-tenant-mfa-registrations)
+    - [Addressing MFA Requirements for External Users](#addressing-mfa-requirements-for-external-users)
+      - [Trust MFA Registrations from Other Tenants](#trust-mfa-registrations-from-other-tenants)
+      - [Configure an Exception for the Azure Information Protection Application](#configure-an-exception-for-the-azure-information-protection-application)
+      - [Provision Guest Accounts in Your Tenant](#provision-guest-accounts-in-your-tenant)
+    - [Application Support for Accessing Protected Documents](#application-support-for-accessing-protected-documents)
 - [Roles and Permissions in Microsoft Purview](#roles-and-permissions-in-microsoft-purview)
 - [Manage the Azure Information Protection Service](#manage-the-azure-information-protection-service)
 - [Protecting SharePoint Sites, Teams, and Groups with Sensitivity Labels](#protecting-sharepoint-sites-teams-and-groups-with-sensitivity-labels)
@@ -151,46 +154,34 @@ On tenant creation, the service places **Microsoft Rights Management Services** 
 
 If there is a need to take over the unmanaged tenant, Microsoft provides the following guidance for an admin takeover: [Take over an unmanaged directory as administrator in Microsoft Entra ID](https://learn.microsoft.com/en-us/azure/active-directory/enterprise-users/domains-admin-takeover).
 
-#### MFA Requirements
+#### Addressing MFA Requirements for External Users
 If your organization requires MFA for guest users, then a guest account must exist in your organization's tenant before external users can open protected documents. This requirement stems from the fact that the resource tenant, not the guest tenant, is always responsible for MFA. See [MFA for Microsoft Entra external users](https://learn.microsoft.com/en-us/azure/active-directory/external-identities/authentication-conditional-access#mfa-for-microsoft-entra-external-users) and [MFA for non-Azure AD external users](https://learn.microsoft.com/en-us/azure/active-directory/external-identities/authentication-conditional-access#mfa-for-non-azure-ad-external-users).
 
 Users will receive the following error message when a guest account does not exist.  This message applies for both Microsoft and non-Microsoft customers. The user receives this message after authenticating with MFA.
 
 ![](img/20231045-034512.png)
 
-You have two options for avoiding this error:
+You have three options to avoid this error:
 
 1. Trust MFA registrations from other tenants, or
-2. Create a guest account in your tenant
+2. Create a guest account in your tenant, or
+3. Configure an exception for the Azure Information Protection application
 
-##### Trust Other Tenant MFA Registrations
-For users who have an account in Entra ID, Microsoft recommends using [External Identities cross-tenant access settings](https://learn.microsoft.com/en-us/azure/active-directory/external-identities/cross-tenant-access-overview#organizational-settings) to trust MFA claims from other tenants.  See [Conditional Access policies and encrypted documents](https://learn.microsoft.com/en-us/purview/encryption-azure-ad-configuration#conditional-access-policies-and-encrypted-documents).
-
-
-
-
-However, you can implement several configurations to avoid the need for a guest account.
-
-For Microsoft customers in managed tenants, use the External Identities inbound cross-tenant access settings to trust MFA registration from other tenants. See [Cross-tenant Access Organizational Settings](https://learn.microsoft.com/en-us/azure/active-directory/external-identities/cross-tenant-access-overview#organizational-settings).
+##### Trust MFA Registrations from Other Tenants
+For users who have an account in Entra ID, Microsoft recommends using [External Identities cross-tenant access settings](https://learn.microsoft.com/en-us/azure/active-directory/external-identities/cross-tenant-access-overview#organizational-settings) to trust MFA claims from other tenants.  See [Conditional Access policies and encrypted documents](https://learn.microsoft.com/en-us/purview/encryption-azure-ad-configuration#conditional-access-policies-and-encrypted-documents). Note that unmanaged tenants used with Azure RMS for Individuals still count as external tenants and would therefore benefit from this configuration.
 
 <img src='img/20231000-040023.png' width=500px>
 
 
+##### Configure an Exception for the Azure Information Protection Application
+A third option is to configure an exception for the Azure Information Protection application. Prior to the introduction of external identities cross-tenant access settings, this option may have been the most practical. However, it is less secure because it allows any application to bypass MFA.
 
-You can configure an exception for the Azure Information Protection application:  
-- https://learn.microsoft.com/en-us/azure/information-protection/faqs#i-see-azure-information-protection-is-listed-as-an-available-cloud-app-for-conditional-accesshow-does-this-work
+See [Conditional Access policies for Azure Information Protection](https://techcommunity.microsoft.com/t5/security-compliance-and-identity/conditional-access-policies-for-azure-information-protection/ba-p/250357) and [FAQ](https://learn.microsoft.com/en-us/azure/information-protection/faqs#i-see-azure-information-protection-is-listed-as-an-available-cloud-app-for-conditional-accesshow-does-this-work).
 
-- https://techcommunity.microsoft.com/t5/security-compliance-and-identity/conditional-access-policies-for-azure-information-protection/ba-p/250357
-
-
-See the following articles:
-- [Sharing encrypted documents with external users](https://learn.microsoft.com/en-us/purview/sensitivity-labels-office-apps?view=o365-worldwide#sharing-encrypted-documents-with-external-users).   
-    <img src='img/20230801-060110.png' width=500px>
-- [Conditional Access policies and encrypted documents](https://learn.microsoft.com/en-us/purview/encryption-azure-ad-configuration#conditional-access-policies-and-encrypted-documents)  
-    <img src='img/20230802-060201.png' width=500px>
+<img src='img/20231012-041215.png' width=300px>
 
 
-
+##### Provision Guest Accounts in Your Tenant
 To facilitate guest account creation you have two options:
 1. Create the guest account manually
 2. Use [SharePoint and OneDrive integration with Azure AD B2B](https://learn.microsoft.com/en-us/sharepoint/sharepoint-azureb2b-integration) so that guest accounts are automatically created when your users share links.
@@ -220,10 +211,17 @@ flowchart TD
     F --> E
 ```
 
+See the following articles:
+- [Sharing encrypted documents with external users](https://learn.microsoft.com/en-us/purview/sensitivity-labels-office-apps?view=o365-worldwide#sharing-encrypted-documents-with-external-users).   
+    <img src='img/20230801-060110.png' width=500px>
+- [Conditional Access policies and encrypted documents](https://learn.microsoft.com/en-us/purview/encryption-azure-ad-configuration#conditional-access-policies-and-encrypted-documents)  
+    <img src='img/20230802-060201.png' width=500px>
+
 More helpful links:
 - [Guest accounts for external users to open encrypted documents](https://learn.microsoft.com/en-us/purview/encryption-azure-ad-configuration#guest-accounts-for-external-users-to-open-encrypted-documents). 
 - [Invitation redemption flow](https://learn.microsoft.com/en-us/azure/active-directory/external-identities/redemption-experience#invitation-redemption-flow).
 
+#### Application Support for Accessing Protected Documents
 Users must use an Azure RMS-enlightened application to access protected content. This list includes
 - Microsoft 365 Apps
 - Office Professional Plus 2013, 2016, and 2019
