@@ -133,7 +133,7 @@ See [Create a well-designed data classification framework](https://learn.microso
 See the full list and descriptions [here](https://microsoft.github.io/ComplianceCxE/dag/mip-dlp/)
 
 ### External Access
-Users must have an account in Entra ID to access protected content. Microsoft Office 365 customers will be authenticated without any additional configuration.  Non-Microsoft customers must sign up for an Azure RMS for Individuals account. The Azure RMS for Individuals service creates an Entra ID account in an unmanaged tenant.
+Users must have an account in Entra ID to access protected content. Azure/Office 365 customers can access without any additional configuration.  Non-Azure/Office 365 customers must sign up for an Azure RMS for Individuals account. The Azure RMS for Individuals service creates an account in an unmanaged Entra ID tenant.
 
 #### Azure RMS for Individuals
 Sensitivity labels use Azure RMS to protect content. Azure RMS uses Entra ID to authenticate access. When a user signs up for an [Azure RMS for Individuals](https://learn.microsoft.com/en-us/azure/information-protection/rms-for-individuals) account, the service creates an unmanaged Azure tenant and directory for the organization with an account for the user, so that this user (and subsequent users) can then authenticate to the Azure RMS service. See [Azure RMS FAQ](https://learn.microsoft.com/en-us/azure/information-protection/faqs-rms#when-i-share-a-protected-document-with-somebody-outside-my-company-how-does-that-user-get-authenticated).  
@@ -151,7 +151,13 @@ On tenant creation, the service places **Microsoft Rights Management Services** 
 If there is a need to take over the unmanaged tenant, Microsoft provides the following guidance for an admin takeover: [Take over an unmanaged directory as administrator in Microsoft Entra ID](https://learn.microsoft.com/en-us/azure/active-directory/enterprise-users/domains-admin-takeover).
 
 #### Guest Account Requirement
-If your organization uses requires MFA for guest users, then a guest account must exist in your organization's tenant.  However, you can implement several configurations to avoid the need for a guest account.
+If your organization requires MFA for guest users, then a guest account must exist in your organization's tenant before external users can open protected documents. This requirement stems from the fact that multi-factor authentication takes place within the resource tenant, not the guest tenant. See [MFA for Microsoft Entra external users](https://learn.microsoft.com/en-us/azure/active-directory/external-identities/authentication-conditional-access#mfa-for-microsoft-entra-external-users) and [MFA for non-Azure AD external users](https://learn.microsoft.com/en-us/azure/active-directory/external-identities/authentication-conditional-access#mfa-for-non-azure-ad-external-users).
+
+
+
+
+
+However, you can implement several configurations to avoid the need for a guest account.
 
 For Microsoft customers in managed tenants, use the External Identities inbound cross-tenant access settings to trust MFA registration from other tenants. See [Cross-tenant Access Organizational Settings](https://learn.microsoft.com/en-us/azure/active-directory/external-identities/cross-tenant-access-overview#organizational-settings).
 
