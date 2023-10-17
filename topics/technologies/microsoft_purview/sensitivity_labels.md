@@ -18,6 +18,7 @@
   - [Application Support for Accessing Protected Documents](#application-support-for-accessing-protected-documents)
 - [Audit Label Access and Usage](#audit-label-access-and-usage)
   - [Activity Explorer](#activity-explorer)
+  - [Auditing](#auditing)
   - [Audit Log](#audit-log)
   - [Search-UnifiedAuditLog](#search-unifiedauditlog)
 - [Roles and Permissions in Microsoft Purview](#roles-and-permissions-in-microsoft-purview)
@@ -220,6 +221,9 @@ You have four options to determine if a label has been accessed or used:
 
 ### Activity Explorer
 The Activity Explorer in the Microsoft Purview Compliance portal provides a 30-day search window of various activities. See [Get started with activity explorer](https://learn.microsoft.com/en-us/microsoft-365/compliance/data-classification-activity-explorer?view=o365-worldwide) and [Labeling actions reported in Activity Explorer](https://learn.microsoft.com/en-us/purview/data-classification-activity-explorer-available-events?view=o365-worldwide). Activity Explorer records labeling actions, such as when a label is applied or changed. For small environments, it generally takes between 3-5 minutes for an activity to appear in Activity Explorer. Some activities take longer than others to appear. For example, the `File read` activity may take 10-15 minutes. It is important to note that Activity Explorer only records events for users in the directory. For example, if policy allows external users to access protected documents without a guest account, i.e. through cross-tenant access settings, then Activity Explorer does not record events for those users.
+
+### Auditing 
+Per the [FAQ](https://learn.microsoft.com/en-us/purview/audit-log-search?redirectSourcePath=%252fen-us%252farticle%252fSearch-the-audit-log-in-the-Office-365-Security-Compliance-Center-0d4d0f35-390b-4518-800e-0c7ec95e946c#frequently-asked-questions), data in the audit search is generally available within 60-90 minutes but can take up to 24 hours to appear. See [Before you search the audit log](https://learn.microsoft.com/en-us/purview/audit-log-search#before-you-search-the-audit-log).
 
 ### Audit Log 
 
