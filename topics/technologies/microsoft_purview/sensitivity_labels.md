@@ -9,18 +9,22 @@
   - [Editing or Deleting a Sensitivity Label](#editing-or-deleting-a-sensitivity-label)
   - [Built-in Labeling for the Office Apps](#built-in-labeling-for-the-office-apps)
   - [Label Taxonomy](#label-taxonomy)
-  - [External Access](#external-access)
-    - [Azure RMS for Individuals](#azure-rms-for-individuals)
+- [External Access](#external-access)
+  - [Azure RMS for Individuals](#azure-rms-for-individuals)
     - [Addressing MFA Requirements for External Users](#addressing-mfa-requirements-for-external-users)
-      - [Trust MFA Registrations from Other Tenants](#trust-mfa-registrations-from-other-tenants)
-      - [Provision Guest Accounts in Your Tenant](#provision-guest-accounts-in-your-tenant)
-      - [Configure an Exception for the Azure Information Protection Application](#configure-an-exception-for-the-azure-information-protection-application)
-    - [Application Support for Accessing Protected Documents](#application-support-for-accessing-protected-documents)
+    - [Trust MFA Registrations from Other Tenants](#trust-mfa-registrations-from-other-tenants)
+    - [Provision Guest Accounts in Your Tenant](#provision-guest-accounts-in-your-tenant)
+    - [Configure an Exception for the Azure Information Protection Application](#configure-an-exception-for-the-azure-information-protection-application)
+  - [Application Support for Accessing Protected Documents](#application-support-for-accessing-protected-documents)
+- [Audit Label Access and Usage](#audit-label-access-and-usage)
+  - [Activity Explorer](#activity-explorer)
+  - [Audit Log](#audit-log)
+  - [Search-UnifiedAuditLog](#search-unifiedauditlog)
 - [Roles and Permissions in Microsoft Purview](#roles-and-permissions-in-microsoft-purview)
 - [Manage the Azure Information Protection Service](#manage-the-azure-information-protection-service)
 - [Protecting SharePoint Sites, Teams, and Groups with Sensitivity Labels](#protecting-sharepoint-sites-teams-and-groups-with-sensitivity-labels)
   - [Applying a Sensitivity Label to Content Automatically](#applying-a-sensitivity-label-to-content-automatically)
-  - [Enabling PDF Support](#enabling-pdf-support)
+  - [Enable PDF Support](#enable-pdf-support)
 - [Use PowerShell to manage Sensitivity Labels](#use-powershell-to-manage-sensitivity-labels)
   - [Get Info on Sensitivity Labels and Policies](#get-info-on-sensitivity-labels-and-policies)
   - [Create a Sensitivity Label](#create-a-sensitivity-label)
@@ -32,9 +36,6 @@
   - [Remove a Label Policy](#remove-a-label-policy)
   - [Remove a Sensitivity Label](#remove-a-sensitivity-label)
   - [Get the Relationship Between a Label and an Azure RMS Template](#get-the-relationship-between-a-label-and-an-azure-rms-template)
-  - [Determine if Label Has Been Used](#determine-if-label-has-been-used)
-    - [Activity Explorer](#activity-explorer)
-    - [Search-UnifiedAuditLog](#search-unifiedauditlog)
   - [Back Up an Azure RMS Template](#back-up-an-azure-rms-template)
   - [Remove an RMS Template](#remove-an-rms-template)
   - [Restore an RMS Template](#restore-an-rms-template)
@@ -138,10 +139,10 @@ See [Create a well-designed data classification framework](https://learn.microso
 
 See the full list and descriptions [here](https://microsoft.github.io/ComplianceCxE/dag/mip-dlp/)
 
-### External Access
+## External Access
 Users must have an account in Entra ID to access protected content. Azure/Office 365 customers can access without any additional configuration.  Non-Azure/Office 365 customers must sign up for an Azure RMS for Individuals account. The Azure RMS for Individuals service creates an account in an unmanaged Entra ID tenant.
 
-#### Azure RMS for Individuals
+### Azure RMS for Individuals
 Sensitivity labels use Azure RMS to protect content. Azure RMS uses Entra ID to authenticate access. When a user signs up for an [Azure RMS for Individuals](https://learn.microsoft.com/en-us/azure/information-protection/rms-for-individuals) account, the service creates an unmanaged Azure tenant and directory for the organization with an account for the user, so that this user (and subsequent users) can then authenticate to the Azure RMS service. See [Azure RMS FAQ](https://learn.microsoft.com/en-us/azure/information-protection/faqs-rms#when-i-share-a-protected-document-with-somebody-outside-my-company-how-does-that-user-get-authenticated).  
 
 The following link can be provided to external users to sign up for an Azure RMS for Individuals account: https://aka.ms/rms-signup 
@@ -169,12 +170,12 @@ You have three options to avoid this error:
 2. Create a guest account in your tenant, or
 3. Configure an exception for the Azure Information Protection application
 
-##### Trust MFA Registrations from Other Tenants
+#### Trust MFA Registrations from Other Tenants
 For users who have an account in Entra ID, Microsoft recommends using [External Identities cross-tenant access settings](https://learn.microsoft.com/en-us/azure/active-directory/external-identities/cross-tenant-access-overview#organizational-settings) to trust MFA claims from other tenants.  See [Conditional Access policies and encrypted documents](https://learn.microsoft.com/en-us/purview/encryption-azure-ad-configuration#conditional-access-policies-and-encrypted-documents). Note that unmanaged tenants used with Azure RMS for Individuals count as external tenants and would therefore benefit from this configuration.
 
 <img src='img/20231000-040023.png' width=500px>
 
-##### Provision Guest Accounts in Your Tenant
+#### Provision Guest Accounts in Your Tenant
 If you do not want to trust MFA registrations from other tenants, the next secure option is to use guest accounts. 
 
 Per [here](https://learn.microsoft.com/en-us/purview/encryption-azure-ad-configuration#guest-accounts-for-external-users-to-open-encrypted-documents), you have two options for creating guest accounts:
@@ -189,14 +190,14 @@ Registering for a Microsoft account is a separate process than registering for A
 
 <img src='img/20231011-031155.png' width=300px>
 
-##### Configure an Exception for the Azure Information Protection Application
+#### Configure an Exception for the Azure Information Protection Application
 A third option is to configure an exception for the Azure Information Protection application. Prior to the introduction of external identities cross-tenant access settings, this option may have been the most practical. However, it is less secure because it allows any application to bypass MFA.
 
 See [Conditional Access policies for Azure Information Protection](https://techcommunity.microsoft.com/t5/security-compliance-and-identity/conditional-access-policies-for-azure-information-protection/ba-p/250357) and [FAQ](https://learn.microsoft.com/en-us/azure/information-protection/faqs#i-see-azure-information-protection-is-listed-as-an-available-cloud-app-for-conditional-accesshow-does-this-work).
 
 <img src='img/20231012-041215.png' width=300px>
 
-#### Application Support for Accessing Protected Documents
+### Application Support for Accessing Protected Documents
 Users must use an Azure RMS-enlightened application to access protected content. This list includes
 - Microsoft 365 Apps
 - Office Professional Plus 2013, 2016, and 2019
@@ -207,6 +208,31 @@ See [Application support for protection](https://learn.microsoft.com/en-us/azure
 With regard to label visibility, users outside the organization do not see the label name. However, they do see the content markings, e.g. header or footer, and the name and description of the underlying Azure RMS protection template. The description of the Azure RMS template pulls from the description of the label, so external users do ultimately see the label description. 
 
 See [Support for external users and labeled content](https://learn.microsoft.com/en-us/purview/sensitivity-labels-office-apps?view=o365-worldwide#support-for-external-users-and-labeled-content).
+
+
+## Audit Label Access and Usage
+You have four options to determine if a label has been accessed or used:
+
+* Microsoft Purview Compliance Portal > Activity Explorer
+* Microsoft Purview Compliance Portal > Audit
+* PowerShell Search-UnifiedAuditLog cmdlet
+* Microsoft Defender for Cloud Apps > Activity Log
+
+### Activity Explorer
+The Activity Explorer in the Microsoft Purview Compliance portal provides a 30-day search window of various activities. See [Get started with activity explorer](https://learn.microsoft.com/en-us/microsoft-365/compliance/data-classification-activity-explorer?view=o365-worldwide) and [Labeling actions reported in Activity Explorer](https://learn.microsoft.com/en-us/purview/data-classification-activity-explorer-available-events?view=o365-worldwide). Activity Explorer records labeling actions, such as when a label is applied or changed. For small environments, it generally takes between 3-5 minutes for an activity to appear in Activity Explorer. Some activities take longer than others to appear. For example, the `File read` activity may take 10-15 minutes. It is important to note that Activity Explorer only records events for users in the directory. For example, if policy allows external users to access protected documents without a guest account, i.e. through cross-tenant access settings, then Activity Explorer does not record events for those users.
+
+### Audit Log 
+
+
+### Search-UnifiedAuditLog
+The Microsoft Purview Audit feature and `Search-UnifiedLog` cmdlet have a 90-day search window for non-E5-licensed users and a 365-day search window for E5-licensed users (see [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/audit-solutions-overview?view=o365-worldwide#comparison-of-key-capabilities)). You can search up to a 10-year history if (1) the user's whose audit data is covered is assigned a 10-Year Audit Log Retention Add-on license (in addition to an E5 license) and (2) you have explicitly created an audit retention policy for longer 1 year for activities that record sensitivity label actions. See [Manage audit log retention policies](https://learn.microsoft.com/en-us/microsoft-365/compliance/audit-log-retention-policies?view=o365-worldwide).
+
+Microsoft Defender for Cloud Apps stores its activity data for 180 days (see [here](https://learn.microsoft.com/en-us/defender-cloud-apps/cas-compliance-trust#data-retention)). In the advanced filter use **Action type > contains > "Sensitivity"**. The results indicate sensitivity label actions but do not indicate the sensitivity label display name.
+
+The article, [Analyzing the Use of Sensitivity Labels without the Activity Explorer](https://office365itpros.com/2022/11/15/sensitivity-labels-analysis/) references a script,  [AnalyzeSensitivityLabelUsage.ps1](https://github.com/12Knocksinna/Office365itpros/blob/master/AnalyzeSensitivityLabelUsage.PS1), that can be used to report sensitivity label usage. 
+
+
+See [Sensitivity label activities](https://learn.microsoft.com/en-us/microsoft-365/compliance/audit-log-activities?view=o365-worldwide#sensitivity-label-activities) for a list of all events from using sensitivity labels. See [Sentinel - Microsoft Purview Information Protection Connector Reference](https://learn.microsoft.com/en-us/azure/sentinel/microsoft-purview-record-types-activities) for a list of Information Protection activities. The [Office 365 Management Activity API schema](https://learn.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-schema) is a definitive list of all properties in audit data record types.
 
 ## Roles and Permissions in Microsoft Purview
 
@@ -291,7 +317,7 @@ https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically
 
 
 
-### Enabling PDF Support
+### Enable PDF Support
 See https://learn.microsoft.com/en-us/purview/sensitivity-labels-sharepoint-onedrive-files?view=o365-worldwide#enable-the-preview-by-using-microsoft-powershell-opt-in
 
 https://learn.microsoft.com/en-us/purview/ome-faq#are-pdf-file-attachments-supported-
@@ -557,40 +583,7 @@ Get-Label | Select DisplayName, Name, ExchangeObjectId, Guid
 ```
 ![](img/20230749-034935.png)
 
-### Determine if Label Has Been Used
-You have four options for determining if a label has been used:
 
-* Microsoft Purview Compliance > Activity Explorer
-* Microsoft Purview Compliance Portal > Audit
-* PowerShell Search-UnifiedAuditLog cmdlet
-* Microsoft Defender for Cloud Apps > Activity Log
-
-#### Activity Explorer
-Microsoft Purview Compliance Activity Explorer has a 30-day search window. See [Get started with activity explorer](https://learn.microsoft.com/en-us/microsoft-365/compliance/data-classification-activity-explorer?view=o365-worldwide). The activity explorer does not record when a labeled document is accessed; it only records when labels are applied or changed. 
-
-#### Search-UnifiedAuditLog
-The Microsoft Purview Audit feature and `Search-UnifiedLog` cmdlet have a 90-day search window for non-E5-licensed users and a 365-day search window for E5-licensed users (see [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/audit-solutions-overview?view=o365-worldwide#comparison-of-key-capabilities)). You can search up to a 10-year history if (1) the user's whose audit data is covered is assigned a 10-Year Audit Log Retention Add-on license (in addition to an E5 license) and (2) you have explicitly created an audit retention policy for longer 1 year for activities that record sensitivity label actions. See [Manage audit log retention policies](https://learn.microsoft.com/en-us/microsoft-365/compliance/audit-log-retention-policies?view=o365-worldwide).
-
-Microsoft Defender for Cloud Apps stores its activity data for 180 days (see [here](https://learn.microsoft.com/en-us/defender-cloud-apps/cas-compliance-trust#data-retention)). In the advanced filter use **Action type > contains > "Sensitivity"**. The results indicate sensitivity label actions but do not indicate the sensitivity label display name.
-
-The article, [Analyzing the Use of Sensitivity Labels without the Activity Explorer](https://office365itpros.com/2022/11/15/sensitivity-labels-analysis/) references a script,  [AnalyzeSensitivityLabelUsage.ps1](https://github.com/12Knocksinna/Office365itpros/blob/master/AnalyzeSensitivityLabelUsage.PS1), that can be used to report sensitivity label usage. This script audits the following information protection events:
-- **SensitivityLabelApplied**: 
-  - Scenario A: A user labels a document using one of the Office desktop apps (Word, Excel, or PowerPoint). In this case the record type property is *SensitivityLabelAction*.
-  - Scenario B: A site owner or administrator applies a sensitivity label to a SharePoint site. In this case the record type property is *SharePoint*.
-- **FileSensitivityLabelApplied**: A document is labeled from an Office on the web app or from an auto-labeling policy
-- **SensitivityLabelUpdated**: A user changes a sensitivity label from one of the Office desktop apps (Word, Excel, or PowerPoint)
-- **MipLabel**: Events related to the detection in the transport pipeline of email messages that have been tagged (manually or automatically) with sensitivity labels.
-
-This script does not report on the following events:
-- **SiteSensitivityLabelApplied**: A sensitivity label was applied to a SharePoint site or Teams site that isn't group connected
-- **SiteSensitivityLabelRemoved**: A sensitivity label was removed from a SharePoint site or Teams site that isn't group connected
-- **FileSensitivityLabelChanged**: A user changed a sensitivity label (upgrade or downgrade) for an Office document either by using Office on the web or from an auto-labeling policy.
-- **SiteSensitivityLabelChanged**: A different sensitivity label was applied to a SharePoint site or Teams site that isn't group-connected.
-- **FileSensitivityLabelRemoved**: A sensitivity label was removed by using Office on the web, an auto-labeling policy, or by [Unlock-SPOSensitivityLabelEncryptedFile](https://learn.microsoft.com/en-us/powershell/module/sharepoint-online/unlock-sposensitivitylabelencryptedfile?view=sharepoint-ps). 
-- **SensitivityLabelRemoved**: A sensitivity label is removed by using the Office desktop apps
-- **DocumentSensitivityMismatchDetected**: User uploads a document to a site that's protected with a sensitivity label and the document has a higher priority sensitivity label than the sensitivity label applied to the site.  This event isn't triggered if a document has a lower priority sensitivity label. See [Analyzing Document Label Mismatch Audit Records](https://office365itpros.com/2022/08/23/document-label-mismatch-audit/.)
-
-See [Sensitivity label activities](https://learn.microsoft.com/en-us/microsoft-365/compliance/audit-log-activities?view=o365-worldwide#sensitivity-label-activities) for a list of all events from using sensitivity labels. See [Sentinel - Microsoft Purview Information Protection Connector Reference](https://learn.microsoft.com/en-us/azure/sentinel/microsoft-purview-record-types-activities) for a list of Information Protection activities. The [Office 365 Management Activity API schema](https://learn.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-schema) is a definitive list of all properties in audit data record types.
 
 ### Back Up an Azure RMS Template
 Use `Export-AipServiceTemplate` to back up an RMS template to an XML file. The file details include the template's name, public key and signature, tenant ID and label ID.  
