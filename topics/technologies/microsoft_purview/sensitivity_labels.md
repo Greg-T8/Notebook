@@ -187,24 +187,6 @@ Registering for a Microsoft account is a separate process than registering for A
 
 <img src='img/20231011-031155.png' width=300px>
 
-See the following workflow for external users:
-
-```mermaid
----
-title: External User Authentication Workflow
----
-flowchart TD
-    A[Start] --> B[Employee emails protected 
-        document to external user]
-    A[Start] --> C[Employee uses sharing link 
-        to with external user]
-    B --> D{{External user is a Microsoft customer}}
-    C --> D
-    D-- No --> F["`External user has signed up for 
-        **Azure RMS for Individuals**`"]
-    D-- Yes --> E[External user can open document]
-    F --> E
-```
 
 ##### Configure an Exception for the Azure Information Protection Application
 A third option is to configure an exception for the Azure Information Protection application. Prior to the introduction of external identities cross-tenant access settings, this option may have been the most practical. However, it is less secure because it allows any application to bypass MFA.
