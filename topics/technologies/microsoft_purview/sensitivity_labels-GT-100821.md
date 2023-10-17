@@ -33,8 +33,6 @@
   - [Remove a Sensitivity Label](#remove-a-sensitivity-label)
   - [Get the Relationship Between a Label and an Azure RMS Template](#get-the-relationship-between-a-label-and-an-azure-rms-template)
   - [Determine if Label Has Been Used](#determine-if-label-has-been-used)
-    - [Activity Explorer](#activity-explorer)
-    - [Search-UnifiedAuditLog](#search-unifiedauditlog)
   - [Back Up an Azure RMS Template](#back-up-an-azure-rms-template)
   - [Remove an RMS Template](#remove-an-rms-template)
   - [Restore an RMS Template](#restore-an-rms-template)
@@ -188,6 +186,7 @@ If a user does not have an account in Entra ID, then the authentication experien
 Registering for a Microsoft account is a separate process than registering for Azure RMS for Individuals. Users may use a Microsoft account to avoid the one-time passcode prompt. If a user has registered for both a Microsoft account and an Azure RMS for Individuals account, then the user will need to choose between "Work or school account" and "Personal account".  In this case the correct option is "Work or school", which corresponds to the Azure RMS for Individuals account.
 
 <img src='img/20231011-031155.png' width=300px>
+
 
 ##### Configure an Exception for the Azure Information Protection Application
 A third option is to configure an exception for the Azure Information Protection application. Prior to the introduction of external identities cross-tenant access settings, this option may have been the most practical. However, it is less secure because it allows any application to bypass MFA.
@@ -562,13 +561,11 @@ You have four options for determining if a label has been used:
 
 * Microsoft Purview Compliance > Activity Explorer
 * Microsoft Purview Compliance Portal > Audit
-* PowerShell Search-UnifiedAuditLog cmdlet
+* PowerShell Search-UnifiedLog cmdlet
 * Microsoft Defender for Cloud Apps > Activity Log
 
-#### Activity Explorer
-Microsoft Purview Compliance Activity Explorer has a 30-day search window. See [Get started with activity explorer](https://learn.microsoft.com/en-us/microsoft-365/compliance/data-classification-activity-explorer?view=o365-worldwide). The activity explorer does not record when a labeled document is accessed; it only records when labels are applied or changed. 
+Microsoft Purview Compliance Activity Explorer has a 30-day search window (see [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/data-classification-activity-explorer?view=o365-worldwide)). 
 
-#### Search-UnifiedAuditLog
 The Microsoft Purview Audit feature and `Search-UnifiedLog` cmdlet have a 90-day search window for non-E5-licensed users and a 365-day search window for E5-licensed users (see [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/audit-solutions-overview?view=o365-worldwide#comparison-of-key-capabilities)). You can search up to a 10-year history if (1) the user's whose audit data is covered is assigned a 10-Year Audit Log Retention Add-on license (in addition to an E5 license) and (2) you have explicitly created an audit retention policy for longer 1 year for activities that record sensitivity label actions. See [Manage audit log retention policies](https://learn.microsoft.com/en-us/microsoft-365/compliance/audit-log-retention-policies?view=o365-worldwide).
 
 Microsoft Defender for Cloud Apps stores its activity data for 180 days (see [here](https://learn.microsoft.com/en-us/defender-cloud-apps/cas-compliance-trust#data-retention)). In the advanced filter use **Action type > contains > "Sensitivity"**. The results indicate sensitivity label actions but do not indicate the sensitivity label display name.
