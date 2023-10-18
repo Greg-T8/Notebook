@@ -17,6 +17,7 @@
     - [Configure an Exception for the Azure Information Protection Application](#configure-an-exception-for-the-azure-information-protection-application)
   - [Application Support for Accessing Protected Documents](#application-support-for-accessing-protected-documents)
 - [Audit Label Access and Usage](#audit-label-access-and-usage)
+  - [Tracking and Revocation](#tracking-and-revocation)
   - [Activity Explorer](#activity-explorer)
   - [Auditing](#auditing)
   - [Audit Log](#audit-log)
@@ -212,17 +213,27 @@ See [Support for external users and labeled content](https://learn.microsoft.com
 
 
 ## Audit Label Access and Usage
-You have four options to determine if a label has been accessed or used:
+You have several options to determine if a label has been accessed or used:
 
+* Document Tracking and Revocation
 * Microsoft Purview Compliance Portal > Activity Explorer
 * Microsoft Purview Compliance Portal > Audit
 * PowerShell Search-UnifiedAuditLog cmdlet
 * Microsoft Defender for Cloud Apps > Activity Log
 
+### Tracking and Revocation
+Microsoft is introducing new features both to the Purview Compliance portal and to the Office apps to enable tracking and revocation.  See [Track and revoke encrypted documents](https://learn.microsoft.com/en-us/purview/track-and-revoke-admin). Note that as of October 2023, documents stored in SharePoint and OneDrive lose their ability to be tracked; for this feature to work, the document owner must download the document locally and open. Per the [Microsoft Roadmap](https://www.microsoft.com/en-us/microsoft-365/roadmap?filters=Worldwide%20(Standard%20Multi-Tenant)&searchterms=revocation), expect new features in document tracking and revocation to be introduced in 2023 Q4.
+
 ### Activity Explorer
-The Activity Explorer in the Microsoft Purview Compliance portal provides a 30-day search window of various activities. See [Get started with activity explorer](https://learn.microsoft.com/en-us/microsoft-365/compliance/data-classification-activity-explorer?view=o365-worldwide) and [Labeling actions reported in Activity Explorer](https://learn.microsoft.com/en-us/purview/data-classification-activity-explorer-available-events?view=o365-worldwide). Activity Explorer records labeling actions, such as when a label is applied or changed. For small environments, it generally takes between 3-5 minutes for an activity to appear in Activity Explorer. Some activities take longer than others to appear. For example, the `File read` activity may take 10-15 minutes. It is important to note that Activity Explorer only records events for users in the directory. For example, if policy allows external users to access protected documents without a guest account, i.e. through cross-tenant access settings, then Activity Explorer does not record events for those users.
+The Activity Explorer in the Microsoft Purview Compliance portal provides a 30-day search window of label activities. See [Get started with activity explorer](https://learn.microsoft.com/en-us/microsoft-365/compliance/data-classification-activity-explorer?view=o365-worldwide) and [Labeling actions reported in Activity Explorer](https://learn.microsoft.com/en-us/purview/data-classification-activity-explorer-available-events?view=o365-worldwide). Activity Explorer records labeling activities, such as when a label is applied or changed or when a labeled file is read. For small environments, it generally takes between 3-5 minutes for an activity to appear in Activity Explorer. Some activities take longer than others to appear. For example, the `File read` activity may take 10-15 minutes. 
+
+One item to note is that Activity Explorer only records events for users in your directory. For example, if external user are able to access protected documents without a guest account, e.g. through cross-tenant access settings, then Activity Explorer does not record events for those users.
 
 ### Auditing 
+Microsoft provides an auditing framework that may be used to track label access and usage. For E3 customers, the retention period is 180 days. For E5 customers, the retention period is 365 days.
+
+See [Sensitivity label activities](https://learn.microsoft.com/en-us/purview/audit-log-activities#sensitivity-label-activities). For documents accessed by the RMS service, see [Access audit logs](https://learn.microsoft.com/en-us/azure/information-protection/audit-logs#access-audit-logs).
+
 Per the [FAQ](https://learn.microsoft.com/en-us/purview/audit-log-search?redirectSourcePath=%252fen-us%252farticle%252fSearch-the-audit-log-in-the-Office-365-Security-Compliance-Center-0d4d0f35-390b-4518-800e-0c7ec95e946c#frequently-asked-questions), data in the audit search is generally available within 60-90 minutes but can take up to 24 hours to appear. See [Before you search the audit log](https://learn.microsoft.com/en-us/purview/audit-log-search#before-you-search-the-audit-log).
 
 ### Audit Log 
