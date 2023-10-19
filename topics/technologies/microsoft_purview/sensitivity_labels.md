@@ -18,6 +18,8 @@
   - [Application Support for Accessing Protected Documents](#application-support-for-accessing-protected-documents)
 - [Audit Label Access and Usage](#audit-label-access-and-usage)
   - [Tracking and Revocation](#tracking-and-revocation)
+    - [Track Document Access](#track-document-access)
+    - [Revoke Document Access](#revoke-document-access)
   - [Activity Explorer](#activity-explorer)
   - [Auditing](#auditing)
   - [Microsoft Purview Compliance Audit Log Search](#microsoft-purview-compliance-audit-log-search)
@@ -227,13 +229,53 @@ You have several options to determine if a label has been accessed or used:
 ### Tracking and Revocation
 See [Track and revoke encrypted documents](https://learn.microsoft.com/en-us/purview/track-and-revoke-admin). 
 
-Microsoft is introducing new features both to the Purview Compliance portal and to the Office apps to enable tracking and revocation for labeled and protected files. Per the [Microsoft Roadmap](https://www.microsoft.com/en-us/microsoft-365/roadmap?filters=Worldwide%20(Standard%20Multi-Tenant)&searchterms=revocation), expect new features in document tracking and revocation to be introduced in 2023 Q4. 
+Microsoft is introducing new features both to the Purview Compliance portal and to the Office apps to enable tracking and revocation for labeled and protected files. Per the [Microsoft Roadmap](https://www.microsoft.com/en-us/microsoft-365/roadmap?filters=Worldwide%20(Standard%20Multi-Tenant)&searchterms=revocation), expect new features in document tracking and revocation to be introduced in 2023 Q4. These features include
+1. The ability ability for Office to register files for tracking.  This only applies to local files.
+2. The ability for users to access the Purview Compliance portal to check who has tried accessing their labeled and protected documents, and revoke when needed.
+3. Users can access the Compliance Portal from the Sensitivity menu
 
-Today there are a few limitations:
-1. Tracked documents uploaded to OneDrive or SharePoint lose their ability to be tracked or revoked. 
+Today, there are a few limitations:
+1. Tracked documents uploaded to OneDrive or SharePoint lose their ability to be tracked or revoked. Tracking applies for local files only.
 2. Enablement of document tracking is only supported with the beta Office version, as of October 2023
 
 See [Limitations](https://learn.microsoft.com/en-us/purview/track-and-revoke-admin#limitations).
+
+Also note that usage of the Azure Information Protection Unified Labeling client, which is set for retirement, does not enable document tracking as it once did, as Microsoft has disabled Office integration that enables this feature.
+
+Here's a look at how you can use document tracking and revocation features today.
+
+#### Track Document Access
+See [Track document access](https://learn.microsoft.com/en-us/purview/track-and-revoke-admin#track-document-access). 
+
+From the `AIPService` PowerShell module, use `Get-AipServiceDocumentLog` and note the **ContentId**.
+
+<img src='img/20231056-035602.png' width=900px>
+
+The cmdlet performs a string match on the **ContentName**.  Log entries corresponding to the file shows up immediately after enabling document tracking.
+
+In the screenshot below, note the document owner as the user in the resource tenant, i.e. where the tracking originated.  
+
+<img src='img/20231003-040342.png' width=900px>
+
+Then use `Get-AipServiceTrackingLog` with the document's **ContentId** to return your tracking data.
+
+In the screenshot below, note the requester email is from an external tenant.  The time reported is in UTC, not local time.
+
+<img src='img/20231006-040651.png' width=700px>
+
+#### Revoke Document Access
+See [Revoke document access from PowerShell](https://learn.microsoft.com/en-us/purview/track-and-revoke-admin#revoke-document-access-from-powershell).
+
+Use the same procedure above to find the **ContentId** of the document you wish to revoke.
+
+Run `Set-AIPServiceDocumentRevoked` with your document's **ContentId** to revoke access to the document.
+
+
+
+
+
+
+
 
 
 
