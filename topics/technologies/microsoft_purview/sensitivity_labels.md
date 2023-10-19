@@ -55,6 +55,7 @@
 - [Partner solutions that integrate with Microsoft Information Protection](https://techcommunity.microsoft.com/t5/security-compliance-and-identity/microsoft-information-protection-showcases-integrated-partner/ba-p/262657)
 - [Unified Labeling Support Tool](https://github.com/microsoft/UnifiedLabelingSupportTool) - PowerShell module for troubleshooting sensitivity labels and Azure RMS templates
 - [AIP Audit Export](https://github.com/Azure-Samples/Azure-Information-Protection-Samples/tree/master/AIP-Audit-Export) - Export labeling events to Log Analytics
+- [Migration Playbook for Built-in Labeling](https://microsoft.github.io/ComplianceCxE/playbooks/AIP2MIP/CompareAIP2MIP/)
 
 ## Licensing for Sensitivity Labels
 The following licenses are required for using Information Protection features:
@@ -224,9 +225,17 @@ You have several options to determine if a label has been accessed or used:
 * Microsoft Defender for Cloud Apps > Activity Log
 
 ### Tracking and Revocation
-Microsoft is introducing new features both to the Purview Compliance portal and to the Office apps to enable tracking and revocation for labeled and protected files.  See [Track and revoke encrypted documents](https://learn.microsoft.com/en-us/purview/track-and-revoke-admin). Currently, the only method to confirm access to protected files is to enable document tracking beforehand. 
+See [Track and revoke encrypted documents](https://learn.microsoft.com/en-us/purview/track-and-revoke-admin). 
 
-As of October 2023, documents stored in SharePoint and OneDrive lose their ability to be tracked. For tracking to work, the document owner must download the document locally and open. Additionally, the user must have installed the [Azure Information Protection Unified Labeling client](https://learn.microsoft.com/en-us/azure/information-protection/rms-client/aip-clientv2). Per the [Microsoft Roadmap](https://www.microsoft.com/en-us/microsoft-365/roadmap?filters=Worldwide%20(Standard%20Multi-Tenant)&searchterms=revocation), expect new features in document tracking and revocation to be introduced in 2023 Q4.
+Microsoft is introducing new features both to the Purview Compliance portal and to the Office apps to enable tracking and revocation for labeled and protected files. Per the [Microsoft Roadmap](https://www.microsoft.com/en-us/microsoft-365/roadmap?filters=Worldwide%20(Standard%20Multi-Tenant)&searchterms=revocation), expect new features in document tracking and revocation to be introduced in 2023 Q4. 
+
+Today there are a few limitations:
+1. Tracked documents uploaded to OneDrive or SharePoint lose their ability to be tracked or revoked. 
+2. Enablement of document tracking is only supported with the beta Office version, as of October 2023
+
+See [Limitations](https://learn.microsoft.com/en-us/purview/track-and-revoke-admin#limitations).
+
+
 
 ### Activity Explorer
 The Activity Explorer in the Microsoft Purview Compliance portal provides a 30-day search window of label activities. See [Get started with activity explorer](https://learn.microsoft.com/en-us/microsoft-365/compliance/data-classification-activity-explorer?view=o365-worldwide) and [Labeling actions reported in Activity Explorer](https://learn.microsoft.com/en-us/purview/data-classification-activity-explorer-available-events?view=o365-worldwide). Activity Explorer records labeling activities, such as when a label is applied or changed or when a labeled file is read. For small environments, it generally takes between 3-5 minutes for an activity to appear in Activity Explorer. Some activities take longer than others to appear. For example, the `File read` activity may take 10-15 minutes. 
