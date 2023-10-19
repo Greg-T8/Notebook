@@ -237,6 +237,7 @@ Microsoft is introducing new features both to the Purview Compliance portal and 
 Today, there are a few limitations:
 1. Tracked documents uploaded to OneDrive or SharePoint lose their ability to be tracked or revoked. Tracking applies for local files only.
 2. Enablement of document tracking is only supported with the beta Office version, as of October 2023
+3. Revocation is only supported
 
 See [Limitations](https://learn.microsoft.com/en-us/purview/track-and-revoke-admin#limitations).
 
@@ -249,9 +250,9 @@ See [Track document access](https://learn.microsoft.com/en-us/purview/track-and-
 
 From the `AIPService` PowerShell module, use `Get-AipServiceDocumentLog` and note the **ContentId**.
 
-<img src='img/20231056-035602.png' width=900px>
+<img src='img/20231040-044020.png' width=900px>
 
-The cmdlet performs a string match on the **ContentName**.  Log entries corresponding to the file shows up immediately after enabling document tracking.
+The cmdlet performs a string match on the **ContentName**.  Log entries corresponding to the file shows up immediately after enabling document tracking. An **Issuer** as *personal* means that the file was downloaded from OneDrive or SharePoint instead of being created locally.
 
 In the screenshot below, note the document owner as the user in the resource tenant, i.e. where the tracking originated.  
 
@@ -266,17 +267,23 @@ In the screenshot below, note the requester email is from an external tenant.  T
 #### Revoke Document Access
 See [Revoke document access from PowerShell](https://learn.microsoft.com/en-us/purview/track-and-revoke-admin#revoke-document-access-from-powershell).
 
-Use the same procedure above to find the **ContentId** of the document you wish to revoke.
+Use the same procedure above to find the **ContentId** of the document you wish to revoke; then run `Set-AIPServiceDocumentRevoked` with your document's **ContentId** to revoke access to the document.
 
-Run `Set-AIPServiceDocumentRevoked` with your document's **ContentId** to revoke access to the document.
+<img src='img/20231039-043913.png' width=1100px>
 
+Specify the **Issuer** (not the **Owner**) as found from `Get-AipServiceDocumentLog`:  
 
+<img src='img/20231040-044020.png' width=900px>
 
+If **offline access** is allowed, users will continue to be able to access the documents that have been revoked until the offline policy period expires. If no expiration date is set, the default policy period is 30 days. See [Rights Management use license for offline access](https://learn.microsoft.com/en-us/purview/encryption-sensitivity-labels#rights-management-use-license-for-offline-access). You can change the default validity period for the tenant using `Set-AipServiceMaxUseLicenseValidityTime`.  See [Rights Management use license](https://learn.microsoft.com/en-us/azure/information-protection/configure-usage-rights#rights-management-use-license).
 
+When attempting to access a revoked document, the user receives a permissions message:
 
+<img src='img/20231043-044315.png' width=900px>
 
+To restore access use `Clear-AipServiceDocumentRevoked`:
 
-
+<img src='img/20231045-044540.png' width=900px>
 
 
 ### Activity Explorer
