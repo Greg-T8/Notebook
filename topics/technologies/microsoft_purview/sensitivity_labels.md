@@ -9,6 +9,7 @@
   - [Editing or Deleting a Sensitivity Label](#editing-or-deleting-a-sensitivity-label)
   - [Built-in Labeling for the Office Apps](#built-in-labeling-for-the-office-apps)
   - [Label Taxonomy](#label-taxonomy)
+- [Roles and Permissions in Microsoft Purview Compliance](#roles-and-permissions-in-microsoft-purview-compliance)
 - [External Access](#external-access)
   - [Azure RMS for Individuals](#azure-rms-for-individuals)
     - [Addressing MFA Requirements for External Users](#addressing-mfa-requirements-for-external-users)
@@ -16,8 +17,12 @@
     - [Provision Guest Accounts in Your Tenant](#provision-guest-accounts-in-your-tenant)
     - [Configure an Exception for the Azure Information Protection Application](#configure-an-exception-for-the-azure-information-protection-application)
   - [Application Support for Accessing Protected Documents](#application-support-for-accessing-protected-documents)
-- [Determine Document Owner](#determine-document-owner)
-  - [Get-AIPFileStatus Cmdlet](#get-aipfilestatus-cmdlet)
+- [Manage Protected Document Attributes](#manage-protected-document-attributes)
+  - [Manage the Azure Information Protection Service](#manage-the-azure-information-protection-service)
+  - [Determine Owner of Protected Document](#determine-owner-of-protected-document)
+    - [Get-AIPFileStatus Cmdlet](#get-aipfilestatus-cmdlet)
+  - [Change the Owner of a Protected Document](#change-the-owner-of-a-protected-document)
+  - [Remove Protection from a Document](#remove-protection-from-a-document)
 - [Track and Revoke Documents](#track-and-revoke-documents)
     - [Track Document Access](#track-document-access)
     - [Revoke Document Access](#revoke-document-access)
@@ -27,8 +32,6 @@
   - [Microsoft Purview Compliance Audit Log Search](#microsoft-purview-compliance-audit-log-search)
   - [Search-UnifiedAuditLog Cmdlet](#search-unifiedauditlog-cmdlet)
   - [Microsoft Defender for Cloud Apps](#microsoft-defender-for-cloud-apps)
-- [Roles and Permissions in Microsoft Purview](#roles-and-permissions-in-microsoft-purview)
-- [Manage the Azure Information Protection Service](#manage-the-azure-information-protection-service)
 - [Protecting SharePoint Sites, Teams, and Groups with Sensitivity Labels](#protecting-sharepoint-sites-teams-and-groups-with-sensitivity-labels)
   - [Applying a Sensitivity Label to Content Automatically](#applying-a-sensitivity-label-to-content-automatically)
   - [Enable PDF Support](#enable-pdf-support)
@@ -148,6 +151,53 @@ See [Create a well-designed data classification framework](https://learn.microso
 
 See the full list and descriptions [here](https://microsoft.github.io/ComplianceCxE/dag/mip-dlp/)
 
+## Roles and Permissions in Microsoft Purview Compliance
+
+The following role groups have permissions for managing sensitivity labels:
+- Organization Management*
+- Compliance Administrator*
+- Compliance Data Administrator*
+- Information Protection*
+- Information Protection Admins*
+- Information Protection Analysts
+- Information Protection Investigators
+- Information Protection Readers
+
+**Note:** Items with an asterisk (*) have the ability to activate and manage the AIP super user feature (need to confirm this)
+
+The **Information Protection** role group is the most privileged of this bunch and has the following roles: 
+- Information Protection Admin - Create, edit, and delete DLP policies, sensitivity labels and their policies, and all classifier types. Manage endpoint DLP settings and simulation mode for auto-labeling policies.
+- Data Classification Content Viewer - Allow viewing in-place rendering of files in content explorer.
+- Data Classification List Viewer - Allow viewing list of files in content explorer.
+- Information Protection Analyst - Access and manage DLP alerts and activity explorer. View-only access to DLP policies, sensitivity labels and their policies, and all classifier types.
+- Information Protection Investigator - Access and manage DLP alerts, activity explorer, and content explorer. View-only access to DLP policies, sensitivity labels and their policies, and all classifier types.
+- Information Protection Reader - View-only access to reports for DLP policies and sensitivity labels and their policies.
+- Purview Evaluation Administrator - Used to create and manage M365 Purview Evaluation lab
+
+The **Information Protection Admins** role group has only the following roles:
+- Information Protection Admin - Create, edit, and delete DLP policies, sensitivity labels and their policies, and all classifier types. Manage endpoint DLP settings and simulation mode for auto-labeling policies.
+- Purview Evaluation Administrator - Used to create and manage M365 Purview Evaluation lab
+
+The **Information Protection Investigators** role group has the following roles:  
+- Data Classification Content Viewer - Allow viewing in-place rendering of files in content explorer.
+- Data Classification List Viewer - Allow viewing list of files in content explorer.
+- Information Protection Analyst - Access and manage DLP alerts and activity explorer. View-only access to DLP policies, sensitivity labels and their policies, and all classifier types.
+- Information Protection Investigator - Access and manage DLP alerts, activity explorer, and content explorer. View-only access to DLP policies, sensitivity labels and their policies, and all classifier types.
+- Purview Evaluation Administrator - Used to create and manage M365 Purview Evaluation lab
+
+The **Information Protection Analysts** role group has the following roles:
+- Data Classification List Viewer - Allow viewing list of files in content explorer.
+- Information Protection Analyst - Access and manage DLP alerts and activity explorer. View-only access to DLP policies, sensitivity labels and their policies, and all classifier types.
+- Purview Evaluation Administrator - Used to create and manage M365 Purview Evaluation lab
+
+The **Information Protection Readers** role group has the following role:  
+- Information Protection Reader - View-only access to reports for DLP policies and sensitivity labels and their policies.
+
+Alternatively you can create a new role group and add the **Sensitivity Label Administrator** role.  For a read-only group, use **Sensitivity Label Reader**. 
+
+See [Permissions required to create and manage sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/get-started-with-sensitivity-labels?view=o365-worldwide#permissions-required-to-create-and-manage-sensitivity-labels)
+
+
 ## External Access
 Users must have an account in Entra ID to access protected content. Azure/Office 365 customers can access without any additional configuration.  Non-Azure/Office 365 customers must sign up for an Azure RMS for Individuals account. The Azure RMS for Individuals service creates an account in an unmanaged Entra ID tenant.
 
@@ -219,13 +269,24 @@ With regard to label visibility, users outside the organization do not see the l
 See [Support for external users and labeled content](https://learn.microsoft.com/en-us/purview/sensitivity-labels-office-apps?view=o365-worldwide#support-for-external-users-and-labeled-content).
 
 
-## Determine Document Owner
+## Manage Protected Document Attributes
 
-### Get-AIPFileStatus Cmdlet
+### Manage the Azure Information Protection Service
+See the following links for more information: 
+- [Configure super users](https://docs.microsoft.com/en-us/azure/information-protection/configure-super-users)
+- [Azure Information Protection](https://learn.microsoft.com/en-us/powershell/azure/aip/overview?view=azureipps) - provides documentation on the **AIPService** and **AzureInformationProtection** PowerShell modules.
+
+### Determine Owner of Protected Document
+
+#### Get-AIPFileStatus Cmdlet
 You can use `Get-AIPFileStatus` to determine the owner of a protected document. See [Get-AIPFileStatus](https://learn.microsoft.com/en-us/powershell/module/azureinformationprotection/get-aipfilestatus?view=azureipps). This cmdlet is available in the [AzureInformationProtection](https://learn.microsoft.com/en-us/powershell/module/azureinformationprotection/?view=azureipps) PowerShell module, which is installed with the [Azure Innformation Protection Unified Labeling](https://learn.microsoft.com/en-us/azure/information-protection/rms-client/aip-clientv2) client.
 
 <img src='img/20231054-035434.png' width=700px>
 
+### Change the Owner of a Protected Document
+
+
+### Remove Protection from a Document
 
 
 ## Track and Revoke Documents
@@ -328,56 +389,6 @@ See [Sensitivity label activities](https://learn.microsoft.com/en-us/microsoft-3
 ### Microsoft Defender for Cloud Apps
 
 
-## Roles and Permissions in Microsoft Purview
-
-The following role groups have permissions for managing sensitivity labels:
-- Organization Management*
-- Compliance Administrator*
-- Compliance Data Administrator*
-- Information Protection*
-- Information Protection Admins*
-- Information Protection Analysts
-- Information Protection Investigators
-- Information Protection Readers
-
-**Note:** Items with an asterisk (*) have the ability to activate and manage the AIP super user feature (need to confirm this)
-
-The **Information Protection** role group is the most privileged of this bunch and has the following roles: 
-- Information Protection Admin - Create, edit, and delete DLP policies, sensitivity labels and their policies, and all classifier types. Manage endpoint DLP settings and simulation mode for auto-labeling policies.
-- Data Classification Content Viewer - Allow viewing in-place rendering of files in content explorer.
-- Data Classification List Viewer - Allow viewing list of files in content explorer.
-- Information Protection Analyst - Access and manage DLP alerts and activity explorer. View-only access to DLP policies, sensitivity labels and their policies, and all classifier types.
-- Information Protection Investigator - Access and manage DLP alerts, activity explorer, and content explorer. View-only access to DLP policies, sensitivity labels and their policies, and all classifier types.
-- Information Protection Reader - View-only access to reports for DLP policies and sensitivity labels and their policies.
-- Purview Evaluation Administrator - Used to create and manage M365 Purview Evaluation lab
-
-The **Information Protection Admins** role group has only the following roles:
-- Information Protection Admin - Create, edit, and delete DLP policies, sensitivity labels and their policies, and all classifier types. Manage endpoint DLP settings and simulation mode for auto-labeling policies.
-- Purview Evaluation Administrator - Used to create and manage M365 Purview Evaluation lab
-
-The **Information Protection Investigators** role group has the following roles:  
-- Data Classification Content Viewer - Allow viewing in-place rendering of files in content explorer.
-- Data Classification List Viewer - Allow viewing list of files in content explorer.
-- Information Protection Analyst - Access and manage DLP alerts and activity explorer. View-only access to DLP policies, sensitivity labels and their policies, and all classifier types.
-- Information Protection Investigator - Access and manage DLP alerts, activity explorer, and content explorer. View-only access to DLP policies, sensitivity labels and their policies, and all classifier types.
-- Purview Evaluation Administrator - Used to create and manage M365 Purview Evaluation lab
-
-The **Information Protection Analysts** role group has the following roles:
-- Data Classification List Viewer - Allow viewing list of files in content explorer.
-- Information Protection Analyst - Access and manage DLP alerts and activity explorer. View-only access to DLP policies, sensitivity labels and their policies, and all classifier types.
-- Purview Evaluation Administrator - Used to create and manage M365 Purview Evaluation lab
-
-The **Information Protection Readers** role group has the following role:  
-- Information Protection Reader - View-only access to reports for DLP policies and sensitivity labels and their policies.
-
-Alternatively you can create a new role group and add the **Sensitivity Label Administrator** role.  For a read-only group, use **Sensitivity Label Reader**. 
-
-See [Permissions required to create and manage sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/get-started-with-sensitivity-labels?view=o365-worldwide#permissions-required-to-create-and-manage-sensitivity-labels)
-
-## Manage the Azure Information Protection Service
-See the following links for more information: 
-- [Configure super users](https://docs.microsoft.com/en-us/azure/information-protection/configure-super-users)
-- [Azure Information Protection](https://learn.microsoft.com/en-us/powershell/azure/aip/overview?view=azureipps) - provides documentation on the **AIPService** and **AzureInformationProtection** PowerShell modules.
 
 
 ## Protecting SharePoint Sites, Teams, and Groups with Sensitivity Labels
