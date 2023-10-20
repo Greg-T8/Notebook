@@ -18,15 +18,15 @@
   - [Application Support for Accessing Protected Documents](#application-support-for-accessing-protected-documents)
 - [Determine Document Owner](#determine-document-owner)
   - [Get-AIPFileStatus Cmdlet](#get-aipfilestatus-cmdlet)
-- [Audit Label Access and Usage](#audit-label-access-and-usage)
-  - [Tracking and Revocation](#tracking-and-revocation)
+- [Track and Revoke Documents](#track-and-revoke-documents)
     - [Track Document Access](#track-document-access)
     - [Revoke Document Access](#revoke-document-access)
+- [Audit Label Access and Usage](#audit-label-access-and-usage)
   - [Activity Explorer](#activity-explorer)
-  - [Auditing](#auditing)
+  - [Auditing Framework](#auditing-framework)
   - [Microsoft Purview Compliance Audit Log Search](#microsoft-purview-compliance-audit-log-search)
   - [Search-UnifiedAuditLog Cmdlet](#search-unifiedauditlog-cmdlet)
-  - [AIP Document Service Logs](#aip-document-service-logs)
+  - [Microsoft Defender for Cloud Apps](#microsoft-defender-for-cloud-apps)
 - [Roles and Permissions in Microsoft Purview](#roles-and-permissions-in-microsoft-purview)
 - [Manage the Azure Information Protection Service](#manage-the-azure-information-protection-service)
 - [Protecting SharePoint Sites, Teams, and Groups with Sensitivity Labels](#protecting-sharepoint-sites-teams-and-groups-with-sensitivity-labels)
@@ -227,18 +227,8 @@ You can use `Get-AIPFileStatus` to determine the owner of a protected document. 
 <img src='img/20231054-035434.png' width=700px>
 
 
-## Audit Label Access and Usage
-You have several options to determine if a label has been accessed or used:
 
-* Document Tracking and Revocation
-* Microsoft Purview Compliance Portal > Activity Explorer
-* Microsoft Purview Compliance Portal > Audit
-* PowerShell Search-UnifiedAuditLog cmdlet
-* Microsoft Defender for Cloud Apps > Activity Log
-
-### Tracking and Revocation
-
-
+## Track and Revoke Documents
 Microsoft is introducing new features both to the Purview Compliance portal and to the Office apps to enable tracking and revocation for labeled and protected files. See [Track and revoke encrypted documents](https://learn.microsoft.com/en-us/purview/track-and-revoke-admin). 
 
 Per the [Microsoft Roadmap](https://www.microsoft.com/en-us/microsoft-365/roadmap?filters=Worldwide%20(Standard%20Multi-Tenant)&searchterms=revocation), expect new features in document tracking and revocation to be introduced in 2023 Q4. These features include
@@ -295,26 +285,34 @@ To restore access use `Clear-AipServiceDocumentRevoked`:
 
 <img src='img/20231045-044540.png' width=900px>
 
+## Audit Label Access and Usage
+You have several options to determine if a label has been accessed or used:
+* Microsoft Purview Compliance Portal > Activity Explorer
+* Microsoft Purview Compliance Portal > Audit
+* PowerShell Search-UnifiedAuditLog cmdlet
+* Microsoft Defender for Cloud Apps > Activity Log
+
+In all cases above, search results only return for items managed by Microsoft Purview.  This includes SharePoint, OneDrive, Teams, Exchange Online, and managed devices. Audit results do not include access events of this scope, e.g. protected documents opened by external users. 
+
+With regard to the RMS service, an access event is generated each time a labeled or protected document is opened. See [Access audit logs](https://learn.microsoft.com/en-us/azure/information-protection/audit-logs#access-audit-logs). However, file access and denied events (1) do not currently include the file name and (2) are not accessible in the Microsoft 365 unified audit log. See [Protection usage logs and Microsoft 365 unified audit log](https://learn.microsoft.com/en-us/azure/information-protection/log-analyze-usage#protection-usage-logs-and-microsoft-365-unified-audit-log). This effectively means the audit log may not be used to view RMS events. 
+
+However, labeled documents that are accessed by users managed under Microsoft Purview will appear in the audit log. See [Sensitivity label activities](https://learn.microsoft.com/en-us/purview/audit-log-activities#sensitivity-label-activities) for the types of labeling events stored in the audit log. 
+
 
 ### Activity Explorer
 The Activity Explorer in the Microsoft Purview Compliance portal provides a 30-day search window of label activities. See [Get started with activity explorer](https://learn.microsoft.com/en-us/microsoft-365/compliance/data-classification-activity-explorer?view=o365-worldwide) and [Labeling actions reported in Activity Explorer](https://learn.microsoft.com/en-us/purview/data-classification-activity-explorer-available-events?view=o365-worldwide). Activity Explorer records labeling activities, such as when a label is applied or changed or when a labeled file is read. For small environments, it generally takes between 3-5 minutes for an activity to appear in Activity Explorer. Some activities take longer than others to appear. For example, the `File read` activity may take 10-15 minutes. 
 
-Per [Labeling actions reported in Activity Explorer](https://learn.microsoft.com/en-us/purview/data-classification-activity-explorer-available-events#sensitivity-label-applied), Activity Explorer does not record events by the RMS Service. Therefore, expect Activity Explorer to only show events for items that are within the scope of Microsoft Purview, e.g. SharePoint, OneDrive, Teams, Exchange Online, and managed devices.  Activity Explorer does not record access events from documents out of this scope, e.g. protected documents opened by external users.
+Per [Labeling actions reported in Activity Explorer](https://learn.microsoft.com/en-us/purview/data-classification-activity-explorer-available-events#sensitivity-label-applied), Activity Explorer does not record events by the RMS Service. Therefore, do not expect access events for protected documents outside of areas managed by Microsoft Purview to appear in Activity Explorer, e.g. protected documents opened by external users.
 
-### Auditing 
-Microsoft provides an auditing framework that may be used to track label usage. However, events are restricted to labeling activities and do not include file access and denied events outside of sites and items managed by Microsoft Purview. See [Protection usage logs and Microsoft 365 unified audit log](https://learn.microsoft.com/en-us/azure/information-protection/log-analyze-usage#protection-usage-logs-and-microsoft-365-unified-audit-log).
-
-However, you can use two methods for accessing labeling events the audit log for sites and items managed by Microsoft Purview:
+### Auditing Framework
+Microsoft provides an auditing framework that may be used to track label usage. You can use two methods for accessing labeling events the audit log for sites and items managed by Microsoft Purview:
 - Microsoft Purview Compliance Audit log search
 - The Search-UnifiedAuditLog cmdlet
-
-See [Sensitivity label activities](https://learn.microsoft.com/en-us/purview/audit-log-activities#sensitivity-label-activities) for the events that result from using sensitivity labels with sites and items that are managed by Microsoft Purview. 
-
-For logging access to documents accessed by the RMS service outside of Microsoft Purview, see [Access audit logs](https://learn.microsoft.com/en-us/azure/information-protection/audit-logs#access-audit-logs).
 
 Per the [FAQ](https://learn.microsoft.com/en-us/purview/audit-log-search?redirectSourcePath=%252fen-us%252farticle%252fSearch-the-audit-log-in-the-Office-365-Security-Compliance-Center-0d4d0f35-390b-4518-800e-0c7ec95e946c#frequently-asked-questions), data in the audit search is generally available within 60-90 minutes but can take up to 24 hours to appear. See [Before you search the audit log](https://learn.microsoft.com/en-us/purview/audit-log-search#before-you-search-the-audit-log).
 
 ### Microsoft Purview Compliance Audit Log Search
+
 
 
 ### Search-UnifiedAuditLog Cmdlet
@@ -327,10 +325,7 @@ The article, [Analyzing the Use of Sensitivity Labels without the Activity Explo
 
 See [Sensitivity label activities](https://learn.microsoft.com/en-us/microsoft-365/compliance/audit-log-activities?view=o365-worldwide#sensitivity-label-activities) for a list of all events from using sensitivity labels. See [Sentinel - Microsoft Purview Information Protection Connector Reference](https://learn.microsoft.com/en-us/azure/sentinel/microsoft-purview-record-types-activities) for a list of Information Protection activities. The [Office 365 Management Activity API schema](https://learn.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-schema) is a definitive list of all properties in audit data record types.
 
-### AIP Document Service Logs
-Per [Access audit logs](https://learn.microsoft.com/en-us/azure/information-protection/audit-logs#access-audit-logs), the RMS service generates an event each time a labeled or protected document is accessed. However, the 
-
-See [Viewing and analyzing service usage](https://learn.microsoft.com/en-us/azure/information-protection/log-analyze-usage) to understand 
+### Microsoft Defender for Cloud Apps
 
 
 ## Roles and Permissions in Microsoft Purview
