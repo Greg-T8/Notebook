@@ -16,6 +16,8 @@
     - [Provision Guest Accounts in Your Tenant](#provision-guest-accounts-in-your-tenant)
     - [Configure an Exception for the Azure Information Protection Application](#configure-an-exception-for-the-azure-information-protection-application)
   - [Application Support for Accessing Protected Documents](#application-support-for-accessing-protected-documents)
+- [Determine Document Owner](#determine-document-owner)
+  - [Get-AIPFileStatus Cmdlet](#get-aipfilestatus-cmdlet)
 - [Audit Label Access and Usage](#audit-label-access-and-usage)
   - [Tracking and Revocation](#tracking-and-revocation)
     - [Track Document Access](#track-document-access)
@@ -217,6 +219,14 @@ With regard to label visibility, users outside the organization do not see the l
 See [Support for external users and labeled content](https://learn.microsoft.com/en-us/purview/sensitivity-labels-office-apps?view=o365-worldwide#support-for-external-users-and-labeled-content).
 
 
+## Determine Document Owner
+
+### Get-AIPFileStatus Cmdlet
+You can use `Get-AIPFileStatus` to determine the owner of a protected document. See [Get-AIPFileStatus](https://learn.microsoft.com/en-us/powershell/module/azureinformationprotection/get-aipfilestatus?view=azureipps). This cmdlet is available in the [AzureInformationProtection](https://learn.microsoft.com/en-us/powershell/module/azureinformationprotection/?view=azureipps) PowerShell module, which is installed with the [Azure Innformation Protection Unified Labeling](https://learn.microsoft.com/en-us/azure/information-protection/rms-client/aip-clientv2) client.
+
+<img src='img/20231054-035434.png' width=700px>
+
+
 ## Audit Label Access and Usage
 You have several options to determine if a label has been accessed or used:
 
@@ -227,32 +237,32 @@ You have several options to determine if a label has been accessed or used:
 * Microsoft Defender for Cloud Apps > Activity Log
 
 ### Tracking and Revocation
-See [Track and revoke encrypted documents](https://learn.microsoft.com/en-us/purview/track-and-revoke-admin). 
 
-Microsoft is introducing new features both to the Purview Compliance portal and to the Office apps to enable tracking and revocation for labeled and protected files. Per the [Microsoft Roadmap](https://www.microsoft.com/en-us/microsoft-365/roadmap?filters=Worldwide%20(Standard%20Multi-Tenant)&searchterms=revocation), expect new features in document tracking and revocation to be introduced in 2023 Q4. These features include
+
+Microsoft is introducing new features both to the Purview Compliance portal and to the Office apps to enable tracking and revocation for labeled and protected files. See [Track and revoke encrypted documents](https://learn.microsoft.com/en-us/purview/track-and-revoke-admin). 
+
+Per the [Microsoft Roadmap](https://www.microsoft.com/en-us/microsoft-365/roadmap?filters=Worldwide%20(Standard%20Multi-Tenant)&searchterms=revocation), expect new features in document tracking and revocation to be introduced in 2023 Q4. These features include
 1. The ability ability for Office to register files for tracking.  This only applies to local files.
 2. The ability for users to access the Purview Compliance portal to check who has tried accessing their labeled and protected documents, and revoke when needed.
 3. Users can access the Compliance Portal from the Sensitivity menu
 
-Today, there are a few limitations:
-1. Tracked documents uploaded to OneDrive or SharePoint lose their ability to be tracked or revoked. Tracking applies for local files only.
-2. Enablement of document tracking is only supported with the beta Office version, as of October 2023
-3. Revocation is only supported
-
-See [Limitations](https://learn.microsoft.com/en-us/purview/track-and-revoke-admin#limitations).
+Today, there are a few [limitations](https://learn.microsoft.com/en-us/purview/track-and-revoke-admin#limitations):
+1. Tracking and revocation doesn't work for PDFs
+2. Tracked documents uploaded to OneDrive or SharePoint lose their ability to be tracked or revoked. Tracking applies for local files only.
+3. As of October 2023, enablement of document tracking is only supported with the beta version of Office
 
 Also note that usage of the Azure Information Protection Unified Labeling client, which is set for retirement, does not enable document tracking as it once did, as Microsoft has disabled Office integration that enables this feature.
 
-Here's a look at how you can use document tracking and revocation features today.
-
 #### Track Document Access
-See [Track document access](https://learn.microsoft.com/en-us/purview/track-and-revoke-admin#track-document-access). 
-
-From the `AIPService` PowerShell module, use `Get-AipServiceDocumentLog` and note the **ContentId**.
+Per [Track document access](https://learn.microsoft.com/en-us/purview/track-and-revoke-admin#track-document-access), from the `AIPService` PowerShell module, use `Get-AipServiceDocumentLog` and note the **ContentId**.
 
 <img src='img/20231040-044020.png' width=900px>
 
-The cmdlet performs a string match on the **ContentName**.  Log entries corresponding to the file shows up immediately after enabling document tracking. An **Issuer** as *personal* means that the file was downloaded from OneDrive or SharePoint instead of being created locally.
+The cmdlet performs a string match on the **ContentName**. Wildcards are not supported. Log entries corresponding typically show up immediately after enabling tracking on a document, i.e. by opening a local document with a supported version of Office. An **Issuer** as *personal* means that the file was downloaded from OneDrive or SharePoint instead of being created locally.
+
+Note, you can use the undocumented `-UserEmail` option to search for tracked documents from a specific user:
+
+<img src='img/20231004-040405.png' width=800px>
 
 In the screenshot below, note the document owner as the user in the resource tenant, i.e. where the tracking originated.  
 
