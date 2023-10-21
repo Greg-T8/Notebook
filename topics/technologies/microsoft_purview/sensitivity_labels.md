@@ -307,7 +307,7 @@ To change the owner of a protected document, you need the `LabelId`.  The `Label
 
 To set the new owner, use `SetAIPFileLabel` with the `-Owner` and the `-LabelId` options:
 
-<img src='img/20231027-062713.png' width=600>
+<img src='img/20231027-062713.png' width=1200>
 
 ### Remove Protection from a Document
 Use `Set-AIPFileLabel` with the `-RemoveProtection` option to remove protection from a document. `Set-AIPFileLabel` is available in the [AzureInformationProtection](https://learn.microsoft.com/en-us/powershell/module/azureinformationprotection/?view=azureipps) PowerShell module, which comes when installing the [Azure Information Protection Unified Labeling Client](https://learn.microsoft.com/en-us/azure/information-protection/rms-client/aip-clientv2).
