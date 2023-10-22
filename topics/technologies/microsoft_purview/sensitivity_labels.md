@@ -271,6 +271,7 @@ See [Support for external users and labeled content](https://learn.microsoft.com
 
 
 ## Manage Protected Document Attributes
+The following sections use commands from the [AIPService](https://learn.microsoft.com/en-us/powershell/module/aipservice/?view=azureipps) and [AzureInformationProtection](https://learn.microsoft.com/en-us/powershell/module/azureinformationprotection/?view=azureipps) PowerShell modules.  See [Azure Information Protection](https://learn.microsoft.com/en-us/powershell/azure/aip/overview?view=azureipps) for an overview on how to use these modules. The AzureInformationProtection module is different and from and supplements the AIPService PowerShell module that manages the Azure Rights Management service for Azure Information Protection.  
 
 ### Determine The Owner of a Protected Document
 If a document is protected with user-defined permissions, then the person opening the document who doesn't have permissions will receive a message to contact the document owner with email address provided:
@@ -288,12 +289,15 @@ Unfortunately, the user currently does not have a built-in method for determinin
 - Get-AIPFileStatus Cmdlet
 
 #### Azure Information Protection Unified Labeling Client
-The Azure Information Protection Unified Labeling client is set for retirement. However, it is still available for download and can be used to determine the owner of a protected document. See [Azure Information Protection client for Windows](https://docs.microsoft.com/en-us/azure/information-protection/rms-client/clientv2-admin-guide-install).
+The Azure Information Protection Unified Labeling client is set for retirement. However, the client is still available for download and can be used to determine the owner of a protected document. See [Azure Information Protection client for Windows](https://docs.microsoft.com/en-us/azure/information-protection/rms-client/clientv2-admin-guide-install).
 
-The Azure Information Protection Unified Labeling client introduces a context menu entry into Windows File Explorer called **Classify and Protect**. When a user opens a document using Classify and Protect, the client displays the content owner's email address:   
+The Azure Information Protection Unified Labeling client introduces a context menu entry into Windows File Explorer called **Classify and Protect**. When a user opens a document using Classify and Protect without having permissions to the document, the client displays the content owner's email address:   
 
-![](img/20231058-055858.png)
+<img src='img/20231058-055858.png' width=700px>
 
+The **View Permission** button becomes available only when the user does have permissions to the document.
+
+<img src='img/20231057-035720.png' width=500px>
 
 #### Get-AIPFileStatus Cmdlet
 An admin can use `Get-AIPFileStatus` to determine the owner of a protected document. See [Get-AIPFileStatus](https://learn.microsoft.com/en-us/powershell/module/azureinformationprotection/get-aipfilestatus?view=azureipps). This cmdlet is available in the [AzureInformationProtection](https://learn.microsoft.com/en-us/powershell/module/azureinformationprotection/?view=azureipps) PowerShell module, which is installed with the [Azure Innformation Protection Unified Labeling](https://learn.microsoft.com/en-us/azure/information-protection/rms-client/aip-clientv2) client.
@@ -317,9 +321,25 @@ Use `Set-AIPFileLabel` with the `-RemoveProtection` option to remove protection 
 To run this command successfully, the **SuperUserFeature** must be enabled, and the admin must be a super user. See [Enable the super user feature](https://docs.microsoft.com/en-us/azure/information-protection/configure-super-users).  
 
 ### Manage the Azure Information Protection Service
-See the following links for more information: 
-- [Configure super users](https://docs.microsoft.com/en-us/azure/information-protection/configure-super-users)
-- [Azure Information Protection](https://learn.microsoft.com/en-us/powershell/azure/aip/overview?view=azureipps) - provides documentation on the **AIPService** and **AzureInformationProtection** PowerShell modules.
+See [Configure super users for Azure Information Protection](https://docs.microsoft.com/en-us/azure/information-protection/configure-super-users).  Use the following commands to manage the super user feature:
+- `Get-AIPServiceSuperUserFeature`
+- `Enable-AIPServiceSuperUserFeature`
+- `Disable-AIPServiceSuperUserFeature`
+- `Add-AIPServiceSuperUser`
+- `Remove-AIPServiceSuperUser`
+- `Set-AIPServiceSuperUserGroup`
+- `Clear-AIPServiceSuperUserGroup`
+
+When the super user feature is enabled, super users may open any protected document that was encrypted by the tenant's RMS service. Be sure to read [Security best practices for the super user feature](https://learn.microsoft.com/en-us/azure/information-protection/configure-super-users#security-best-practices-for-the-super-user-feature). 
+
+You can use `Get-AipServiceAdminLog` to understand when the super user feature was used.  Protection See [Logging and analyzing the protection usage from Azure Information Protection](https://learn.microsoft.com/en-us/azure/information-protection/log-analyze-usage). The log file can be large, several MB in size, so use the `-FromTime` switch to keep the file size down.
+
+![](img/20231032-043222.png)
+
+The log captures all administrative events related to the Azure RMS service, including when admins accessed the log and when the super user feature was activated and deactivated. Log entry times are in UTC. See [Example auditing for the super user feature](https://learn.microsoft.com/en-us/azure/information-protection/configure-super-users#example-auditing-for-the-super-user-feature).
+
+![](img/20231033-043336.png)
+
 
 ## Track and Revoke Documents
 Microsoft is introducing new features both to the Purview Compliance portal and to the Office apps to enable tracking and revocation for labeled and protected files. See [Track and revoke encrypted documents](https://learn.microsoft.com/en-us/purview/track-and-revoke-admin). 
