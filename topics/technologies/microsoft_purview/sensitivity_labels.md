@@ -304,14 +304,17 @@ An admin can use `Get-AIPFileStatus` to determine the owner of a protected docum
 
 <img src='img/20231054-035434.png' width=700px>
 
+When specifying a directory instead of a file name, the command recursively searches and provides file protection results for all protected files. See [Example 3: List the files labeled...](https://learn.microsoft.com/en-us/powershell/module/azureinformationprotection/get-aipfilestatus?view=azureipps#example-3-list-the-files-labeled-confidential-and-export-the-results-to-a-csv-file).
+
+A couple of things to note:
+1. Files protected using custom permissions instead of a template indicate "Restricted Access" instead of the template name.
+2. Password-protected files always return the protection status of **False**
+3. This command may be used only for protected files in your tenant; it cannot be used to get the file protection status of protected files from other tenants.
+
 ### Change the Owner of a Protected Document
-To change the owner of a protected document, you need the `LabelId`.  The `LabelId` is a Guid that can be found from running `Get-AIPFileStatus`: 
+If the document was protected using custom permissions, then you must remove protection and protect the document again. You cannot change the RMS owner of the existing document. See [FAQ - I've protected a document and now want to change usage rights](https://learn.microsoft.com/en-us/azure/information-protection/faqs-rms#ive-protected-a-document-and-now-want-to-change-the-usage-rights-or-add-usersdo-i-need-to-reprotect-the-document).
 
-<img src='img/20231026-062602.png' width=600>
-
-To set the new owner, use `SetAIPFileLabel` with the `-Owner` and the `-LabelId` options:
-
-<img src='img/20231027-062713.png' width=1200>
+Note: `Set-AIPFileLabel` has an undocumented `-Owner` switch. However, this switch does not change the owner of the RMS file. See [Set-AIPFileLabel](https://learn.microsoft.com/en-us/powershell/module/azureinformationprotection/set-aipfilelabel?view=azureipps).
 
 ### Remove Protection from a Document
 Use `Set-AIPFileLabel` with the `-RemoveProtection` option to remove protection from a document. `Set-AIPFileLabel` is available in the [AzureInformationProtection](https://learn.microsoft.com/en-us/powershell/module/azureinformationprotection/?view=azureipps) PowerShell module, which comes when installing the [Azure Information Protection Unified Labeling Client](https://learn.microsoft.com/en-us/azure/information-protection/rms-client/aip-clientv2).
