@@ -23,6 +23,7 @@
     - [Get-AIPFileStatus Cmdlet](#get-aipfilestatus-cmdlet)
   - [Change the Owner of a Protected Document](#change-the-owner-of-a-protected-document)
   - [Remove Protection from a Document](#remove-protection-from-a-document)
+  - [Remove Encryption from Document in SharePoint Online](#remove-encryption-from-document-in-sharepoint-online)
   - [Manage the Azure Information Protection Service](#manage-the-azure-information-protection-service)
 - [Track and Revoke Documents](#track-and-revoke-documents)
     - [Track Document Access](#track-document-access)
@@ -322,6 +323,9 @@ Use `Set-AIPFileLabel` with the `-RemoveProtection` option to remove protection 
 <img src='img/20231012-061242.png' width=1100px>
 
 To run this command successfully, the **SuperUserFeature** must be enabled, and the admin must be a super user. See [Enable the super user feature](https://docs.microsoft.com/en-us/azure/information-protection/configure-super-users).  
+
+### Remove Encryption from Document in SharePoint Online
+See [Unlock-SPOSensitivityLabelEncryptedFile](https://learn.microsoft.com/en-us/powershell/module/sharepoint-online/unlock-sposensitivitylabelencryptedfile?view=sharepoint-ps)
 
 ### Manage the Azure Information Protection Service
 See [Configure super users for Azure Information Protection](https://docs.microsoft.com/en-us/azure/information-protection/configure-super-users).  Use the following commands to manage the super user feature:
