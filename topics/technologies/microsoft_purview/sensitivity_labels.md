@@ -23,7 +23,7 @@
     - [Get-AIPFileStatus Cmdlet](#get-aipfilestatus-cmdlet)
   - [Change the Owner of a Protected Document](#change-the-owner-of-a-protected-document)
   - [Remove Protection from a Document](#remove-protection-from-a-document)
-  - [Remove Encryption from Document in SharePoint Online](#remove-encryption-from-document-in-sharepoint-online)
+  - [Remove Encryption from a Document in SharePoint Online](#remove-encryption-from-a-document-in-sharepoint-online)
   - [Manage the Azure Information Protection Service](#manage-the-azure-information-protection-service)
 - [Track and Revoke Documents](#track-and-revoke-documents)
     - [Track Document Access](#track-document-access)
@@ -37,6 +37,7 @@
 - [Protecting SharePoint Sites, Teams, and Groups with Sensitivity Labels](#protecting-sharepoint-sites-teams-and-groups-with-sensitivity-labels)
   - [Applying a Sensitivity Label to Content Automatically](#applying-a-sensitivity-label-to-content-automatically)
   - [Enable PDF Support](#enable-pdf-support)
+    - [Support for PDF attachments in message encryption](#support-for-pdf-attachments-in-message-encryption)
 - [Use PowerShell to manage Sensitivity Labels](#use-powershell-to-manage-sensitivity-labels)
   - [Get Info on Sensitivity Labels and Policies](#get-info-on-sensitivity-labels-and-policies)
   - [Create a Sensitivity Label](#create-a-sensitivity-label)
@@ -324,8 +325,15 @@ Use `Set-AIPFileLabel` with the `-RemoveProtection` option to remove protection 
 
 To run this command successfully, the **SuperUserFeature** must be enabled, and the admin must be a super user. See [Enable the super user feature](https://docs.microsoft.com/en-us/azure/information-protection/configure-super-users).  
 
-### Remove Encryption from Document in SharePoint Online
-See [Unlock-SPOSensitivityLabelEncryptedFile](https://learn.microsoft.com/en-us/powershell/module/sharepoint-online/unlock-sposensitivitylabelencryptedfile?view=sharepoint-ps)
+### Remove Encryption from a Document in SharePoint Online 
+See [Unlock-SPOSensitivityLabelEncryptedFile](https://learn.microsoft.com/en-us/powershell/module/sharepoint-online/unlock-sposensitivitylabelencryptedfile?view=sharepoint-ps). This method supports Office docs and PDFs. The **Modified By** column in SharePoint will reflect that the **System Account** modified the document.
+
+![](img/20231030-033043.png)
+
+To get the URL, copy the Path from document details:  
+
+<img src='img/20231031-033150.png' width=200px>
+
 
 ### Manage the Azure Information Protection Service
 See [Configure super users for Azure Information Protection](https://docs.microsoft.com/en-us/azure/information-protection/configure-super-users).  Use the following commands to manage the super user feature:
@@ -479,10 +487,26 @@ See the Microsoft Groups article [Assign sensitivity labels](https://learn.micro
 ### Applying a Sensitivity Label to Content Automatically
 https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically
 
-
-
 ### Enable PDF Support
-See https://learn.microsoft.com/en-us/purview/sensitivity-labels-sharepoint-onedrive-files?view=o365-worldwide#enable-the-preview-by-using-microsoft-powershell-opt-in
+By default, enablement of sensitivity labels for PDFs is turned off. See [Adding support for PDF](https://learn.microsoft.com/en-us/purview/sensitivity-labels-sharepoint-onedrive-files?view=o365-worldwide#adding-support-for-pdf) and [Set-SPOTenant](https://learn.microsoft.com/en-us/powershell/module/sharepoint-online/set-spotenant?view=sharepoint-ps#-enablesensitivitylabelforpdf).
+
+PDF support enables the following scenarios:
+- Applying a sensitivity label in Office for the web
+- Uploading a labeled document, and then extracting and displaying that sensitivity label
+- Search, eDiscovery, and data loss prevention (DLP) for labeled PDFs
+- Auto-labeling policies and default sensitivity labels for SharePoint document libraries
+
+To enable, use `SetSPOTenant` with the `EnableSensitivityLabelforPDF` switch.  
+
+<img src='img/20231039-033953.png' width=600px>
+
+To confirm use `Get-SPOTenant` with the `EnableSensitivityLabelforPDF` switch. See [Get-SPOTenant](https://docs.microsoft.com/en-us/powershell/module/sharepoint-online/get-spotenant?view=sharepoint-ps).
+
+<img src='img/20231040-034059.png' width=600px>
+
+
+#### Support for PDF attachments in message encryption
+
 
 https://learn.microsoft.com/en-us/purview/ome-faq#are-pdf-file-attachments-supported-
 
