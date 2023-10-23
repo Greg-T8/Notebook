@@ -506,7 +506,7 @@ To confirm use `Get-SPOTenant` with the `EnableSensitivityLabelforPDF` switch. S
 
 
 #### Support for PDF attachments in message encryption
-
+See [Message Encryption FAQ - Are PDF file attachments supported?](https://learn.microsoft.com/en-us/purview/ome-faq#are-pdf-file-attachments-supported-).
 
 https://learn.microsoft.com/en-us/purview/ome-faq#are-pdf-file-attachments-supported-
 
