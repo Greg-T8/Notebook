@@ -516,6 +516,10 @@ https://learn.microsoft.com/en-us/purview/ome-faq#are-pdf-file-attachments-suppo
 
 ![](img/20230836-043600.png)
 
+https://learn.microsoft.com/en-us/purview/define-mail-flow-rules-to-encrypt-email
+https://learn.microsoft.com/en-us/purview/set-up-new-message-encryption-capabilities#next-steps-define-mail-flow-rules-to-use-microsoft-purview-message-encryption
+
+
 ## Use PowerShell to manage Sensitivity Labels
 
 **Security & Compliance PowerShell**  
