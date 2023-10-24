@@ -496,16 +496,20 @@ PDF support enables the following scenarios:
 - Search, eDiscovery, and data loss prevention (DLP) for labeled PDFs
 - Auto-labeling policies and default sensitivity labels for SharePoint document libraries
 
-To enable, use `SetSPOTenant` with the `EnableSensitivityLabelforPDF` switch.  
+To enable, use `SetSPOTenant` with the `-EnableSensitivityLabelforPDF:$true` option.
 
 <img src='img/20231039-033953.png' width=600px>
 
-To confirm use `Get-SPOTenant` with the `EnableSensitivityLabelforPDF` switch. See [Get-SPOTenant](https://docs.microsoft.com/en-us/powershell/module/sharepoint-online/get-spotenant?view=sharepoint-ps).
+To confirm use `Get-SPOTenant` and view the `EnableSensitivityLabelforPDF` property. See [Get-SPOTenant](https://docs.microsoft.com/en-us/powershell/module/sharepoint-online/get-spotenant?view=sharepoint-ps).
 
 <img src='img/20231040-034059.png' width=600px>
 
 
 #### Support for PDF attachments in message encryption
+By default, PDF files are not encrypted when sending protected messages. To support encryption for PDF documents you must take two actions:
+1. Enable PDF encryption using `Set-IRMConfiguration`.  This enables PDF encryption for messages sent from Outlook on the web and mobile apps but not for the Outlook Win32 desktop app.
+2. Establish DLP policies to apply encryption to PDF attachements. This covers the Outlook Win32 desktop app.
+
 See [Message Encryption FAQ - Are PDF file attachments supported?](https://learn.microsoft.com/en-us/purview/ome-faq#are-pdf-file-attachments-supported-).
 
 https://learn.microsoft.com/en-us/purview/ome-faq#are-pdf-file-attachments-supported-
