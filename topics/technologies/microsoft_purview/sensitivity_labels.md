@@ -479,7 +479,7 @@ In other scenarios, the command may time out after 5 minutes with a JSON error.
 
 In my case, the Sensitivity Label option for Microsoft 365 Groups appeared only after creating a Team, not a Microsoft 365 Group, and specifying a sensitivity label for the Team. The Sensitivity Label option will not appear for existing Microsoft 365 Groups.  
 
-![](img/20230821-032128.png)
+<img src='img/20230821-032128.png' width=500px>
 
 See the Microsoft Groups article [Assign sensitivity labels](https://learn.microsoft.com/en-us/azure/active-directory/enterprise-users/groups-assign-sensitivity-labels) for more info on changing, removing, and troubleshooting labels for Microsoft 365 Groups.
 
@@ -507,18 +507,20 @@ To confirm use `Get-SPOTenant` and view the `EnableSensitivityLabelforPDF` prope
 
 #### Support for PDF attachments in message encryption
 By default, PDF files are not encrypted when sending protected messages. To support encryption for PDF documents you must take two actions:
-1. Enable PDF encryption using `Set-IRMConfiguration`.  This enables PDF encryption for messages sent from Outlook on the web and mobile apps but not for the Outlook Win32 desktop app.
-2. Establish DLP policies to apply encryption to PDF attachements. This covers the Outlook Win32 desktop app.
+1. Enable PDF encryption using `Set-IRMConfiguration`.  
+2. Establish DLP policies to apply encryption to PDF attachments.  
 
 See [Message Encryption FAQ - Are PDF file attachments supported?](https://learn.microsoft.com/en-us/purview/ome-faq#are-pdf-file-attachments-supported-).
 
-https://learn.microsoft.com/en-us/purview/ome-faq#are-pdf-file-attachments-supported-
+In the first option using `Set-IRMConfiguration`, encryption of PDF files is only supported for messages sent from Outlook on the web, Outlook for Mac, and the Outlook mobile apps.  PDF encryption does not work and is not supported for the Win32 Outlook desktop app.
+
+The following screenshot enables PDF encryption for messages sent from Outlook on the web and mobile apps but not for the Outlook Win32 desktop app. See [Set-IRMConfiguration](https://docs.microsoft.com/en-us/powershell/module/exchange/set-irmconfiguration?view=exchange-ps).
 
 ![](img/20230836-043600.png)
 
-https://learn.microsoft.com/en-us/purview/define-mail-flow-rules-to-encrypt-email
-https://learn.microsoft.com/en-us/purview/set-up-new-message-encryption-capabilities#next-steps-define-mail-flow-rules-to-use-microsoft-purview-message-encryption
+The second option is intended to support the Win32 Outlook desktop app; however, users lose the ability to choose whether to apply encryption, as DLP and mail flow rules must receive an *unencrypted* message and then apply encryption based on certain conditions. 
 
+For defining mail flow rules and DLP policies, see [Define mail flow rules to encrypt email messages](https://learn.microsoft.com/en-us/purview/define-mail-flow-rules-to-encrypt-email) and [Conditions Exchange for DLP policies](https://learn.microsoft.com/en-us/purview/dlp-exchange-conditions-and-actions#conditions-exchange-for-dlp-policies).
 
 ## Use PowerShell to manage Sensitivity Labels
 
