@@ -31,14 +31,13 @@
 - [Audit Label Access and Usage](#audit-label-access-and-usage)
   - [Activity Explorer](#activity-explorer)
   - [Auditing Framework](#auditing-framework)
-  - [Microsoft Purview Compliance Audit Log Search](#microsoft-purview-compliance-audit-log-search)
   - [Search-UnifiedAuditLog Cmdlet](#search-unifiedauditlog-cmdlet)
-  - [Microsoft Defender for Cloud Apps](#microsoft-defender-for-cloud-apps)
+  - [Microsoft Defender for Cloud Apps (Content Needed)](#microsoft-defender-for-cloud-apps-content-needed)
+- [Applying a Sensitivity Label to Content Automatically (Content Needed)](#applying-a-sensitivity-label-to-content-automatically-content-needed)
 - [Protecting SharePoint Sites, Teams, and Groups with Sensitivity Labels](#protecting-sharepoint-sites-teams-and-groups-with-sensitivity-labels)
-  - [Applying a Sensitivity Label to Content Automatically](#applying-a-sensitivity-label-to-content-automatically)
   - [Enable PDF Support](#enable-pdf-support)
-    - [Support for PDF attachments in message encryption](#support-for-pdf-attachments-in-message-encryption)
-- [Use PowerShell to manage Sensitivity Labels](#use-powershell-to-manage-sensitivity-labels)
+- [Support for PDF Attachments in Message Encryption](#support-for-pdf-attachments-in-message-encryption)
+- [Use PowerShell to Manage Sensitivity Labels and RMS Templates](#use-powershell-to-manage-sensitivity-labels-and-rms-templates)
   - [Get Info on Sensitivity Labels and Policies](#get-info-on-sensitivity-labels-and-policies)
   - [Create a Sensitivity Label](#create-a-sensitivity-label)
   - [Use a Custom Color for a Sensitivity Label](#use-a-custom-color-for-a-sensitivity-label)
@@ -439,9 +438,6 @@ Microsoft provides an auditing framework that may be used to track label usage. 
 
 Per the [FAQ](https://learn.microsoft.com/en-us/purview/audit-log-search?redirectSourcePath=%252fen-us%252farticle%252fSearch-the-audit-log-in-the-Office-365-Security-Compliance-Center-0d4d0f35-390b-4518-800e-0c7ec95e946c#frequently-asked-questions), data in the audit search is generally available within 60-90 minutes but can take up to 24 hours to appear. See [Before you search the audit log](https://learn.microsoft.com/en-us/purview/audit-log-search#before-you-search-the-audit-log).
 
-### Microsoft Purview Compliance Audit Log Search
-
-
 
 ### Search-UnifiedAuditLog Cmdlet
 The Microsoft Purview Audit feature and `Search-UnifiedLog` cmdlet have a 90-day search window for non-E5-licensed users and a 365-day search window for E5-licensed users (see [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/audit-solutions-overview?view=o365-worldwide#comparison-of-key-capabilities)). You can search up to a 10-year history if (1) the user's whose audit data is covered is assigned a 10-Year Audit Log Retention Add-on license (in addition to an E5 license) and (2) you have explicitly created an audit retention policy for longer 1 year for activities that record sensitivity label actions. See [Manage audit log retention policies](https://learn.microsoft.com/en-us/microsoft-365/compliance/audit-log-retention-policies?view=o365-worldwide).
@@ -453,9 +449,11 @@ The article, [Analyzing the Use of Sensitivity Labels without the Activity Explo
 
 See [Sensitivity label activities](https://learn.microsoft.com/en-us/microsoft-365/compliance/audit-log-activities?view=o365-worldwide#sensitivity-label-activities) for a list of all events from using sensitivity labels. See [Sentinel - Microsoft Purview Information Protection Connector Reference](https://learn.microsoft.com/en-us/azure/sentinel/microsoft-purview-record-types-activities) for a list of Information Protection activities. The [Office 365 Management Activity API schema](https://learn.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-schema) is a definitive list of all properties in audit data record types.
 
-### Microsoft Defender for Cloud Apps
+### Microsoft Defender for Cloud Apps (Content Needed)
 
 
+## Applying a Sensitivity Label to Content Automatically (Content Needed)
+https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically
 
 
 ## Protecting SharePoint Sites, Teams, and Groups with Sensitivity Labels
@@ -484,8 +482,6 @@ In my case, the Sensitivity Label option for Microsoft 365 Groups appeared only 
 See the Microsoft Groups article [Assign sensitivity labels](https://learn.microsoft.com/en-us/azure/active-directory/enterprise-users/groups-assign-sensitivity-labels) for more info on changing, removing, and troubleshooting labels for Microsoft 365 Groups.
 
 
-### Applying a Sensitivity Label to Content Automatically
-https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically
 
 ### Enable PDF Support
 By default, enablement of sensitivity labels for PDFs is turned off. See [Adding support for PDF](https://learn.microsoft.com/en-us/purview/sensitivity-labels-sharepoint-onedrive-files?view=o365-worldwide#adding-support-for-pdf) and [Set-SPOTenant](https://learn.microsoft.com/en-us/powershell/module/sharepoint-online/set-spotenant?view=sharepoint-ps#-enablesensitivitylabelforpdf).
@@ -505,7 +501,7 @@ To confirm use `Get-SPOTenant` and view the `EnableSensitivityLabelforPDF` prope
 <img src='img/20231040-034059.png' width=600px>
 
 
-#### Support for PDF attachments in message encryption
+## Support for PDF Attachments in Message Encryption
 By default, PDF files are not encrypted when sending protected messages. To support encryption for PDF documents you must take two actions:
 1. Enable PDF encryption using `Set-IRMConfiguration`.  
 2. Establish DLP policies to apply encryption to PDF attachments.  
@@ -522,7 +518,7 @@ The second option is intended to support the Win32 Outlook desktop app; however,
 
 For defining mail flow rules and DLP policies, see [Define mail flow rules to encrypt email messages](https://learn.microsoft.com/en-us/purview/define-mail-flow-rules-to-encrypt-email) and [Conditions Exchange for DLP policies](https://learn.microsoft.com/en-us/purview/dlp-exchange-conditions-and-actions#conditions-exchange-for-dlp-policies).
 
-## Use PowerShell to manage Sensitivity Labels
+## Use PowerShell to Manage Sensitivity Labels and RMS Templates
 
 **Security & Compliance PowerShell**  
 The commands for managing sensitivity labels are found in [Security & Compliance PowerShell](https://learn.microsoft.com/en-us/powershell/exchange/scc-powershell?view=exchange-ps). Use `Connect-IPPSession` in the Exchange Online Management PowerShell module to manage sensitivity labels and policies.
@@ -531,7 +527,7 @@ Documentation for managing labels through PowerShell can be found at [Policy and
 
 Run `Get-Command -Module tmp* -noun *label*` to see the available commands.
 
-![](img/20230654-115431.png)
+<img src='img/20230654-115431.png' width=700px>
 
 **AIP Service**
 The [AIPService](https://learn.microsoft.com/en-us/powershell/module/aipservice/?view=azureipps) PowerShell module provides additional commands for managing the underlying RMS service and templates. Notable commands include
