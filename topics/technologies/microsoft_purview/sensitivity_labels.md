@@ -118,15 +118,15 @@ If you delete a sensitivity label from the admin portal, the label isn't automat
 ### Fine-Tuning Label and RMS Template Descriptions
 The sensitivity label description field can be used provide additional guidance to users on how to use the label.
 
-<img src='img/20231039-043922.png' width='400px'>
+<img src='img/20231039-043922.png' width='350px'>
 
 The Information Protection service copies the description field into the underlying Azure RMS template. As a result, users will see the description field in other areas of the Office apps. This is an important consideration for two reasons:
 1. A verbose description can be distracting to users
 2. Users outside of the org that access protected content will also see the description field from the Azure RMS template. See [Support for external users and labeled content](https://learn.microsoft.com/en-us/purview/sensitivity-labels-office-apps?view=o365-worldwide#support-for-external-users-and-labeled-content).
 
-<img src='img/20231043-044347.png' width='800px'>
+<img src='img/20231043-044347.png' width='650px'>
 
-<img src='img/20231044-044456.png' width='400px'>
+<img src='img/20231044-044456.png' width='350px'>
 
 To work around this limitation, you can maintain two separate descriptions for each label, one description for the label itself and another description for the underlying Azure RMS template.
 
