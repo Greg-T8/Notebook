@@ -13,7 +13,12 @@
 - [Roles and Permissions in Microsoft Purview Compliance](#roles-and-permissions-in-microsoft-purview-compliance)
 - [External Access](#external-access)
   - [Azure RMS for Individuals](#azure-rms-for-individuals)
-    - [Addressing MFA Requirements for External Users](#addressing-mfa-requirements-for-external-users)
+    - [Azure RMS Sign-Up Experiences](#azure-rms-sign-up-experiences)
+      - [Scenario 1: Azure RMS for Individuals Account Already Exists](#scenario-1-azure-rms-for-individuals-account-already-exists)
+      - [Scenario 2: Azure RMS for Individuals Account Does Not Exist](#scenario-2-azure-rms-for-individuals-account-does-not-exist)
+      - [Scenario 3: No Option to Create an Azure RMS for Individuals Account](#scenario-3-no-option-to-create-an-azure-rms-for-individuals-account)
+    - [Unmanaged Tenant Considerations](#unmanaged-tenant-considerations)
+  - [Addressing MFA Requirements for External Users](#addressing-mfa-requirements-for-external-users)
     - [Trust MFA Registrations from Other Tenants](#trust-mfa-registrations-from-other-tenants)
     - [Provision Guest Accounts in Your Tenant](#provision-guest-accounts-in-your-tenant)
     - [Configure an Exception for the Azure Information Protection Application](#configure-an-exception-for-the-azure-information-protection-application)
@@ -244,11 +249,58 @@ See [Permissions required to create and manage sensitivity labels](https://learn
 Users must have an account in Entra ID to access protected content. Azure/Office 365 customers can access without any additional configuration.  Non-Azure/Office 365 customers must sign up for an Azure RMS for Individuals account. The Azure RMS for Individuals service creates an account in an unmanaged Entra ID tenant.
 
 ### Azure RMS for Individuals
-Sensitivity labels use Azure RMS to protect content. Azure RMS uses Entra ID to authenticate access. When a user signs up for an [Azure RMS for Individuals](https://learn.microsoft.com/en-us/azure/information-protection/rms-for-individuals) account, the service creates an unmanaged Azure tenant and directory for the organization with an account for the user, so that this user (and subsequent users) can then authenticate to the Azure RMS service. See [Azure RMS FAQ](https://learn.microsoft.com/en-us/azure/information-protection/faqs-rms#when-i-share-a-protected-document-with-somebody-outside-my-company-how-does-that-user-get-authenticated).  
+Sensitivity labels use Azure RMS to protect content. Azure RMS uses Entra ID to authenticate access. When a user signs up for an Azure RMS for Individuals  account, the service creates an unmanaged Azure tenant and directory for the organization with an account for the user, so that this user (and subsequent users) can then authenticate to the Azure RMS service. See [Azure RMS FAQ](https://learn.microsoft.com/en-us/azure/information-protection/faqs-rms#when-i-share-a-protected-document-with-somebody-outside-my-company-how-does-that-user-get-authenticated)  
+and [RMS for Individuals and Azure Information Protection](https://learn.microsoft.com/en-us/azure/information-protection/rms-for-individuals).  
 
 The following link can be provided to external users to sign up for an Azure RMS for Individuals account: https://aka.ms/rms-signup 
 
-Any registered user can sign in to the Azure tenant created by Azure RMS for Individuals and view other user accounts that have been created.  
+#### Azure RMS Sign-Up Experiences
+Then accessing the Azure RMS for Individuals sign-up page, users are first presented with a box to provide their email address:  
+
+<img src='img/20231011-041129.png' width=500px>
+
+##### Scenario 1: Azure RMS for Individuals Account Already Exists
+If the user's email address is already associated with an Azure tenant, then the user receives a message indicating an account already exists.  Note: the account exists in an unmanaged Azure tenant that is created with security defaults enabled. If the age of the user account is beyond the initial 14-day grace period for MFA, then the user will be required to register for MFA when signing in.
+
+<img src='img/20231013-041309.png' width=500px>
+
+After successful sign-in, the user receives a message indicating the Azure RMS Individuals account is ready for use. At this point, the user may open protected documents.
+
+<img src='img/20231017-041733.png' width=500px>
+
+**Note:** The license mentioned is a **Rights Management Adhoc** license. Tenants are assigned with 10,000 of these licenses, and licenses are automatically assigned when users sign up for Azure RMS for Individuals. It is not necessary to manually assign these licenses. See [here](https://learn.microsoft.com/en-us/microsoft-365/troubleshoot/licensing/rights-management-adhoc-sku-office-365#cause) and [here](https://learn.microsoft.com/en-us/azure/information-protection/deployment-roadmap-classify-label-protect#confirm-your-subscription-and-assign-user-licenses) for more information on the Rights Management Adhoc license.
+
+<img src='img/20231041-044158.png' width=300px>
+
+The screenshot above becomes available after taking over an unmanaged tenant.
+
+##### Scenario 2: Azure RMS for Individuals Account Does Not Exist
+If the user's email address is not associated with an Azure tenant, then the user can choose **Yes** to create a new account and provide a password.  
+
+<img src='img/20231022-042217.png' width=500px>
+
+To complete the registration process, the user must provide a verification code that is sent to the user's email address.
+
+<img src='img/20231022-042249.png' width=500px>
+
+After successful sign-in, the user is redirected to the Microsoft Azure Information Portal. At this point, the user can close out the page and return to the original document to open it.
+
+<img src='img/20231029-042914.png' width=500px>
+
+##### Scenario 3: No Option to Create an Azure RMS for Individuals Account
+If the user's organization has performed a takeover of an unmanaged tenant, then the user will not be able to create an Azure RMS for Individuals account.  Instead, the user receives the following message advising that their IT admin create an account:
+
+<img src='img/20231019-041940.png' width=500px>
+
+An IT admin can create an account for the user in Entra ID. No Office 365 or Exchange license is required. The user then may go back and complete the Azure RMS for Individuals registration process.
+
+<img src='img/20231003-050321.png' width=500px>
+
+However, it's generally not practically to request the user's organization to create an Entra ID account for the user, as the organization may not be ready to provide this level of support. In this case, the best recourse is to provision a guest account for the user in your tenant.
+
+#### Unmanaged Tenant Considerations
+
+Any registered user can sign in to the Azure Portal with their newly-created Azure RMS for Individuals account and view items within the Entra ID services, including other user accounts that have been created.  
 
 <img src='img/20231000-040033.png' width=800/>
 
@@ -258,7 +310,7 @@ On tenant creation, the service places **Microsoft Rights Management Services** 
 
 If there is a need to take over the unmanaged tenant, Microsoft provides the following guidance for an admin takeover: [Take over an unmanaged directory as administrator in Microsoft Entra ID](https://learn.microsoft.com/en-us/azure/active-directory/enterprise-users/domains-admin-takeover).
 
-#### Addressing MFA Requirements for External Users
+### Addressing MFA Requirements for External Users
 If your organization requires MFA for guest users, then a guest account must exist in your organization's tenant before external users can open protected documents. This requirement stems from the fact that the resource tenant, not the guest tenant, is always responsible for MFA. See [MFA for Microsoft Entra external users](https://learn.microsoft.com/en-us/azure/active-directory/external-identities/authentication-conditional-access#mfa-for-microsoft-entra-external-users) and [MFA for non-Azure AD external users](https://learn.microsoft.com/en-us/azure/active-directory/external-identities/authentication-conditional-access#mfa-for-non-azure-ad-external-users).
 
 Users will receive the following error message when a guest account does not exist.  This message applies for both Microsoft and non-Microsoft customers. The user receives this message after authenticating with MFA.
