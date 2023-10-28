@@ -545,7 +545,11 @@ See [Sensitivity label activities](https://learn.microsoft.com/en-us/microsoft-3
 
 
 ## Applying a Sensitivity Label to Content Automatically (Content Needed)
-https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically
+There are two methods for automatically applying sensitivity labels:  client-side labeling and server-side labeling.
+
+With client-side labeling takes place within the Office apps (Word, Excel, PowerPoint, and Outlook). This method supports (1) recommending a label to users and (2) automatically applying a label.  
+
+See [Apply a sensitivity label to content automatically](https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically).
 
 
 ## Protecting SharePoint Sites, Teams, and Groups with Sensitivity Labels
