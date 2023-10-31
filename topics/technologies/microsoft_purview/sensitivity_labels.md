@@ -517,6 +517,7 @@ With regard to the RMS service, an access event is generated each time a labeled
 
 However, labeled documents that are accessed by users managed under Microsoft Purview will appear in the audit log. See [Sensitivity label activities](https://learn.microsoft.com/en-us/purview/audit-log-activities#sensitivity-label-activities) for the types of labeling events stored in the audit log. 
 
+See [Auditing labeling activities](https://learn.microsoft.com/en-us/purview/sensitivity-labels-office-apps#auditing-labeling-activities).
 
 ### Activity Explorer
 The Activity Explorer in the Microsoft Purview Compliance portal provides a 30-day search window of label activities. See [Get started with activity explorer](https://learn.microsoft.com/en-us/microsoft-365/compliance/data-classification-activity-explorer?view=o365-worldwide) and [Labeling actions reported in Activity Explorer](https://learn.microsoft.com/en-us/purview/data-classification-activity-explorer-available-events?view=o365-worldwide). Activity Explorer records labeling activities, such as when a label is applied or changed or when a labeled file is read. For small environments, it generally takes between 3-5 minutes for an activity to appear in Activity Explorer. Some activities take longer than others to appear. For example, the `File read` activity may take 10-15 minutes. 
@@ -551,6 +552,11 @@ With client-side labeling takes place within the Office apps (Word, Excel, Power
 
 See [Apply a sensitivity label to content automatically](https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically).
 
+See [Known issues with automatically applying or recommending sensitivity labels](https://support.microsoft.com/en-us/office/known-issues-with-automatically-applying-or-recommending-sensitivity-labels-451698ae-311b-4d28-83aa-a839a66f6efc?ui=en-us&rs=en-us&ad=us).
+
+See [Sensitivity labels are automatically applied or recommended for your files and emails in Office](https://support.microsoft.com/en-us/office/sensitivity-labels-are-automatically-applied-or-recommended-for-your-files-and-emails-in-office-622e0d9c-f38c-470a-bcdb-9e90b24d71a1).
+
+See [End-user documentation](https://learn.microsoft.com/en-us/purview/sensitivity-labels-office-apps#end-user-documentation).
 
 ## Protecting SharePoint Sites, Teams, and Groups with Sensitivity Labels
 Sensitivity labels for SharePoint sites, Teams, and Microsoft 365 Groups is not enabled by default. You must take several steps to enable sensitivity labels for these containers. See [Use sensitivity labels with teams, groups, and sites](https://learn.microsoft.com/en-us/purview/sensitivity-labels-teams-groups-sites).
