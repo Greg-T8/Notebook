@@ -40,6 +40,7 @@
   - [Search-UnifiedAuditLog Cmdlet](#search-unifiedauditlog-cmdlet)
   - [Microsoft Defender for Cloud Apps (Content Needed)](#microsoft-defender-for-cloud-apps-content-needed)
 - [Applying a Sensitivity Label to Content Automatically (Content Needed)](#applying-a-sensitivity-label-to-content-automatically-content-needed)
+  - [Client-side Labeling](#client-side-labeling)
 - [Protecting SharePoint Sites, Teams, and Groups with Sensitivity Labels](#protecting-sharepoint-sites-teams-and-groups-with-sensitivity-labels)
   - [Enable PDF Support](#enable-pdf-support)
 - [Support for PDF Attachments in Message Encryption](#support-for-pdf-attachments-in-message-encryption)
@@ -546,9 +547,18 @@ See [Sensitivity label activities](https://learn.microsoft.com/en-us/microsoft-3
 
 
 ## Applying a Sensitivity Label to Content Automatically (Content Needed)
-There are two methods for automatically applying sensitivity labels:  client-side labeling and server-side labeling.
+There are two methods for automatically applying sensitivity labels:  client-side labeling and service-side labeling. 
 
-With client-side labeling takes place within the Office apps (Word, Excel, PowerPoint, and Outlook). This method supports (1) recommending a label to users and (2) automatically applying a label.  
+
+### Client-side Labeling
+Client-side labeling takes place within the Office apps (Word, Excel, PowerPoint, and Outlook) and supports two labeling methods: (1) recommending a label to users and (2) automatically applying a label. With client-side labeling, the auto-labeling settings are configured within the label.  See screenshot below.
+
+<img src='img/20231107-040725.png' width=700px>
+
+If you wnat 
+
+
+
 
 See [Apply a sensitivity label to content automatically](https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically).
 
