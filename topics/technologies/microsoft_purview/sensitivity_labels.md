@@ -555,18 +555,12 @@ Client-side labeling takes place within the Office apps (Word, Excel, PowerPoint
 
 <img src='img/20231107-040725.png' width=700px>
 
-If you wnat 
-
-
-
-
-See [Apply a sensitivity label to content automatically](https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically).
-
-See [Known issues with automatically applying or recommending sensitivity labels](https://support.microsoft.com/en-us/office/known-issues-with-automatically-applying-or-recommending-sensitivity-labels-451698ae-311b-4d28-83aa-a839a66f6efc?ui=en-us&rs=en-us&ad=us).
-
-See [Sensitivity labels are automatically applied or recommended for your files and emails in Office](https://support.microsoft.com/en-us/office/sensitivity-labels-are-automatically-applied-or-recommended-for-your-files-and-emails-in-office-622e0d9c-f38c-470a-bcdb-9e90b24d71a1).
-
-See [End-user documentation](https://learn.microsoft.com/en-us/purview/sensitivity-labels-office-apps#end-user-documentation).
+See the following links
+- [Apply a sensitivity label to content automatically](https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically)
+- [Recommend that the user applies a sensitivity label](https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically#recommend-that-the-user-applies-a-sensitivity-label)
+- [Known issues with automatically applying or recommending sensitivity labels](https://support.microsoft.com/en-us/office/known-issues-with-automatically-applying-or-recommending-sensitivity-labels-451698ae-311b-4d28-83aa-a839a66f6efc?ui=en-us&rs=en-us&ad=us).
+- [Sensitivity labels are automatically applied or recommended for your files and emails in Office](https://support.microsoft.com/en-us/office/sensitivity-labels-are-automatically-applied-or-recommended-for-your-files-and-emails-in-office-622e0d9c-f38c-470a-bcdb-9e90b24d71a1)
+- [End-user documentation](https://learn.microsoft.com/en-us/purview/sensitivity-labels-office-apps#end-user-documentation).
 
 ## Protecting SharePoint Sites, Teams, and Groups with Sensitivity Labels
 Sensitivity labels for SharePoint sites, Teams, and Microsoft 365 Groups is not enabled by default. You must take several steps to enable sensitivity labels for these containers. See [Use sensitivity labels with teams, groups, and sites](https://learn.microsoft.com/en-us/purview/sensitivity-labels-teams-groups-sites).
