@@ -7,7 +7,6 @@
   - [Container Support for Sensitivity Labels](#container-support-for-sensitivity-labels)
   - [Define and Create Sensitivity Labels](#define-and-create-sensitivity-labels)
   - [Editing or Deleting a Sensitivity Label](#editing-or-deleting-a-sensitivity-label)
-  - [Fine-Tuning Label and RMS Template Descriptions](#fine-tuning-label-and-rms-template-descriptions)
   - [Built-in Labeling for the Office Apps](#built-in-labeling-for-the-office-apps)
   - [Label Taxonomy](#label-taxonomy)
 - [Roles and Permissions in Microsoft Purview Compliance](#roles-and-permissions-in-microsoft-purview-compliance)
@@ -120,45 +119,6 @@ See [Create and configure sensitivity labels and their policies](https://learn.m
 
 ### Editing or Deleting a Sensitivity Label
 If you delete a sensitivity label from the admin portal, the label isn't automatically removed from content, and any protection settings continue to be enforced on content that had that label applied. However, some caveats apply. See [Removing and deleting labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-sensitivity-labels?view=o365-worldwide#removing-and-deleting-labels) for more info.
-
-### Fine-Tuning Label and RMS Template Descriptions
-The sensitivity label description field can be used provide additional guidance to users on how to use the label.
-
-<img src='img/20231039-043922.png' width='350px'>
-
-The Information Protection service copies the description field into the underlying Azure RMS template. As a result, users will see the description field in other areas of the Office apps. This is an important consideration for two reasons:
-1. A verbose description can be distracting to users
-2. Users outside of the org that access protected content will also see the description field from the Azure RMS template. See [Support for external users and labeled content](https://learn.microsoft.com/en-us/purview/sensitivity-labels-office-apps?view=o365-worldwide#support-for-external-users-and-labeled-content).
-
-<img src='img/20231043-044347.png' width='650px'>
-
-<img src='img/20231044-044456.png' width='350px'>
-
-To work around this limitation, you can maintain two separate descriptions for each label, one description for the label itself and another description for the underlying Azure RMS template.
-
-| Label Name | Label Description | Azure RMS Template Description |
-| --- | --- | --- |
-| External | Verbose label description | Terse label description
-| Internal | Verbose label description | Terse label description
-
-However, this approach requires work because the Azure RMS template description must be manually updated whenever the label description is changed.
-
-You can use the following command to set the description of an Azure RMS template:
-
-```powershell
-Set-AipServiceRmsTemplate -TemplateId <TemplateId> -Description <Description>
-```
-
-The `-Description` parameter accepts a hashtable that corresponds to the locale ID of the description. For example, the following command sets the description for the English locale:
-```powershell
-Set-AipServiceTemplateProperty -TemplateId fadec704-cde8-4583-8309-6adbd7bba2e8 -Descriptions @{1033="Information is restricted to Greg's tenant and its partners and clients"}
-```
-
-See [Set-AipServiceRmsTemplate](https://docs.microsoft.com/en-us/powershell/module/aipservice/set-aipservicermstemplate?view=azureipps-2.0.0) for more info.
-
-The following picture shows the results of this practice. The label description is shown in the Sensitivity menu, while the Azure RMS template description is shown in the notification bar.
-
-<img src='img/20231003-050331.png' width='800px'>
 
 ### Built-in Labeling for the Office Apps
 A subscription edition of Office apps is required to use sensitivity labels. Standalone/perpetual editions of Office aren't supported.
@@ -558,8 +518,8 @@ Client-side labeling takes place within the Office apps (Word, Excel, PowerPoint
 See the following links
 - [Apply a sensitivity label to content automatically](https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically)
 - [Recommend that the user applies a sensitivity label](https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically#recommend-that-the-user-applies-a-sensitivity-label)
+- [How Microsoft 365 automatically applies or recommends sensitivity labels](https://support.microsoft.com/en-us/office/sensitivity-labels-are-automatically-applied-or-recommended-for-your-files-and-emails-in-office-622e0d9c-f38c-470a-bcdb-9e90b24d71a1)
 - [Known issues with automatically applying or recommending sensitivity labels](https://support.microsoft.com/en-us/office/known-issues-with-automatically-applying-or-recommending-sensitivity-labels-451698ae-311b-4d28-83aa-a839a66f6efc?ui=en-us&rs=en-us&ad=us).
-- [Sensitivity labels are automatically applied or recommended for your files and emails in Office](https://support.microsoft.com/en-us/office/sensitivity-labels-are-automatically-applied-or-recommended-for-your-files-and-emails-in-office-622e0d9c-f38c-470a-bcdb-9e90b24d71a1)
 - [End-user documentation](https://learn.microsoft.com/en-us/purview/sensitivity-labels-office-apps#end-user-documentation).
 
 ## Protecting SharePoint Sites, Teams, and Groups with Sensitivity Labels
