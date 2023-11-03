@@ -38,7 +38,7 @@
   - [Auditing Framework](#auditing-framework)
   - [Search-UnifiedAuditLog Cmdlet](#search-unifiedauditlog-cmdlet)
   - [Microsoft Defender for Cloud Apps (Content Needed)](#microsoft-defender-for-cloud-apps-content-needed)
-- [Applying a Sensitivity Label to Content Automatically (Content Needed)](#applying-a-sensitivity-label-to-content-automatically-content-needed)
+- [Applying a Sensitivity Label to Content Automatically](#applying-a-sensitivity-label-to-content-automatically)
   - [Client-side Labeling](#client-side-labeling)
 - [Protecting SharePoint Sites, Teams, and Groups with Sensitivity Labels](#protecting-sharepoint-sites-teams-and-groups-with-sensitivity-labels)
   - [Enable PDF Support](#enable-pdf-support)
@@ -506,9 +506,8 @@ See [Sensitivity label activities](https://learn.microsoft.com/en-us/microsoft-3
 ### Microsoft Defender for Cloud Apps (Content Needed)
 
 
-## Applying a Sensitivity Label to Content Automatically (Content Needed)
+## Applying a Sensitivity Label to Content Automatically
 There are two methods for automatically applying sensitivity labels:  client-side labeling and service-side labeling. 
-
 
 ### Client-side Labeling
 Client-side labeling takes place within the Office apps (Word, Excel, PowerPoint, and Outlook) and supports two labeling methods: (1) recommending a label to users and (2) automatically applying a label. With client-side labeling, the auto-labeling settings are configured within the label.  See screenshot below.
