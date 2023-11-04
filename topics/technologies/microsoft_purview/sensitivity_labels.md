@@ -514,6 +514,8 @@ Client-side labeling takes place within the Office apps (Word, Excel, PowerPoint
 
 <img src='img/20231107-040725.png' width=700px>
 
+Investigating behavior w/ recommended labeling with trainable classifiers. The "Show Sensitive Content" button appears in Word docs for sensitive information types but not trainable classifiers. I expect to see a recommendation to apply a label for trainable classifiers, but the recommendation isn't showing...
+
 See the following links
 - [Apply a sensitivity label to content automatically](https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically)
 - [Recommend that the user applies a sensitivity label](https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically#recommend-that-the-user-applies-a-sensitivity-label)
