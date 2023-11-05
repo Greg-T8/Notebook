@@ -522,6 +522,10 @@ However, the **Show Sensitive Content** button does not appear for trainable cla
 
 <img src='img/20231159-055919.png' width=600px>
 
+Soon Microsoft will introduce support for contextual highlighting for trainable classifiers.
+
+<img src='img/20231137-063754.png' width=800px>
+
 See the following links
 - [Apply a sensitivity label to content automatically](https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically)
 - [Recommend that the user applies a sensitivity label](https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically#recommend-that-the-user-applies-a-sensitivity-label)
