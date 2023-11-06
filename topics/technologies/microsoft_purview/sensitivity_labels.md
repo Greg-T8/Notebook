@@ -23,6 +23,7 @@
     - [Configure an Exception for the Azure Information Protection Application](#configure-an-exception-for-the-azure-information-protection-application)
   - [Application Support for Accessing Protected Documents](#application-support-for-accessing-protected-documents)
 - [Manage Protected Document Attributes](#manage-protected-document-attributes)
+  - [RMS Issuer and RMS Owner](#rms-issuer-and-rms-owner)
   - [Determine The Owner of a Protected Document](#determine-the-owner-of-a-protected-document)
     - [Azure Information Protection Unified Labeling Client](#azure-information-protection-unified-labeling-client)
     - [Get-AIPFileStatus Cmdlet](#get-aipfilestatus-cmdlet)
@@ -40,6 +41,8 @@
   - [Microsoft Defender for Cloud Apps (Content Needed)](#microsoft-defender-for-cloud-apps-content-needed)
 - [Applying a Sensitivity Label to Content Automatically](#applying-a-sensitivity-label-to-content-automatically)
   - [Client-side Labeling](#client-side-labeling)
+  - [Service-side Auto Labeling](#service-side-auto-labeling)
+  - [Label Overrides](#label-overrides)
 - [Protecting SharePoint Sites, Teams, and Groups with Sensitivity Labels](#protecting-sharepoint-sites-teams-and-groups-with-sensitivity-labels)
   - [Enable PDF Support](#enable-pdf-support)
 - [Support for PDF Attachments in Message Encryption](#support-for-pdf-attachments-in-message-encryption)
@@ -327,6 +330,22 @@ See [Support for external users and labeled content](https://learn.microsoft.com
 ## Manage Protected Document Attributes
 The following sections use commands from the [AIPService](https://learn.microsoft.com/en-us/powershell/module/aipservice/?view=azureipps) and [AzureInformationProtection](https://learn.microsoft.com/en-us/powershell/module/azureinformationprotection/?view=azureipps) PowerShell modules.  See [Azure Information Protection](https://learn.microsoft.com/en-us/powershell/azure/aip/overview?view=azureipps) for an overview on how to use these modules. The AzureInformationProtection module is different and from and supplements the AIPService PowerShell module that manages the Azure Rights Management service for Azure Information Protection.  
 
+### RMS Issuer and RMS Owner
+The account that protects the content becomes the Rights Management issuer.  This account is logged as the RMSIssuer.  The Rights Management issuer has Full Control usage rights in addition:
+- The Rights Management issuer can open items after the expiry date
+- The Rights Management issuer can always access offline
+- The Rights Management issuer can still open a document after it is revoked
+
+The Rights Management issuer also becomes the Rights Management owner. There are two scenarios where the Rights Management owner can be different from the Rights Management issuer:
+1. When bulk-protecting files in a file share, e.g. by using the `Set-AIPFileLabel` cmdlet
+2. When using the Rights Management connector to protect Office documents on a Windows Server folder
+
+In these scenarios, you have the option to specify a separate owner.  For example, the `Set-AIPFileLabel` cmdlet has the (undocumented) **Owner** parameter, which you can use to assign the Rights Management owner to another account.
+
+<img src='img/20231054-035434.png' width=700px>
+
+See [Rights Management Issuer and Rights Management Owner](https://learn.microsoft.com/en-us/azure/information-protection/configure-usage-rights#rights-management-issuer-and-rights-management-owner).
+
 ### Determine The Owner of a Protected Document
 If a document is protected with user-defined permissions, then the person opening the document who doesn't have permissions will receive a message to contact the document owner with email address provided:
 
@@ -507,7 +526,7 @@ See [Sensitivity label activities](https://learn.microsoft.com/en-us/microsoft-3
 
 
 ## Applying a Sensitivity Label to Content Automatically
-There are two methods for automatically applying sensitivity labels:  client-side labeling and service-side labeling. 
+There are two methods for automatically applying sensitivity labels:  client-side labeling and service-side auto labeling. 
 
 ### Client-side Labeling
 Client-side labeling takes place within the Office apps (Word, Excel, PowerPoint, and Outlook) and supports two labeling methods: (1) recommending a label to users and (2) automatically applying a label. With client-side labeling, the auto-labeling settings are configured within the label.  See screenshot below.
@@ -532,6 +551,20 @@ See the following links
 - [How Microsoft 365 automatically applies or recommends sensitivity labels](https://support.microsoft.com/en-us/office/sensitivity-labels-are-automatically-applied-or-recommended-for-your-files-and-emails-in-office-622e0d9c-f38c-470a-bcdb-9e90b24d71a1)
 - [Known issues with automatically applying or recommending sensitivity labels](https://support.microsoft.com/en-us/office/known-issues-with-automatically-applying-or-recommending-sensitivity-labels-451698ae-311b-4d28-83aa-a839a66f6efc?ui=en-us&rs=en-us&ad=us).
 - [End-user documentation](https://learn.microsoft.com/en-us/purview/sensitivity-labels-office-apps#end-user-documentation).
+
+### Service-side Auto Labeling
+
+
+### Label Overrides
+Auto-labeling carries the potential for a labeled item to be overriden. Here are the rules to be aware of:
+- If an label is applied manually, then client-side auto labeling and service-side auto labeling will not override the label.
+- If a label is applied automatically, either by a default label or through auto-labeling, and the label has a lower priority than what the auto-labeling service evaluates, then the auto-labeling service will override the label with the higher priority label.
+- For sublabels, if a file is not already labeled, automatic labeling takes precedence over recommended labeling, and the highest order sublabel will be selected
+- For sublabels, if a file is already labeled from a sublabel w/ the same parent, no action is taken. This applies if the existing label was a default label or automatically applied
+
+
+See [Will an existing label be overrriden?](https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically#will-an-existing-label-be-overridden) and [How multiple conditions are evaluated when they apply to more than one label](https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically#how-multiple-conditions-are-evaluated-when-they-apply-to-more-than-one-label).
+
 
 ## Protecting SharePoint Sites, Teams, and Groups with Sensitivity Labels
 Sensitivity labels for SharePoint sites, Teams, and Microsoft 365 Groups is not enabled by default. You must take several steps to enable sensitivity labels for these containers. See [Use sensitivity labels with teams, groups, and sites](https://learn.microsoft.com/en-us/purview/sensitivity-labels-teams-groups-sites).
