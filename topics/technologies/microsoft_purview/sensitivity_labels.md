@@ -41,6 +41,8 @@
   - [Microsoft Defender for Cloud Apps (Content Needed)](#microsoft-defender-for-cloud-apps-content-needed)
 - [Applying a Sensitivity Label to Content Automatically](#applying-a-sensitivity-label-to-content-automatically)
   - [Client-side Labeling](#client-side-labeling)
+    - [Recommended Labeling](#recommended-labeling)
+    - [Automatic Client-Side Labeling](#automatic-client-side-labeling)
   - [Service-side Auto Labeling](#service-side-auto-labeling)
   - [Label Overrides](#label-overrides)
 - [Protecting SharePoint Sites, Teams, and Groups with Sensitivity Labels](#protecting-sharepoint-sites-teams-and-groups-with-sensitivity-labels)
@@ -528,10 +530,19 @@ See [Sensitivity label activities](https://learn.microsoft.com/en-us/microsoft-3
 ## Applying a Sensitivity Label to Content Automatically
 There are two methods for automatically applying sensitivity labels:  client-side labeling and service-side auto labeling. 
 
+See the following links for more information:
+- [Apply a sensitivity label to content automatically](https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically)
+- [Recommend that the user applies a sensitivity label](https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically#recommend-that-the-user-applies-a-sensitivity-label)
+- [How Microsoft 365 automatically applies or recommends sensitivity labels](https://support.microsoft.com/en-us/office/sensitivity-labels-are-automatically-applied-or-recommended-for-your-files-and-emails-in-office-622e0d9c-f38c-470a-bcdb-9e90b24d71a1)
+- [Known issues with automatically applying or recommending sensitivity labels](https://support.microsoft.com/en-us/office/known-issues-with-automatically-applying-or-recommending-sensitivity-labels-451698ae-311b-4d28-83aa-a839a66f6efc?ui=en-us&rs=en-us&ad=us).
+- [End-user documentation](https://learn.microsoft.com/en-us/purview/sensitivity-labels-office-apps#end-user-documentation).
+
 ### Client-side Labeling
 Client-side labeling takes place within the Office apps (Word, Excel, PowerPoint, and Outlook) and supports two labeling methods: (1) recommending a label to users and (2) automatically applying a label. With client-side labeling, the auto-labeling settings are configured within the label.  See screenshot below.
 
 <img src='img/20231107-040725.png' width=700px>
+
+#### Recommended Labeling
 
 When using recommended labeling, with sensitive information types, the Word application displays the **Show Sensitive Content** button. This button allows the user to see the sensitive information detected and optionally remove the content.
 
@@ -545,12 +556,16 @@ Soon Microsoft will introduce support for contextual highlighting for trainable 
 
 <img src='img/20231137-063754.png' width=800px>
 
-See the following links
-- [Apply a sensitivity label to content automatically](https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically)
-- [Recommend that the user applies a sensitivity label](https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically#recommend-that-the-user-applies-a-sensitivity-label)
-- [How Microsoft 365 automatically applies or recommends sensitivity labels](https://support.microsoft.com/en-us/office/sensitivity-labels-are-automatically-applied-or-recommended-for-your-files-and-emails-in-office-622e0d9c-f38c-470a-bcdb-9e90b24d71a1)
-- [Known issues with automatically applying or recommending sensitivity labels](https://support.microsoft.com/en-us/office/known-issues-with-automatically-applying-or-recommending-sensitivity-labels-451698ae-311b-4d28-83aa-a839a66f6efc?ui=en-us&rs=en-us&ad=us).
-- [End-user documentation](https://learn.microsoft.com/en-us/purview/sensitivity-labels-office-apps#end-user-documentation).
+#### Automatic Client-Side Labeling
+When configuring labeling settings, you also have the option to automatically apply a label.
+
+<img src='img/20231112-041231.png' width=600px>
+
+When using automatic client-side labeling, the user receives a policy tip advising that a label has been applied. 
+
+<img src='img/20231113-041331.png' width=400px>
+
+
 
 ### Service-side Auto Labeling
 
