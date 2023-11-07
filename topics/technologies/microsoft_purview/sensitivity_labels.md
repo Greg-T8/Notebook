@@ -565,8 +565,6 @@ When using automatic client-side labeling, the user receives a policy tip advisi
 
 <img src='img/20231113-041331.png' width=400px>
 
-
-
 ### Service-side Auto Labeling
 
 
