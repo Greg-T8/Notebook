@@ -566,6 +566,7 @@ When using automatic client-side labeling, the user receives a policy tip advisi
 <img src='img/20231113-041331.png' width=400px>
 
 ### Service-side Auto Labeling
+See [How to configure auto-labeling policies for SharePoint, OneDrive, and Exchange](https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically#how-to-configure-auto-labeling-policies-for-sharepoint-onedrive-and-exchange).
 
 
 ### Label Overrides
