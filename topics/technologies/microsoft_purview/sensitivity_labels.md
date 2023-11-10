@@ -568,7 +568,10 @@ When using automatic client-side labeling, the user receives a policy tip advisi
 ### Service-side Auto Labeling
 See [How to configure auto-labeling policies for SharePoint, OneDrive, and Exchange](https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically#how-to-configure-auto-labeling-policies-for-sharepoint-onedrive-and-exchange).
 
-When configuring auto labeling policies, you can't automatically label documents and email until your policy has run at least one simulation. See [Learn about simulation model](https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically#learn-about-simulation-mode).
+When configuring auto labeling policies, you can't automatically label documents and email until your policy has run at least one simulation. See [Learn about simulation model](https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically#learn-about-simulation-mode). Microsoft recommends that you start with a small scope and then use the results from simulation to expand the scope, prior to enabling the policy. 
+
+While Microsoft does not (yet) allow you to view contextual information for trainable classifiers in Content Explorer, the results from the simulation do allow you to view the context for trainable classifiers.
+
 
 
 ### Label Overrides
