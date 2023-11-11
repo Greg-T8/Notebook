@@ -44,6 +44,7 @@
     - [Recommended Labeling](#recommended-labeling)
     - [Automatic Client-Side Labeling](#automatic-client-side-labeling)
   - [Service-side Auto Labeling](#service-side-auto-labeling)
+  - [Detect Sensitive Information Type and Trainable Classifier Matches](#detect-sensitive-information-type-and-trainable-classifier-matches)
   - [Label Overrides](#label-overrides)
 - [Protecting SharePoint Sites, Teams, and Groups with Sensitivity Labels](#protecting-sharepoint-sites-teams-and-groups-with-sensitivity-labels)
   - [Enable PDF Support](#enable-pdf-support)
@@ -570,8 +571,23 @@ See [How to configure auto-labeling policies for SharePoint, OneDrive, and Excha
 
 When configuring auto labeling policies, you can't automatically label documents and email until your policy has run at least one simulation. See [Learn about simulation model](https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically#learn-about-simulation-mode). Microsoft recommends that you start with a small scope and then use the results from simulation to expand the scope, prior to enabling the policy. 
 
-While Microsoft does not (yet) allow you to view contextual information for trainable classifiers in Content Explorer, the results from the simulation do allow you to view the context for trainable classifiers.
 
+### Detect Sensitive Information Type and Trainable Classifier Matches
+Microsoft does not (yet) allow you to view contextual information for trainable classifiers and some sensitivity information types in Content Explorer. You can use the results of an auto-labeling simulation to help you determine why a document was labeled or recommended for labeling.
+
+Use the following steps:
+1. Create a SharePoint site for the auto-labeling simulation, e.g. "Information Protection Simulation"
+2. Create an auto-labeling policy that targets the trainable classifier or sensitive information type
+
+In this case, the auto-labeling policy exists just for simulation purposes. The policy just exists for simulation; you never enable the policy.
+
+The screenshot below shows an example of the simulation testing results.
+
+<img src='img/20231101-060116.png' width=700px>
+
+You can then view the contextual summary for trainable classifiers or sensitive information types to help you understand why the content was marked as sensitive. 
+
+<img src='img/20231102-060252.png' width=600px>
 
 
 ### Label Overrides
