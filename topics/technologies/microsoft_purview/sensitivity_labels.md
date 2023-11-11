@@ -571,6 +571,11 @@ See [How to configure auto-labeling policies for SharePoint, OneDrive, and Excha
 
 When configuring auto labeling policies, you can't automatically label documents and email until your policy has run at least one simulation. See [Learn about simulation model](https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically#learn-about-simulation-mode). Microsoft recommends that you start with a small scope and then use the results from simulation to expand the scope, prior to enabling the policy. 
 
+Service-side auto labeling enables you to label documents based on classifiers or based on file type, e.g. .docx, .pdf, etc.
+
+<img src='img/20231106-060624.png' width=600px>
+
+You can also scope auto labeling policies to specific SharePoint sites, OneDrive accounts, or Exchange mailboxes.
 
 ### Detect Sensitive Information Type and Trainable Classifier Matches
 Microsoft does not (yet) allow you to view contextual information for trainable classifiers and some sensitivity information types in Content Explorer. You can use the results of an auto-labeling simulation to help you determine why a document was labeled or recommended for labeling.
