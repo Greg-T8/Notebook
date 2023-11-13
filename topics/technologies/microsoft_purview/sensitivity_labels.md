@@ -10,6 +10,16 @@
   - [Built-in Labeling for the Office Apps](#built-in-labeling-for-the-office-apps)
   - [Label Taxonomy](#label-taxonomy)
 - [Roles and Permissions in Microsoft Purview Compliance](#roles-and-permissions-in-microsoft-purview-compliance)
+- [Automatically Applying Sensitivity Labels](#automatically-applying-sensitivity-labels)
+  - [Client-side Labeling](#client-side-labeling)
+    - [Recommended Labeling](#recommended-labeling)
+    - [Automatic Client-Side Labeling](#automatic-client-side-labeling)
+  - [Service-side Auto Labeling](#service-side-auto-labeling)
+  - [Detect Sensitive Information Type and Trainable Classifier Matches](#detect-sensitive-information-type-and-trainable-classifier-matches)
+  - [Label Overrides](#label-overrides)
+- [Protecting SharePoint Sites, Teams, and Groups with Sensitivity Labels](#protecting-sharepoint-sites-teams-and-groups-with-sensitivity-labels)
+  - [Enable PDF Support](#enable-pdf-support)
+- [Support for PDF Attachments in Message Encryption](#support-for-pdf-attachments-in-message-encryption)
 - [External Access](#external-access)
   - [Azure RMS for Individuals](#azure-rms-for-individuals)
     - [Azure RMS Sign-Up Experiences](#azure-rms-sign-up-experiences)
@@ -39,16 +49,6 @@
   - [Auditing Framework](#auditing-framework)
   - [Search-UnifiedAuditLog Cmdlet](#search-unifiedauditlog-cmdlet)
   - [Microsoft Defender for Cloud Apps (Content Needed)](#microsoft-defender-for-cloud-apps-content-needed)
-- [Applying a Sensitivity Label to Content Automatically](#applying-a-sensitivity-label-to-content-automatically)
-  - [Client-side Labeling](#client-side-labeling)
-    - [Recommended Labeling](#recommended-labeling)
-    - [Automatic Client-Side Labeling](#automatic-client-side-labeling)
-  - [Service-side Auto Labeling](#service-side-auto-labeling)
-  - [Detect Sensitive Information Type and Trainable Classifier Matches](#detect-sensitive-information-type-and-trainable-classifier-matches)
-  - [Label Overrides](#label-overrides)
-- [Protecting SharePoint Sites, Teams, and Groups with Sensitivity Labels](#protecting-sharepoint-sites-teams-and-groups-with-sensitivity-labels)
-  - [Enable PDF Support](#enable-pdf-support)
-- [Support for PDF Attachments in Message Encryption](#support-for-pdf-attachments-in-message-encryption)
 - [Use PowerShell to Manage Sensitivity Labels and RMS Templates](#use-powershell-to-manage-sensitivity-labels-and-rms-templates)
   - [Get Info on Sensitivity Labels and Policies](#get-info-on-sensitivity-labels-and-policies)
   - [Create a Sensitivity Label](#create-a-sensitivity-label)
@@ -211,6 +211,146 @@ Alternatively you can create a new role group and add the **Sensitivity Label Ad
 
 See [Permissions required to create and manage sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/get-started-with-sensitivity-labels?view=o365-worldwide#permissions-required-to-create-and-manage-sensitivity-labels)
 
+
+## Automatically Applying Sensitivity Labels
+There are two methods for automatically applying sensitivity labels:  client-side labeling and service-side auto labeling. 
+
+See the following links for more information:
+- [Apply a sensitivity label to content automatically](https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically)
+- [Recommend that the user applies a sensitivity label](https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically#recommend-that-the-user-applies-a-sensitivity-label)
+- [How Microsoft 365 automatically applies or recommends sensitivity labels](https://support.microsoft.com/en-us/office/sensitivity-labels-are-automatically-applied-or-recommended-for-your-files-and-emails-in-office-622e0d9c-f38c-470a-bcdb-9e90b24d71a1)
+- [Known issues with automatically applying or recommending sensitivity labels](https://support.microsoft.com/en-us/office/known-issues-with-automatically-applying-or-recommending-sensitivity-labels-451698ae-311b-4d28-83aa-a839a66f6efc?ui=en-us&rs=en-us&ad=us).
+- [End-user documentation](https://learn.microsoft.com/en-us/purview/sensitivity-labels-office-apps#end-user-documentation).
+
+### Client-side Labeling
+Client-side labeling takes place within the Office apps (Word, Excel, PowerPoint, and Outlook) and supports two labeling methods: (1) recommending a label to users and (2) automatically applying a label. With client-side labeling, the auto-labeling settings are configured within the label.  See screenshot below.
+
+<img src='img/20231107-040725.png' width=700px>
+
+#### Recommended Labeling
+
+When using recommended labeling, with sensitive information types, the Word application displays the **Show Sensitive Content** button. This button allows the user to see the sensitive information detected and optionally remove the content.
+
+<img src='img/20231157-055712.png' width=600px>
+
+However, the **Show Sensitive Content** button does not appear for trainable classifiers. Instead, the user only receives the option to apply the label.
+
+<img src='img/20231159-055919.png' width=600px>
+
+Soon Microsoft will introduce support for contextual highlighting for trainable classifiers.
+
+<img src='img/20231137-063754.png' width=800px>
+
+#### Automatic Client-Side Labeling
+When configuring labeling settings, you also have the option to automatically apply a label.
+
+<img src='img/20231112-041231.png' width=600px>
+
+When using automatic client-side labeling, the user receives a policy tip advising that a label has been applied. 
+
+<img src='img/20231113-041331.png' width=400px>
+
+### Service-side Auto Labeling
+See [How to configure auto-labeling policies for SharePoint, OneDrive, and Exchange](https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically#how-to-configure-auto-labeling-policies-for-sharepoint-onedrive-and-exchange).
+
+When configuring auto labeling policies, you can't automatically label documents and email until your policy has run at least one simulation. See [Learn about simulation model](https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically#learn-about-simulation-mode). Microsoft recommends that you start with a small scope and then use the results from simulation to expand the scope, prior to enabling the policy. 
+
+Service-side auto labeling enables you to label documents based on classifiers or based on file type, e.g. .docx, .pdf, etc.
+
+<img src='img/20231106-060624.png' width=600px>
+
+You can also scope auto labeling policies to specific SharePoint sites, OneDrive accounts, or Exchange mailboxes.
+
+### Detect Sensitive Information Type and Trainable Classifier Matches
+Microsoft does not (yet) allow you to view contextual information for trainable classifiers and some sensitivity information types in Content Explorer. You can use the results of an auto-labeling simulation to help you determine why a document was labeled or recommended for labeling.
+
+Use the following steps:
+1. Create a SharePoint site for the auto-labeling simulation, e.g. "Information Protection Simulation"
+2. Create an auto-labeling policy that targets the trainable classifier or sensitive information type
+
+In this case, the auto-labeling policy exists just for simulation purposes. The policy just exists for simulation; you never enable the policy.
+
+The screenshot below shows an example of the simulation testing results.
+
+<img src='img/20231101-060116.png' width=700px>
+
+You can then view the contextual summary for trainable classifiers or sensitive information types to help you understand why the content was marked as sensitive. 
+
+<img src='img/20231102-060252.png' width=600px>
+
+
+### Label Overrides
+Auto-labeling carries the potential for a labeled item to be overriden. Here are the rules to be aware of:
+- If an label is applied manually, then client-side auto labeling and service-side auto labeling will not override the label.
+- If a label is applied automatically, either by a default label or through auto-labeling, and the label has a lower priority than what the auto-labeling service evaluates, then the auto-labeling service will override the label with the higher priority label.
+- For sublabels, if a file is not already labeled, automatic labeling takes precedence over recommended labeling, and the highest order sublabel will be selected
+- For sublabels, if a file is already labeled from a sublabel w/ the same parent, no action is taken. This applies if the existing label was a default label or automatically applied
+
+
+See [Will an existing label be overrriden?](https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically#will-an-existing-label-be-overridden) and [How multiple conditions are evaluated when they apply to more than one label](https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically#how-multiple-conditions-are-evaluated-when-they-apply-to-more-than-one-label).
+
+
+## Protecting SharePoint Sites, Teams, and Groups with Sensitivity Labels
+Sensitivity labels for SharePoint sites, Teams, and Microsoft 365 Groups is not enabled by default. You must take several steps to enable sensitivity labels for these containers. See [Use sensitivity labels with teams, groups, and sites](https://learn.microsoft.com/en-us/purview/sensitivity-labels-teams-groups-sites).
+
+**Step 1: Enable sensitivity label support for groups in PowerShell**  
+Follow the guidance [here](https://learn.microsoft.com/en-us/azure/active-directory/enterprise-users/groups-assign-sensitivity-labels#enable-sensitivity-label-support-in-powershell) to set the `EnableMIPLabels` setting for groups to `True`. New tenants do not have a directory setting for groups, so you must create one. See [here](https://learn.microsoft.com/en-us/azure/active-directory/enterprise-users/groups-settings-cmdlets#template-settings) for a description of each template setting. Here are the default settings:
+
+![](img/20230830-043058.png)
+
+**Step 2: Synchronize sensitivity labels with Azure AD**  
+As a global administrator, run `Execute-AzureADLabelSync` in a Windows PowerShell session. 
+
+![](img/20230807-030748.png)
+
+This command is tricky to get working. I've only had success when running in the following scenarios:
+1. Running in Windows PowerShell, not modern PowerShell
+2. After introducing the **Groups & Sites** scope to a label, waiting overnight, and then running the command
+
+In other scenarios, the command may time out after 5 minutes with a JSON error.
+
+In my case, the Sensitivity Label option for Microsoft 365 Groups appeared only after creating a Team, not a Microsoft 365 Group, and specifying a sensitivity label for the Team. The Sensitivity Label option will not appear for existing Microsoft 365 Groups.  
+
+<img src='img/20230821-032128.png' width=500px>
+
+See the Microsoft Groups article [Assign sensitivity labels](https://learn.microsoft.com/en-us/azure/active-directory/enterprise-users/groups-assign-sensitivity-labels) for more info on changing, removing, and troubleshooting labels for Microsoft 365 Groups.
+
+
+
+### Enable PDF Support
+By default, enablement of sensitivity labels for PDFs is turned off. See [Adding support for PDF](https://learn.microsoft.com/en-us/purview/sensitivity-labels-sharepoint-onedrive-files?view=o365-worldwide#adding-support-for-pdf) and [Set-SPOTenant](https://learn.microsoft.com/en-us/powershell/module/sharepoint-online/set-spotenant?view=sharepoint-ps#-enablesensitivitylabelforpdf).
+
+PDF support enables the following scenarios:
+- Applying a sensitivity label in Office for the web
+- Uploading a labeled document, and then extracting and displaying that sensitivity label
+- Search, eDiscovery, and data loss prevention (DLP) for labeled PDFs
+- Auto-labeling policies and default sensitivity labels for SharePoint document libraries
+
+To enable, use `SetSPOTenant` with the `-EnableSensitivityLabelforPDF:$true` option.
+
+<img src='img/20231039-033953.png' width=600px>
+
+To confirm use `Get-SPOTenant` and view the `EnableSensitivityLabelforPDF` property. See [Get-SPOTenant](https://docs.microsoft.com/en-us/powershell/module/sharepoint-online/get-spotenant?view=sharepoint-ps).
+
+<img src='img/20231040-034059.png' width=600px>
+
+
+## Support for PDF Attachments in Message Encryption
+By default, PDF files are not encrypted when sending protected messages. To support encryption for PDF documents you must take two actions:
+1. Enable PDF encryption using `Set-IRMConfiguration`.  
+2. Establish DLP policies to apply encryption to PDF attachments.  
+
+See [Message Encryption FAQ - Are PDF file attachments supported?](https://learn.microsoft.com/en-us/purview/ome-faq#are-pdf-file-attachments-supported-).
+
+In the first option using `Set-IRMConfiguration`, encryption of PDF files is only supported for messages sent from Outlook on the web, Outlook for Mac, and the Outlook mobile apps.  PDF encryption does not work and is not supported for the Win32 Outlook desktop app.
+
+The following screenshot enables PDF encryption for messages sent from Outlook on the web and mobile apps but not for the Outlook Win32 desktop app. See [Set-IRMConfiguration](https://docs.microsoft.com/en-us/powershell/module/exchange/set-irmconfiguration?view=exchange-ps).
+
+![](img/20230836-043600.png)
+
+The second option is intended to support the Win32 Outlook desktop app; however, users lose the ability to choose whether to apply encryption, as DLP and mail flow rules must receive an *unencrypted* message and then apply encryption based on certain conditions. 
+
+For defining mail flow rules and DLP policies, see [Define mail flow rules to encrypt email messages](https://learn.microsoft.com/en-us/purview/define-mail-flow-rules-to-encrypt-email) and [Conditions Exchange for DLP policies](https://learn.microsoft.com/en-us/purview/dlp-exchange-conditions-and-actions#conditions-exchange-for-dlp-policies).
 
 ## External Access
 Users must have an account in Entra ID to access protected content. Azure/Office 365 customers can access without any additional configuration.  Non-Azure/Office 365 customers must sign up for an Azure RMS for Individuals account. The Azure RMS for Individuals service creates an account in an unmanaged Entra ID tenant.
@@ -527,146 +667,6 @@ See [Sensitivity label activities](https://learn.microsoft.com/en-us/microsoft-3
 
 ### Microsoft Defender for Cloud Apps (Content Needed)
 
-
-## Applying a Sensitivity Label to Content Automatically
-There are two methods for automatically applying sensitivity labels:  client-side labeling and service-side auto labeling. 
-
-See the following links for more information:
-- [Apply a sensitivity label to content automatically](https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically)
-- [Recommend that the user applies a sensitivity label](https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically#recommend-that-the-user-applies-a-sensitivity-label)
-- [How Microsoft 365 automatically applies or recommends sensitivity labels](https://support.microsoft.com/en-us/office/sensitivity-labels-are-automatically-applied-or-recommended-for-your-files-and-emails-in-office-622e0d9c-f38c-470a-bcdb-9e90b24d71a1)
-- [Known issues with automatically applying or recommending sensitivity labels](https://support.microsoft.com/en-us/office/known-issues-with-automatically-applying-or-recommending-sensitivity-labels-451698ae-311b-4d28-83aa-a839a66f6efc?ui=en-us&rs=en-us&ad=us).
-- [End-user documentation](https://learn.microsoft.com/en-us/purview/sensitivity-labels-office-apps#end-user-documentation).
-
-### Client-side Labeling
-Client-side labeling takes place within the Office apps (Word, Excel, PowerPoint, and Outlook) and supports two labeling methods: (1) recommending a label to users and (2) automatically applying a label. With client-side labeling, the auto-labeling settings are configured within the label.  See screenshot below.
-
-<img src='img/20231107-040725.png' width=700px>
-
-#### Recommended Labeling
-
-When using recommended labeling, with sensitive information types, the Word application displays the **Show Sensitive Content** button. This button allows the user to see the sensitive information detected and optionally remove the content.
-
-<img src='img/20231157-055712.png' width=600px>
-
-However, the **Show Sensitive Content** button does not appear for trainable classifiers. Instead, the user only receives the option to apply the label.
-
-<img src='img/20231159-055919.png' width=600px>
-
-Soon Microsoft will introduce support for contextual highlighting for trainable classifiers.
-
-<img src='img/20231137-063754.png' width=800px>
-
-#### Automatic Client-Side Labeling
-When configuring labeling settings, you also have the option to automatically apply a label.
-
-<img src='img/20231112-041231.png' width=600px>
-
-When using automatic client-side labeling, the user receives a policy tip advising that a label has been applied. 
-
-<img src='img/20231113-041331.png' width=400px>
-
-### Service-side Auto Labeling
-See [How to configure auto-labeling policies for SharePoint, OneDrive, and Exchange](https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically#how-to-configure-auto-labeling-policies-for-sharepoint-onedrive-and-exchange).
-
-When configuring auto labeling policies, you can't automatically label documents and email until your policy has run at least one simulation. See [Learn about simulation model](https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically#learn-about-simulation-mode). Microsoft recommends that you start with a small scope and then use the results from simulation to expand the scope, prior to enabling the policy. 
-
-Service-side auto labeling enables you to label documents based on classifiers or based on file type, e.g. .docx, .pdf, etc.
-
-<img src='img/20231106-060624.png' width=600px>
-
-You can also scope auto labeling policies to specific SharePoint sites, OneDrive accounts, or Exchange mailboxes.
-
-### Detect Sensitive Information Type and Trainable Classifier Matches
-Microsoft does not (yet) allow you to view contextual information for trainable classifiers and some sensitivity information types in Content Explorer. You can use the results of an auto-labeling simulation to help you determine why a document was labeled or recommended for labeling.
-
-Use the following steps:
-1. Create a SharePoint site for the auto-labeling simulation, e.g. "Information Protection Simulation"
-2. Create an auto-labeling policy that targets the trainable classifier or sensitive information type
-
-In this case, the auto-labeling policy exists just for simulation purposes. The policy just exists for simulation; you never enable the policy.
-
-The screenshot below shows an example of the simulation testing results.
-
-<img src='img/20231101-060116.png' width=700px>
-
-You can then view the contextual summary for trainable classifiers or sensitive information types to help you understand why the content was marked as sensitive. 
-
-<img src='img/20231102-060252.png' width=600px>
-
-
-### Label Overrides
-Auto-labeling carries the potential for a labeled item to be overriden. Here are the rules to be aware of:
-- If an label is applied manually, then client-side auto labeling and service-side auto labeling will not override the label.
-- If a label is applied automatically, either by a default label or through auto-labeling, and the label has a lower priority than what the auto-labeling service evaluates, then the auto-labeling service will override the label with the higher priority label.
-- For sublabels, if a file is not already labeled, automatic labeling takes precedence over recommended labeling, and the highest order sublabel will be selected
-- For sublabels, if a file is already labeled from a sublabel w/ the same parent, no action is taken. This applies if the existing label was a default label or automatically applied
-
-
-See [Will an existing label be overrriden?](https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically#will-an-existing-label-be-overridden) and [How multiple conditions are evaluated when they apply to more than one label](https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically#how-multiple-conditions-are-evaluated-when-they-apply-to-more-than-one-label).
-
-
-## Protecting SharePoint Sites, Teams, and Groups with Sensitivity Labels
-Sensitivity labels for SharePoint sites, Teams, and Microsoft 365 Groups is not enabled by default. You must take several steps to enable sensitivity labels for these containers. See [Use sensitivity labels with teams, groups, and sites](https://learn.microsoft.com/en-us/purview/sensitivity-labels-teams-groups-sites).
-
-**Step 1: Enable sensitivity label support for groups in PowerShell**  
-Follow the guidance [here](https://learn.microsoft.com/en-us/azure/active-directory/enterprise-users/groups-assign-sensitivity-labels#enable-sensitivity-label-support-in-powershell) to set the `EnableMIPLabels` setting for groups to `True`. New tenants do not have a directory setting for groups, so you must create one. See [here](https://learn.microsoft.com/en-us/azure/active-directory/enterprise-users/groups-settings-cmdlets#template-settings) for a description of each template setting. Here are the default settings:
-
-![](img/20230830-043058.png)
-
-**Step 2: Synchronize sensitivity labels with Azure AD**  
-As a global administrator, run `Execute-AzureADLabelSync` in a Windows PowerShell session. 
-
-![](img/20230807-030748.png)
-
-This command is tricky to get working. I've only had success when running in the following scenarios:
-1. Running in Windows PowerShell, not modern PowerShell
-2. After introducing the **Groups & Sites** scope to a label, waiting overnight, and then running the command
-
-In other scenarios, the command may time out after 5 minutes with a JSON error.
-
-In my case, the Sensitivity Label option for Microsoft 365 Groups appeared only after creating a Team, not a Microsoft 365 Group, and specifying a sensitivity label for the Team. The Sensitivity Label option will not appear for existing Microsoft 365 Groups.  
-
-<img src='img/20230821-032128.png' width=500px>
-
-See the Microsoft Groups article [Assign sensitivity labels](https://learn.microsoft.com/en-us/azure/active-directory/enterprise-users/groups-assign-sensitivity-labels) for more info on changing, removing, and troubleshooting labels for Microsoft 365 Groups.
-
-
-
-### Enable PDF Support
-By default, enablement of sensitivity labels for PDFs is turned off. See [Adding support for PDF](https://learn.microsoft.com/en-us/purview/sensitivity-labels-sharepoint-onedrive-files?view=o365-worldwide#adding-support-for-pdf) and [Set-SPOTenant](https://learn.microsoft.com/en-us/powershell/module/sharepoint-online/set-spotenant?view=sharepoint-ps#-enablesensitivitylabelforpdf).
-
-PDF support enables the following scenarios:
-- Applying a sensitivity label in Office for the web
-- Uploading a labeled document, and then extracting and displaying that sensitivity label
-- Search, eDiscovery, and data loss prevention (DLP) for labeled PDFs
-- Auto-labeling policies and default sensitivity labels for SharePoint document libraries
-
-To enable, use `SetSPOTenant` with the `-EnableSensitivityLabelforPDF:$true` option.
-
-<img src='img/20231039-033953.png' width=600px>
-
-To confirm use `Get-SPOTenant` and view the `EnableSensitivityLabelforPDF` property. See [Get-SPOTenant](https://docs.microsoft.com/en-us/powershell/module/sharepoint-online/get-spotenant?view=sharepoint-ps).
-
-<img src='img/20231040-034059.png' width=600px>
-
-
-## Support for PDF Attachments in Message Encryption
-By default, PDF files are not encrypted when sending protected messages. To support encryption for PDF documents you must take two actions:
-1. Enable PDF encryption using `Set-IRMConfiguration`.  
-2. Establish DLP policies to apply encryption to PDF attachments.  
-
-See [Message Encryption FAQ - Are PDF file attachments supported?](https://learn.microsoft.com/en-us/purview/ome-faq#are-pdf-file-attachments-supported-).
-
-In the first option using `Set-IRMConfiguration`, encryption of PDF files is only supported for messages sent from Outlook on the web, Outlook for Mac, and the Outlook mobile apps.  PDF encryption does not work and is not supported for the Win32 Outlook desktop app.
-
-The following screenshot enables PDF encryption for messages sent from Outlook on the web and mobile apps but not for the Outlook Win32 desktop app. See [Set-IRMConfiguration](https://docs.microsoft.com/en-us/powershell/module/exchange/set-irmconfiguration?view=exchange-ps).
-
-![](img/20230836-043600.png)
-
-The second option is intended to support the Win32 Outlook desktop app; however, users lose the ability to choose whether to apply encryption, as DLP and mail flow rules must receive an *unencrypted* message and then apply encryption based on certain conditions. 
-
-For defining mail flow rules and DLP policies, see [Define mail flow rules to encrypt email messages](https://learn.microsoft.com/en-us/purview/define-mail-flow-rules-to-encrypt-email) and [Conditions Exchange for DLP policies](https://learn.microsoft.com/en-us/purview/dlp-exchange-conditions-and-actions#conditions-exchange-for-dlp-policies).
 
 ## Use PowerShell to Manage Sensitivity Labels and RMS Templates
 
