@@ -20,6 +20,7 @@
 - [Protecting SharePoint Sites, Teams, and Groups with Sensitivity Labels](#protecting-sharepoint-sites-teams-and-groups-with-sensitivity-labels)
   - [Enable PDF Support](#enable-pdf-support)
 - [Support for PDF Attachments in Message Encryption](#support-for-pdf-attachments-in-message-encryption)
+- [Protecting On-Premises Data](#protecting-on-premises-data)
 - [External Access](#external-access)
   - [Azure RMS for Individuals](#azure-rms-for-individuals)
     - [Azure RMS Sign-Up Experiences](#azure-rms-sign-up-experiences)
@@ -351,6 +352,20 @@ The following screenshot enables PDF encryption for messages sent from Outlook o
 The second option is intended to support the Win32 Outlook desktop app; however, users lose the ability to choose whether to apply encryption, as DLP and mail flow rules must receive an *unencrypted* message and then apply encryption based on certain conditions. 
 
 For defining mail flow rules and DLP policies, see [Define mail flow rules to encrypt email messages](https://learn.microsoft.com/en-us/purview/define-mail-flow-rules-to-encrypt-email) and [Conditions Exchange for DLP policies](https://learn.microsoft.com/en-us/purview/dlp-exchange-conditions-and-actions#conditions-exchange-for-dlp-policies).
+
+## Protecting On-Premises Data
+
+Use the following links for more information:
+- [Get started with the scanner](https://learn.microsoft.com/en-us/purview/deploy-scanner-prereqs)
+- [Configure & install the scanner](https://learn.microsoft.com/en-us/purview/deploy-scanner-configure-install?tabs=azure-portal-only)
+- [Run the scanner](https://learn.microsoft.com/en-us/purview/deploy-scanner-manage)
+
+Here are the requirements:
+- Active Directory service account. See [Service account requirements](https://learn.microsoft.com/en-us/purview/deploy-scanner-prereqs#service-account-requirements)
+- SQL Server. See [SQL server requirements](https://learn.microsoft.com/en-us/purview/deploy-scanner-prereqs#sql-server-requirements)
+- Azure Information Protection Unified Labeling Client. See [Download and install the Azure Information Protection Unified Labeling Client](https://learn.microsoft.com/en-us/azure/information-protection/rms-client/install-unifiedlabelingclient-app)
+
+
 
 ## External Access
 Users must have an account in Entra ID to access protected content. Azure/Office 365 customers can access without any additional configuration.  Non-Azure/Office 365 customers must sign up for an Azure RMS for Individuals account. The Azure RMS for Individuals service creates an account in an unmanaged Entra ID tenant.
