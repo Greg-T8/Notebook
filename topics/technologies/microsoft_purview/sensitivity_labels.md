@@ -365,7 +365,28 @@ Here are the requirements:
 - SQL Server. See [SQL server requirements](https://learn.microsoft.com/en-us/purview/deploy-scanner-prereqs#sql-server-requirements)
 - Azure Information Protection Unified Labeling Client. See [Download and install the Azure Information Protection Unified Labeling Client](https://learn.microsoft.com/en-us/azure/information-protection/rms-client/install-unifiedlabelingclient-app)
 
+Here's a list of useful commands:
+- `Start-AIPScan`
+- `Get-AIPScanStatus`
 
+
+Here's a list of the options for an on-prem scan job:
+
+<img src='img/20231116-041658.png' width=400px>
+
+Use the **Content scan jobs** tab to start a manual scan.
+
+<img src='img/20231114-041447.png' width=700px>
+
+The **Nodes** tab lists the status of the latest scan job.
+
+<img src='img/20231112-041222.png' width=700px>
+
+Troubleshooting logs are located in the following directory: %LOCALAPPDATA%\Microsoft\MSIP\Scanner\Logs.  The logs are in plain text and
+
+The on-prem scanner uses the **Azure Information Protection Scanner** service.  
+
+<img src='img/20231122-042230.png' width=700px>
 
 ## External Access
 Users must have an account in Entra ID to access protected content. Azure/Office 365 customers can access without any additional configuration.  Non-Azure/Office 365 customers must sign up for an Azure RMS for Individuals account. The Azure RMS for Individuals service creates an account in an unmanaged Entra ID tenant.
