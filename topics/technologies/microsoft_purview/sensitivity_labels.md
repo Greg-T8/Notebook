@@ -21,6 +21,9 @@
   - [Enable PDF Support](#enable-pdf-support)
 - [Support for PDF Attachments in Message Encryption](#support-for-pdf-attachments-in-message-encryption)
 - [Protecting On-Premises Data](#protecting-on-premises-data)
+  - [Installing the Scanner](#installing-the-scanner)
+  - [Operating the Scanner](#operating-the-scanner)
+  - [Troubleshooting the Scanner](#troubleshooting-the-scanner)
 - [External Access](#external-access)
   - [Azure RMS for Individuals](#azure-rms-for-individuals)
     - [Azure RMS Sign-Up Experiences](#azure-rms-sign-up-experiences)
@@ -369,6 +372,21 @@ Here's a list of useful commands:
 - `Start-AIPScan`
 - `Get-AIPScanStatus`
 
+### Installing the Scanner
+Follow through the guidance in [Configure and install the scanner](https://learn.microsoft.com/en-us/purview/deploy-scanner-configure-install?tabs=azure-portal-only).
+
+Some things to note:
+- You create an app registration and record the secret
+- You run `Set-AIPAuthentication` to configure the scanner to use the app registration. 
+
+When running this command you use the `-DelegatedUser` parameter to specify an Azure AD user account that has an assigned applicable policy.  You use the `-OnBehalfOf` parameter to specify an Active Directory account that runs the scanner service.
+
+<img src='img/20231151-035129.png' width=1000px>
+
+
+
+### Operating the Scanner
+
 
 Here's a list of the options for an on-prem scan job:
 
@@ -382,7 +400,16 @@ The **Nodes** tab lists the status of the latest scan job.
 
 <img src='img/20231112-041222.png' width=700px>
 
-Troubleshooting logs are located in the following directory: %LOCALAPPDATA%\Microsoft\MSIP\Scanner\Logs.  The logs are in plain text and
+### Troubleshooting the Scanner
+In the settings of the Purview Compliance portal, check the **Nodes** tab for errors.
+
+On the scanner server, run `Start-AIPScannerDiagnostics`:
+
+<img src='img/20231132-033224.png' width=700px>
+
+
+See https://learn.microsoft.com/en-us/azure/information-protection/rms-client/clientv2-admin-guide-powershell#to-create-and-configure-the-azure-ad-applications-for-set-aipauthentication
+
 
 The on-prem scanner uses the **Azure Information Protection Scanner** service.  
 
