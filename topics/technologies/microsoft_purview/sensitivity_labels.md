@@ -361,28 +361,39 @@ For defining mail flow rules and DLP policies, see [Define mail flow rules to en
 Use the following links for more information:
 - [Get started with the scanner](https://learn.microsoft.com/en-us/purview/deploy-scanner-prereqs)
 - [Configure & install the scanner](https://learn.microsoft.com/en-us/purview/deploy-scanner-configure-install?tabs=azure-portal-only)
+  - This documentation lacks a critical step; you must also follow [Prerequisites for running AIP labeling cmdlets unattended](https://learn.microsoft.com/en-us/azure/information-protection/rms-client/clientv2-admin-guide-powershell#prerequisites-for-running-aip-labeling-cmdlets-unattended)
 - [Run the scanner](https://learn.microsoft.com/en-us/purview/deploy-scanner-manage)
 
 Here are the requirements:
 - Active Directory service account. See [Service account requirements](https://learn.microsoft.com/en-us/purview/deploy-scanner-prereqs#service-account-requirements)
 - SQL Server. See [SQL server requirements](https://learn.microsoft.com/en-us/purview/deploy-scanner-prereqs#sql-server-requirements)
 - Azure Information Protection Unified Labeling Client. See [Download and install the Azure Information Protection Unified Labeling Client](https://learn.microsoft.com/en-us/azure/information-protection/rms-client/install-unifiedlabelingclient-app)
+- Entra Access Token. See [Prerequisites for running AIP labeling cmdlets unattended](https://learn.microsoft.com/en-us/azure/information-protection/rms-client/clientv2-admin-guide-powershell#prerequisites-for-running-aip-labeling-cmdlets-unattended)
+
+You do not need a synced account to use the scanner.  You can use a non-synced account to operate the scanner service locally and then configure a cloud account to operate on behalf of the non-synced account.
 
 Here's a list of useful commands:
 - `Start-AIPScan`
 - `Get-AIPScanStatus`
 
 ### Installing the Scanner
-Follow through the guidance in [Configure and install the scanner](https://learn.microsoft.com/en-us/purview/deploy-scanner-configure-install?tabs=azure-portal-only).
+Follow through the guidance in [Configure and install the scanner](https://learn.microsoft.com/en-us/purview/deploy-scanner-configure-install?tabs=azure-portal-only). Then follow through [Prerequisites for running AIP labeling cmdlets unattended](https://learn.microsoft.com/en-us/azure/information-protection/rms-client/clientv2-admin-guide-powershell#prerequisites-for-running-aip-labeling-cmdlets-unattended). 
 
 Some things to note:
 - You create an app registration and record the secret
+- You need to configure permissions for the **Azure Rights Management Services** and **Microsoft Information Protection** APIs
 - You run `Set-AIPAuthentication` to configure the scanner to use the app registration. 
+
+
+<img src='img/20231109-050925.png' width=700px>
 
 When running this command you use the `-DelegatedUser` parameter to specify an Azure AD user account that has an assigned applicable policy.  You use the `-OnBehalfOf` parameter to specify an Active Directory account that runs the scanner service.
 
-<img src='img/20231151-035129.png' width=1000px>
+<img src='img/20231118-051821.png' width=700px>
 
+While the result indicates success, you should use `Start-AIPScannerDiagnostics` to confirm the configuration:
+
+<img src='img/20231128-052837.png' width=600px>
 
 
 ### Operating the Scanner
@@ -400,6 +411,11 @@ The **Nodes** tab lists the status of the latest scan job.
 
 <img src='img/20231112-041222.png' width=700px>
 
+
+![](img/20231149-054928.png)
+
+![](img/20231148-054840.png)
+
 ### Troubleshooting the Scanner
 In the settings of the Purview Compliance portal, check the **Nodes** tab for errors.
 
@@ -408,7 +424,8 @@ On the scanner server, run `Start-AIPScannerDiagnostics`:
 <img src='img/20231132-033224.png' width=700px>
 
 
-See https://learn.microsoft.com/en-us/azure/information-protection/rms-client/clientv2-admin-guide-powershell#to-create-and-configure-the-azure-ad-applications-for-set-aipauthentication
+
+
 
 
 The on-prem scanner uses the **Azure Information Protection Scanner** service.  
