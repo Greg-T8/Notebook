@@ -368,35 +368,38 @@ Here are the requirements:
 - Active Directory service account. See [Service account requirements](https://learn.microsoft.com/en-us/purview/deploy-scanner-prereqs#service-account-requirements)
 - SQL Server. See [SQL server requirements](https://learn.microsoft.com/en-us/purview/deploy-scanner-prereqs#sql-server-requirements)
 - Azure Information Protection Unified Labeling Client. See [Download and install the Azure Information Protection Unified Labeling Client](https://learn.microsoft.com/en-us/azure/information-protection/rms-client/install-unifiedlabelingclient-app)
-- Entra Access Token. See [Prerequisites for running AIP labeling cmdlets unattended](https://learn.microsoft.com/en-us/azure/information-protection/rms-client/clientv2-admin-guide-powershell#prerequisites-for-running-aip-labeling-cmdlets-unattended)
+- Entra App Registration. See [Prerequisites for running AIP labeling cmdlets unattended](https://learn.microsoft.com/en-us/azure/information-protection/rms-client/clientv2-admin-guide-powershell#prerequisites-for-running-aip-labeling-cmdlets-unattended)
+- Cloud-only or synced account with labeling policies
 
-You do not need a synced account to use the scanner.  You can use a non-synced account to operate the scanner service locally and then configure a cloud account to operate on behalf of the non-synced account.
-
-Here's a list of useful commands:
-- `Start-AIPScan`
-- `Get-AIPScanStatus`
+You do not need a synced account to use the scanner.  You can use a non-synced Active Directory account to operate the scanner service locally and then configure a cloud-only account to operate on behalf of the non-synced account.
 
 ### Installing the Scanner
 Follow through the guidance in [Configure and install the scanner](https://learn.microsoft.com/en-us/purview/deploy-scanner-configure-install?tabs=azure-portal-only). Then follow through [Prerequisites for running AIP labeling cmdlets unattended](https://learn.microsoft.com/en-us/azure/information-protection/rms-client/clientv2-admin-guide-powershell#prerequisites-for-running-aip-labeling-cmdlets-unattended). 
 
-Some things to note:
-- You create an app registration and record the secret
-- You need to configure permissions for the **Azure Rights Management Services** and **Microsoft Information Protection** APIs
-- You run `Set-AIPAuthentication` to configure the scanner to use the app registration. 
+Here are some of the key steps:
+1. Create the scanner cluster and content scan job in Microsoft Purview Compliance > Settings > Information Protection Scanner
+2. Install the scanner using `Install-AIPScanner` with the `-SQLServerInstance` and `-Cluster` parameters
+3. Create an app registration and with secret value
+4. Configure app registration permissions for the **Azure Rights Management Services** and **Microsoft Information Protection** APIs
+5. Run `Set-AIPAuthentication` to configure the scanner to use the app registration. 
 
+Here's a look at the API configurations:  
 
 <img src='img/20231109-050925.png' width=700px>
 
-When running this command you use the `-DelegatedUser` parameter to specify an Azure AD user account that has an assigned applicable policy.  You use the `-OnBehalfOf` parameter to specify an Active Directory account that runs the scanner service.
+When running `Set-AIPAuthentication`, use the `-DelegatedUser` parameter to specify an Azure AD user account that has an assigned labeling policy.  Use the `-OnBehalfOf` parameter to specify an Active Directory account that runs the scanner service.
 
 <img src='img/20231118-051821.png' width=700px>
 
-While the result indicates success, you should use `Start-AIPScannerDiagnostics` to confirm the configuration:
+While the result indicates success, this doesn't guarantee that the scanner will operate without error. After the installation is complete, run `Start-AIPScannerDiagnostics` to confirm the configuration:
 
 <img src='img/20231128-052837.png' width=600px>
 
 
 ### Operating the Scanner
+Here's a list of useful commands:
+- `Start-AIPScan`
+- `Get-AIPScanStatus`
 
 
 Here's a list of the options for an on-prem scan job:
