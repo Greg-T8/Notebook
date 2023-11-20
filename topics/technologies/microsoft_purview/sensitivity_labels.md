@@ -22,6 +22,7 @@
 - [Support for PDF Attachments in Message Encryption](#support-for-pdf-attachments-in-message-encryption)
 - [Protecting On-Premises Data](#protecting-on-premises-data)
   - [Installing the Scanner](#installing-the-scanner)
+  - [Configuring the Scanner](#configuring-the-scanner)
   - [Operating the Scanner](#operating-the-scanner)
   - [Troubleshooting the Scanner](#troubleshooting-the-scanner)
 - [External Access](#external-access)
@@ -395,6 +396,12 @@ While the result indicates success, this doesn't guarantee that the scanner will
 
 <img src='img/20231128-052837.png' width=600px>
 
+### Configuring the Scanner
+Here's a list of the options for an on-prem scan job:
+
+<img src='img/20231116-041658.png' width=400px>
+
+
 
 ### Operating the Scanner
 Here's a list of useful commands:
@@ -402,17 +409,17 @@ Here's a list of useful commands:
 - `Get-AIPScanStatus`
 
 
-Here's a list of the options for an on-prem scan job:
-
-<img src='img/20231116-041658.png' width=400px>
-
 Use the **Content scan jobs** tab to start a manual scan.
 
-<img src='img/20231114-041447.png' width=700px>
+<img src='img/20231114-041447.png' width=600px>
 
 The **Nodes** tab lists the status of the latest scan job.
 
-<img src='img/20231112-041222.png' width=700px>
+<img src='img/20231129-042918.png' width=600px>
+
+When the scan is complete, review the reports in **%localappdata\Microsoft\MSIP\Scanner\Reports**. The report is in a CSV format.
+
+<img src='img/20231126-042628.png' width=700px>
 
 
 ![](img/20231149-054928.png)
@@ -422,14 +429,14 @@ The **Nodes** tab lists the status of the latest scan job.
 ### Troubleshooting the Scanner
 In the settings of the Purview Compliance portal, check the **Nodes** tab for errors.
 
+<img src='img/20231112-041222.png' width=600px>
+
+Run `Get-AIPScannerStatus`: 
+
+
 On the scanner server, run `Start-AIPScannerDiagnostics`:
 
 <img src='img/20231132-033224.png' width=700px>
-
-
-
-
-
 
 The on-prem scanner uses the **Azure Information Protection Scanner** service.  
 
