@@ -82,6 +82,7 @@
 - [Unified Labeling Support Tool](https://github.com/microsoft/UnifiedLabelingSupportTool) - PowerShell module for troubleshooting sensitivity labels and Azure RMS templates
 - [AIP Audit Export](https://github.com/Azure-Samples/Azure-Information-Protection-Samples/tree/master/AIP-Audit-Export) - Export labeling events to Log Analytics
 - [Migration Playbook for Built-in Labeling](https://microsoft.github.io/ComplianceCxE/playbooks/AIP2MIP/CompareAIP2MIP/)
+- [Known Issues - Azure Information Protection](https://learn.microsoft.com/en-us/azure/information-protection/known-issues)
 
 ## Licensing for Sensitivity Labels
 The following licenses are required for using Information Protection features:
@@ -358,9 +359,21 @@ The second option is intended to support the Win32 Outlook desktop app; however,
 For defining mail flow rules and DLP policies, see [Define mail flow rules to encrypt email messages](https://learn.microsoft.com/en-us/purview/define-mail-flow-rules-to-encrypt-email) and [Conditions Exchange for DLP policies](https://learn.microsoft.com/en-us/purview/dlp-exchange-conditions-and-actions#conditions-exchange-for-dlp-policies).
 
 ## Protecting On-Premises Data
+The on-premises scanner can protect data in local paths, UNC paths, and SharePoint Server document libraries. The scanner runs in four modes:
+1. Discovery mode only: creates a report that checks what happens when your files are labeled
+2. Discovery mode with sensitive information
+3. Automatic labeling mode
+4. Specific file types
+
+Roles required
+- Compliance Administrator
+- Compliance Data Administrator
+- Security Administrator
+- Organization Management
 
 Use the following links for more information:
-- [Get started with the scanner](https://learn.microsoft.com/en-us/purview/deploy-scanner-prereqs)
+- [Overview of the scanner](https://learn.microsoft.com/en-us/purview/deploy-scanner#overview-of-the-scanner)
+- [Supported file types](https://learn.microsoft.com/en-us/azure/information-protection/rms-client/clientv2-admin-guide-file-types)
 - [Configure & install the scanner](https://learn.microsoft.com/en-us/purview/deploy-scanner-configure-install?tabs=azure-portal-only)
   - This documentation lacks a critical step; you must also follow [Prerequisites for running AIP labeling cmdlets unattended](https://learn.microsoft.com/en-us/azure/information-protection/rms-client/clientv2-admin-guide-powershell#prerequisites-for-running-aip-labeling-cmdlets-unattended)
 - [Run the scanner](https://learn.microsoft.com/en-us/purview/deploy-scanner-manage)
@@ -401,12 +414,23 @@ Here's a list of the options for an on-prem scan job:
 
 <img src='img/20231116-041658.png' width=400px>
 
+Full descriptions are available in the context menu. Here are some of the key options that warrant further explanation:
 
+| Option | Description |
+| --- | --- |
+| **Info types to be discovered** | All: Sets the content scan job to scan your content for all sensitive information types <br> Policy only: Uses predefined conditions for auto-labeling  |
+| **Treat recommended labeling as automatic** | Off: Use automatic classification rules only <br> On: Use both automatic and recommended classification rules |
+| **Enforce sensitivity labeling policy** | Off: Scans the data in "what-if" mode <br> On: Scans the data and applies sensitivity labels for files that meet conditions |
+| **Label files based on content** | Off: Apply a label to all files without inspecting the content <br> On: Apply a label to files that match the content inspection conditions |
+| **Enable DLP policy rules** | See [Use a DLP policy](https://learn.microsoft.com/en-us/purview/deploy-scanner-configure-install?tabs=azure-portal-only#use-a-dlp-policy) |
 
 ### Operating the Scanner
 Here's a list of useful commands:
-- `Start-AIPScan`
-- `Get-AIPScanStatus`
+- `Start-AIPScan`: Use the `-Reset` to reset the scanner cache so that the scanner initiates a full scan of all files even if they have been scanned before and the Azure Information Protection policy has not changed
+- `Get-AIPScannerStatus`
+- `Get-AIPScannerConfiguration`
+- `Get-AIPScannerContentScanJob`
+- `Start-AIPScannerDiagnostics`: Use the `-ResetConfig` option to reset the policy cache. By default, policy refreshes occur every 4 hours.
 
 
 Use the **Content scan jobs** tab to start a manual scan.
