@@ -25,6 +25,8 @@
   - [Configuring the Scanner](#configuring-the-scanner)
   - [Operating the Scanner](#operating-the-scanner)
   - [Troubleshooting the Scanner](#troubleshooting-the-scanner)
+    - [Troubleshooting Scanner Configuration](#troubleshooting-scanner-configuration)
+    - [Troubleshooting Scan Jobs](#troubleshooting-scan-jobs)
 - [External Access](#external-access)
   - [Azure RMS for Individuals](#azure-rms-for-individuals)
     - [Azure RMS Sign-Up Experiences](#azure-rms-sign-up-experiences)
@@ -418,7 +420,7 @@ Full descriptions are available in the context menu. Here are some of the key op
 
 | Option | Description |
 | --- | --- |
-| **Info types to be discovered** | All: Sets the content scan job to scan your content for all sensitive information types <br> Policy only: Uses predefined conditions for auto-labeling  |
+| **Info types to be discovered** | All: Sets the content scan job to scan your content for all sensitive information types <br> Policy only: Uses only sensitive information types defined in a label. You must  |
 | **Treat recommended labeling as automatic** | Off: Use automatic classification rules only <br> On: Use both automatic and recommended classification rules |
 | **Enforce sensitivity labeling policy** | Off: Scans the data in "what-if" mode <br> On: Scans the data and applies sensitivity labels for files that meet conditions |
 | **Label files based on content** | Off: Apply a label to all files without inspecting the content <br> On: Apply a label to files that match the content inspection conditions |
@@ -426,7 +428,7 @@ Full descriptions are available in the context menu. Here are some of the key op
 
 ### Operating the Scanner
 Here's a list of useful commands:
-- `Start-AIPScan`: Use the `-Reset` to reset the scanner cache so that the scanner initiates a full scan of all files even if they have been scanned before and the Azure Information Protection policy has not changed
+- `Start-AIPScan`
 - `Get-AIPScannerStatus`
 - `Get-AIPScannerConfiguration`
 - `Get-AIPScannerContentScanJob`
@@ -446,10 +448,6 @@ When the scan is complete, review the reports in **%localappdata\Microsoft\MSIP\
 <img src='img/20231126-042628.png' width=700px>
 
 
-![](img/20231149-054928.png)
-
-![](img/20231148-054840.png)
-
 ### Troubleshooting the Scanner
 In the settings of the Purview Compliance portal, check the **Nodes** tab for errors.
 
@@ -457,14 +455,37 @@ In the settings of the Purview Compliance portal, check the **Nodes** tab for er
 
 Run `Get-AIPScannerStatus`: 
 
+<img src='img/20231104-030416.png' width=500px>
 
-On the scanner server, run `Start-AIPScannerDiagnostics`:
+#### Troubleshooting Scanner Configuration
+On the scanner server, run `Start-AIPScannerDiagnostics`. 
 
 <img src='img/20231132-033224.png' width=700px>
 
-The on-prem scanner uses the **Azure Information Protection Scanner** service.  
+Use the `-ResetConfig` option to pull the latest policy configuration from the cloud. By default, policy refreshes occur every 4 hours.
 
-<img src='img/20231122-042230.png' width=700px>
+<img src='img/20231120-032018.png' width=700px>
+
+In the case shown above, the command may fail to delete the policy cache. The on-prem scanner uses the **Azure Information Protection Scanner** service. You may need to stop this service to delete the policy cache manually. 
+
+```powershell
+Stop-Service AIPScanner
+Remove-Item "%LOCALAPPDATA%\Microsoft\MSIP\mip\MSIP.Scanner.exe\mip\mip.policies.sqlite3"
+Start-Service AIPScanner
+```
+
+<img src='img/20231122-042230.png' width=600px>
+
+#### Troubleshooting Scan Jobs
+When troubleshooting small scan jobs, use the `-Reset` switch in `Start-AIPScan` to reset the scanner cache so that the scanner initiates a full scan of all files even if they have been scanned before and the Azure Information Protection policy has not changed.
+
+When troubleshooting the result of scan jobs, use `Set-AIPScannerConfiguration -ReportLevel Error` to enable detailed logging in the scan report.
+
+<img src='img/20231157-035754.png' width=400px>
+
+There's also `-ReportLevel Debug`, but only use this option when the `-ReportLevel Error` option does not provide enough information.
+
+<img src='img/20231151-035159.png' width=600px>
 
 ## External Access
 Users must have an account in Entra ID to access protected content. Azure/Office 365 customers can access without any additional configuration.  Non-Azure/Office 365 customers must sign up for an Azure RMS for Individuals account. The Azure RMS for Individuals service creates an account in an unmanaged Entra ID tenant.
