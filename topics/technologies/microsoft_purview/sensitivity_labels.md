@@ -426,6 +426,10 @@ Full descriptions are available in the context menu. Here are some of the key op
 | **Label files based on content** | Off: Apply a label to all files without inspecting the content <br> On: Apply a label to files that match the content inspection conditions |
 | **Enable DLP policy rules** | See [Use a DLP policy](https://learn.microsoft.com/en-us/purview/deploy-scanner-configure-install?tabs=azure-portal-only#use-a-dlp-policy) |
 
+All configuration changes must come from the Purview Compliance portal. Microsoft provides the `Set-AIPScannerConfiguration` cmdlet, but you must first set the scanner to function in **offline** mode. See [Restriction: The scanner server cannot have internet connectivity](https://learn.microsoft.com/en-us/purview/deploy-scanner-prereqs#restriction-the-scanner-server-cannot-have-internet-connectivity).
+
+<img src='img/20231114-071435.png' width=800px>
+
 ### Operating the Scanner
 Here's a list of useful commands:
 - `Start-AIPScan` 
@@ -461,11 +465,6 @@ Run `Get-AIPScannerStatus`:
 On the scanner server, run `Start-AIPScannerDiagnostics`. 
 
 <img src='img/20231132-033224.png' width=700px>
-
-<figure>
-  <img src="img/20231137-063746.png" width=300px />
-  <figcaption>test</figcaption>
-</figure>
 
 By default, policy refreshes occur every 4 hours. Use the `-ResetConfig` option to pull the latest policy configuration from the cloud.
 
