@@ -428,12 +428,12 @@ Full descriptions are available in the context menu. Here are some of the key op
 
 ### Operating the Scanner
 Here's a list of useful commands:
-- `Start-AIPScan`
-- `Get-AIPScannerStatus`
-- `Get-AIPScannerConfiguration`
-- `Get-AIPScannerContentScanJob`
+- `Start-AIPScan` 
+- `Get-AIPScannerStatus`: indicates status of the scanner cluster, whether the cluster is scanning, idle, or offline
+- `Get-AIPScannerConfiguration`: lists report level, SQL instance, database, and online/offline configuration state
+- `Get-AIPScannerContentScanJob`: lists the scanner settings that repositories inherit from the content scan job
+- `Get-AIPScannerRepository`: lists the effective scanner settings for the repository
 - `Start-AIPScannerDiagnostics`: Use the `-ResetConfig` option to reset the policy cache. By default, policy refreshes occur every 4 hours.
-
 
 Use the **Content scan jobs** tab to start a manual scan.
 
@@ -462,7 +462,12 @@ On the scanner server, run `Start-AIPScannerDiagnostics`.
 
 <img src='img/20231132-033224.png' width=700px>
 
-Use the `-ResetConfig` option to pull the latest policy configuration from the cloud. By default, policy refreshes occur every 4 hours.
+<figure>
+  <img src="img/20231137-063746.png" width=600px />
+  <figcaption>test</figcaption>
+</figure>
+
+By default, policy refreshes occur every 4 hours. Use the `-ResetConfig` option to pull the latest policy configuration from the cloud.
 
 <img src='img/20231120-032018.png' width=700px>
 
@@ -470,7 +475,7 @@ In the case shown above, the command may fail to delete the policy cache. The on
 
 ```powershell
 Stop-Service AIPScanner
-Remove-Item "%LOCALAPPDATA%\Microsoft\MSIP\mip\MSIP.Scanner.exe\mip\mip.policies.sqlite3"
+Remove-Item "$env:LOCALAPPDATA\Microsoft\MSIP\mip\MSIP.Scanner.exe\mip\mip.policies.sqlite3"
 Start-Service AIPScanner
 ```
 
