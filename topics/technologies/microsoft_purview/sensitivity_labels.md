@@ -463,7 +463,7 @@ On the scanner server, run `Start-AIPScannerDiagnostics`.
 <img src='img/20231132-033224.png' width=700px>
 
 <figure>
-  <img src="img/20231137-063746.png" width=600px />
+  <img src="img/20231137-063746.png" width=300px />
   <figcaption>test</figcaption>
 </figure>
 
