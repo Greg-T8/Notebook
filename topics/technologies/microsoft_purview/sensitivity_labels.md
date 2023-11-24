@@ -407,12 +407,12 @@ When running `Set-AIPAuthentication`, use the `-DelegatedUser` parameter to spec
 
 <img src='img/20231118-051821.png' width=700px>
 
-While the result indicates success, this doesn't guarantee that the scanner will operate without error. After the installation is complete, run `Start-AIPScannerDiagnostics` to confirm the configuration:
+While the result indicates success, it doesn't guarantee that the scanner will operate without error. After the installation is complete, run `Start-AIPScannerDiagnostics` to confirm the configuration:
 
 <img src='img/20231128-052837.png' width=600px>
 
 ### Configuring the Scanner
-Here's a list of the options for an on-prem scan job:
+The scanner has a number of configuration options that are not immediately intuitive. Here's a list of the options for an on-prem scan job:
 
 <img src='img/20231116-041658.png' width=400px>
 
@@ -451,26 +451,33 @@ When the scan is complete, review the reports in **%localappdata\Microsoft\MSIP\
 
 <img src='img/20231126-042628.png' width=700px>
 
+You can use PowerShell to view a summary of the last scan results:
+```powershell
+Get-AIPScannerStatus | Select -ExpandProperty nodesinfo | select -ExpandProperty summary
+```
+
+<img src='img/20231103-050311.png' width=600px>
+
 
 ### Troubleshooting the Scanner
 In the settings of the Purview Compliance portal, check the **Nodes** tab for errors.
 
 <img src='img/20231112-041222.png' width=600px>
 
-Run `Get-AIPScannerStatus`: 
+Run `Get-AIPScannerStatus` and verify the cluster status: 
 
 <img src='img/20231104-030416.png' width=500px>
 
 #### Troubleshooting Scanner Configuration
-On the scanner server, run `Start-AIPScannerDiagnostics`. 
+On the scanner server, run `Start-AIPScannerDiagnostics`.  The command will output text in red if there's an error in the scanner configuration. The DiagnosticLogs.zip file can be used for further troubleshooting. For example, the zip file includes an export of the **policy.xml** file, which you can use to confirm settings from the label policy.
 
 <img src='img/20231132-033224.png' width=700px>
 
-By default, policy refreshes occur every 4 hours. Use the `-ResetConfig` option to pull the latest policy configuration from the cloud.
+The scanner policy refreshes occur every 4 hours. Use the `-ResetConfig` option to pull the latest policy configuration from the cloud.
 
 <img src='img/20231120-032018.png' width=700px>
 
-In the case shown above, the command may fail to delete the policy cache. The on-prem scanner uses the **Azure Information Protection Scanner** service. You may need to stop this service to delete the policy cache manually. 
+When using `-ResetConfig` I always encounter the warning message "Failed to delete policy cache...". So, instead of using the `-ResetConfig` switch, I manually delete the policy cache using the following commands:
 
 ```powershell
 Stop-Service AIPScanner
@@ -478,7 +485,10 @@ Remove-Item "$env:LOCALAPPDATA\Microsoft\MSIP\mip\MSIP.Scanner.exe\mip\mip.polic
 Start-Service AIPScanner
 ```
 
-<img src='img/20231122-042230.png' width=600px>
+After running the commands to delete the policy cache, wait 10-15 seconds for the changes to take effect, and then run the following commands to verify the changes:
+- `Start-AIPScannerDiagnostics`: confirm there are no errors in the configuration
+- `Get-AIPScannerContentScanJob`: confirm parent settings (there are only a few of them)
+- `Get-AIPScannerRepository`: confirm the child, i.e. inherited, settings
 
 #### Troubleshooting Scan Jobs
 When troubleshooting small scan jobs, use the `-Reset` switch in `Start-AIPScan` to reset the scanner cache so that the scanner initiates a full scan of all files even if they have been scanned before and the Azure Information Protection policy has not changed.
