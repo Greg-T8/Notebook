@@ -27,6 +27,7 @@
   - [Troubleshooting the Scanner](#troubleshooting-the-scanner)
     - [Troubleshooting Scanner Configuration](#troubleshooting-scanner-configuration)
     - [Troubleshooting Scan Jobs](#troubleshooting-scan-jobs)
+      - [Scan Job Detailed Reports](#scan-job-detailed-reports)
 - [External Access](#external-access)
   - [Azure RMS for Individuals](#azure-rms-for-individuals)
     - [Azure RMS Sign-Up Experiences](#azure-rms-sign-up-experiences)
@@ -493,13 +494,12 @@ After running the commands to delete the policy cache, wait 10-15 seconds for th
 #### Troubleshooting Scan Jobs
 When troubleshooting small scan jobs, use the `-Reset` switch in `Start-AIPScan` to reset the scanner cache so that the scanner initiates a full scan of all files even if they have been scanned before and the Azure Information Protection policy has not changed.
 
-When troubleshooting the result of scan jobs, use `Set-AIPScannerConfiguration -ReportLevel Error` to enable detailed logging in the scan report.
+##### Scan Job Detailed Reports
+Each scan job provides a detailed report, in .csv format, of labeling activities.  When troubleshooting the result of scan jobs, use `Set-AIPScannerConfiguration -ReportLevel Debug` to enable detailed logging for all scanned files. See [Set-AIPScannerConfiguration](https://learn.microsoft.com/en-us/powershell/module/azureinformationprotection/set-aipscannerconfiguration?view=azureipps#-reportlevel) for more detail on this option.
 
-<img src='img/20231157-035754.png' width=400px>
 
-There's also `-ReportLevel Debug`, but only use this option when the `-ReportLevel Error` option does not provide enough information.
 
-<img src='img/20231151-035159.png' width=600px>
+If the report is not available, then toggle the `-ReportLevel` option, for example from to `Info` to `Debug` and run the scan job again; then toggle it back.
 
 ## External Access
 Users must have an account in Entra ID to access protected content. Azure/Office 365 customers can access without any additional configuration.  Non-Azure/Office 365 customers must sign up for an Azure RMS for Individuals account. The Azure RMS for Individuals service creates an account in an unmanaged Entra ID tenant.
