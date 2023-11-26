@@ -475,8 +475,7 @@ Get-AIPScannerStatus | Select -ExpandProperty nodesinfo | select -ExpandProperty
 
 When the scan is complete, review the reports in **%localappdata\Microsoft\MSIP\Scanner\Reports**. The report is in a CSV format.
 
-<img src='img/20231126-042628.png' width=700px>
-
+<img src='img/20231158-055807.png' width=800px>
 
 
 ### Troubleshooting the Scanner
