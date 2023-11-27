@@ -24,12 +24,18 @@
   - [Installing the Scanner](#installing-the-scanner)
   - [Configuring the Scanner](#configuring-the-scanner)
     - [Scanning Scenarios](#scanning-scenarios)
+      - [Scenario 1: Perform a discovery scan for all files](#scenario-1-perform-a-discovery-scan-for-all-files)
+      - [Scenario 2: Perform a discovery scan on all files for only files that contain sensitive information](#scenario-2-perform-a-discovery-scan-on-all-files-for-only-files-that-contain-sensitive-information)
+      - [Scenario 3: Run the scanner automatically](#scenario-3-run-the-scanner-automatically)
+      - [Scenario 4: Specify specific files to scan or exclude](#scenario-4-specify-specific-files-to-scan-or-exclude)
     - [Offline Mode](#offline-mode)
   - [Operating the Scanner](#operating-the-scanner)
+    - [Always-On Mode](#always-on-mode)
+    - [Manual Mode](#manual-mode)
+    - [Review Scanner Results](#review-scanner-results)
   - [Troubleshooting the Scanner](#troubleshooting-the-scanner)
-    - [Troubleshooting Scanner Configuration](#troubleshooting-scanner-configuration)
-    - [Troubleshooting Scan Jobs](#troubleshooting-scan-jobs)
-      - [Scan Job Detailed Reports](#scan-job-detailed-reports)
+    - [Troubleshoot the Scanner Configuration](#troubleshoot-the-scanner-configuration)
+    - [Recycle the Scanner Service](#recycle-the-scanner-service)
 - [External Access](#external-access)
   - [Azure RMS for Individuals](#azure-rms-for-individuals)
     - [Azure RMS Sign-Up Experiences](#azure-rms-sign-up-experiences)
@@ -398,13 +404,14 @@ You do not need a synced account to use the scanner.  You can use a non-synced A
 Follow through the guidance in [Configure and install the scanner](https://learn.microsoft.com/en-us/purview/deploy-scanner-configure-install?tabs=azure-portal-only). Then follow through [Prerequisites for running AIP labeling cmdlets unattended](https://learn.microsoft.com/en-us/azure/information-protection/rms-client/clientv2-admin-guide-powershell#prerequisites-for-running-aip-labeling-cmdlets-unattended). 
 
 Here are some of the key steps:
+
 1. Create the scanner cluster and content scan job in Microsoft Purview Compliance > Settings > Information Protection Scanner
 2. Install the scanner using `Install-AIPScanner` with the `-SQLServerInstance` and `-Cluster` parameters
 3. Create an app registration and with secret value
 4. Configure app registration permissions for the **Azure Rights Management Services** and **Microsoft Information Protection** APIs
 5. Run `Set-AIPAuthentication` to configure the scanner to use the app registration. 
 
-Here's a look at the API configurations:  
+When running through the prerequisites listed above you need to add permissions for the **Azure Rights Management Services** API and the **Microsoft Information Protection Sync Service** API:  
 
 <img src='img/20231109-050925.png' width=700px>
 
@@ -432,29 +439,48 @@ Full descriptions are available in the context menu. Here are some of the key op
 | **Enable DLP policy rules** | See [Use a DLP policy](https://learn.microsoft.com/en-us/purview/deploy-scanner-configure-install?tabs=azure-portal-only#use-a-dlp-policy) |
 
 #### Scanning Scenarios
-**Scenario 1:** Perform a discovery scan for all files
+##### Scenario 1: Perform a discovery scan for all files
+
+- **Enforce sensitivity labeling policy**: Off
 - **Label files based on content**: Off
 - **Default label**: Custom
 
-**Scenario 2:** Perform a discovery scan on all files for only files that contain sensitive information
-- **Info types to be discovered**: All
+Use `Set-AIPScannerConfiguration` with the `-ReportLevel Debug` option to log results for every file. The results are stored in a CSV that detail (1) whether if any files have existing protection and (2) the action that would be taken when **Enforce sensitivity labeling policy** is set to **On**.
+
+##### Scenario 2: Perform a discovery scan on all files for only files that contain sensitive information
+
 - **Enforce sensitivity labeling policy**: Off
+- **Info types to be discovered**: All
 - **Label files based on content**: On
-- **Default label**: Policy default or Custom
+- **Default label**: None
 
-**Scenario 3:** Run the scanner automatically
+Use `Set-AIPScannerConfiguration` with the `-ReportLevel Info` option to only record files that contain sensitive information. The scanner report contains the column **Information Type Name**. This column indicates the sensitive information type detected in the file. The column **Applied Label** indicates the type of label that would be applied if a labeling policy was in place.
 
-**Scenario 4:** Specify specific files to scan or exclude
+##### Scenario 3: Run the scanner automatically
+
+The following configuration runs the scanner automatically and only protects files with sensitive information types that are specified by labeling policies.
+
+- **Schedule**: Always
+- **Enforce sensitivity labeling policy**: On
+- **Info types to be discovered**: Policy Only
+- **Treat recommended labeling as automatic**: On
+- **Label files based on content**: On
+- **Default label**: None
+
+##### Scenario 4: Specify specific files to scan or exclude
+
 - **Include or exclude file type to scan**: Include; then specify file extensions, e.g. .docx, .pdf, etc.
 
-
 #### Offline Mode
+
 All configuration changes must come from the Purview Compliance portal. You can use the `Set-AIPScannerConfiguration` cmdlet to update configuration locally, but you must first set the scanner to function in **offline** mode. See [Restriction: The scanner server cannot have internet connectivity](https://learn.microsoft.com/en-us/purview/deploy-scanner-prereqs#restriction-the-scanner-server-cannot-have-internet-connectivity).
 
 <img src='img/20231114-071435.png' width=800px>
 
 ### Operating the Scanner
+
 Here's a list of useful commands:
+
 - `Start-AIPScan`: Use the `-Reset` option to scan all files instead of just new or modified files
 - `Get-AIPScannerStatus`: indicates status of the scanner cluster, whether the cluster is scanning, idle, or offline
 - `Get-AIPScannerConfiguration`: lists report level, SQL instance, database, and online/offline configuration state
@@ -462,11 +488,27 @@ Here's a list of useful commands:
 - `Get-AIPScannerRepository`: lists the effective scanner settings for the repository
 - `Start-AIPScannerDiagnostics`: Use the `-ResetConfig` option to reset the policy cache. By default, policy refreshes occur every 4 hours.
 
-When in regular operation, you would typically set the scanner to operate on a regular schedule. However, you can use the **Scan Now** button in the **Content scan jobs** tab to start a manual scan.
+#### Always-On Mode
+
+When in regular operation, you configure the scanner to operate on in an always-on mode by setting the **Schedule** in the portal to **Always**.  In this case, the scanner continually operates and remains in the **Scanning** state.
+
+<img src='img/20231136-033600.png' width=350px>
+
+You cannot use `Stop-AIPScan` to stop the scanner service when the scanner is in always-on mode. To stop the scanner, you must (1) set the **Schedule** in the portal to **Manual** and (2) [recycle the scanner service](#recycle-the-scanner-service).
+
+#### Manual Mode
+
+In the **Content scan jobs** tab, use either the **Scan now** option or the **Rescan all files** option to run a manual scan. The **Scan now** option scans only new or modified files. The **Rescan all files** option scans all files, even if they have been scanned before and the Azure Information Protection policy has not changed.
 
 <img src='img/20231114-041447.png' width=600px>
 
+When initiating a scan from the portal, it may take a few minutes for the scan to start. For immediate results, use `Start-AIPScan` with the `-Reset` option to perform a full scan of all files.
+
+
+#### Review Scanner Results
+
 The portal doesn't show you details of the scan results. You must retrieve this information on the scanner server. Here's a useful PowerShell command for viewing a summary of scan results:
+
 ```powershell
 Get-AIPScannerStatus | Select -ExpandProperty nodesinfo | select -ExpandProperty summary
 ```
@@ -477,8 +519,8 @@ When the scan is complete, review the reports in **%localappdata\Microsoft\MSIP\
 
 <img src='img/20231158-055807.png' width=800px>
 
-
 ### Troubleshooting the Scanner
+
 In the settings of the Purview Compliance portal, check the **Nodes** tab for errors.
 
 <img src='img/20231112-041222.png' width=600px>
@@ -487,10 +529,12 @@ Run `Get-AIPScannerStatus` and verify the cluster status:
 
 <img src='img/20231104-030416.png' width=500px>
 
-#### Troubleshooting Scanner Configuration
+#### Troubleshoot the Scanner Configuration
 On the scanner server, run `Start-AIPScannerDiagnostics`.  The command will output text in red if there's an error in the scanner configuration. The DiagnosticLogs.zip file can be used for further troubleshooting. For example, the zip file includes an export of the **policy.xml** file, which you can use to confirm settings from the label policy.
 
 <img src='img/20231132-033224.png' width=700px>
+
+#### Recycle the Scanner Service
 
 The scanner policy refreshes occur every 4 hours. You can use the `-ResetConfig` option to pull the latest policy configuration from the cloud. However, when using `-ResetConfig` I always encounter the warning message "Failed to delete policy cache...". So, instead of using the `-ResetConfig` switch, I manually delete the policy cache using the following commands:
 
@@ -501,14 +545,19 @@ Start-Service AIPScanner
 ```
 
 After running the commands to delete the policy cache, wait 10-15 seconds for the changes to take effect, and then run the following commands to verify the changes:
+
 - `Start-AIPScannerDiagnostics`: confirm there are no errors in the configuration
 - `Get-AIPScannerContentScanJob`: confirm parent settings for the scanner repository (there are only three of them)
 - `Get-AIPScannerRepository`: confirm all the explicit settings or the inherited settings from the content scan job
 
-#### Troubleshooting Scan Jobs
-When troubleshooting small scan jobs, `Start-AIPScan` with the `-Reset` to reset the scanner cache so that the scanner initiates a full scan of all files, even if they have been scanned before and the Azure Information Protection policy has not changed.
+When troubleshooting scan jobs, use `Start-AIPScan` with the `-Reset` option to perform a full scan of all files, even if the files have been scanned before and the Azure Information Protection policy has not changed.
 
-##### Scan Job Detailed Reports
+Use `Get-AIPScannerStatus` to monitor the job results:  
+
+```powershell
+Get-AIPScannerStatus | Select -ExpandProperty nodesinfo | select -ExpandProperty summary
+```
+
 Each scan job provides a detailed report, in .csv format, of labeling activities.  When troubleshooting the result of scan jobs, use `Set-AIPScannerConfiguration -ReportLevel Debug` to enable detailed logging for all scanned files. See [Set-AIPScannerConfiguration](https://learn.microsoft.com/en-us/powershell/module/azureinformationprotection/set-aipscannerconfiguration?view=azureipps#-reportlevel) for more detail on this option.
 
 If the report is not available, then toggle the `-ReportLevel` option, for example from to `Info` to `Debug` and run the scan job again; then toggle it back.
