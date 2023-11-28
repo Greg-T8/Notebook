@@ -398,9 +398,10 @@ Setup requirements:
 - Entra App Registration. See [Prerequisites for running AIP labeling cmdlets unattended](https://learn.microsoft.com/en-us/azure/information-protection/rms-client/clientv2-admin-guide-powershell#prerequisites-for-running-aip-labeling-cmdlets-unattended)
 - Cloud-only or synced account with labeling policies
 
-You do not need a synced account to use the scanner.  You can use a non-synced Active Directory account to operate the scanner service locally and then configure a cloud-only account to operate on behalf of the non-synced account.
+You do not need a synced account to use the scanner.  You can use a non-synced Active Directory account to operate the scanner service locally and then configure a cloud-only account to operate on behalf of the non-synced account. See [here](https://learn.microsoft.com/en-us/purview/deploy-scanner-prereqs#restriction-the-scanner-service-account-cannot-be-synchronized-to-microsoft-entra-id-but-the-server-has-internet-connectivity).
 
 ### Installing the Scanner
+
 Follow through the guidance in [Configure and install the scanner](https://learn.microsoft.com/en-us/purview/deploy-scanner-configure-install?tabs=azure-portal-only). Then follow through [Prerequisites for running AIP labeling cmdlets unattended](https://learn.microsoft.com/en-us/azure/information-protection/rms-client/clientv2-admin-guide-powershell#prerequisites-for-running-aip-labeling-cmdlets-unattended). 
 
 Here are some of the key steps:
@@ -438,7 +439,10 @@ Full descriptions are available in the context menu. Here are some of the key op
 | **Label files based on content** | Off: Apply a label to all files without inspecting the content <br> On: Apply a label to files that match the content inspection conditions |
 | **Enable DLP policy rules** | See [Use a DLP policy](https://learn.microsoft.com/en-us/purview/deploy-scanner-configure-install?tabs=azure-portal-only#use-a-dlp-policy) |
 
+Depending on the configuration you choose, your labels may need to have auto-labeling conditions, i.e. recommended labeling or automatic labeling. See [here](https://learn.microsoft.com/en-us/purview/deploy-scanner-prereqs#restriction-your-labels-do-not-have-auto-labeling-conditions). If your labels do not have these conditions, then you will receive configuration errors if **Discover all info types** is set to **Policy only**.
+
 #### Scanning Scenarios
+
 ##### Scenario 1: Perform a discovery scan for all files
 
 - **Enforce sensitivity labeling policy**: Off
@@ -471,11 +475,15 @@ The following configuration runs the scanner automatically and only protects fil
 
 - **Include or exclude file type to scan**: Include; then specify file extensions, e.g. .docx, .pdf, etc.
 
+In the other three scenarios, you can get away with configuring the settings in the content scan job. However, in this scenario, it is better to configure the settings in the repository. Reason being is the content scan job settings, i.e. the parent, have built-in exclusion rules for file types that are not supported, e.g. .lnk, .exe.  When configuring the repository, you can choose an explicit include rule for file types you want to be scanned, e.g. .docx, .pdf, etc.
+
 #### Offline Mode
 
-All configuration changes must come from the Purview Compliance portal. You can use the `Set-AIPScannerConfiguration` cmdlet to update configuration locally, but you must first set the scanner to function in **offline** mode. See [Restriction: The scanner server cannot have internet connectivity](https://learn.microsoft.com/en-us/purview/deploy-scanner-prereqs#restriction-the-scanner-server-cannot-have-internet-connectivity).
+All configuration changes must come from the Purview Compliance portal. You can use the `Set-AIPScannerConfiguration` cmdlet to update configuration locally, but you must first set the scanner to function in **offline** mode. If you try to update the scanner locally without the scanner running in offline mode, then you will receive an error message.
 
-<img src='img/20231114-071435.png' width=800px>
+<img src='img/20231114-071435.png' width=800px> 
+
+You would only want to set the scanner in offline mode if there is a requirement for the scanner to not have internet connectivity. In this case you would export the scan job configuration from the portal and import the configuration using `Import-AIPScannerConfiguration`. You also need to run `Set-AIPScannerContentScanJob` with the `-Enforce On` option. See [Restriction: The scanner server cannot have internet connectivity](https://learn.microsoft.com/en-us/purview/deploy-scanner-prereqs#restriction-the-scanner-server-cannot-have-internet-connectivity).
 
 ### Operating the Scanner
 
@@ -536,7 +544,7 @@ On the scanner server, run `Start-AIPScannerDiagnostics`.  The command will outp
 
 #### Recycle the Scanner Service
 
-The scanner policy refreshes occur every 4 hours. You can use the `-ResetConfig` option to pull the latest policy configuration from the cloud. However, when using `-ResetConfig` I always encounter the warning message "Failed to delete policy cache...". So, instead of using the `-ResetConfig` switch, I manually delete the policy cache using the following commands:
+The scanner policy refreshes occur every 4 hours. To force an immediate policy refresh, try running `Start-AIPSCannerDiagnostics` with the `-ResetConfig` option to pull the latest policy configuration from the cloud. However, when using `-ResetConfig` I always encounter the warning message "Failed to delete policy cache...". So, instead of running `StartAIPScannerDiagnostics -ResetConfig` switch, I manually delete the policy cache using the following commands:
 
 ```powershell
 Stop-Service AIPScanner
@@ -544,7 +552,7 @@ Remove-Item "$env:LOCALAPPDATA\Microsoft\MSIP\mip\MSIP.Scanner.exe\mip\mip.polic
 Start-Service AIPScanner
 ```
 
-After running the commands to delete the policy cache, wait 10-15 seconds for the changes to take effect, and then run the following commands to verify the changes:
+After running the commands to delete the policy cache, run the following commands to verify the changes:
 
 - `Start-AIPScannerDiagnostics`: confirm there are no errors in the configuration
 - `Get-AIPScannerContentScanJob`: confirm parent settings for the scanner repository (there are only three of them)
