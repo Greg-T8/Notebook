@@ -384,6 +384,8 @@ Purview Compliance roles required:
 - Security Administrator
 - Organization Management
 
+**NOTE:** You may need Global Admin to introduce the scanner cluster.
+
 Use the following links for more information:
 - [Overview of the scanner](https://learn.microsoft.com/en-us/purview/deploy-scanner#overview-of-the-scanner)
 - [Supported file types](https://learn.microsoft.com/en-us/azure/information-protection/rms-client/clientv2-admin-guide-file-types)
