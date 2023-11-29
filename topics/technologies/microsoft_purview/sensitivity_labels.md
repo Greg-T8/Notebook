@@ -148,8 +148,7 @@ If you delete a sensitivity label from the admin portal, the label isn't automat
 
 When specifying the label settings, use the Content Marking section to apply visible marking. You can specify conditional settings for Word, Excel, PowerPoint, and Outlook. See [Dynamic markings with variables](https://learn.microsoft.com/en-us/purview/sensitivity-labels-office-apps#dynamic-markings-with-variables).
 
-<img src='img/20231135-033559.png' width='500px'>
-
+<img src='img/20231159-035920.png' width='500px'>
 
 ### Built-in Labeling for the Office Apps
 A subscription edition of Office apps is required to use sensitivity labels. Standalone/perpetual editions of Office aren't supported.
