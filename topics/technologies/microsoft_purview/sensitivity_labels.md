@@ -7,6 +7,7 @@
   - [Container Support for Sensitivity Labels](#container-support-for-sensitivity-labels)
   - [Define and Create Sensitivity Labels](#define-and-create-sensitivity-labels)
   - [Editing or Deleting a Sensitivity Label](#editing-or-deleting-a-sensitivity-label)
+  - [Markings for Sensitivity Labels](#markings-for-sensitivity-labels)
   - [Built-in Labeling for the Office Apps](#built-in-labeling-for-the-office-apps)
   - [Label Taxonomy](#label-taxonomy)
 - [Roles and Permissions in Microsoft Purview Compliance](#roles-and-permissions-in-microsoft-purview-compliance)
@@ -142,6 +143,13 @@ See [Create and configure sensitivity labels and their policies](https://learn.m
 
 ### Editing or Deleting a Sensitivity Label
 If you delete a sensitivity label from the admin portal, the label isn't automatically removed from content, and any protection settings continue to be enforced on content that had that label applied. However, some caveats apply. See [Removing and deleting labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-sensitivity-labels?view=o365-worldwide#removing-and-deleting-labels) for more info.
+
+### Markings for Sensitivity Labels
+
+When specifying the label settings, use the Content Marking section to apply visible marking. You can specify conditional settings for Word, Excel, PowerPoint, and Outlook. See [Dynamic markings with variables](https://learn.microsoft.com/en-us/purview/sensitivity-labels-office-apps#dynamic-markings-with-variables).
+
+<img src='img/20231135-033559.png' width='500px'>
+
 
 ### Built-in Labeling for the Office Apps
 A subscription edition of Office apps is required to use sensitivity labels. Standalone/perpetual editions of Office aren't supported.
