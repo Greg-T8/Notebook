@@ -65,7 +65,6 @@
   - [Activity Explorer](#activity-explorer)
   - [Auditing Framework](#auditing-framework)
   - [Search-UnifiedAuditLog Cmdlet](#search-unifiedauditlog-cmdlet)
-  - [Microsoft Defender for Cloud Apps (Content Needed)](#microsoft-defender-for-cloud-apps-content-needed)
 - [Use PowerShell to Manage Sensitivity Labels and RMS Templates](#use-powershell-to-manage-sensitivity-labels-and-rms-templates)
   - [Get Info on Sensitivity Labels and Policies](#get-info-on-sensitivity-labels-and-policies)
   - [Create a Sensitivity Label](#create-a-sensitivity-label)
@@ -891,9 +890,6 @@ The article, [Analyzing the Use of Sensitivity Labels without the Activity Explo
 
 
 See [Sensitivity label activities](https://learn.microsoft.com/en-us/microsoft-365/compliance/audit-log-activities?view=o365-worldwide#sensitivity-label-activities) for a list of all events from using sensitivity labels. See [Sentinel - Microsoft Purview Information Protection Connector Reference](https://learn.microsoft.com/en-us/azure/sentinel/microsoft-purview-record-types-activities) for a list of Information Protection activities. The [Office 365 Management Activity API schema](https://learn.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-schema) is a definitive list of all properties in audit data record types.
-
-### Microsoft Defender for Cloud Apps (Content Needed)
-
 
 ## Use PowerShell to Manage Sensitivity Labels and RMS Templates
 

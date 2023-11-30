@@ -32,8 +32,8 @@ Learning Effort:
 - Manage protection settings and marking for applied sensitivity labels
 
 Learning Effort:
-- Hours Committed: 
-- Dates: 6/13/23 - current
+- Hours Committed: 96 
+- Dates: 6/13/23 - 11/30/23
 
 ## Design and implement encryption for email messages
 - Design an email encryption solution based on methods available in Microsoft 365
