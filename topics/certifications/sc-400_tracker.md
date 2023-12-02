@@ -35,10 +35,14 @@ Learning Effort:
 - Hours Committed: 96 
 - Dates: 6/13/23 - 11/30/23
 
-## Design and implement encryption for email messages
+## [Design and implement encryption for email messages](/topics/technologies/microsoft_purview/message-encryption.md)
 - Design an email encryption solution based on methods available in Microsoft 365
 - Implement Microsoft Purview Message Encryption
 - Implement Microsoft Purview Advanced Message Encryption
+
+Learning Effort:
+- Hours Committed:
+- Dates: 12/2/23 - 
 
 # Implement DLP (15–20%)
 ## Create and configure DLP policies
