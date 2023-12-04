@@ -424,6 +424,10 @@ When running through the prerequisites listed above you need to add permissions 
 
 <img src='img/20231109-050925.png' width=700px>
 
+When running `Install-AIPScanner`, make sure to give the service accounts the rights it needs to access the SQL instance. Here's an example of a successful install.
+
+<img src=img/20231252-035231.png width=700px>
+
 When running `Set-AIPAuthentication`, use the `-DelegatedUser` parameter to specify an Azure AD user account that has an assigned labeling policy.  Use the `-OnBehalfOf` parameter to specify an Active Directory account that runs the scanner service.
 
 <img src='img/20231118-051821.png' width=700px>

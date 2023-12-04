@@ -27,6 +27,24 @@ There are two flavors of Microsoft Purview Message Encryption:
 
 Purview Message Encryption is included with M365 E3. Advanced Message Encryption is included in M365 E5. See [Advanced Message Encryption](https://learn.microsoft.com/en-us/purview/ome-advanced-message-encryption).
 
+## Message Encryption Requirements
+
+The only prerequisite for message encryption is to active the Azure Rights Management (RMS) service. Azure RMS is activated automatically once an eligible plan is introduced, so no action is required.  See [here](https://learn.microsoft.com/en-us/purview/set-up-new-message-encryption-capabilities#verify-that-azure-rights-management-is-active). To confirm service enablement, run `Get-AIPService`. See [here](https://learn.microsoft.com/en-us/azure/information-protection/activate-service#activate-protection-via-powershell). You can also verify by running `Get-IRMConfiguration`.  See [here](https://learn.microsoft.com/en-us/purview/set-up-new-message-encryption-capabilities#verify-microsoft-purview-message-encryption-configuration-in-exchange-online-powershell).
+
+You can't encrypt inbound messages. You can only encrypt outbound messages. If you try to set up a rule to encrypt inbound messages, then the inbound mail will be delivered without encryption. See [here](https://learn.microsoft.com/en-us/purview/define-mail-flow-rules-to-encrypt-email).
+
+## Using Message Encryption
+
+When using mail flow rules, use the option **Apply Office 365 Message Encryption and rights protection**. See [Define mail flow rules to encrypt email messages](https://learn.microsoft.com/en-us/purview/define-mail-flow-rules-to-encrypt-email).
+
+<img src='img/20231251-035100.png' width='400px'>
+
+
+
+
+## Advanced Message Encryption
+
+Per [here](https://learn.microsoft.com/en-us/purview/ome#:~:text=Message%20revocation%20and%20expiration%20only%20work%20for%20emails%20that%20your%20users%20send%20to%20recipients%20outside%20your%20organization.), message revocation and expiration only work for emails that your users send outside your organization.  
 
 ## Helpful Links
 
