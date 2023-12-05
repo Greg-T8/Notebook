@@ -39,12 +39,13 @@ When using mail flow rules, use the option **Apply Office 365 Message Encryption
 
 <img src='img/20231251-035100.png' width='400px'>
 
-
-
-
 ## Advanced Message Encryption
 
 Per [here](https://learn.microsoft.com/en-us/purview/ome#:~:text=Message%20revocation%20and%20expiration%20only%20work%20for%20emails%20that%20your%20users%20send%20to%20recipients%20outside%20your%20organization.), message revocation and expiration only work for emails that your users send outside your organization.  
+
+## Branding Encrypted Messages
+
+- [Add your organization's brand to your Microsoft Purview Message Encryption encrypted messages](https://learn.microsoft.com/en-us/purview/add-your-organization-brand-to-encrypted-messages)
 
 ## Helpful Links
 
