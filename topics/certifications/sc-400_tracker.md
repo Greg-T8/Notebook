@@ -1,7 +1,18 @@
+# Microsoft Certified: Information Protection and Compliance Administrator Associate
+
+- [Main Page](https://learn.microsoft.com/en-us/certifications/information-protection-administrator/)
+- [SC-400 Exam Page](https://learn.microsoft.com/en-us/certifications/exams/sc-400)
+- [SC-400 Study Guide](https://learn.microsoft.com/en-us/certifications/resources/study-guides/sc-400)
+- [SC-400 MeasureUp Practice Test](https://www.measureup.com/microsoft-practice-test-sc-400-microsoft-information-protection-administrator.html)
+- [My Study Notes](/topics/certifications/sc-400_tracker.md)
+
 The following information is taken from the SC-400 study guide: https://learn.microsoft.com/en-us/certifications/resources/study-guides/sc-400
 
-# Implement information protection (25–30%)
-## [Create and manage sensitive info types](/topics/technologies/microsoft_purview/sensitive_information_types.md)
+## Skills Measured
+
+###  Implement information protection (25–30%)
+
+### [Create and manage sensitive info types](/topics/technologies/microsoft_purview/sensitive_information_types.md)
 - Identify sensitive information requirements for an organization's data
 - Translate sensitive information requirements into built-in or custom sensitive info types
 - Create and manage custom sensitive info types
