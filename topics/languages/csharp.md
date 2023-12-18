@@ -108,6 +108,7 @@ See [Configure language version](https://learn.microsoft.com/en-us/dotnet/csharp
   <summary>Troubleshooting Visual Studio</summary>
 
 #### Build Error - Unable to find packages
+
 When creating a new application and building it for the first time, you may get an error like this:
 ![](img/20230656-155606.png)
 
