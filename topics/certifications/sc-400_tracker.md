@@ -8,6 +8,8 @@
 
 The following information is taken from the SC-400 study guide: https://learn.microsoft.com/en-us/certifications/resources/study-guides/sc-400
 
+**Note:** On 12/21/23, I stopped studying for this exam as Microsoft removed it from the Cybersecurity Architect Expert track.
+
 ## Skills Measured
 
 ###  Implement information protection (25–30%)
@@ -53,7 +55,7 @@ Learning Effort:
 
 Learning Effort:
 - Hours Committed:
-- Dates: 12/2/23 - 
+- Dates: 12/2/23 - 12/5/23 
 
 # Implement DLP (15–20%)
 ## Create and configure DLP policies
