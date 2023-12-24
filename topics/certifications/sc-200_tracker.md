@@ -5,6 +5,8 @@
 - [SC-200 Study Guide](https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/sc-200)
 - [SC-200 MeasureUp Practice Test](https://www.measureup.com/microsoft-practice-test-sc-200-microsoft-security-operations-analyst.html)
 
+<img src='img/20231206-110641.png' width=800px>
+
 ## Skills at a glance
 
 - Mitigate threats by using Microsoft 365 Defender (25–30%)
@@ -12,6 +14,83 @@
 - Mitigate threats by using Microsoft Sentinel (50–55%)
 
 ## Mitigate threats by using Microsoft Defender
+
+<details> <summary>Guidance and Expectations</summary>
+<br>
+
+The following slides were taken from [Preparing for SC-200 - Mitigate threats using Microsoft 365 Defender](https://learn.microsoft.com/en-us/shows/exam-readiness-zone/preparing-for-sc-200-mitigate-threats-using-microsoft-365-defender-1-of-3).
+
+<img src='img/20231209-110923.png' width=600px>
+
+Understand the process involved with Automated Investigation and Response (AIR). See [Automated Investigation and Response](https://learn.microsoft.com/en-us/microsoft-365/security/office-365-security/air-about?view=o365-worldwide).
+
+<img src='img/20231211-111149.png' width=700px>
+
+Understand all the components in the Investigation graph. See [Threat Investigation and Response](https://learn.microsoft.com/en-us/microsoft-365/security/office-365-security/office-365-ti?view=o365-worldwide).  Know the things that can be done when something is detected.
+
+<img src='img/20231215-111540.png' width=700px>
+
+See [Investigate DLP alerts with Microsoft Defender XDR](https://learn.microsoft.com/en-us/microsoft-365/security/defender/dlp-investigate-alerts-defender?view=o365-worldwide).
+
+<img src='img/20231229-112916.png' width=700px>
+
+<img src='img/20231231-113150.png' width=700px>
+
+<img src='img/20231233-113314.png' width=700px>
+
+<img src='img/20231234-113409.png' width=800px>
+
+In Defender for Endpoint, pay attention to the Live Response feature.
+
+<img src='img/20231235-113519.png' width=700px>
+
+In Defender for Endpoint, know all the ways to onboard and offboard a device.
+
+<img src='img/20231236-113611.png' width=700px>
+
+<img src='img/20231237-113703.png' width=700px>
+
+Know how to manage device groups in terms auto remediation.
+
+<img src='img/20231238-113809.png' width=700px>
+
+Know the Threat and Vulnerability Management (TVM) solution.
+
+<img src='img/20231239-113934.png' width=700px>
+
+Know how to use KQL to perform hunting.
+
+<img src='img/20231241-114105.png' width=700px>
+
+Know Entra Identity Protection.
+
+<img src='img/20231242-114204.png' width=700px>
+
+Know this workflow.
+
+<img src='img/20231244-114435.png' width=700px>
+
+<img src='img/20231243-114358.png' width=700px>
+
+<img src='img/20231234-143404.png' width=700px>
+
+Understand the two tabs in Action Center.
+
+<img src='img/20231235-143510.png' width=700px>
+
+<img src='img/20231235-143545.png' width=700px>
+
+Understand what makes up and what you can do to improve secure score.
+
+<img src='img/20231250-145020.png' width=700px>
+
+<img src='img/20231250-145045.png' width=700px>
+
+<img src='img/20231251-145137.png' width=700px>
+
+<img src='img/20231252-145236.png' width=700px>
+
+</details>
 
 ### Mitigate threats to the Microsoft 365 environment by using Microsoft Defender
 
