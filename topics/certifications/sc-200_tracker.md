@@ -133,6 +133,67 @@ Understand what makes up and what you can do to improve secure score.
 
 ## Mitigate threats by using Defender for Cloud (15–20%)
 
+<details> <summary>Guidance and Expectations</summary>
+<br>
+
+The following slides were taken from [Preparing for SC-200 - Mitigate threats using Microsoft 365 Defender for Cloud](https://learn.microsoft.com/en-us/shows/exam-readiness-zone/preparing-for-sc-200-mitigate-threats-using-microsoft-365-defender-for-cloud-2-of-3).
+
+<img src='img/20231259-145956.png' width=700px>
+
+<img src='img/20231200-150042.png' width=700px>
+
+Role-based access control is a rich area for the exam.
+
+<img src='img/20231202-150213.png' width=700px>
+
+<img src='img/20231203-150309.png' width=700px>
+
+<img src='img/20231203-150330.png' width=700px>
+
+<img src='img/20231204-150454.png' width=700px>
+
+<img src='img/20231206-150605.png' width=700px>
+
+<img src='img/20231206-150657.png' width=700px>
+
+<img src='img/20231207-150750.png' width=700px>
+
+<img src='img/20231208-150840.png' width=700px>
+
+Azure Arc is key to understand for the exam.
+
+<img src='img/20231209-150948.png' width=700px>
+
+<img src='img/20231210-151056.png' width=700px>
+
+<img src='img/20231211-151139.png' width=700px>
+
+<img src='img/20231212-151217.png' width=700px>
+
+<img src='img/20231213-151326.png' width=700px>
+
+Know LogicApps for automating workflow.
+
+<img src='img/20231214-151412.png' width=700px>
+
+LogicApps lead to remediations.
+
+<img src='img/20231214-151444.png' width=700px>
+
+Know the severity levels.
+
+<img src='img/20231215-151538.png' width=700px>
+
+Know where to look for the report.
+
+<img src='img/20231216-151641.png' width=700px>
+
+<img src='img/20231217-151758.png' width=700px>
+
+<img src='img/20231219-151938.png' width=700px>
+
+</details>
+
 ### Implement and maintain cloud security posture management
 
 - Assign and manage regulatory compliance policies, including Microsoft cloud security benchmark (MCSB)
