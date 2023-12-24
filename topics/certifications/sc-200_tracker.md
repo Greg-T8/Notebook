@@ -222,6 +222,38 @@ Know where to look for the report.
 
 ## Mitigate threats by using Microsoft Sentinel (50–55%)
 
+<details open> <summary>Guidance and Expectations</summary>
+<br>
+
+The following slides were taken from [Preparing for SC-200 - Mitigate threats using Microsoft Sentinel](https://learn.microsoft.com/en-us/shows/exam-readiness-zone/preparing-for-sc-200-mitigate-threats-using-microsoft-sentinel-3-of-3).
+
+<img src='img/20231252-155207.png' width=700px>
+
+Know why you would have multiple workspaces.
+
+<img src='img/20231252-155259.png' width=700px>
+
+<img src='img/20231253-155344.png' width=700px>
+
+Know the default values and how to set them.
+
+<img src='img/20231254-155427.png' width=700px>
+
+<img src='img/20231255-155517.png' width=700px>
+
+<img src='img/20231256-155622.png' width=700px>
+
+<img src='img/20231257-155733.png' width=700px>
+
+<img src='img/20231258-155835.png' width=700px>
+
+<img src='img/20231259-155924.png' width=700px>
+
+
+
+
+</details>
+
 ### Design and configure a Microsoft Sentinel workspace
 
 - Plan a Microsoft Sentinel workspace
