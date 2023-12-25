@@ -222,7 +222,7 @@ Know where to look for the report.
 
 ## Mitigate threats by using Microsoft Sentinel (50–55%)
 
-<details open> <summary>Guidance and Expectations</summary>
+<details> <summary>Guidance and Expectations</summary>
 <br>
 
 The following slides were taken from [Preparing for SC-200 - Mitigate threats using Microsoft Sentinel](https://learn.microsoft.com/en-us/shows/exam-readiness-zone/preparing-for-sc-200-mitigate-threats-using-microsoft-sentinel-3-of-3).
@@ -248,6 +248,102 @@ Know the default values and how to set them.
 <img src='img/20231258-155835.png' width=700px>
 
 <img src='img/20231259-155924.png' width=700px>
+
+Know the core connectors for Sentinel.
+
+<img src='img/20231205-050518.png' width=700px>
+
+Know how to configure the Linux agent.
+
+<img src='img/20231206-050624.png' width=700px>
+
+Know how to use on-prem-based and cloud-based forwarders.
+
+<img src='img/20231206-050657.png' width=700px>
+
+<img src='img/20231207-050754.png' width=700px>
+
+<img src='img/20231209-050937.png' width=700px>
+
+Know the 6 types of analytics rules.
+
+<img src='img/20231211-051121.png' width=700px>
+
+<img src='img/20231213-051307.png' width=700px>
+
+Get familiar w/ foundational structure of existing queries.
+
+<img src='img/20231214-051420.png' width=700px>
+
+<img src='img/20231215-051532.png' width=700px>
+
+<img src='img/20231216-051619.png' width=700px>
+
+<img src='img/20231217-051739.png' width=700px>
+
+<img src='img/20231219-051927.png' width=700px>
+
+Understand how parsers map data into normalized data.
+
+<img src='img/20231226-052610.png' width=700px>
+
+<img src='img/20231227-052727.png' width=700px>
+
+<img src='img/20231228-052828.png' width=700px>
+
+<img src='img/20231229-052925.png' width=700px>
+
+<img src='img/20231232-053222.png' width=700px>
+
+<img src='img/20231227-062753.png' width=700px>
+
+<img src='img/20231228-062854.png' width=700px>
+
+<img src='img/20231229-062931.png' width=700px>
+
+<img src='img/20231231-063106.png' width=700px>
+
+<img src='img/20231233-063303.png' width=700px>
+
+<img src='img/20231233-063331.png' width=700px>
+
+Know how to assign ownership of an incident.
+
+<img src='img/20231234-063451.png' width=700px>
+
+<img src='img/20231235-063551.png' width=700px>
+
+<img src='img/20231240-064019.png' width=700px>
+
+<img src='img/20231241-064122.png' width=700px>
+
+<img src='img/20231242-064236.png' width=700px>
+
+<img src='img/20231243-064347.png' width=700px>
+
+<img src='img/20231244-064444.png' width=700px>
+
+<img src='img/20231245-064520.png' width=700px>
+
+<img src='img/20231246-064629.png' width=700px>
+
+<img src='img/20231247-064752.png' width=700px>
+
+<img src='img/20231248-064854.png' width=700px>
+
+<img src='img/20231250-065025.png' width=700px>
+
+<img src='img/20231251-065114.png' width=700px>
+
+<img src='img/20231252-065211.png' width=700px>
+
+<img src='img/20231253-065308.png' width=700px>
+
+<img src='img/20231254-065413.png' width=700px>
+
+<img src='img/20231258-065834.png' width=700px>
+
+<img src='img/20231259-065904.png' width=700px>
 
 
 
