@@ -101,4 +101,31 @@ _ `$?` is a special shell variable that holds the exit status of the most recent
 <details>
   <summary>Debugging Guidance</summary>
 
+To debug assembly you must specify the `-g` flag when assembling and linking.
+This flag tells the assembler and linker to include debugging information in the
+executable. This information is used by the debugger to map the machine code
+back to the original source code.
+
+The following VS Code task configuration demonstrates the use of the GNU
+Assembler command, `as`, to assemble the source code with the `-g` flag.
+
+<img src='img/20231207-140714.png' width=700px>
+
+You can use the GDB debugger to step through the assembly code. However, the
+[CodeLLDB](https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb)
+extension for VS Code provides a more user-friendly experience. After installing
+the lldb debugger and the CodeLLDB extension, you can use the following VS Code
+configuration to debug the assembly code:
+
+<img src='img/20231230-143035.png' width=600px>
+
+When debugging with CodeLLDB, you get the disassembly view of the code.
+
+<img src='img/20231232-143224.png' width=500px>
+
+You can also view registers in the Variables window.
+
+<img src='img/20231233-143329.png' width=500px>
+
 </details>
+
