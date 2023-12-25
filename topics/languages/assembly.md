@@ -143,4 +143,25 @@ is associated with Intel because NASM employs the Intel syntax originally used
 in Intel's documentation and assemblers for its x86 architecture processors. The
 NASM assembler was introduced in 1996, almost 13 years after the GNU assembler.
 
+| Feature                      | AT&T Syntax                          | NASM Syntax                          |
+|------------------------------|--------------------------------------|--------------------------------------|
+| Capitalization               | Case-insensitive (lowercase)         | Case-sensitive (all uppercase)       |
+| Register Naming              | Prefix with `%`, e.g. %rax           | No prefix, e.g. RAX                  |
+| Immediate-Mode Prefixes      | `$`                                  | No prefix                            |
+| Operand Order                | Source, Destination                  | Destination, Source                  |
+| Memory Addressing Modes      | `segment:displacement(base, index, scale)` | `[base + index*scale + displacement]` |
+| Operand Sizes                | Suffixed with size (`b`, `w`, `l`, `q`) | Prefixed with size (`byte`, `word`, `dword`, `qword`) |
 
+The difference in operand order is, perhaps, the most difficult difference to
+overcome. The difference reflects their separate historical developments and
+design philosophies. The Intel syntax is more intuitive because it focuses on a
+destination-first approach, which aligns with the the concept of assigning a
+value to a variable in high-level languages.
+
+The AT&T syntax was influenced by earlier assembly language conventions and the
+desire to maintain consistency with existing UNIX tools and practices. AT&T
+syntax uses a source-first order, which means the source operand is written
+first, followed by the destination.
+
+It's important to note that there were no universal standards for assembly
+language when these syntaxes were being developed.
