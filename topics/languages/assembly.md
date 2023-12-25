@@ -60,11 +60,11 @@ _ `$?` is a special shell variable that holds the exit status of the most recent
 <details>
   <summary>Code Explanation</summary>
 
-**`.globl _start`**: 
+**`.globl _start`**:
 
 - The term `.globl` is called a directive. It can also be spelled `.global`. In assembly language, the `.globl` directive is used to declare a symbol (such as a function or a variable) as global. This means that the symbol can be accessed from other files or modules beyond the one in which it's defined. In other words, it makes the symbol visible to the linker, allowing it to be used across different assembly files or even from C or C++ code.
 
-- The term `_start` is a global symbol, which makes it visible to the linker. The _start label is the conventional entry point for an executable in Linux, similar to the main function in C. When the program is executed, the execution starts from _start.
+- The term `_start` is a global symbol, which makes it visible to the linker. The _start label is the conventional entry point for an executable in Linux, similar to the main function in C. When the program is executed, the execution starts from_start.
 
 - **Linker Visibility**: When you compile and link multiple assembly or C/C++ files together, the `.globl` directive ensures that the symbol is recognized and can be linked across these files.
 
@@ -128,4 +128,19 @@ You can also view registers in the Variables window.
 <img src='img/20231233-143329.png' width=500px>
 
 </details>
+
+## Assembly Language Syntax
+
+The assembly language syntax used by the GNU assembler is known as AT&T syntax.
+This syntax is the native syntax for the Linux kernel and output by the GNU
+Compiler Collection (GCC). The GNU assembler was launched in 1983 by Richard
+Stallman as part of the GNU Project. The GNU assembler is also known as GAS.
+
+Another commonly-used syntax, NASM syntax, is also referred to as Intel syntax.
+NASM, which stands for Netwide Assembler, is considered to be easier to read and
+understand than AT&T syntax. NASM, although developed independently from Intel,
+is associated with Intel because NASM employs the Intel syntax originally used
+in Intel's documentation and assemblers for its x86 architecture processors. The
+NASM assembler was introduced in 1996, almost 13 years after the GNU assembler.
+
 
