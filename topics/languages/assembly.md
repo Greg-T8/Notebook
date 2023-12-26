@@ -1,4 +1,4 @@
-# Assembly Language
+# Assembly Language Notes
 
 This page covers my journey on learning assembly language. Why learn assembly language? Mostly for educational reasons. I want to have a better understanding of how computers operate at a lower level. I hope to use this understanding to help me write more efficient code in higher-level languages. Since I'm a security professional, one day I may use my assembly skills to reverse engineer exploitation techniques at a lower level.
 
