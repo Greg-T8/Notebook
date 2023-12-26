@@ -6,10 +6,13 @@ Exam Topics:
 
 <img src='img/20231209-040946.png' width=700px>
 
-References:
+<details open>
+<summary>References</summary>
 
 - [Microsoft Defender XDR](https://learn.microsoft.com/en-us/microsoft-365/security/defender/microsoft-365-defender?view=o365-worldwide)
 - [SC-200 Learning Path: Mitigate threats using Microsoft Defender XDR](https://learn.microsoft.com/en-us/training/paths/sc-200-mitigate-threats-using-microsoft-365-defender/)
+
+</details>
 
 Microsoft Defender XDR is an integrated threat protection suite that combines
 signals from endpoints, identities, email, and applications. The following graphic, taken from the [Microsoft Cybersecurity Reference
