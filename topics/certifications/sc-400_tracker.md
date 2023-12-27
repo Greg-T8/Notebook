@@ -10,6 +10,8 @@ The following information is taken from the SC-400 study guide: https://learn.mi
 
 **Note:** On 12/21/23, I stopped studying for this exam as Microsoft removed it from the Cybersecurity Architect Expert track.
 
+Click the hyperlinks below to visit my study notes for each topic.
+
 ## Skills Measured
 
 ###  Implement information protection (25–30%)
