@@ -1,11 +1,14 @@
 # Microsoft Certified: Security Operations Analyst Associate
 
+- [My Notes Page](/topics/technologies/microsoft_defender/defender.md)
 - [Main Certification Page](https://learn.microsoft.com/en-us/credentials/certifications/security-operations-analyst/)
 - [SC-200 Exam Page](https://learn.microsoft.com/en-us/credentials/certifications/exams/sc-200/)
 - [SC-200 Study Guide](https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/sc-200)
 - [SC-200 MeasureUp Practice Test](https://www.measureup.com/microsoft-practice-test-sc-200-microsoft-security-operations-analyst.html)
 
+<details><summary>Certification Journey</summary>
 <img src='img/20231206-110641.png' width=800px>
+</details>
 
 ## Skills at a glance
 
