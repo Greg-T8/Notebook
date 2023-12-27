@@ -9,8 +9,8 @@ Use the links below to discover more about my learning journey.
 ## Certifications
 
 - [Main Certification Page](/topics/certifications/certifications.md)
-  - [Microsoft SC-200:Security Operations Analyst Associate](/topics/certifications/sc-200_tracker.md) (Currently studying)
-  - [Microsoft SC-400:Information Protection Administrator Associate](/topics/certifications/sc-400_tracker.md) (Studies paused)
+  - [Microsoft SC-200: Security Operations Analyst Associate](/topics/certifications/sc-200_tracker.md) (Currently studying)
+  - [Microsoft SC-400: Information Protection Administrator Associate](/topics/certifications/sc-400_tracker.md) (Studies paused)
 
 ## Technologies
 
