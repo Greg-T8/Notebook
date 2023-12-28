@@ -22,7 +22,7 @@ int main()
 }
 ```
 
-<details>
+<details open>
 <summary>VS Code Task Configuration</summary>
 Here's a look at the VS Code task configuration for building and running the program.
 

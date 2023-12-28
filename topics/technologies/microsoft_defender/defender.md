@@ -1,5 +1,11 @@
 # Microsoft Defender
 
+- [Microsoft Defender Learning Paths](#microsoft-defender-learning-paths)
+  - [SC-200: Mitigate threats using Microsoft Defender XDR](#sc-200-mitigate-threats-using-microsoft-defender-xdr)
+    - [Introduction to Microsoft 365 Threat Protection](#introduction-to-microsoft-365-threat-protection)
+    - [Mitigate Incidents Using Microsoft Defender XDR](#mitigate-incidents-using-microsoft-defender-xdr)
+
+
 <details><summary>Microsoft Defender Exam Topics</summary>
 <br>
 
@@ -7,20 +13,20 @@
 
 </details>
 
+## Microsoft Defender Learning Paths
 
-## Microsoft Learning Path
-Expand the sections below to view notes from the SC-200 learning paths.
+The following Microsoft learning paths support the SC-200 exam. Expand the sections below to view my notes from the SC-200 learning paths.
 
-<details open><summary>SC-200: Mitigate threats using Microsoft Defender XDR</summary>
-<br>
+<details open><summary>Learning Path > SC-200: Mitigate threats using Microsoft Defender XDR</summary>
 
-The following sections cover content from the Microsoft Learning Path [SC-200: Mitigate threats using Microsoft Defender XDR](https://learn.microsoft.com/en-us/training/paths/sc-200-mitigate-threats-using-microsoft-365-defender/).
+### [SC-200: Mitigate threats using Microsoft Defender XDR](https://learn.microsoft.com/en-us/training/paths/sc-200-mitigate-threats-using-microsoft-365-defender/)
 
-### Introduction to Microsoft 365 Threat Protection
+#### Introduction to Microsoft 365 Threat Protection
 
 <details><summary>Microsoft Defender XDR Overview</summary>
+<br>
 
-Reference:
+**References**:
 - [Microsoft Defender XDR](https://learn.microsoft.com/en-us/microsoft-365/security/defender/microsoft-365-defender?view=o365-worldwide)
 
 Microsoft Defender XDR is an integrated threat protection suite that combines
@@ -35,8 +41,9 @@ Defender XDR.
 
 <details>
   <summary>An Example Defender XDR Scenario</summary>
+<br>
 
-Reference:
+**References**:
 - [Explore Extended Detection & Response (XDR) response use cases](https://learn.microsoft.com/en-us/training/modules/introduction-microsoft-365-threat-protection/2-explore-extended-detection-response-use-cases)
 
 In the following scenario, a victim unknowingly triggers a malware infection by opening a malicious attachment received via personal email or USB drive, bypassing Microsoft Defender for Office 365 (MDO) protection. However, Microsoft Defender for Endpoints (MDE) detects the attack, alerts the security operations, and triggers a response in Intune and Microsoft Entra ID, leading to the user's access being blocked due to noncompliance with organizational policy.
@@ -52,8 +59,9 @@ Once infected devices are remediated, Microsoft Defender for Endpoints (MDE) inf
 </details>
 
 <details><summary>Defender XDR in a Security Operations Center (SOC)</summary>
+<br>
 
-Reference:
+**References**:
 - [Understand Microsoft Defender XDR in a Security Operations Center (SOC)](https://learn.microsoft.com/en-us/training/modules/introduction-microsoft-365-threat-protection/3-understand-defender-security-operations-center)
 
 The Security Operations Model is structured with multiple distinct functions, each having a specific focus area and requiring close collaboration among themselves and with external teams for effective operation. In smaller organizations, these roles tend to be consolidated into fewer teams or individuals, typically under IT Operations for technical responsibilities. Additionally, some functions, like incident management, may be assigned temporarily to leadership or designated delegates, highlighting the model's flexibility to adapt to different organizational structures.
@@ -63,8 +71,9 @@ The Security Operations Model is structured with multiple distinct functions, ea
 </details>
 
 <details><summary>Explore Microsoft Security Graph</summary>
+<br>
 
-Reference:
+**References**:
 - [Explore Microsoft Security Graph](https://learn.microsoft.com/en-us/training/modules/introduction-microsoft-365-threat-protection/4-explore-microsoft-security-graph)
 - [Microsoft Graph security API overview](https://learn.microsoft.com/en-us/graph/security-concept-overview)
 
@@ -89,8 +98,7 @@ The following screenshot shows how you can run a hunting query in the Graph Expl
 
 </details>
 
-### Mitigate Incidents Using Microsoft Defender XDR
-
+#### Mitigate Incidents Using Microsoft Defender XDR
 
 
 </details> <!-- End Parent-->
