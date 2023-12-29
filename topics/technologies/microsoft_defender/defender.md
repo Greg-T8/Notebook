@@ -4,6 +4,7 @@
   - [SC-200: Mitigate threats using Microsoft Defender XDR](#sc-200-mitigate-threats-using-microsoft-defender-xdr)
     - [Introduction to Microsoft 365 Threat Protection](#introduction-to-microsoft-365-threat-protection)
     - [Mitigate Incidents Using Microsoft Defender XDR](#mitigate-incidents-using-microsoft-defender-xdr)
+- [Permissions Model](#permissions-model)
 
 
 <details><summary>Microsoft Defender Exam Topics</summary>
@@ -100,6 +101,43 @@ The following screenshot shows how you can run a hunting query in the Graph Expl
 
 #### Mitigate Incidents Using Microsoft Defender XDR
 
+<details open><summary>Use the Microsoft Defender portal</summary>
+<br>
+
+**Reference**:
+- [Use the Microsoft Defender portal](https://learn.microsoft.com/en-us/training/modules/mitigate-incidents-microsoft-365-defender/2-use-microsoft-security-center-portal)
+
+<img src='img/20231213-041343.png' width=500px>
+
+
+</details>
+
 
 </details> <!-- End Parent-->
+
+## Permissions Model
+
+Microsoft Defender currently does not support a single permissions management experiences across its services. Therefore, you must configure permission sets separately for services.
+
+<img src='img/20231220-042025.png' width=500px>
+
+However, Microsoft is now providing the Microsoft Defender XDR Unified role-based access control (RBAC) model, which does provide a single permissions management experience for most of its services.
+
+- [Microsoft Defender XDR Unified role-based access control (RBAC)](https://learn.microsoft.com/en-us/microsoft-365/security/defender/manage-rbac?view=o365-worldwide)
+
+Included services
+
+- Microsoft Defender XDR
+- Microsoft Defender for Endpoint
+- Microsoft Defender Vulnerability Management
+- Microsoft Defender for Office 365
+- Microsoft Defender for Identity
+- Microsoft Defender for Cloud
+- Microsoft Secure Score
+  
+Services not included in the unified permissions model:
+
+- Microsoft Defender for Cloud Apps
+- Microsoft Purview Compliance
+
 
