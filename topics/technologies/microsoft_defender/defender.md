@@ -1,18 +1,145 @@
 # Microsoft Defender
 
+
+- [Microsoft Defender Products](#microsoft-defender-products)
 - [Microsoft Defender Learning Paths](#microsoft-defender-learning-paths)
   - [SC-200: Mitigate threats using Microsoft Defender XDR](#sc-200-mitigate-threats-using-microsoft-defender-xdr)
     - [Introduction to Microsoft 365 Threat Protection](#introduction-to-microsoft-365-threat-protection)
     - [Mitigate Incidents Using Microsoft Defender XDR](#mitigate-incidents-using-microsoft-defender-xdr)
 - [Permissions Model](#permissions-model)
 
-
 <details><summary>Microsoft Defender Exam Topics</summary>
 <br>
+
+- [My SC-200 Exam page](/topics/certifications/sc-200_tracker.md)
 
 <img src='img/20231259-035927.png' width=700px>
 
 </details>
+
+## Microsoft Defender Products
+
+**What is the difference between Microsoft Defender and Microsoft Defender XDR?**<br>
+Per the [Microsoft Defender XDR FAQ](https://www.microsoft.com/en-us/security/business/siem-and-xdr/microsoft-defender-xdr#x775d8d7905b145e88deb34493a003a0d), Microsoft Defender XDR (formerly known as Microsoft Defender) is the unified portal experience encompassing various security solutions. Microsoft XDR provides provides native protection across endpoints, IoT devices, hybrid identities, email collaboration and tools, and cloud applications. 
+
+[Microsoft Sentinel](https://learn.microsoft.com/en-us/azure/sentinel/overview) complements capabilities of Microsoft XDR with SIEM and security orchestration and response (SOAR) capabilities to ingest logs from your entire digital estate. 
+
+Microsoft Defender XDR includes the following products:
+
+<details><summary>Defender for Office 365</summary>
+<br>
+
+- Defender for Office 365 Plan 1
+  - License
+    - Defender for Office 365 Plan 1 ($2 user/mo)
+    - Microsoft 365 Business Premium ($22 user/mo)
+    - Office 365 E5 ($38 user/mo)
+    - Microsoft 365 E5 ($57 user/mo)
+  - Features
+    - [Advanced Anti-Phishing](https://learn.microsoft.com/en-us/microsoft-365/security/office-365-security/anti-phishing-policies-about?view=o365-worldwide)
+    - [Real-Time Reports](https://learn.microsoft.com/en-us/microsoft-365/security/office-365-security/reports-defender-for-office-365?view=o365-worldwide)
+    - [Safe Attachments](https://learn.microsoft.com/en-us/microsoft-365/security/office-365-security/safe-attachments-about?view=o365-worldwide)
+    - [Safe Links](https://learn.microsoft.com/en-us/microsoft-365/security/office-365-security/safe-links-about?view=o365-worldwide)
+- Defender for Office 365 Plan 2
+  - License
+    - Defender for Office 365 Plan 2 ($5 user/mo)
+    - Office 365 E5 ($38 user/mo)
+    - Microsoft 365 E5 ($57 user/mo)
+  - Features
+    - [Attack Simulation Training](https://learn.microsoft.com/en-us/microsoft-365/security/office-365-security/attack-simulation-training-get-started?view=o365-worldwide)
+    - [Automated Investigation & Response (AIR)](https://learn.microsoft.com/en-us/microsoft-365/security/office-365-security/air-about-office?view=o365-worldwide)
+    - [Campaign Views](https://learn.microsoft.com/en-us/microsoft-365/security/office-365-security/campaigns?view=o365-worldwide)
+    - [Compromised User Detection](https://learn.microsoft.com/en-us/microsoft-365/security/office-365-security/address-compromised-users-quickly?view=o365-worldwide)
+    - [Threat Explorer](https://learn.microsoft.com/en-us/microsoft-365/security/office-365-security/threat-explorer-about?view=o365-worldwide)
+    - [Threat Trackers](https://learn.microsoft.com/en-us/microsoft-365/security/office-365-security/threat-trackers?view=o365-worldwide)
+
+</details>
+
+<details><summary>Defender for Cloud Apps</summary>
+<br>
+
+- [Defender for Cloud Apps](https://learn.microsoft.com/en-us/defender-cloud-apps/what-is-defender-for-cloud-apps)
+  - License
+    - Defender for Cloud Apps ($3.50 user/mo)
+    - Enterprise Mobility + Security E5 ($16.40 user/mo)
+    - Microsoft 365 E5 ($57 user/mo)
+
+</details>
+
+<details><summary>Defender for Identity</summary>
+<br>
+
+- [Defender for Identity](https://learn.microsoft.com/en-us/defender-for-identity/what-is)
+  - License
+    - Defender for Identity ($5.50 user/mo)
+    - Enterprise Mobility + Security E5 ($16.40 user/mo)
+    - Microsoft 365 E5 ($57 user/mo)
+
+</details>
+
+<details><summary>Defender Antivirus</summary>
+<br>
+
+- [Defender Antivirus](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/microsoft-defender-antivirus-windows?view=o365-worldwide)
+  - License
+    - Microsoft 365 Business Premium ($22 user/mo)
+    - Microsoft 365 E3 ($36 user/mo)
+    - Microsoft 365 E5 ($57 user/mo)
+
+</details>
+
+<details><summary>Defender for Endpoint</summary>
+<br>
+
+- Defender for Business
+  - License
+    - Microsoft Defender for Business ($3 user/mo)
+  - Features
+    - [Block at First Sight](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/configure-block-at-first-sight-microsoft-defender-antivirus?view=o365-worldwide)
+    - [Cross-Platform Support](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/non-windows?view=o365-worldwide)
+    - [Enhanced ASR (Attack Surface Reduction)](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/overview-attack-surface-reduction?view=o365-worldwide)
+    - [Mobile Threat Defense](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/mtd?view=o365-worldwide)
+    - [Next Gen Protection](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/next-generation-protection?view=o365-worldwide)
+    - [Tamper Protection](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/prevent-changes-to-security-settings-with-tamper-protection?view=o365-worldwide)
+    - [Web Content Filtering](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/web-content-filtering?view=o365-worldwide)
+- Defender for Endpoint Plan 1
+  - License
+    - Defender for Endpoint Plan 1 ($3 user/mo)
+    - Microsoft 365 E3 ($36 user/mo)
+    - Microsoft 365 E5 ($57 user/mo)
+  - Features
+    - [Block at First Sight](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/configure-block-at-first-sight-microsoft-defender-antivirus?view=o365-worldwide)
+    - [Centralized Management](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/defender-endpoint-plan-1?view=o365-worldwide)
+    - [Cross-Platform Support](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/non-windows?view=o365-worldwide)
+    - [Defender for Cloud Apps Integration](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/microsoft-cloud-app-security-integration?view=o365-worldwide)
+    - [Enhanced ASR (Attack Surface Reduction)](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/overview-attack-surface-reduction?view=o365-worldwide)
+    - [Manual Response Actions](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/defender-endpoint-plan-1?view=o365-worldwide#manual-response-actions)
+    - [Mobile Threat Defense](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/mtd?view=o365-worldwide)
+    - [Next Gen Protection](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/next-generation-protection?view=o365-worldwide)
+    - [Tamper Protection](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/prevent-changes-to-security-settings-with-tamper-protection?view=o365-worldwide)
+    - [Web Content Filtering](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/web-content-filtering?view=o365-worldwide)
+- Defender for Endpoint Plan 2
+  - License
+    - Defender for Endpoint Plan 2 ($5 user/mo)
+    - Microsoft 365 E5 ($57 user/mo)
+  - Features
+    - [Advanced Hunting](https://learn.microsoft.com/en-us/microsoft-365/security/defender/advanced-hunting-overview?view=o365-worldwide)
+    - [Automated Investigation and Response (AIR)](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/automated-investigations?view=o365-worldwide)
+    - [Endpoint Attack Notifications](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/endpoint-attack-notifications?view=o365-worldwide)
+    - [Endpoint Detection and Response](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/overview-endpoint-detection-response?view=o365-worldwide)
+    - [Evaluation Lab](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/evaluation-lab?view=o365-worldwide) - Retiring in January 2024 per MC698829
+    - [MIP (Microsoft Information Protection) Integration](https://learn.microsoft.com/en-us/purview/endpoint-dlp-learn-about?view=o365-worldwide) - Used to integrate with Azure Information Protection log analytics; now integrates with Microsoft Purview Endpoint Data Loss Prevention (DLP)
+    - [Threat Analytics](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/threat-analytics?view=o365-worldwide)
+    - [Vulnerability Management (core)](https://learn.microsoft.com/en-us/microsoft-365/security/defender-vulnerability-management/defender-vulnerability-management?view=o365-worldwide)
+    - [6-Months Searchable Data](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/data-storage-privacy?view=o365-worldwide) - 6 months in the portal, 30 days via query in the advanced hunting investigation experience
+
+</details>
+
+<details open><summary>Defender Vulnerability Management</summary>
+<br>
+<Enter text here>
+</details>
+
 
 ## Microsoft Defender Learning Paths
 
