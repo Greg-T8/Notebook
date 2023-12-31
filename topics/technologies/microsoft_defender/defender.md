@@ -20,6 +20,8 @@
 ## Microsoft Defender Products
 
 **What is the difference between Microsoft Defender and Microsoft Defender XDR?**<br>
+XDR (Extended Detection and Response) is a cybersecurity industry term for solutions that extend beyond traditional endpoint security. XDR solutions collect and correlate data across multiple security layers - email, endpoint, cloud, and network.
+
 Per the [Microsoft Defender XDR FAQ](https://www.microsoft.com/en-us/security/business/siem-and-xdr/microsoft-defender-xdr#x775d8d7905b145e88deb34493a003a0d), Microsoft Defender XDR (formerly known as Microsoft Defender) is the unified portal experience encompassing all the Defender products. Microsoft XDR provides provides protection across endpoints, hybrid identities, email collaboration and tools, cloud services (Azure, Amazon, and Google), and IoT devices.
 
 [Microsoft Sentinel](https://learn.microsoft.com/en-us/azure/sentinel/overview) complements capabilities of Microsoft XDR with SIEM and security orchestration and response (SOAR) capabilities to ingest logs from your entire digital estate.
