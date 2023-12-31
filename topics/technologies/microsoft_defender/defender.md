@@ -20,7 +20,7 @@
 ## Microsoft Defender Products
 
 **What is the difference between Microsoft Defender and Microsoft Defender XDR?**<br>
-Per the [Microsoft Defender XDR FAQ](https://www.microsoft.com/en-us/security/business/siem-and-xdr/microsoft-defender-xdr#x775d8d7905b145e88deb34493a003a0d), Microsoft Defender XDR (formerly known as Microsoft Defender) is the unified portal experience encompassing all the Defender products. Microsoft XDR provides provides native protection across endpoints, IoT devices, hybrid identities, email collaboration and tools, and cloud applications. 
+Per the [Microsoft Defender XDR FAQ](https://www.microsoft.com/en-us/security/business/siem-and-xdr/microsoft-defender-xdr#x775d8d7905b145e88deb34493a003a0d), Microsoft Defender XDR (formerly known as Microsoft Defender) is the unified portal experience encompassing all the Defender products. Microsoft XDR provides provides protection across endpoints, hybrid identities, email collaboration and tools, cloud services (Azure, Amazon, and Google), and IoT devices.
 
 [Microsoft Sentinel](https://learn.microsoft.com/en-us/azure/sentinel/overview) complements capabilities of Microsoft XDR with SIEM and security orchestration and response (SOAR) capabilities to ingest logs from your entire digital estate.
 
@@ -71,7 +71,7 @@ Microsoft Defender XDR includes the following products:
 
 </details>
 
-<details open><summary>Defender for Cloud</summary>
+<details><summary>Defender for Cloud</summary>
 <br>
 
 Features
@@ -207,7 +207,7 @@ Features
 
 - [Defender Experts for Hunting](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/experts-on-demand?view=o365-worldwide)
   - Description: Managed threat hunting service that proactively looks for threats 24/7/365 across endpoints, email, identity, and cloud apps using Microsoft  Defender data.
-  - Availability: Contact Microsoft account manager
+  - Availability: Enterprise Agreement (EA) or Microsoft Customer Agreement (MCA)
   - Features:
     - Threat hunting and analysis
     - Defender Experts notifications
@@ -215,7 +215,7 @@ Features
     - Hunter-trained AI
     - Reports
 - [Defender Experts for XDR](https://learn.microsoft.com/en-us/microsoft-365/security/defender/dex-xdr-overview?view=o365-worldwide)
-  - Availability: Contact Microsoft account manager
+  - Availability: Enterprise Agreement (EA)
   - Description: Managed service for customers with constrained security operations centers (SOCs) that are overburdened on alert volume
   - Features
     - Defender Experts for Hunting
