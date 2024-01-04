@@ -24,7 +24,7 @@ XDR (Extended Detection and Response) is a cybersecurity industry term for solut
 
 Per the [Microsoft Defender XDR FAQ](https://www.microsoft.com/en-us/security/business/siem-and-xdr/microsoft-defender-xdr#x775d8d7905b145e88deb34493a003a0d), Microsoft Defender XDR (formerly known as Microsoft Defender) is the unified portal experience encompassing all the Defender products. Microsoft XDR provides provides protection across endpoints, hybrid identities, email collaboration and tools, cloud services (Azure, Amazon, and Google), and IoT devices.
 
-[Microsoft Sentinel](https://learn.microsoft.com/en-us/azure/sentinel/overview) complements capabilities of Microsoft XDR with SIEM and security orchestration and response (SOAR) capabilities to ingest logs from your entire digital estate.
+[Microsoft Sentinel](https://learn.microsoft.com/en-us/azure/sentinel/overview) complements capabilities of Microsoft XDR with security information and event management (SIEM) and security orchestration, automation, and response (SOAR) capabilities to ingest logs from your entire digital estate.
 
 Microsoft Defender XDR includes the following features:
   - [Multi-tenant Management](https://learn.microsoft.com/en-us/microsoft-365/security/defender/mto-overview?view=o365-worldwide)
@@ -77,9 +77,47 @@ Microsoft Defender XDR includes the following products:
 <br>
 
 Features
-- [Defender for Servers](https://learn.microsoft.com/en-us/azure/defender-for-cloud/plan-defender-for-servers-select-plan)
-- [Cloud Security Posture Management (CSPM)](https://learn.microsoft.com/en-us/azure/defender-for-cloud/concept-cloud-security-posture-management)
+- [Defender Cloud Security Posture Management (CSPM)](https://learn.microsoft.com/en-us/azure/defender-for-cloud/concept-cloud-security-posture-management)
+- [Defender for Servers](https://learn.microsoft.com/en-us/azure/defender-for-cloud/plan-defender-for-servers-select-plan )
+  - Licensing Requirements
+    - Microsoft Defender for Servers Plan 1 or Plan 2 (as part of the Defender for Cloud offering, i.e. through Azure)
+    - Microsoft Defender for Endpoint for Servers ($5 server/mo)
+    - Microsoft Defender for Business Servers (for < 300 users)
+    - See [Licensing Requirements](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/minimum-requirements?view=o365-worldwide#licensing-requirements) and [Defender for Servers FAQ](https://learn.microsoft.com/en-us/azure/defender-for-cloud/faq-defender-for-servers#can-i-get-a-discount-if-i-already-have-a-microsoft-defender-for-endpoint-license-)
+  - Defender for Servers Plan 1
+    - Description: Entry-level and enabled at the Azure subscription level but with an [option to enable at the resource level](https://learn.microsoft.com/en-us/azure/defender-for-cloud/tutorial-enable-servers-plan#enable-the-plan-at-the-resource-level)
+    - Features
+      - Defender for Endpoint Integration
+      - Licensing - charged by the hour per seat, and only when VMs are in use
+      - Defender for Endpoint Provisioning - automatically provisions on every supported VMs
+      - Threat detection at OS-level (agent-based) - behavioral detection and _fileless attack detection_
+  - Defender for Servers Plan 2
+    - Description: Provides all features and must be enabled both at the Azure subscription level and (to get full coverage) at the Log Analytics workspace level. There is an option to [exclude items at the resource level](https://learn.microsoft.com/en-us/azure/defender-for-cloud/tutorial-enable-servers-plan#enable-the-plan-at-the-resource-level).
+    - Features
+      - Free data ingestion (500MB) to Log Analytics workspaces
+      - Free Azure Update Manager Remediation for Arc machines
+      - Threat detection at network-level (agentless security alerts)
+      - [Security policy and regulatory compliance](https://learn.microsoft.com/en-us/azure/defender-for-cloud/security-policy-concept) - compare VM configuration with industry standards and benchmarks
+      - [Qualys vulnerability assessment](https://learn.microsoft.com/en-us/azure/defender-for-cloud/deploy-vulnerability-assessment-vm) - deploy Qualys scanner and display findings (as an alternative to Microsoft Defender Vulnerability Management)
+      - [Adaptive application controls](https://learn.microsoft.com/en-us/azure/defender-for-cloud/adaptive-application-controls) - define allowlists of known safe applications
+      - [Just-in-time VM access](https://learn.microsoft.com/en-us/azure/defender-for-cloud/just-in-time-access-overview?tabs=defender-for-container-arch-aks) - locks down open management ports to reduce attack surface
+      - [Adaptive network hardening](https://learn.microsoft.com/en-us/azure/defender-for-cloud/adaptive-network-hardening) - Provides recommendations for hardening NSG rules
+      - [File integrity monitoring](https://learn.microsoft.com/en-us/azure/defender-for-cloud/file-integrity-monitoring-overview) - Examines OS files, Windows registries, application software, and Linux system files for changes that might indicate an attack
+      - [Docker host hardening](https://learn.microsoft.com/en-us/azure/defender-for-cloud/harden-docker-hosts) - Identifies unmanaged containers hosted on IaaS Linux VMs and provides hardening recommendations
+      - [Agentless scanning](https://learn.microsoft.com/en-us/azure/defender-for-cloud/concept-agentless-data-collection) - Provides actionable postures for Windows and Linux VMs without requiring an agent
+    - Add-Ons
+      - Microsoft Defender Vulnerability Management 
+
 - [External Attack Surface Management (Defender EASM)](https://learn.microsoft.com/en-us/azure/external-attack-surface-management/)
+- [Defender for App Service](https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-app-service-introduction)
+- [Defender for Databases](https://learn.microsoft.com/en-us/azure/defender-for-cloud/tutorial-enable-databases-plan) - Includes Azure SQL, SQL Servers, Azure Cosmos DB, open-source relational databases (PostgreSQL, MySQL, MariaDB)
+- [Defender for Storage](https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-storage-introduction) - Azure-native  layer that protects storage accounts
+- [Defender for Containers](https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-containers-introduction) - imporve, monitor, and maintain security of containerized assets (Kubernetes clusters)
+- [Defender for Key Vault](https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-key-vault-introduction) - Detects unusual attempts to access certificates, connection strings, and passwords
+- [Defender for Resource Manager](https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-resource-manager-introduction) - monitors resource management operations in Azure Resource Manager
+- [Defender for APIs](https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-apis-introduction)
+- [Defender for DNS](https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-dns-introduction) - provides security alerts for resources that use Azure DNS
+- [Defender for Cloud DevOps Security](https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-devops-introduction) - protects Azure DevOps, GitHub, and GitLab
 
 </details>
 
@@ -110,9 +148,12 @@ Features
 <br>
 
 - [Defender for Business](https://learn.microsoft.com/en-us/microsoft-365/security/defender-business/mdb-overview?view=o365-worldwide)
+  - Description: Defender for Business is an endpoint security solution designed for small- and medium-sized businesses (up to 300 employees)
   - License
     - Microsoft Defender for Business ($3 user/mo)
     - Microsoft 365 Business Premium ($22 user/mo)
+  - Add-on License
+    - Microsoft Defender for Business Servers ($3 server/mo)
   - Features
     - [Block at First Sight](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/configure-block-at-first-sight-microsoft-defender-antivirus?view=o365-worldwide)
     - [Cross-Platform Support](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/non-windows?view=o365-worldwide)
