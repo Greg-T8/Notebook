@@ -165,3 +165,46 @@ first, followed by the destination.
 
 It's important to note that there were no universal standards for assembly
 language when these syntaxes were being developed.
+
+## Register Descriptions
+
+In the AT&T syntax, registers are prefixed with a `%` to distinguish from other types of identifiers, such as variables or labels.
+
+<details><summary>The RAX Register</summary>
+
+**RAX**  
+The RAX register is a general-purpose register in x86-64 architecture, which is an extension of the original x86 architecture. This register is part of the family of registers that originated with the 16-bit AX register in the x86 architecture. Here's a breakdown of its evolution and uses:
+
+**Evolution of the AX Register:**
+
+**AX:** In 16-bit x86 architecture, AX was one of the primary registers. It was often used for arithmetic, logical operations, and data transfer.  
+**EAX:** With the advent of 32-bit x86 architecture, AX was extended to EAX to support 32-bit processing.  
+**RAX:** In the x86-64 architecture, EAX was further extended to RAX to support 64-bit processing. The "R" in RAX stands for "register" in 64-bit architecture.  
+
+**Usage of RAX:**
+
+**Accumulator for Arithmetic Operations:** RAX often acts as an accumulator in arithmetic operations (like addition, multiplication, etc.), where it stores results.
+
+**Return Value from Functions:** In many calling conventions, RAX is used to store the return value of a function. When a function completes, it places its return value in RAX.
+
+**Data Manipulation and Transfer:** It is used for general data manipulation and transfer operations.
+
+**Compatibility with Previous Architectures:** RAX is backward compatible with EAX, AX, and AL, meaning that software written for older x86 architectures can still operate on the x86-64 system. RAX includes EAX as its lower 32 bits, AX as the lower 16 bits of EAX, and AL as the lower 8 bits of AX.
+
+**General Purpose Nature:**
+
+Like other general-purpose registers (RBX, RCX, RDX, etc.), RAX can be used for various purposes by different programs. Its exact use can depend on the context of the program or the requirements of a specific software application.
+
+</details>
+
+
+## Assembly Instructions
+
+| Instruction | Example | Description |
+| - | - | - |
+| `movq` | `movq $60, %rax` | Stores the decimal value of 60 into the `%rax` register | 
+| `addq` | `addq %rax, %rdi` | Takes the value of `%rax`, adds it to `%rdi`, and stores it in `%rdi` |
+| `addq` | `addq $25, %rdi` | Takes the decimal value of 25, adds it to `%rdi`, and stores it in `$rdi` |
+|  
+
+
