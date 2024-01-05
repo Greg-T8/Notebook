@@ -5,6 +5,7 @@ This page covers my learnings on unit testing. Most of the material on this page
 <details open><summary>The Goal of Unit Testing</summary>
 
 ## Goal of Unit Testing
+Code tends to deteriorate. Each time you change something in a code base, the amount of disorder in it, or entropy, increases. Without proper care, such as constant cleaning and refactoring, the system becomes increasingly complex and disorganized. Tests help overturn this tendency.
 
 The goal of unit testing is to enable sustainable growth of the software project. As projects progress through their lifecycle, stagnation occurs when there are no tests or the tests are of poor quality.
 
@@ -53,7 +54,10 @@ All other parts of the system can be divided into three categories:
 
 To follow this model, it's important to isolate the domain model from the non-essential parts of the code base.
 
-The most difficult part of unit testing is achieving maximum value with minimum maintenance costs.
+The most difficult part of unit testing is achieving maximum value with minimum maintenance costs. The only way to achieve the goal of unit testing is to 
+
+- Learn how to differentiate between a good test and a bad test
+- Be able to refactor a test to make it more valuable
 
 </details>
 
