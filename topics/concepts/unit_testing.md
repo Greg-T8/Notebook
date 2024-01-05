@@ -2,7 +2,7 @@
 
 This page covers my learnings on unit testing. Most of the material on this page comes from the book "Unit Testing: Principles, Practices, and Patterns" by Vladimir Khorikov.
 
-<details open><summary>The Goal of Unit Testing</summary>
+<details><summary>The Goal of Unit Testing</summary>
 
 ## Goal of Unit Testing
 Code tends to deteriorate. Each time you change something in a code base, the amount of disorder in it, or entropy, increases. Without proper care, such as constant cleaning and refactoring, the system becomes increasingly complex and disorganized. Tests help overturn this tendency.
@@ -61,7 +61,47 @@ The most difficult part of unit testing is achieving maximum value with minimum 
 
 </details>
 
+## What is a Unit Test?
 
+There are two distinct views on how to approach unit testing:
+
+1. Classical (Detroit) school - how everyone originally approached unit testing and test-driven development
+2. London school - rooted in the programming community in London
+
+### The definition of a unit Test
+
+A unit test is an automated test that
+
+- Verifies a small piece of code (also known as a unit),
+- Does it quickly, and
+- Does it in an isolated manner
+
+Most people agree on the first and second points. People have differences on the third point. The isolation issue is the root of the differences between the classical and London schools of unit testing.
+
+The most canonical book on the classical school is [Test Driven Development: By Example](https://www.amazon.com/Growing-Object-Oriented-Software-Guided-Tests/dp/0321503627/ref=sr_1_1?crid=23PA6751RMJS7&keywords=growing+object-oriented+software%2C+guided+by+tests&qid=1704477374&sprefix=Growing+object-o%2Caps%2C97&sr=8-1) by Kent Beck.
+
+The London style is sometimes referred to as _mockist_. The most prominent book for the London style is [Growing Object-Oriented Software, Guided by Tests](https://www.amazon.com/Growing-Object-Oriented-Software-Guided-Tests/dp/0321503627/ref=sr_1_1?crid=23PA6751RMJS7&keywords=growing+object-oriented+software%2C+guided+by+tests&qid=1704477374&sprefix=Growing+object-o%2Caps%2C97&sr=8-1), by Steve Freeman and Nat Pryce.
+
+#### The London take
+
+The London school isolates the system under test from its collaborators.  It involves replacing all dependencies with a _test double_, which is an object that looks and behaves like its release-intended counterpart but is actually a simplified version that reduces the complexity and facilitates testing.  The term _test double_ was introduced in the book [xUnit Test Patterns: Refactoring Test Code](https://www.amazon.com/xUnit-Test-Patterns-Refactoring-Addison-Wesley-ebook/dp/B004X1D36K/ref=sr_1_1?crid=2PVQI7B8WYTKH&keywords=xunit+test+patterns&qid=1704477623&sprefix=xunit+test+patterns%2Caps%2C95&sr=8-1). _Test double_ comes from the notion of using a stunt double in movies.
+
+The following image shows how a test double replaces the dependencies of the system under test. 
+
+<img src='img/20240102-120210.png' width=300px>
+
+A benefit to this approach is that if the test fails, then you know for sure which part of the code base is broken: it's the system under test; it cannot be any of the dependencies because they have been removed.
+
+Another benefit is that you don't have to recreate the full object graph in a test. Instead you can substitute the immediate dependencies of a class so that you don't have to deal with the dependencies of the dependencies.
+
+In the Pester PowerShell testing suite, mocks are used as a test double. However, know that a mock is a special kind of test double that allows you to examine interactions between the system under test and its collaborators. Technically,
+
+- A _test double_ is an overarching term that describes all kinds of non-production-ready, fake dependencies in a test
+- A _mock_ is just one kind of such dependencies
+
+The London style approaches the isolation requirement by segregating pieces of code under test from its collaborators with the help of test doubles: specifically mocks.
+
+In the classical approach, it's not the code that needs to be tested in an isolated manner; instead, the unit tests themselves should be run in isolation from each other. Isolating unit tests works fine so as long as they all reside in memory and don't reach out to a shared state, through which the tests can affect each other's execution context.  Typical examples of shared state are out-of-process dependencies&mdash;the database, the filesystem, and so on.
 
 
 
