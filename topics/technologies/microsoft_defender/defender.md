@@ -27,8 +27,13 @@ Per the [Microsoft Defender XDR FAQ](https://www.microsoft.com/en-us/security/bu
 [Microsoft Sentinel](https://learn.microsoft.com/en-us/azure/sentinel/overview) complements capabilities of Microsoft XDR with security information and event management (SIEM) and security orchestration, automation, and response (SOAR) capabilities to ingest logs from your entire digital estate.
 
 Microsoft Defender XDR includes the following features:
-  - [Multi-tenant Management](https://learn.microsoft.com/en-us/microsoft-365/security/defender/mto-overview?view=o365-worldwide)
   - [Advanced Hunting](https://learn.microsoft.com/en-us/microsoft-365/security/defender/advanced-hunting-overview?view=o365-worldwide)
+  - Cross-product threat hunting
+  - Self-healing for compromised devices, user identities, and mailboxes
+  - Automatic response to threats
+  - Combined incidents queue
+  - Cross-product single pane of glass in the Microsoft Defender portal
+  - [Multi-tenant Management](https://learn.microsoft.com/en-us/microsoft-365/security/defender/mto-overview?view=o365-worldwide)
 
 
 Microsoft Defender XDR includes the following products:
@@ -70,54 +75,99 @@ Microsoft Defender XDR includes the following products:
     - Defender for Cloud Apps ($3.50 user/mo)
     - Enterprise Mobility + Security E5 ($16.40 user/mo)
     - Microsoft 365 E5 ($57 user/mo)
+  - Features
+    - Cloud access security broker (CASB) functionality - helps to discover Shadow IT, provides visibility into cloud app Usage
+    - SaaS Security Posture Management (SSPM) - provides recommendations for strengthening security posture of each connected app
+    - Advanced Threat Protection - enables correlation of signal and visibility across full kill chain of advanced attacks
+    - App-to-app protection - enables security management of OAuth-enabled apps
+    - Information Protection - DLP features and responses to sensitivity labels on detected count, can apply sensitivity labels, block downloads to unmanaged devices, and remove external collaborators on confidential files
 
 </details>
 
 <details><summary>Defender for Cloud</summary>
 <br>
 
+Microsoft Defender for Cloud is a cloud-native application protection platform (CNAPP) that is made up of security measures and practices that are designed to protect cloud-based applications from cyber threats and vulnerabilities. Defender for Cloud combines the following capabilities:
+
+- A development security operations (DevSecOps) solution that unifies security management at the code level across multi-cloud and multi-pipeline environments
+- A cloud security posture management (CSPM) solution that surfaces actions you can take to prevent breaches
+- A cloud workload protection platform (CWPP) with specific protection for servers, containers, storage, databases, and other workloads
+
+See [here](https://learn.microsoft.com/en-us/azure/defender-for-cloud/concept-integration-365) to understand how Defender for Cloud integrates with Microsoft Defender XDR.
+
+Plans
+- [Defender for Cloud Pricing](https://azure.microsoft.com/en-us/pricing/details/defender-for-cloud/) - separate plans for CSPM and cloud workload protection (CWPP)
+- Foundational CSPM (Free)
+- Defender Cloud Security Posture Management (CSPM) plan
+  - [CSPM Pricing](https://learn.microsoft.com/en-us/azure/defender-for-cloud/concept-cloud-security-posture-management#plan-pricing)
+  - [Features and Availability](https://learn.microsoft.com/en-us/azure/defender-for-cloud/concept-cloud-security-posture-management#plan-availability)
+
 Features
-- [Defender Cloud Security Posture Management (CSPM)](https://learn.microsoft.com/en-us/azure/defender-for-cloud/concept-cloud-security-posture-management)
-- [Defender for Servers](https://learn.microsoft.com/en-us/azure/defender-for-cloud/plan-defender-for-servers-select-plan )
-  - Licensing Requirements
-    - Microsoft Defender for Servers Plan 1 or Plan 2 (as part of the Defender for Cloud offering, i.e. through Azure)
-    - Microsoft Defender for Endpoint for Servers ($5 server/mo)
-    - Microsoft Defender for Business Servers (for < 300 users)
-    - See [Licensing Requirements](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/minimum-requirements?view=o365-worldwide#licensing-requirements) and [Defender for Servers FAQ](https://learn.microsoft.com/en-us/azure/defender-for-cloud/faq-defender-for-servers#can-i-get-a-discount-if-i-already-have-a-microsoft-defender-for-endpoint-license-)
-  - Defender for Servers Plan 1
-    - Description: Entry-level and enabled at the Azure subscription level but with an [option to enable at the resource level](https://learn.microsoft.com/en-us/azure/defender-for-cloud/tutorial-enable-servers-plan#enable-the-plan-at-the-resource-level)
-    - Features
-      - Defender for Endpoint Integration
-      - Licensing - charged by the hour per seat, and only when VMs are in use
-      - Defender for Endpoint Provisioning - automatically provisions on every supported VMs
-      - Threat detection at OS-level (agent-based) - behavioral detection and _fileless attack detection_
-  - Defender for Servers Plan 2
-    - Description: Provides all features and must be enabled both at the Azure subscription level and (to get full coverage) at the Log Analytics workspace level. There is an option to [exclude items at the resource level](https://learn.microsoft.com/en-us/azure/defender-for-cloud/tutorial-enable-servers-plan#enable-the-plan-at-the-resource-level).
-    - Features
-      - Free data ingestion (500MB) to Log Analytics workspaces
-      - Free Azure Update Manager Remediation for Arc machines
-      - Threat detection at network-level (agentless security alerts)
-      - [Security policy and regulatory compliance](https://learn.microsoft.com/en-us/azure/defender-for-cloud/security-policy-concept) - compare VM configuration with industry standards and benchmarks
-      - [Qualys vulnerability assessment](https://learn.microsoft.com/en-us/azure/defender-for-cloud/deploy-vulnerability-assessment-vm) - deploy Qualys scanner and display findings (as an alternative to Microsoft Defender Vulnerability Management)
-      - [Adaptive application controls](https://learn.microsoft.com/en-us/azure/defender-for-cloud/adaptive-application-controls) - define allowlists of known safe applications
-      - [Just-in-time VM access](https://learn.microsoft.com/en-us/azure/defender-for-cloud/just-in-time-access-overview?tabs=defender-for-container-arch-aks) - locks down open management ports to reduce attack surface
-      - [Adaptive network hardening](https://learn.microsoft.com/en-us/azure/defender-for-cloud/adaptive-network-hardening) - Provides recommendations for hardening NSG rules
-      - [File integrity monitoring](https://learn.microsoft.com/en-us/azure/defender-for-cloud/file-integrity-monitoring-overview) - Examines OS files, Windows registries, application software, and Linux system files for changes that might indicate an attack
-      - [Docker host hardening](https://learn.microsoft.com/en-us/azure/defender-for-cloud/harden-docker-hosts) - Identifies unmanaged containers hosted on IaaS Linux VMs and provides hardening recommendations
-      - [Agentless scanning](https://learn.microsoft.com/en-us/azure/defender-for-cloud/concept-agentless-data-collection) - Provides actionable postures for Windows and Linux VMs without requiring an agent
-    - Add-Ons
-      - Microsoft Defender Vulnerability Management 
+
+- DevSecOps
+  - [Code Pipeline Insights](https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-devops-introduction) - protects Azure DevOps, GitHub, and GitLab
+    - Plan
+      - Foundational CSPM (Free) - the free plan will for DevSecOps will go away on March 1, 2024
+      - Defender CSPM
+- Security Posture (CSPM)
+  - Plan: Foundational CSPM (Free)
+    - [Defender Cloud Security Posture Management (CSPM) dashboard](https://learn.microsoft.com/en-us/azure/defender-for-cloud/concept-cloud-security-posture-management)
+    - [Centralized policy management](https://learn.microsoft.com/en-us/azure/defender-for-cloud/security-policy-concept)
+    - [Secure score in Defender for Cloud](https://learn.microsoft.com/en-us/azure/defender-for-cloud/secure-score-security-controls)
+    - [Multicloud coverage](https://learn.microsoft.com/en-us/azure/defender-for-cloud/plan-multicloud-security-get-started) - Azure, AWS, Google, hybrid
+  - Plan: Defender CSPM
+    - [Security Governance](https://learn.microsoft.com/en-us/azure/defender-for-cloud/governance-rules) - Drives accountability and SLA around remediating security recommendations
+    - [Regulatory compliance dashboard](https://learn.microsoft.com/en-us/azure/defender-for-cloud/concept-regulatory-compliance) 
+    - [Cloud security explorer](https://learn.microsoft.com/en-us/azure/defender-for-cloud/how-to-manage-cloud-security-explorer) - Enables you to query security issues across all assets across all multiple clouds
+    - [Attack path analysis](https://learn.microsoft.com/en-us/azure/defender-for-cloud/how-to-manage-attack-path) - Provides recommendations for specific attack paths
+    - [Agentless scanning for VMs](https://learn.microsoft.com/en-us/azure/defender-for-cloud/concept-agentless-data-collection)
+    - [Agentless container posture](https://learn.microsoft.com/en-us/azure/defender-for-cloud/concept-agentless-containers)
+    - [Data-aware security posture](https://learn.microsoft.com/en-us/azure/defender-for-cloud/concept-data-security-posture) - discovers sensitive data in cloud assets and surfaces in a dashboard
+    - [Permissions Management (Preview)](https://learn.microsoft.com/en-us/azure/defender-for-cloud/enable-permissions-management) - integrates with Entra to provide permissions management recommendations, including overprovisionined identities, super identities, and unused identities
+    - [Integration with Defender EASM](https://learn.microsoft.com/en-us/azure/defender-for-cloud/concept-easm) - EASM scans and discovers Defender for Cloud assets and provides insights for publicly-exposed assets
+- Protect Cloud Workloads (CWPP)
+  - [Defender for Servers](https://learn.microsoft.com/en-us/azure/defender-for-cloud/plan-defender-for-servers-select-plan )
+    - Licensing Requirements
+      - Microsoft Defender for Servers Plan 1 or Plan 2 (as part of the Defender for Cloud offering, i.e. through Azure)
+      - Microsoft Defender for Endpoint for Servers ($5 server/mo)
+      - Microsoft Defender for Business Servers (for < 300 users)
+      - See [Licensing Requirements](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/minimum-requirements?view=o365-worldwide#licensing-requirements) and [Defender for Servers FAQ](https://learn.microsoft.com/en-us/azure/defender-for-cloud/faq-defender-for-servers#can-i-get-a-discount-if-i-already-have-a-microsoft-defender-for-endpoint-license-)
+    - Defender for Servers Plan 1
+      - Description: Entry-level and enabled at the Azure subscription level but with an [option to enable at the resource level](https://learn.microsoft.com/en-us/azure/defender-for-cloud/tutorial-enable-servers-plan#enable-the-plan-at-the-resource-level)
+      - Features
+        - Defender for Endpoint Integration
+        - Licensing - charged by the hour per seat, and only when VMs are in use
+        - Defender for Endpoint Provisioning - automatically provisions on every supported VMs
+        - Threat detection at OS-level (agent-based) - behavioral detection and _fileless attack detection_
+    - Defender for Servers Plan 2
+      - Description: Provides all features and must be enabled both at the Azure subscription level and (to get full coverage) at the Log Analytics workspace level. There is an option to [exclude items at the resource level](https://learn.microsoft.com/en-us/azure/defender-for-cloud/tutorial-enable-servers-plan#enable-the-plan-at-the-resource-level).
+      - Features
+        - Free data ingestion (500MB) to Log Analytics workspaces
+        - Free Azure Update Manager Remediation for Arc machines
+        - Threat detection at network-level (agentless security alerts)
+        - [Security policy and regulatory compliance](https://learn.microsoft.com/en-us/azure/defender-for-cloud/security-policy-concept) - compare VM configuration with industry standards and benchmarks
+        - [Qualys vulnerability assessment](https://learn.microsoft.com/en-us/azure/defender-for-cloud/deploy-vulnerability-assessment-vm) - deploy Qualys scanner and display findings (as an alternative to Microsoft Defender Vulnerability Management)
+        - [Adaptive application controls](https://learn.microsoft.com/en-us/azure/defender-for-cloud/adaptive-application-controls) - define allowlists of known safe applications
+        - [Just-in-time VM access](https://learn.microsoft.com/en-us/azure/defender-for-cloud/just-in-time-access-overview?tabs=defender-for-container-arch-aks) - locks down open management ports to reduce attack surface
+        - [Adaptive network hardening](https://learn.microsoft.com/en-us/azure/defender-for-cloud/adaptive-network-hardening) - Provides recommendations for hardening NSG rules
+        - [File integrity monitoring](https://learn.microsoft.com/en-us/azure/defender-for-cloud/file-integrity-monitoring-overview) - Examines OS files, Windows registries, application software, and Linux system files for changes that might indicate an attack
+        - [Docker host hardening](https://learn.microsoft.com/en-us/azure/defender-for-cloud/harden-docker-hosts) - Identifies unmanaged containers hosted on IaaS Linux VMs and provides hardening recommendations
+        - [Agentless scanning](https://learn.microsoft.com/en-us/azure/defender-for-cloud/concept-agentless-data-collection) - Provides actionable postures for Windows and Linux VMs without requiring an agent
+      - Add-Ons
+        - Microsoft Defender Vulnerability Management 
+
+  - [Defender for App Service](https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-app-service-introduction)
+  - [Defender for Databases](https://learn.microsoft.com/en-us/azure/defender-for-cloud/tutorial-enable-databases-plan) - Includes Azure SQL, SQL Servers, Azure Cosmos DB, open-source relational databases (PostgreSQL, MySQL, MariaDB)
+  - [Defender for Storage](https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-storage-introduction) - Azure-native  layer that protects storage accounts
+  - [Defender for Containers](https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-containers-introduction) - imporve, monitor, and maintain security of containerized assets (Kubernetes clusters)
+  - [Defender for Key Vault](https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-key-vault-introduction) - Detects unusual attempts to access certificates, connection strings, and passwords
+  - [Defender for Resource Manager](https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-resource-manager-introduction) - monitors resource management operations in Azure Resource Manager
+  - [Defender for APIs](https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-apis-introduction)
+  - [Defender for DNS](https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-dns-introduction) - provides security alerts for resources that use Azure DNS
 
 - [External Attack Surface Management (Defender EASM)](https://learn.microsoft.com/en-us/azure/external-attack-surface-management/)
-- [Defender for App Service](https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-app-service-introduction)
-- [Defender for Databases](https://learn.microsoft.com/en-us/azure/defender-for-cloud/tutorial-enable-databases-plan) - Includes Azure SQL, SQL Servers, Azure Cosmos DB, open-source relational databases (PostgreSQL, MySQL, MariaDB)
-- [Defender for Storage](https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-storage-introduction) - Azure-native  layer that protects storage accounts
-- [Defender for Containers](https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-containers-introduction) - imporve, monitor, and maintain security of containerized assets (Kubernetes clusters)
-- [Defender for Key Vault](https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-key-vault-introduction) - Detects unusual attempts to access certificates, connection strings, and passwords
-- [Defender for Resource Manager](https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-resource-manager-introduction) - monitors resource management operations in Azure Resource Manager
-- [Defender for APIs](https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-apis-introduction)
-- [Defender for DNS](https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-dns-introduction) - provides security alerts for resources that use Azure DNS
-- [Defender for Cloud DevOps Security](https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-devops-introduction) - protects Azure DevOps, GitHub, and GitLab
+  - EASM collects data for publicly exposed assetws ("outside-in"). Defender for Cloud CSPM ("inside-out") uses that data to assist with internet-exposure validation and discovery capabilities
+  - Monitors the following public assets: domains, hostnames, web pages, IP blocks, IP addresses, ASNs, SSL certs, WHOIS contacts
 
 </details>
 
@@ -130,6 +180,7 @@ Features
     - Defender for Identity ($5.50 user/mo)
     - Enterprise Mobility + Security E5 ($16.40 user/mo)
     - Microsoft 365 E5 ($57 user/mo)
+  - Description: integrates with Active Directory and Entra to help identify, detect, and investigate advanced threats, including reconnaissance, compromised credentials, lateral movements, and domain dominance
 
 </details>
 
