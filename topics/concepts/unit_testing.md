@@ -65,8 +65,18 @@ The most difficult part of unit testing is achieving maximum value with minimum 
 
 There are two distinct views on how to approach unit testing:
 
-1. Classical (Detroit) school - how everyone originally approached unit testing and test-driven development
-2. London school - rooted in the programming community in London
+1. Detroit Approach (Classicist):
+  - How everyone originally approached unit testing and test-driven development
+  - Focuses more on the state of the system after the unit's execution
+  - Less mocking
+  - Reflective of actual usage
+
+2. London Approach (Mockist):
+  - Rooted in the programming community in London
+  - Heavily relies on mock objects to isolate the unit from its dependencies
+  - Encourages design where units are highly decoupled, leading to a more modular and flexible design
+  - More granular tests that focus on the behavior of a single unit in isolation
+  - Popular in Test-Driven Development (TDD)
 
 ### The definition of a unit Test
 
@@ -78,13 +88,13 @@ A unit test is an automated test that
 
 Most people agree on the first and second points. People have differences on the third point. The isolation issue is the root of the differences between the classical and London schools of unit testing.
 
-The most canonical book on the classical school is [Test Driven Development: By Example](https://www.amazon.com/Growing-Object-Oriented-Software-Guided-Tests/dp/0321503627/ref=sr_1_1?crid=23PA6751RMJS7&keywords=growing+object-oriented+software%2C+guided+by+tests&qid=1704477374&sprefix=Growing+object-o%2Caps%2C97&sr=8-1) by Kent Beck.
+The most canonical book on the classical approach is [Test Driven Development: By Example](https://www.amazon.com/Growing-Object-Oriented-Software-Guided-Tests/dp/0321503627/ref=sr_1_1?crid=23PA6751RMJS7&keywords=growing+object-oriented+software%2C+guided+by+tests&qid=1704477374&sprefix=Growing+object-o%2Caps%2C97&sr=8-1) by Kent Beck.
 
 The London style is sometimes referred to as _mockist_. The most prominent book for the London style is [Growing Object-Oriented Software, Guided by Tests](https://www.amazon.com/Growing-Object-Oriented-Software-Guided-Tests/dp/0321503627/ref=sr_1_1?crid=23PA6751RMJS7&keywords=growing+object-oriented+software%2C+guided+by+tests&qid=1704477374&sprefix=Growing+object-o%2Caps%2C97&sr=8-1), by Steve Freeman and Nat Pryce.
 
 #### The London take
 
-The London school isolates the system under test from its collaborators.  It involves replacing all dependencies with a _test double_, which is an object that looks and behaves like its release-intended counterpart but is actually a simplified version that reduces the complexity and facilitates testing.  The term _test double_ was introduced in the book [xUnit Test Patterns: Refactoring Test Code](https://www.amazon.com/xUnit-Test-Patterns-Refactoring-Addison-Wesley-ebook/dp/B004X1D36K/ref=sr_1_1?crid=2PVQI7B8WYTKH&keywords=xunit+test+patterns&qid=1704477623&sprefix=xunit+test+patterns%2Caps%2C95&sr=8-1). _Test double_ comes from the notion of using a stunt double in movies.
+The London school isolates the system under test from its collaborators (i.e. dependencies). It involves replacing all dependencies with a _test double_, which is an object that looks and behaves like its release-intended counterpart but is actually a simplified version that reduces the complexity and facilitates testing.  The term _test double_ was introduced in the book [xUnit Test Patterns: Refactoring Test Code](https://www.amazon.com/xUnit-Test-Patterns-Refactoring-Addison-Wesley-ebook/dp/B004X1D36K/ref=sr_1_1?crid=2PVQI7B8WYTKH&keywords=xunit+test+patterns&qid=1704477623&sprefix=xunit+test+patterns%2Caps%2C95&sr=8-1). _Test double_ comes from the notion of using a stunt double in movies.
 
 The following image shows how a test double replaces the dependencies of the system under test. 
 
@@ -102,6 +112,13 @@ In the Pester PowerShell testing suite, mocks are used as a test double. However
 The London style approaches the isolation requirement by segregating pieces of code under test from its collaborators with the help of test doubles: specifically mocks.
 
 In the classical approach, it's not the code that needs to be tested in an isolated manner; instead, the unit tests themselves should be run in isolation from each other. Isolating unit tests works fine so as long as they all reside in memory and don't reach out to a shared state, through which the tests can affect each other's execution context.  Typical examples of shared state are out-of-process dependencies&mdash;the database, the filesystem, and so on.
+
+Dependency Types: 
+
+- Shared dependency: a dependency that is shared between tests and provides means for those tests to affect each other's outcome. Examples: a static mutable field, a database.
+- Private dependency: a dependency that is not shared.
+- Out-of-process dependency: a dependency that runs outside the application's execution process. This type of dependency can be a shared dependency, such as a database used by both tests, or a private dependency, such as a database that runs isolated in a container.
+- Volatile dependency: a dependency that either (1) introduces a requirement to set up and configure a runtime environment in addition to what's installed on the developer's machine (e.g. an API) or (2) contains nondeterministic behavior (e.g. a random number generator).
 
 
 
