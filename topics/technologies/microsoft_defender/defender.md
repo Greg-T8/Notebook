@@ -6,7 +6,7 @@
   - [SC-200: Mitigate threats using Microsoft Defender XDR](#sc-200-mitigate-threats-using-microsoft-defender-xdr)
     - [Introduction to Microsoft 365 Threat Protection](#introduction-to-microsoft-365-threat-protection)
     - [Mitigate Incidents Using Microsoft Defender XDR](#mitigate-incidents-using-microsoft-defender-xdr)
-- [Permissions Model](#permissions-model)
+- [Defender XDR Role-Based Access Control](#defender-xdr-role-based-access-control)
 
 <details><summary>Microsoft Defender Exam Topics</summary>
 <br>
@@ -27,14 +27,14 @@ Per the [Microsoft Defender XDR FAQ](https://www.microsoft.com/en-us/security/bu
 [Microsoft Sentinel](https://learn.microsoft.com/en-us/azure/sentinel/overview) complements capabilities of Microsoft XDR with security information and event management (SIEM) and security orchestration, automation, and response (SOAR) capabilities to ingest logs from your entire digital estate.
 
 Microsoft Defender XDR includes the following features:
-  - [Advanced Hunting](https://learn.microsoft.com/en-us/microsoft-365/security/defender/advanced-hunting-overview?view=o365-worldwide)
-  - Cross-product threat hunting
-  - Self-healing for compromised devices, user identities, and mailboxes
-  - Automatic response to threats
-  - Combined incidents queue
-  - Cross-product single pane of glass in the Microsoft Defender portal
-  - [Multi-tenant Management](https://learn.microsoft.com/en-us/microsoft-365/security/defender/mto-overview?view=o365-worldwide)
 
+- Cross-product single pane of glass in the Microsoft Defender portal
+- Incident and alerts
+- Automatic response to threats
+- [Threat Hunting](https://learn.microsoft.com/en-us/microsoft-365/security/defender/advanced-hunting-overview?view=o365-worldwide)
+- [Threat Analytics](https://learn.microsoft.com/en-us/microsoft-365/security/defender/threat-analytics?view=o365-worldwide)
+- Self-healing for compromised devices, user identities, and mailboxes
+- [Multi-tenant Management](https://learn.microsoft.com/en-us/microsoft-365/security/defender/mto-overview?view=o365-worldwide)
 
 Microsoft Defender XDR includes the following products:
 
@@ -421,18 +421,20 @@ The following screenshot shows how you can run a hunting query in the Graph Expl
 <details open><summary>Use the Microsoft Defender portal</summary>
 <br>
 
-**Reference**:
-- [Use the Microsoft Defender portal](https://learn.microsoft.com/en-us/training/modules/mitigate-incidents-microsoft-365-defender/2-use-microsoft-security-center-portal)
+See [Required roles and permissions](https://learn.microsoft.com/en-us/training/modules/mitigate-incidents-microsoft-365-defender/2-use-microsoft-security-center-portal#:~:text=Required%20roles%20and%20permissions) for a table that outlines the roles and permissions required to access each experience in the Defender XDR workload.
 
-<img src='img/20231213-041343.png' width=500px>
+</details>
+
+<details><summary>Manage incidents</summary>
+<br>
+
 
 
 </details>
 
-
 </details> <!-- End Parent-->
 
-## Permissions Model
+## Defender XDR Role-Based Access Control
 
 Microsoft Defender currently does not support a single permissions management experiences across its services. Therefore, you must configure permission sets separately for services.
 
