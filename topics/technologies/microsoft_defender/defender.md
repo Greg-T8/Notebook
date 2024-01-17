@@ -421,8 +421,6 @@ The following screenshot shows how you can run a hunting query in the Graph Expl
 <details open><summary>Use the Microsoft Defender portal</summary>
 <br>
 
-See [Required roles and permissions](https://learn.microsoft.com/en-us/training/modules/mitigate-incidents-microsoft-365-defender/2-use-microsoft-security-center-portal#:~:text=Required%20roles%20and%20permissions) for a table that outlines the roles and permissions required to access each experience in the Defender XDR workload.
-
 </details>
 
 <details><summary>Manage incidents</summary>
@@ -435,6 +433,15 @@ See [Required roles and permissions](https://learn.microsoft.com/en-us/training/
 </details> <!-- End Parent-->
 
 ## Defender XDR Role-Based Access Control
+
+Per [Manage access to Microsoft Defender XDR](https://learn.microsoft.com/en-us/microsoft-365/security/defender/m365d-permissions?view=o365-worldwide), there are two ways to manage access:
+
+- Global Microsoft Entra roles
+- Custom role access
+
+See [Required roles and permissions](https://learn.microsoft.com/en-us/training/modules/mitigate-incidents-microsoft-365-defender/2-use-microsoft-security-center-portal#:~:text=Required%20roles%20and%20permissions) for a table that outlines the roles and permissions required to access each experience in the Defender XDR workload.
+
+
 
 Microsoft Defender currently does not support a single permissions management experiences across its services. Therefore, you must configure permission sets separately for services.
 
