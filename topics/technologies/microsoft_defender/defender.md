@@ -441,6 +441,9 @@ Per [Manage access to Microsoft Defender XDR](https://learn.microsoft.com/en-us/
 
 See [Required roles and permissions](https://learn.microsoft.com/en-us/training/modules/mitigate-incidents-microsoft-365-defender/2-use-microsoft-security-center-portal#:~:text=Required%20roles%20and%20permissions) for a table that outlines the roles and permissions required to access each experience in the Defender XDR workload.
 
+Per [Permissions pre-requisites](https://learn.microsoft.com/en-us/microsoft-365/security/defender/manage-rbac?view=o365-worldwide#permissions-pre-requisites), you must be an Entra Global Administrator or an Entra Security Administrator  to access the **Permissions and Roles** node in the Microsoft Defender portal.
+
+
 
 
 Microsoft Defender currently does not support a single permissions management experiences across its services. Therefore, you must configure permission sets separately for services.
