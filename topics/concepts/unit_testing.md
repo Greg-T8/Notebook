@@ -2,12 +2,11 @@
 
 This page covers my learnings on unit testing. Most of the material on this page comes from the book "Unit Testing: Principles, Practices, and Patterns" by Vladimir Khorikov.
 
-<details><summary>The Goal of Unit Testing</summary>
+<details><summary>The Need for Unit Testing</summary>
 
-## Goal of Unit Testing
 Code tends to deteriorate. Each time you change something in a code base, the amount of disorder in it, or entropy, increases. Without proper care, such as constant cleaning and refactoring, the system becomes increasingly complex and disorganized. Tests help overturn this tendency.
 
-The goal of unit testing is to enable sustainable growth of the software project. As projects progress through their lifecycle, stagnation occurs when there are no tests or the tests are of poor quality.
+_The goal of unit testing is to enable sustainable growth of the software project_. As projects progress through their lifecycle, stagnation occurs when there are no tests or the tests are of poor quality.
 
 <img src='img/20240157-095728.png' width=500px>
 
@@ -15,7 +14,9 @@ Keep in mind that not every test holds the same importance. While certain tests 
 
 > Code is a liability, not an asset. The more code you introduce, the more you extend the surface area for potential bugs in your software, and the higher the project's upkeep cost. It's always better to solve problems with as little code as possible. Tests are code too.
 
-## About Code Coverage
+</details>
+
+<details><summary>About Code Coverage</summary>
 
 A coverage metric shows how much source code a test suite examines, from none to 100%. However, code coverage metrics don't tell the full story for two reasons:
   
@@ -28,15 +29,19 @@ Per #2 above, external code paths may yield different results based on the input
 
 > Targeting a specific coverage number creates a perverse incentive that goes against the goal of unit testing.
 
-The best way to view a coverage metric is as an indicator, not a goal in and of itself. It's good to have a high level of coverage in core parts of your system.  It's bad to make this high level a requirement.
+_The best way to view a coverage metric is as an indicator, not a goal in and of itself_. It's good to have a high level of coverage in core parts of your system.  It's bad to make this high level a requirement.
 
-## Successful Test Suites
+</details>
+
+## Properties of Successful Test Suites
 
 A successful test suite has the following properties:
 
 - It's integrated into the development cycle
 - It targets only the most important parts of your code base
 - It provides maximum value with minimum maintenance costs
+
+<details><summary>More info</summary>
 
 The only point in having automated tests is if you constantly use them. All tests should execute on every code change, even the smallest one.
 
@@ -63,38 +68,31 @@ The most difficult part of unit testing is achieving maximum value with minimum 
 
 ## What is a Unit Test?
 
-There are two distinct views on how to approach unit testing:
-
-1. Detroit Approach (Classicist):
-  - How everyone originally approached unit testing and test-driven development
-  - Focuses more on the state of the system after the unit's execution
-  - Less mocking
-  - Reflective of actual usage
-
-2. London Approach (Mockist):
-  - Rooted in the programming community in London
-  - Heavily relies on mock objects to isolate the unit from its dependencies
-  - Encourages design where units are highly decoupled, leading to a more modular and flexible design
-  - More granular tests that focus on the behavior of a single unit in isolation
-  - Popular in Test-Driven Development (TDD)
-
-### The definition of a unit Test
-
 A unit test is an automated test that
 
 - Verifies a small piece of code (also known as a unit),
 - Does it quickly, and
 - Does it in an isolated manner
 
-Most people agree on the first and second points. People have differences on the third point. The isolation issue is the root of the differences between the classical and London schools of unit testing.
 
-The most canonical book on the classical approach is [Test Driven Development: By Example](https://www.amazon.com/Growing-Object-Oriented-Software-Guided-Tests/dp/0321503627/ref=sr_1_1?crid=23PA6751RMJS7&keywords=growing+object-oriented+software%2C+guided+by+tests&qid=1704477374&sprefix=Growing+object-o%2Caps%2C97&sr=8-1) by Kent Beck.
+Most people agree on the first and second points. The third point, isolation, is so controversial that there are two distinct views on unit testing:
 
-The London style is sometimes referred to as _mockist_. The most prominent book for the London style is [Growing Object-Oriented Software, Guided by Tests](https://www.amazon.com/Growing-Object-Oriented-Software-Guided-Tests/dp/0321503627/ref=sr_1_1?crid=23PA6751RMJS7&keywords=growing+object-oriented+software%2C+guided+by+tests&qid=1704477374&sprefix=Growing+object-o%2Caps%2C97&sr=8-1), by Steve Freeman and Nat Pryce.
+1. Detroit Approach (Classicist):
 
-#### The London take
+    - Focuses more on the state of the system after the unit's execution
+    - Reflective of actual usage
+    - How everyone originally approached unit testing and test-driven development
 
-The London school isolates the system under test from its collaborators (i.e. dependencies). It involves replacing all dependencies with a _test double_, which is an object that looks and behaves like its release-intended counterpart but is actually a simplified version that reduces the complexity and facilitates testing.  The term _test double_ was introduced in the book [xUnit Test Patterns: Refactoring Test Code](https://www.amazon.com/xUnit-Test-Patterns-Refactoring-Addison-Wesley-ebook/dp/B004X1D36K/ref=sr_1_1?crid=2PVQI7B8WYTKH&keywords=xunit+test+patterns&qid=1704477623&sprefix=xunit+test+patterns%2Caps%2C95&sr=8-1). _Test double_ comes from the notion of using a stunt double in movies.
+2. London Approach (Mockist):
+  
+    - Heavily relies on mock objects to isolate the unit from its dependencies
+    - Encourages design where units are highly decoupled, leading to a more modular and flexible design
+    - More granular tests that focus on the behavior of a single unit in isolation
+    - Popular in Test-Driven Development (TDD)
+
+<details><summary>The London Approach vs the Classicist Approach</summary>
+
+The London school isolates the system under test from its collaborators (i.e. dependencies). It involves replacing all dependencies with a _test double_, which is an object that looks and behaves like its release-intended counterpart but is actually a simplified version that reduces the complexity and facilitates testing.  The term _test double_ comes from the idea of using a stunt double in movies.
 
 The following image shows how a test double replaces the dependencies of the system under test. 
 
@@ -108,8 +106,6 @@ In the Pester PowerShell testing suite, mocks are used as a test double. However
 
 - A _test double_ is an overarching term that describes all kinds of non-production-ready, fake dependencies in a test
 - A _mock_ is just one kind of such dependencies
-
-The London style approaches the isolation requirement by segregating pieces of code under test from its collaborators with the help of test doubles: specifically mocks.
 
 In the classical approach, it's not the code that needs to be tested in an isolated manner; instead, the unit tests themselves should be run in isolation from each other. Isolating unit tests works fine so as long as they all reside in memory and don't reach out to a shared state, through which the tests can affect each other's execution context.  Typical examples of shared state are out-of-process dependencies&mdash;the database, the filesystem, and so on.
 
