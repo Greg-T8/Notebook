@@ -19,7 +19,12 @@
 
 ## Microsoft Defender Products
 
-**What is the difference between Microsoft Defender and Microsoft Defender XDR?**<br>
+Learn about the products and features of Microsoft Defender XDR.
+
+<details><summary>Expand</summary>
+<br>
+
+**What's the difference between Microsoft Defender and Microsoft Defender XDR?**  
 XDR (Extended Detection and Response) is a cybersecurity industry term for solutions that extend beyond traditional endpoint security. XDR solutions collect and correlate data across multiple security layers - email, endpoint, cloud, and network.
 
 Per the [Microsoft Defender XDR FAQ](https://www.microsoft.com/en-us/security/business/siem-and-xdr/microsoft-defender-xdr#x775d8d7905b145e88deb34493a003a0d), Microsoft Defender XDR (formerly known as Microsoft Defender) is the unified portal experience encompassing all the Defender products. Microsoft XDR provides provides protection across endpoints, hybrid identities, email collaboration and tools, cloud services (Azure, Amazon, and Google), and IoT devices.
@@ -331,13 +336,16 @@ Features
 
 </details>
 
+</details>
+
 ## Microsoft Defender Learning Paths
 
-The following Microsoft learning paths support the SC-200 exam. Expand the sections below to view my notes from the SC-200 learning paths.
+My notes from the SC-200 learning paths.
 
-<details open><summary>Learning Path > SC-200: Mitigate threats using Microsoft Defender XDR</summary>
 
 ### [SC-200: Mitigate threats using Microsoft Defender XDR](https://learn.microsoft.com/en-us/training/paths/sc-200-mitigate-threats-using-microsoft-365-defender/)
+
+<details><summary>Expand</summary>
 
 #### Introduction to Microsoft 365 Threat Protection
 
@@ -345,6 +353,7 @@ The following Microsoft learning paths support the SC-200 exam. Expand the secti
 <br>
 
 **References**:
+
 - [Microsoft Defender XDR](https://learn.microsoft.com/en-us/microsoft-365/security/defender/microsoft-365-defender?view=o365-worldwide)
 
 Microsoft Defender XDR is an integrated threat protection suite that combines
@@ -410,6 +419,7 @@ POST https://graph.microsoft.com/v1.0/security/runHuntingQuery
     "Query": "DeviceProcessEvents | where InitiatingProcessFileName =~ \"powershell.exe\" | project Timestamp, FileName, InitiatingProcessFileName | order by Timestamp desc | limit 2"
 }
 ```
+
 The following screenshot shows how you can run a hunting query in the Graph Explorer tool.
 
 <img src='img/20231242-034211.png' width=700px>
@@ -434,6 +444,8 @@ The following screenshot shows how you can run a hunting query in the Graph Expl
 
 ## Defender XDR Role-Based Access Control
 
+<details><summary>Expand</summary>
+
 Per [Manage access to Microsoft Defender XDR](https://learn.microsoft.com/en-us/microsoft-365/security/defender/m365d-permissions?view=o365-worldwide), there are two ways to manage access:
 
 - Global Microsoft Entra roles
@@ -443,18 +455,9 @@ See [Required roles and permissions](https://learn.microsoft.com/en-us/training/
 
 Per [Permissions pre-requisites](https://learn.microsoft.com/en-us/microsoft-365/security/defender/manage-rbac?view=o365-worldwide#permissions-pre-requisites), you must be an Entra Global Administrator or an Entra Security Administrator  to access the **Permissions and Roles** node in the Microsoft Defender portal.
 
+In December 2023, Microsoft introduced a unified role-based access control model for Microsoft Defender XDR. This RBAC model enables role assignment across Defender products without having to manage role assignments separately for each product.  See [Microsoft Defender XDR Unified role-based access control (RBAC)](https://learn.microsoft.com/en-us/microsoft-365/security/defender/manage-rbac?view=o365-worldwide). 
 
-
-
-Microsoft Defender currently does not support a single permissions management experiences across its services. Therefore, you must configure permission sets separately for services.
-
-<img src='img/20231220-042025.png' width=500px>
-
-However, Microsoft is now providing the Microsoft Defender XDR Unified role-based access control (RBAC) model, which does provide a single permissions management experience for most of its services.
-
-- [Microsoft Defender XDR Unified role-based access control (RBAC)](https://learn.microsoft.com/en-us/microsoft-365/security/defender/manage-rbac?view=o365-worldwide)
-
-Included services
+The unified RBAC model covers the following products:
 
 - Microsoft Defender XDR
 - Microsoft Defender for Endpoint
@@ -464,9 +467,14 @@ Included services
 - Microsoft Defender for Cloud
 - Microsoft Secure Score
   
-Services not included in the unified permissions model:
+Permissions for the following products must still be managed separately: 
 
 - Microsoft Defender for Cloud Apps
 - Microsoft Purview Compliance
+
+See [What's new in Microsoft Defender XDR RBAC](https://learn.microsoft.com/en-us/microsoft-365/security/defender/whats-new-in-microsoft-defender-urbac?view=o365-worldwide) for the latest updates.
+
+</details>
+
 
 
