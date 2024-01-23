@@ -68,12 +68,12 @@ The most difficult part of unit testing is achieving maximum value with minimum 
 
 ## What is a Unit Test?
 
+
 A unit test is an automated test that
 
-- Verifies a small piece of code (also known as a unit),
-- Does it quickly, and
-- Does it in an isolated manner
-
+1. Verifies a small piece of code (also known as a unit),
+2. Does it quickly, and
+3. Does it in an isolated manner
 
 Most people agree on the first and second points. The third point, isolation, is so controversial that there are two distinct views on unit testing:
 
@@ -116,6 +116,33 @@ Dependency Types:
 - Out-of-process dependency: a dependency that runs outside the application's execution process. This type of dependency can be a shared dependency, such as a database used by both tests, or a private dependency, such as a database that runs isolated in a container.
 - Volatile dependency: a dependency that either (1) introduces a requirement to set up and configure a runtime environment in addition to what's installed on the developer's machine (e.g. an API) or (2) contains nondeterministic behavior (e.g. a random number generator).
 
+</details>
 
+## The Anatomy of a Unit Test
+
+Unit tests are structured using the arrange, act, and assert (AAA) pattern. In the arrange section, you bring the system under test (SUT) and its dependencies to a desired state. In the act section, you call methods on the SUT and capture the output value. In the assert section, you verify the outcome.
+
+The arrange section is the largest section in terms of code.
+
+The act section is typically one line of code. If you have more than one line in the act section, it is a sign of a problem with the SUT's API, which indicates that two actions must always be performed together, which can lead to inconsistencies.
+
+A unit test tests a single unit of behavior, not a single unit of code.
+
+## The Four Pillars of a Good Unit Test
+
+A good unit test has the following four attributes:
+
+1. Protection against regressions
+2. Resistance to refactoring
+3. Fast feedback
+4. Maintainability
+
+Points to keep in mind:
+
+- A regression refers to a situation where a previously functioning feature  stops working after changes. Generally, the larger the amount of code that gets executed, the higher the chance that the test will reveal a regression.
+
+- Code that represents complex business logic is more important than boilerplate code.
+
+- It's rarely worthwhile to test trivial code. Trivial code does not contain a substantial amount of business logic and won't provide much chance of finding a regression error.
 
 
