@@ -3,9 +3,9 @@
 
 - [Microsoft Defender Products](#microsoft-defender-products)
 - [Microsoft Defender Learning Paths](#microsoft-defender-learning-paths)
-  - [SC-200: Mitigate threats using Microsoft Defender XDR](#sc-200-mitigate-threats-using-microsoft-defender-xdr)
-    - [Introduction to Microsoft 365 Threat Protection](#introduction-to-microsoft-365-threat-protection)
-    - [Mitigate Incidents Using Microsoft Defender XDR](#mitigate-incidents-using-microsoft-defender-xdr)
+  - [Learning Path: SC-200: Mitigate threats using Microsoft Defender XDR](#learning-path-sc-200-mitigate-threats-using-microsoft-defender-xdr)
+    - [Module: Introduction to Microsoft 365 Threat Protection](#module-introduction-to-microsoft-365-threat-protection)
+    - [Module: Mitigate Incidents Using Microsoft Defender XDR](#module-mitigate-incidents-using-microsoft-defender-xdr)
 - [Defender XDR Role-Based Access Control](#defender-xdr-role-based-access-control)
 
 <details><summary>Microsoft Defender Exam Topics</summary>
@@ -19,7 +19,7 @@
 
 ## Microsoft Defender Products
 
-Learn about the products and features of Microsoft Defender XDR.
+Understand the products and features of Microsoft Defender XDR. 
 
 <details><summary>Expand</summary>
 <br>
@@ -343,11 +343,11 @@ Features
 My notes from the SC-200 learning paths.
 
 
-### [SC-200: Mitigate threats using Microsoft Defender XDR](https://learn.microsoft.com/en-us/training/paths/sc-200-mitigate-threats-using-microsoft-365-defender/)
+### Learning Path: [SC-200: Mitigate threats using Microsoft Defender XDR](https://learn.microsoft.com/en-us/training/paths/sc-200-mitigate-threats-using-microsoft-365-defender/)
 
 <details><summary>Expand</summary>
 
-#### Introduction to Microsoft 365 Threat Protection
+#### Module: [Introduction to Microsoft 365 Threat Protection](https://learn.microsoft.com/en-us/training/modules/introduction-microsoft-365-threat-protection/)
 
 <details><summary>Microsoft Defender XDR Overview</summary>
 <br>
@@ -426,12 +426,7 @@ The following screenshot shows how you can run a hunting query in the Graph Expl
 
 </details>
 
-#### Mitigate Incidents Using Microsoft Defender XDR
-
-<details open><summary>Use the Microsoft Defender portal</summary>
-<br>
-
-</details>
+#### Module: [Mitigate Incidents Using Microsoft Defender XDR](https://learn.microsoft.com/en-us/training/modules/mitigate-incidents-microsoft-365-defender/)
 
 <details><summary>Manage incidents</summary>
 <br>
@@ -451,9 +446,9 @@ Per [Manage access to Microsoft Defender XDR](https://learn.microsoft.com/en-us/
 - Global Microsoft Entra roles
 - Custom role access
 
-See [Required roles and permissions](https://learn.microsoft.com/en-us/training/modules/mitigate-incidents-microsoft-365-defender/2-use-microsoft-security-center-portal#:~:text=Required%20roles%20and%20permissions) for a table that outlines the roles and permissions required to access each experience in the Defender XDR workload.
-
 Per [Permissions pre-requisites](https://learn.microsoft.com/en-us/microsoft-365/security/defender/manage-rbac?view=o365-worldwide#permissions-pre-requisites), you must be an Entra Global Administrator or an Entra Security Administrator  to access the **Permissions and Roles** node in the Microsoft Defender portal.
+
+See [Required roles and permissions](https://learn.microsoft.com/en-us/microsoft-365/security/defender/custom-roles?view=o365-worldwide#required-roles-and-permissions) for a table that outlines the roles and permissions required to access each experience in the Defender XDR workload. 
 
 In December 2023, Microsoft introduced a unified role-based access control model for Microsoft Defender XDR. This RBAC model enables role assignment across Defender products without having to manage role assignments separately for each product.  See [Microsoft Defender XDR Unified role-based access control (RBAC)](https://learn.microsoft.com/en-us/microsoft-365/security/defender/manage-rbac?view=o365-worldwide). 
 
