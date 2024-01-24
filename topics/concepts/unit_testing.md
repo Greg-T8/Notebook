@@ -2,6 +2,56 @@
 
 This page covers my learnings on unit testing. Most of the material on this page comes from the book "Unit Testing: Principles, Practices, and Patterns" by Vladimir Khorikov.
 
+<details><summary>Types of Testing in Software Development</summary>
+
+Understanding the different types of testing suites is crucial in software development, as each type targets different aspects of an application and ensures its quality and reliability. Here are the key differences among some common types of testing suites:
+
+1. **Unit Testing:**
+   - **Focus:** The smallest parts of an application, typically individual functions or methods.
+   - **Purpose:** To verify that each unit works as intended in isolation.
+   - **Method:** Developers write these tests to check the correctness of their code. Mock objects and stubs are often used to isolate the unit from its dependencies.
+   - **Example:** Testing a function that calculates the sum of two numbers.
+
+2. **Integration Testing:**
+   - **Focus:** The interaction between integrated units/modules of the application.
+   - **Purpose:** To detect issues in the interaction between integrated units.
+   - **Method:** These tests are typically written after unit tests and focus on the flow of data and control between modules. They may involve testing database interactions, API calls, etc.
+   - **Example:** Testing how a database module interacts with a data processing module.
+
+3. **Functional Testing:**
+   - **Focus:** The overall functionality of the system.
+   - **Purpose:** To ensure the software is functioning according to the requirements or specifications.
+   - **Method:** Conducted from the user's perspective, it involves testing complete features or functionalities of the application.
+   - **Example:** Testing the complete workflow of a user registration feature.
+
+4. **System Testing:**
+   - **Focus:** The complete and integrated software product.
+   - **Purpose:** To evaluate the system’s compliance with specified requirements.
+   - **Method:** This is a high-level testing suite that validates the overall behavior of the application in an environment that mimics production.
+   - **Example:** Testing the entire application after integration to ensure it meets all technical, functional, and business requirements.
+
+5. **End-to-End Testing:**
+   - **Focus:** The entire application in a scenario that mimics real-world use.
+   - **Purpose:** To replicate real-user scenarios to ensure the system works as intended.
+   - **Method:** This involves testing the complete flow of an application from start to finish, including its interaction with external interfaces and networks.
+   - **Example:** Testing an e-commerce application from product selection, cart management, checkout, payment, to order confirmation.
+
+6. **Acceptance Testing:**
+   - **Focus:** The software in a "production-like" environment.
+   - **Purpose:** To validate if the software meets the business requirements and is ready for deployment.
+   - **Method:** Often performed by end-users or clients, it checks if the software is acceptable for delivery.
+   - **Example:** Business stakeholders testing the software to decide if it meets the predetermined criteria and is ready for release.
+
+7. **Regression Testing:**
+   - **Focus:** Ensuring that new changes haven't adversely affected existing functionalities.
+   - **Purpose:** To check that the old code still works after the new changes.
+   - **Method:** Typically automated, it involves re-running functional and non-functional tests to ensure that previously developed and tested software still performs after a change.
+   - **Example:** Re-running tests after bug fixes or new feature additions.
+
+Each of these testing types plays a crucial role in the software development lifecycle, addressing different needs and stages of the development process to ensure a robust, functional, and user-friendly product.
+
+</details>
+
 <details><summary>The Need for Unit Testing</summary>
 
 Code tends to deteriorate. Each time you change something in a code base, the amount of disorder in it, or entropy, increases. Without proper care, such as constant cleaning and refactoring, the system becomes increasingly complex and disorganized. Tests help overturn this tendency.
@@ -120,13 +170,14 @@ Dependency Types:
 
 ## The Anatomy of a Unit Test
 
+A unit test tests a single unit of behavior, not a single unit of code.
+
 Unit tests are structured using the arrange, act, and assert (AAA) pattern. In the arrange section, you bring the system under test (SUT) and its dependencies to a desired state. In the act section, you call methods on the SUT and capture the output value. In the assert section, you verify the outcome.
 
 The arrange section is the largest section in terms of code.
 
 The act section is typically one line of code. If you have more than one line in the act section, it is a sign of a problem with the SUT's API, which indicates that two actions must always be performed together, which can lead to inconsistencies.
 
-A unit test tests a single unit of behavior, not a single unit of code.
 
 ## The Four Pillars of a Good Unit Test
 
@@ -137,12 +188,18 @@ A good unit test has the following four attributes:
 3. Fast feedback
 4. Maintainability
 
-Points to keep in mind:
+### Protection against Regression
 
-- A regression refers to a situation where a previously functioning feature  stops working after changes. Generally, the larger the amount of code that gets executed, the higher the chance that the test will reveal a regression.
+With regard to protection against regression, here are a few points to keep in mind:
 
-- Code that represents complex business logic is more important than boilerplate code.
-
+- A regression (i.e. a software bug) refers to a situation where a previously functioning feature  stops working after changes. 
+- Generally, the larger the amount of code that gets executed, the higher the chance that the test will reveal a regression.
+- The complexity and domain significance is also important. Code that represents complex business logic is more important than boilerplate code.
 - It's rarely worthwhile to test trivial code. Trivial code does not contain a substantial amount of business logic and won't provide much chance of finding a regression error.
+
+### Resistance to refactoring
+Refactoring means changing existing code without modifying its observable behavior. The intention of refactoring is usually to increase readability and reduce complexity. Resistance to refactoring is the degree to which a test can sustain a refactoring of the underlying application code without turning red (failing).
+
+- 
 
 
