@@ -467,6 +467,11 @@ Permissions for the following products must still be managed separately:
 - Microsoft Defender for Cloud Apps
 - Microsoft Purview Compliance
 
+Here are some caveats I've found during testing:
+
+- To manage incidents from Defender for Cloud Apps, users must be explicitly assigned to the Defender for Cloud Apps Security Operator role. Expect this requirement to be in effect until Microsoft integrates Defender for Cloud Apps into the unified RBAC model.
+- 
+
 See [What's new in Microsoft Defender XDR RBAC](https://learn.microsoft.com/en-us/microsoft-365/security/defender/whats-new-in-microsoft-defender-urbac?view=o365-worldwide) for the latest updates.
 
 </details>
