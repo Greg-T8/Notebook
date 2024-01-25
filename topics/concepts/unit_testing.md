@@ -60,6 +60,11 @@ _The goal of unit testing is to enable sustainable growth of the software projec
 
 <img src='img/20240157-095728.png' width=500px>
 
+The mechanism by which unit tests enable sustainable growth is that they allow you to add new features and conduct regular refactorings without introducing regressions (i.e. bugs). There are two benefits here:
+
+1. Tests provide an early warning when you break existing functionality
+2. You become confident that your code changes won't lead to regressions
+
 Keep in mind that not every test holds the same importance. While certain tests significantly enhance the quality of software, others may not be as effective. These less helpful tests often lead to unnecessary alerts, fail to detect regression issues, and can be cumbersome and challenging to maintain. It's common to get caught up in creating unit tests just for the sake of it, without truly understanding if they are beneficial to the project.
 
 > Code is a liability, not an asset. The more code you introduce, the more you extend the surface area for potential bugs in your software, and the higher the project's upkeep cost. It's always better to solve problems with as little code as possible. Tests are code too.
@@ -198,8 +203,20 @@ With regard to protection against regression, here are a few points to keep in m
 - It's rarely worthwhile to test trivial code. Trivial code does not contain a substantial amount of business logic and won't provide much chance of finding a regression error.
 
 ### Resistance to refactoring
+
 Refactoring means changing existing code without modifying its observable behavior. The intention of refactoring is usually to increase readability and reduce complexity. Resistance to refactoring is the degree to which a test can sustain a refactoring of the underlying application code without turning red (failing).
 
-- 
+False positives in unit tests that result from refactoring interfere wit the benefits of units tests in the following ways:
+
+1. They dilute your ability and willingness to react to problems in code. Over time, you get accustomed to failures and stop paying attention. After a while you start ignore legitimate failures, too.
+2. When false positives are frequent, you lose trust in the test suite. This lack of trust leads to fewer refactorings, because you try to reduce code changes to a minimum to avoid regressions.
+
+The only way to reduce false positives is to decouple the test from the implementation details. You need to make sure the test verifies the end result the SUT delivers: its observable behavior, not the steps it takes to do that test. Tests should approach SUT verification from the end user's point of view and check only the outcome meaningful to that end user. Everything else must be disregarded.
+
+The best way to structure a test is to make it tell a story about the problem domain. Should a test fail, it means there's a disconnect between the story and the actual application behavior. All other tests are just noise that steer your attention away from things that matter.
+
+
+
+
 
 
