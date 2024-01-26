@@ -193,16 +193,19 @@ A good unit test has the following four attributes:
 3. Fast feedback
 4. Maintainability
 
-### Protection against Regression
+### Protection against regression
 
-With regard to protection against regression, here are a few points to keep in mind:
+A regression (i.e. a software bug) refers to a situation where a previously functioning feature  stops working after changes. With regard to protection against regression, here are a few points to keep in mind:
 
-- A regression (i.e. a software bug) refers to a situation where a previously functioning feature  stops working after changes. 
-- Generally, the larger the amount of code that gets executed, the higher the chance that the test will reveal a regression.
+`To maximize the metric of protection against regression, the test needs to aim at exercising as much code as possible.`
+
+- The larger the amount of code that gets executed, the higher the chance that the test will reveal a regression.
 - The complexity and domain significance is also important. Code that represents complex business logic is more important than boilerplate code.
 - It's rarely worthwhile to test trivial code. Trivial code does not contain a substantial amount of business logic and won't provide much chance of finding a regression error.
 
 ### Resistance to refactoring
+
+`To maximize the metric of resistance to refactoring, aim at the end result instead of implementation details.`
 
 Refactoring means changing existing code without modifying its observable behavior. The intention of refactoring is usually to increase readability and reduce complexity. Resistance to refactoring is the degree to which a test can sustain a refactoring of the underlying application code without turning red (failing).
 
@@ -215,6 +218,9 @@ The only way to reduce false positives is to decouple the test from the implemen
 
 The best way to structure a test is to make it tell a story about the problem domain. Should a test fail, it means there's a disconnect between the story and the actual application behavior. All other tests are just noise that steer your attention away from things that matter.
 
+Good unit tests focus on the end result. Bad unit tests focus on the implementation details.
+
+<img src='img/20240158-045854.png' width=700px>
 
 
 
