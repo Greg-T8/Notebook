@@ -19,9 +19,8 @@
 
 ## Microsoft Defender Products
 
-Understand the products and features of Microsoft Defender XDR. 
 
-<details><summary>Expand</summary>
+<details><summary>Understand the products and features of Microsoft Defender XDR</summary>
 <br>
 
 **What's the difference between Microsoft Defender and Microsoft Defender XDR?**  
@@ -439,7 +438,7 @@ The following screenshot shows how you can run a hunting query in the Graph Expl
 
 ## Defender XDR Role-Based Access Control
 
-<details><summary>Expand</summary>
+<details><summary>Expand to learn more about Microsoft Defender Unified RBAC</summary>
 
 Per [Manage access to Microsoft Defender XDR](https://learn.microsoft.com/en-us/microsoft-365/security/defender/m365d-permissions?view=o365-worldwide), there are two ways to manage access:
 
