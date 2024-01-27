@@ -193,6 +193,7 @@ A good unit test has the following four attributes:
 3. Fast feedback
 4. Maintainability
 
+<details><summary>More details on the four pillars of a good unit test...</summary>
 ### Protection against regression
 
 A regression (i.e. a software bug) refers to a situation where a previously functioning feature  stops working after changes. With regard to protection against regression, here are a few points to keep in mind:
@@ -221,6 +222,28 @@ The best way to structure a test is to make it tell a story about the problem do
 Good unit tests focus on the end result. Bad unit tests focus on the implementation details.
 
 <img src='img/20240158-045854.png' width=700px>
+
+### Fast feedback
+
+Fast tests are an essential property of a unit test. The faster the tests, the more of them you can have in your test suite and the more often you can run them.
+
+Slow tests delay feedback and discourage you from running them often.
+
+Unit tests, by their isolated nature, are fast tests as compared to other types of tests, e.g. integration tests.
+
+### Maintainability
+
+The ability to maintain a unit test has two components:
+
+1. How hard is it to understand the test
+2. How hard is it to run the test
+
+Understand the test is related to the size of the test. The fewer lines of code, the more readable the test is (assuming you don't try to compress the code artificially to reduce the line count). The quality of the test code matters. Don't cut corners when writing tests; treat the test code as a first-class citizen.
+
+The test may be hard to run if it relies on out-of-process dependencies. For example, you may have to spend time keeping the dependencies operational, e.g. reboot the database server, resolve network connectivity issues.
+
+</details>
+
 
 
 
