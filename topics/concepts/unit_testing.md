@@ -4,6 +4,10 @@ This page covers my learnings on unit testing. Most of the material on this page
 
 <details><summary>Types of Testing in Software Development</summary>
 
+The Test Pyramid represents the three major test types. The width of the pyramid refers to the prevalance of a particular type of test in the suite. The wider the layer, the greater the test count. The height is a measure of how close these tests are to emulating the user's behavior. 
+
+<img src='img/20240124-062428.png' width=600px>
+
 Understanding the different types of testing suites is crucial in software development, as each type targets different aspects of an application and ensures its quality and reliability. Here are the key differences among some common types of testing suites:
 
 1. **Unit Testing:**
@@ -18,37 +22,39 @@ Understanding the different types of testing suites is crucial in software devel
    - **Method:** These tests are typically written after unit tests and focus on the flow of data and control between modules. They may involve testing database interactions, API calls, etc.
    - **Example:** Testing how a database module interacts with a data processing module.
 
-3. **Functional Testing:**
-   - **Focus:** The overall functionality of the system.
-   - **Purpose:** To ensure the software is functioning according to the requirements or specifications.
-   - **Method:** Conducted from the user's perspective, it involves testing complete features or functionalities of the application.
-   - **Example:** Testing the complete workflow of a user registration feature.
-
-4. **System Testing:**
-   - **Focus:** The complete and integrated software product.
-   - **Purpose:** To evaluate the system’s compliance with specified requirements.
-   - **Method:** This is a high-level testing suite that validates the overall behavior of the application in an environment that mimics production.
-   - **Example:** Testing the entire application after integration to ensure it meets all technical, functional, and business requirements.
-
-5. **End-to-End Testing:**
+3. **End-to-End Testing:**
    - **Focus:** The entire application in a scenario that mimics real-world use.
    - **Purpose:** To replicate real-user scenarios to ensure the system works as intended.
    - **Method:** This involves testing the complete flow of an application from start to finish, including its interaction with external interfaces and networks.
    - **Example:** Testing an e-commerce application from product selection, cart management, checkout, payment, to order confirmation.
 
-6. **Acceptance Testing:**
-   - **Focus:** The software in a "production-like" environment.
-   - **Purpose:** To validate if the software meets the business requirements and is ready for deployment.
-   - **Method:** Often performed by end-users or clients, it checks if the software is acceptable for delivery.
-   - **Example:** Business stakeholders testing the software to decide if it meets the predetermined criteria and is ready for release.
+**Other Test Types**
 
-7. **Regression Testing:**
-   - **Focus:** Ensuring that new changes haven't adversely affected existing functionalities.
-   - **Purpose:** To check that the old code still works after the new changes.
-   - **Method:** Typically automated, it involves re-running functional and non-functional tests to ensure that previously developed and tested software still performs after a change.
-   - **Example:** Re-running tests after bug fixes or new feature additions.
+The following tests types fall under the categories mentioned above:
 
-Each of these testing types plays a crucial role in the software development lifecycle, addressing different needs and stages of the development process to ensure a robust, functional, and user-friendly product.
+- **Functional Testing:**
+  - **Focus:** The overall functionality of the system.
+  - **Purpose:** To ensure the software is functioning according to the requirements or specifications.
+  - **Method:** Conducted from the user's perspective, it involves testing complete features or functionalities of the application.
+  - **Example:** Testing the complete workflow of a user registration feature.
+
+- **System Testing:**
+  - **Focus:** The complete and integrated software product.
+  - **Purpose:** To evaluate the system’s compliance with specified requirements.
+  - **Method:** This is a high-level testing suite that validates the overall behavior of the application in an environment that mimics production.
+  - **Example:** Testing the entire application after integration to ensure it meets all technical, functional, and business requirements.
+
+- **Acceptance Testing:**
+  - **Focus:** The software in a "production-like" environment.
+  - **Purpose:** To validate if the software meets the business requirements and is ready for deployment.
+  - **Method:** Often performed by end-users or clients, it checks if the software is acceptable for delivery.
+  - **Example:** Business stakeholders testing the software to decide if it meets the predetermined criteria and is ready for release.
+
+- **Regression Testing:**
+  - **Focus:** Ensuring that new changes haven't adversely affected existing functionalities.
+  - **Purpose:** To check that the old code still works after the new changes.
+  - **Method:** Typically automated, it involves re-running functional and non-functional tests to ensure that previously developed and tested software still performs after a change.
+  - **Example:** Re-running tests after bug fixes or new feature additions.
 
 </details>
 
@@ -189,11 +195,12 @@ The act section is typically one line of code. If you have more than one line in
 A good unit test has the following four attributes:
 
 1. Protection against regressions
-2. Resistance to refactoring
+2. Resistance to refactoring (most important)
 3. Fast feedback
 4. Maintainability
 
 <details><summary>More details on the four pillars of a good unit test...</summary>
+
 ### Protection against regression
 
 A regression (i.e. a software bug) refers to a situation where a previously functioning feature  stops working after changes. With regard to protection against regression, here are a few points to keep in mind:
