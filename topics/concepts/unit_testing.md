@@ -136,7 +136,10 @@ A unit test is an automated test that
 2. Does it quickly, and
 3. Does it in an isolated manner
 
-Most people agree on the first and second points. The third point, isolation, is so controversial that there are two distinct views on unit testing:
+
+<details><summary>The London Approach vs the Classicist Approach</summary>
+
+Most people agree on the first and second points above. The third point, isolation, is so controversial that there are two distinct views on unit testing:
 
 1. Detroit Approach (Classicist):
 
@@ -150,8 +153,6 @@ Most people agree on the first and second points. The third point, isolation, is
     - Encourages design where units are highly decoupled, leading to a more modular and flexible design
     - More granular tests that focus on the behavior of a single unit in isolation
     - Popular in Test-Driven Development (TDD)
-
-<details><summary>The London Approach vs the Classicist Approach</summary>
 
 The London school isolates the system under test from its collaborators (i.e. dependencies). It involves replacing all dependencies with a _test double_, which is an object that looks and behaves like its release-intended counterpart but is actually a simplified version that reduces the complexity and facilitates testing.  The term _test double_ comes from the idea of using a stunt double in movies.
 
@@ -211,13 +212,19 @@ A regression (i.e. a software bug) refers to a situation where a previously func
 - The complexity and domain significance is also important. Code that represents complex business logic is more important than boilerplate code.
 - It's rarely worthwhile to test trivial code. Trivial code does not contain a substantial amount of business logic and won't provide much chance of finding a regression error.
 
+Protection against regressions is a measure of how good the test is at indicateing the presence of bugs (regressions). The more code the test executes (both your code and the code of libraries and frameworks used in the project), the higher the chance the test will reveal a bug.
+
 ### Resistance to refactoring
+
+Resistance to refactoring is the degree to which a test can sustain application code refactoring without producing a false alarm.
 
 `To maximize the metric of resistance to refactoring, aim at the end result instead of implementation details.`
 
 Refactoring means changing existing code without modifying its observable behavior. The intention of refactoring is usually to increase readability and reduce complexity. Resistance to refactoring is the degree to which a test can sustain a refactoring of the underlying application code without turning red (failing).
 
-False positives in unit tests that result from refactoring interfere wit the benefits of units tests in the following ways:
+<details><summary>About false positives</summary>
+
+False positives in unit tests that result from refactoring interfere with the benefits of units tests in the following ways:
 
 1. They dilute your ability and willingness to react to problems in code. Over time, you get accustomed to failures and stop paying attention. After a while you start ignore legitimate failures, too.
 2. When false positives are frequent, you lose trust in the test suite. This lack of trust leads to fewer refactorings, because you try to reduce code changes to a minimum to avoid regressions.
@@ -229,6 +236,10 @@ The best way to structure a test is to make it tell a story about the problem do
 Good unit tests focus on the end result. Bad unit tests focus on the implementation details.
 
 <img src='img/20240158-045854.png' width=700px>
+
+</details>
+
+
 
 ### Fast feedback
 
@@ -248,6 +259,22 @@ The ability to maintain a unit test has two components:
 Understand the test is related to the size of the test. The fewer lines of code, the more readable the test is (assuming you don't try to compress the code artificially to reduce the line count). The quality of the test code matters. Don't cut corners when writing tests; treat the test code as a first-class citizen.
 
 The test may be hard to run if it relies on out-of-process dependencies. For example, you may have to spend time keeping the dependencies operational, e.g. reboot the database server, resolve network connectivity issues.
+
+### Determining Test Value
+
+A test's value is the product of each of the four attributes:
+
+1. Protection against regressions
+2. Resistance to refactoring
+3. Fast feedback
+4. Maintainability
+
+If a test gets zero in one of the attributes, then the test value's result is zero.
+
+The first three attributes are mutually exclusive. This makes it impossible to get a maximum score in all four attributes.
+
+When needing to prioritize, resistance to refactoring is non-negotiable because whether a test possesses this attribute is mostly a binary choice: the test either has resistance to refactoring or it doesn't. The trade-off between the attributes comes down to choice between protection against regressions and fast feedback.
+
 
 </details>
 
