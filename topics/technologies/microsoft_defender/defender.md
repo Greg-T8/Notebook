@@ -2,6 +2,7 @@
 
 
 - [Microsoft Defender Products](#microsoft-defender-products)
+- [Defender Resources](#defender-resources)
 - [Microsoft Defender Learning Paths](#microsoft-defender-learning-paths)
   - [Learning Path: SC-200: Mitigate threats using Microsoft Defender XDR](#learning-path-sc-200-mitigate-threats-using-microsoft-defender-xdr)
     - [Module: Introduction to Microsoft 365 Threat Protection](#module-introduction-to-microsoft-365-threat-protection)
@@ -336,6 +337,18 @@ Features
 </details>
 
 </details>
+
+## Defender Resources
+
+The following resources are invaluable for learning and getting help on Windows Defender XDR:
+- [Reddit: Microsoft Defender ATP](https://www.reddit.com/r/DefenderATP/)
+- [Microsoft Sentinel & Defender XDR Virtual Ninja Training](https://adoption.microsoft.com/en-us/ninja-show/)
+- [Microsoft Security, Compliance, and Identity Tech Community](https://techcommunity.microsoft.com/t5/security-compliance-and-identity/ct-p/MicrosoftSecurityandCompliance)
+
+The following items are specific resources related to various Defender topics:
+
+- [How to tune alerts in Microsoft Defender](https://blog.admindroid.com/how-to-tune-alerts-in-microsoft-365-defender/)
+
 
 ## Microsoft Defender Learning Paths
 
