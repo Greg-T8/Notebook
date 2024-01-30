@@ -348,6 +348,7 @@ The following resources are invaluable for learning and getting help on Windows 
 The following items are specific resources related to various Defender topics:
 
 - [How to tune alerts in Microsoft Defender](https://blog.admindroid.com/how-to-tune-alerts-in-microsoft-365-defender/)
+- [Introducing the new alert suppresion experience](https://techcommunity.microsoft.com/t5/microsoft-defender-for-endpoint/introducing-the-new-alert-suppression-experience/ba-p/3562719)
 
 
 ## Microsoft Defender Learning Paths
