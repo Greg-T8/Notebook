@@ -262,7 +262,7 @@ The test may be hard to run if it relies on out-of-process dependencies. For exa
 
 ### Determining Test Value
 
-A test's value is the product of each of the four attributes:
+A test's value is the product of each of the four unit test pillars/attributes:
 
 1. Protection against regressions
 2. Resistance to refactoring
@@ -271,7 +271,11 @@ A test's value is the product of each of the four attributes:
 
 If a test gets zero in one of the attributes, then the test value's result is zero.
 
-The first three attributes are mutually exclusive. This makes it impossible to get a maximum score in all four attributes.
+The first three attributes are mutually exclusive. This makes it impossible to get a maximum score in all four attributes. End-to-end tests, test the whole system and its dependencies and therefore do not have fast feedback. Brittle tests yield many false positives and therefore have low resistance to refactoring. Trivial tests aren't comprehensive enough to catch regressions.
+
+<img src='img/20240150-045006.png' width=500px>
+
+
 
 When needing to prioritize, resistance to refactoring is non-negotiable because whether a test possesses this attribute is mostly a binary choice: the test either has resistance to refactoring or it doesn't. The trade-off between the attributes comes down to choice between protection against regressions and fast feedback.
 
