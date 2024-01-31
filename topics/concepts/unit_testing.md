@@ -279,8 +279,29 @@ The first three attributes are mutually exclusive. This makes it impossible to g
 
 When needing to prioritize, resistance to refactoring is non-negotiable because whether a test possesses this attribute is mostly a binary choice: the test either has resistance to refactoring or it doesn't. The trade-off between the attributes comes down to choice between protection against regressions and fast feedback.
 
-
 </details>
+
+## Mocks and Test Fragility
+
+A test double is an overarching term that describes all kinds of non-production-ready, fake dependencies to facilitate testing. There are five variations of test doubles: dummy, stub, spy, mock, and fake.
+
+The five variations of the test doubles can be grouped into two types: mocks and stubs.
+
+- Mock: emulate outbound interactions, i.e. calls from the system under test to its dependencies that change the state of those dependencies.
+
+- Stub: emulate incoming interactions, for example calls that the system under test makes to get data. A stub is used to provide predetermined responses to calls made during the test. Stubs return fixed values and are programmed with simple logic to respond to different inputs in a controlled manner. However, they do not contribute to business logic and have no side effects. Example: if a method requires data from a database to proceed, a stub can be used to simulate database responses without connecting to an actual database.
+
+<img src='img/20240124-052423.png' width=600px>
+
+The other test types are closely related to Mocks and Stubs:
+
+- Spy: serves the same role as a mock, except that spies are written manually, whereas mocks are created with the help of a mocking framework. People refer to spies as handwritten mocks. Just like a spy in real life, a spy in software testing is used to gather information about function calls. It keeps track of the function it wraps and records behavior, but unlike a mock, it does not replace the functionality of the thing it is spying on.
+
+- Dummy: a dummy is the simplest form of a test double. Its primary purpose is to fill parameter lists where an object is required but not actually used. Dummies do not have any implemented functionality. They are merely placeholders and do not contribute to test logic. 
+
+- Fake: 
+
+
 
 
 
