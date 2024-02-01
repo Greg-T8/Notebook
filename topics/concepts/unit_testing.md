@@ -299,7 +299,8 @@ The other test types are closely related to Mocks and Stubs:
 
 - Dummy: a dummy is the simplest form of a test double. Its primary purpose is to fill parameter lists where an object is required but not actually used. Dummies do not have any implemented functionality. They are merely placeholders and do not contribute to test logic. 
 
-- Fake: 
+- Fake: a fake is a more sophisticated and have working implementations, but usually take shortcuts and are not suitable for production. Unlike dummies or stubs, fakes perform some kind of useful logic or simulation. However, their implementation might be overly simplified or not adhere to production standards. An in-memory database to simulate database operations is a common usage of a fake. It behaves like a database but is lighter and faster, albeit less accurate and reliable compared to a real database.
+
 
 
 
