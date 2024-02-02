@@ -291,6 +291,8 @@ The five variations of the test doubles can be grouped into two types: mocks and
 
 - Stub: emulate incoming interactions, for example calls that the system under test makes to get data. A stub is used to provide predetermined responses to calls made during the test. Stubs return fixed values and are programmed with simple logic to respond to different inputs in a controlled manner. However, they do not contribute to business logic and have no side effects. Example: if a method requires data from a database to proceed, a stub can be used to simulate database responses without connecting to an actual database.
 
+An important distinction between a mock and a stub is that mocks help to _emulate_ and _examine_ interactions between the system under test (SUT) and its dependencies, while stubs only help to emulate those interactions. 
+
 <img src='img/20240124-052423.png' width=600px>
 
 The other test types are closely related to Mocks and Stubs:
@@ -300,6 +302,18 @@ The other test types are closely related to Mocks and Stubs:
 - Dummy: a dummy is the simplest form of a test double. Its primary purpose is to fill parameter lists where an object is required but not actually used. Dummies do not have any implemented functionality. They are merely placeholders and do not contribute to test logic. 
 
 - Fake: a fake is a more sophisticated and have working implementations, but usually take shortcuts and are not suitable for production. Unlike dummies or stubs, fakes perform some kind of useful logic or simulation. However, their implementation might be overly simplified or not adhere to production standards. An in-memory database to simulate database operations is a common usage of a fake. It behaves like a database but is lighter and faster, albeit less accurate and reliable compared to a real database.
+
+**NOTE**: The term _mock_ is overloaded and can mean different things. You can use a mock (the tool) to create a test double (mock or stub). For example, in PowerShell you use the `mock` command to create a mock for function calls.
+
+**Rule**: Never assert interactions with stubs. 
+
+A call from a stub is not a part of the end result the system under test (SUT) produces. Such a call is only a means to produce the end result: a stub provides input from which the SUT then generates output.
+
+Asserting interactions with stubs is an anti-pattern that leads to fragile tests. The only way to avoide fragile tests (false positives) and thus improve resistance to refactoring in tests is to make those tests verify the end result.
+
+The process of verifying things that aren't part of the end result is also called _over-specification_. Most commonly, overspecification takes place when examining interactions. Checking for interactions with a stub is a flaw that's quite easy to spot because tests shouldn't check for _any_ interactions with stubs.
+
+Mocks are a more complicated subject:  not all uses of mocks lead to test fragility, but a lot of them do.
 
 
 
