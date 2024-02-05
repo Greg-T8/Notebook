@@ -275,9 +275,9 @@ The first three attributes are mutually exclusive. This makes it impossible to g
 
 <img src='img/20240150-045006.png' width=500px>
 
-
-
 When needing to prioritize, resistance to refactoring is non-negotiable because whether a test possesses this attribute is mostly a binary choice: the test either has resistance to refactoring or it doesn't. The trade-off between the attributes comes down to choice between protection against regressions and fast feedback.
+
+Tests must focus on the "what", not the "how"!
 
 </details>
 
@@ -305,7 +305,9 @@ The other test types are closely related to Mocks and Stubs:
 
 **NOTE**: The term _mock_ is overloaded and can mean different things. You can use a mock (the tool) to create a test double (mock or stub). For example, in PowerShell you use the `mock` command to create a mock for function calls.
 
-**Rule**: Never assert interactions with stubs. 
+### Asserting Interactions with Stubs
+
+Never assert interactions with stubs!
 
 A call from a stub is not a part of the end result the system under test (SUT) produces. Such a call is only a means to produce the end result: a stub provides input from which the SUT then generates output.
 
@@ -315,6 +317,21 @@ The process of verifying things that aren't part of the end result is also calle
 
 Mocks are a more complicated subject:  not all uses of mocks lead to test fragility, but a lot of them do.
 
+### Observable Behavior vs Implementation Detail
+
+To improve the fragility of tests, the tests themselves must focus on the "what", not the "how". The "how" is the implementation detail.  The "what" is observable behavior.
+
+All production code can be categorized along two dimensions:
+
+- Public API vs private API
+- Observable behavior vs implementation details
+
+For a piece of code to be part of observable behavior, it has to do two of the following things:
+
+- Expose an operation that helps the client achieve one of its goals. An _operation_ is a method that performs or incurs a side effect or both.
+- Expose a state that helps the client achieve one of its goals. _State_ is the current condition of the system.
+
+Any code that does neither of these things is an _implementation detail_.
 
 
 
