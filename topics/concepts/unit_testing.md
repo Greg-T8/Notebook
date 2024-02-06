@@ -333,6 +333,9 @@ For a piece of code to be part of observable behavior, it has to do two of the f
 
 Any code that does neither of these things is an _implementation detail_.
 
+Well-designed code is code whose observable behavior coincides with the public API and whose implementation details are hidden behind the private API. A code _leaks_ implementation detail when its public API extends beyond the observable behavior.
+
+
 
 
 
