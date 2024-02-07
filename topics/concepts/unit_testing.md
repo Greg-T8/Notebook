@@ -335,11 +335,11 @@ Any code that does neither of these things is an _implementation detail_.
 
 Well-designed code is code whose observable behavior coincides with the public API and whose implementation details are hidden behind the private API. A code _leaks_ implementation detail when its public API extends beyond the observable behavior.
 
+### Intra-System and Inter-System Communications
 
+There are two types of communications in an application: intra-system communications and inter-system communications. Intra-system communications are implementation details. Inter-system communications are observable behavior, with the exception of external systems that are accessible only through your application. In the exception case, interactions with external systems are implementations details too, because the resulting side effects are not observed externally.
 
-
-
-
+Using mocks to assert intra-system communications leads to _fragile_ tests. Mocking is legitimate only when it's used for inter-system communications&mdash;communications that cross the application boundary&mdash;and only when the side effects of those communications are visible to the external world.
 
 
 
