@@ -291,6 +291,8 @@ The five variations of the test doubles can be grouped into two types: mocks and
 
 - Stub: emulate incoming interactions, for example calls that the system under test makes to get data. A stub is used to provide predetermined responses to calls made during the test. Stubs return fixed values and are programmed with simple logic to respond to different inputs in a controlled manner. However, they do not contribute to business logic and have no side effects. Example: if a method requires data from a database to proceed, a stub can be used to simulate database responses without connecting to an actual database.
 
+<details><summary>Other Test Double Types</summary>
+
 An important distinction between a mock and a stub is that mocks help to _emulate_ and _examine_ interactions between the system under test (SUT) and its dependencies, while stubs only help to emulate those interactions. 
 
 <img src='img/20240124-052423.png' width=600px>
@@ -305,9 +307,9 @@ The other test types are closely related to Mocks and Stubs:
 
 **NOTE**: The term _mock_ is overloaded and can mean different things. You can use a mock (the tool) to create a test double (mock or stub). For example, in PowerShell you use the `mock` command to create a mock for function calls.
 
-### Asserting Interactions with Stubs
+</details>
 
-Never assert interactions with stubs!
+<details><summary>Never Assert Interactions with Stubs!</summary>
 
 A call from a stub is not a part of the end result the system under test (SUT) produces. Such a call is only a means to produce the end result: a stub provides input from which the SUT then generates output.
 
@@ -317,7 +319,9 @@ The process of verifying things that aren't part of the end result is also calle
 
 Mocks are a more complicated subject:  not all uses of mocks lead to test fragility, but a lot of them do.
 
-### Observable Behavior vs Implementation Detail
+</details>
+
+<details><summary>Observable Behavior vs Implementation Detail</summary>
 
 To improve the fragility of tests, the tests themselves must focus on the "what", not the "how". The "how" is the implementation detail.  The "what" is observable behavior.
 
@@ -335,11 +339,17 @@ Any code that does neither of these things is an _implementation detail_.
 
 Well-designed code is code whose observable behavior coincides with the public API and whose implementation details are hidden behind the private API. A code _leaks_ implementation detail when its public API extends beyond the observable behavior.
 
-### Intra-System and Inter-System Communications
+</details>
+
+<details><summary>Intra-System and Inter-System Communications</summary>
 
 There are two types of communications in an application: intra-system communications and inter-system communications. Intra-system communications are implementation details. Inter-system communications are observable behavior, with the exception of external systems that are accessible only through your application. In the exception case, interactions with external systems are implementations details too, because the resulting side effects are not observed externally.
 
 Using mocks to assert intra-system communications leads to _fragile_ tests. Mocking is legitimate only when it's used for inter-system communications&mdash;communications that cross the application boundary&mdash;and only when the side effects of those communications are visible to the external world.
+
+<img src='img/20240214-051425.png' width=600px>
+
+</details>
 
 
 
