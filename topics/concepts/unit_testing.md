@@ -137,18 +137,20 @@ A unit test is an automated test that
 3. Does it in an isolated manner
 
 
-<details><summary>The London Approach vs the Classicist Approach</summary>
+<details><summary>The London Approach vs the Classical Approach</summary>
 
 Most people agree on the first and second points above. The third point, isolation, is so controversial that there are two distinct views on unit testing:
 
-1. Detroit Approach (Classicist):
+1. Classical Approach:
 
     - Focuses more on the state of the system after the unit's execution
     - Reflective of actual usage
+    - Allows for the inclusion of dependencies during testing
     - How everyone originally approached unit testing and test-driven development
 
-2. London Approach (Mockist):
+2. London Approach:
   
+    - Isolates all dependencies from its collaborators; tests one class at a time
     - Heavily relies on mock objects to isolate the unit from its dependencies
     - Encourages design where units are highly decoupled, leading to a more modular and flexible design
     - More granular tests that focus on the behavior of a single unit in isolation
@@ -171,12 +173,22 @@ In the Pester PowerShell testing suite, mocks are used as a test double. However
 
 In the classical approach, it's not the code that needs to be tested in an isolated manner; instead, the unit tests themselves should be run in isolation from each other. Isolating unit tests works fine so as long as they all reside in memory and don't reach out to a shared state, through which the tests can affect each other's execution context.  Typical examples of shared state are out-of-process dependencies&mdash;the database, the filesystem, and so on.
 
-Dependency Types: 
+### Dependency Types
 
-- Shared dependency: a dependency that is shared between tests and provides means for those tests to affect each other's outcome. Examples: a static mutable field, a database.
+- Shared dependency: a dependency that is shared between tests and provides means for those tests to affect each other's outcome.
+  - Examples: a static mutable field, a database.
 - Private dependency: a dependency that is not shared.
-- Out-of-process dependency: a dependency that runs outside the application's execution process. This type of dependency can be a shared dependency, such as a database used by both tests, or a private dependency, such as a database that runs isolated in a container.
+- Out-of-process dependency: a dependency that runs outside the application's execution process. This type of dependency can be a shared dependency
+  - Examples: a database used by both tests, or a private dependency, such as a database that runs isolated in a container.
 - Volatile dependency: a dependency that either (1) introduces a requirement to set up and configure a runtime environment in addition to what's installed on the developer's machine (e.g. an API) or (2) contains nondeterministic behavior (e.g. a random number generator).
+
+The classical approach views unit testing as isolating the unit tests themselves from each other. Isolating unit tests from each other entails isolating the class under test from dependencies only. Private dependencies can be kept intact.
+
+<img src='img/20240258-045805.png' width=600px>
+
+The following table sums up the difference between the London and Classical styles of unit testing. The London school views unit testing as isolation of the system under test from its collaborators. The classical school views unit testing as isolation of unit tests themselves from each other.
+
+<img src='img/20240244-044411.png' width=700px>
 
 </details>
 
@@ -199,6 +211,8 @@ A good unit test has the following four attributes:
 2. Resistance to refactoring (most important)
 3. Fast feedback
 4. Maintainability
+
+There is always a tradeoff between the first three pillars.
 
 <details><summary>More details on the four pillars of a good unit test...</summary>
 
@@ -350,6 +364,8 @@ Using mocks to assert intra-system communications leads to _fragile_ tests. Mock
 <img src='img/20240214-051425.png' width=600px>
 
 </details>
+
+## The Styles of Unit Testing
 
 
 
