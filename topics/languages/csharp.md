@@ -1,7 +1,7 @@
 # My Notes on Learning .NET
 
 - [Resources](#resources)
-- [Getting Started](#getting-started)
+- [Understanding .NET](#understanding-net)
   - [.NET Framework](#net-framework)
   - [Mono, Xamarin, and Unity Projects](#mono-xamarin-and-unity-projects)
   - [.NET Core](#net-core)
@@ -10,15 +10,20 @@
     - [Build Error - Unable to find packages](#build-error---unable-to-find-packages)
 
 ## Resources
-Most of my notes are taken from [C# 11 and .NET 7 Modern Cross-Platform Development Fundamentals](https://www.amazon.com/11-NET-Cross-Platform-Development-Fundamentals-ebook/dp/B0B7SKMDYQ/ref=sr_1_1?keywords=modern+cross-platform+development&qid=1686430651&sprefix=modern+cross-plat%2Caps%2C111&sr=8-1).
+Most of my notes are taken from [C# 12 and .NET 8 Modern Cross-Platform Development Fundamentals](https://www.amazon.com/gp/product/B0CGZVT568/ref=ppx_yo_dt_b_d_asin_title_o00?ie=UTF8&psc=1).
 
 - [C# Documentation](https://learn.microsoft.com/en-us/dotnet/csharp/)
-- [GitHub repoistory for Modern Cross-Platform Development Fundamentals](https://github.com/markjprice/cs11dotnet7)
+- [GitHub repository for Modern Cross-Platform Development Fundamentals](https://github.com/markjprice/cs12dotnet8)
 
-## Getting Started
+## Understanding .NET
+
+- **Modern .NET**: refers to .NET 8 and its predecessors like .NET 6 that derive from .NET Core
+- **Legacy .NET**: refers to the .NET Framework, Mono, Xamarin, and .NET Standard
 
 <details>
   <summary>Brief Overview of .NET</summary>
+
+See this article for a discussion on the history of .NET: https://github.com/markjprice/cs12dotnet8/blob/main/docs/ch01-dotnet-history.md
 
 ### .NET Framework
 
@@ -48,6 +53,10 @@ Starting with .NET 5, Microsoft rebranded .NET Core as **.NET**. New versions ar
 Modern .NET aims to unify .NET Core with the original .NET Framework into a single, consistent platform. Enhancements include performance improvements, more APIs, better tooling, and a range of features to support various types of development, including web, mobile (via MAUI), desktop, cloud, and IoT applications.
 
 .NET MAUI (Multi-platform App UI) is an evolution of Xamarin.Forms and aims to simplify the development of cross-platform applications for mobile and desktop from a single codebase.
+
+</details>
+
+
 
 ### Understanding Intermediate Language
 
