@@ -129,13 +129,11 @@ The most difficult part of unit testing is achieving maximum value with minimum 
 
 ## What is a Unit Test?
 
-
 A unit test is an automated test that
 
 1. Verifies a small piece of code (also known as a unit),
 2. Does it quickly, and
 3. Does it in an isolated manner
-
 
 <details><summary>The London Approach vs the Classical Approach</summary>
 
@@ -173,14 +171,35 @@ In the Pester PowerShell testing suite, mocks are used as a test double. However
 
 In the classical approach, it's not the code that needs to be tested in an isolated manner; instead, the unit tests themselves should be run in isolation from each other. Isolating unit tests works fine so as long as they all reside in memory and don't reach out to a shared state, through which the tests can affect each other's execution context.  Typical examples of shared state are out-of-process dependencies&mdash;the database, the filesystem, and so on.
 
-### Dependency Types
+</details>
+
+<details><summary>Dependency Types</summary>
+
+A dependency refers to any external system or component that the code under test interacts with or relies upon to function correctly.
+
+There are several inter-related types of dependencies:
 
 - Shared dependency: a dependency that is shared between tests and provides means for those tests to affect each other's outcome.
-  - Examples: a static mutable field, a database.
+  - Examples: a static mutable field, a database, a file system.
 - Private dependency: a dependency that is not shared.
-- Out-of-process dependency: a dependency that runs outside the application's execution process. This type of dependency can be a shared dependency
-  - Examples: a database used by both tests, or a private dependency, such as a database that runs isolated in a container.
-- Volatile dependency: a dependency that either (1) introduces a requirement to set up and configure a runtime environment in addition to what's installed on the developer's machine (e.g. an API) or (2) contains nondeterministic behavior (e.g. a random number generator).
+- Out-of-process dependency: a dependency that runs outside the application's execution process. This type of dependency can be a shared dependency or private dependency
+  - Examples:
+    - Shared Out-of-Process Dependency: a database used by both tests
+    - Private Out-of-Process Dependency: a database that runs isolated in a container.
+- Volatile dependency: a dependency that either 
+  1. introduces a requirement to set up and configure a runtime environment in addition to what's installed on the developer's machine (e.g. databases and APIs) or
+  2. contains nondeterministic behavior (e.g. a random number generator).
+
+Shared and volatile dependencies can overlap. For example, a dependency on the database is both shared and volatile. The file system is not volatile because it behaves deterministically in most cases. However, the file system is shared because it introduces a means by which the unit tests can interfere with each other's execution context. A random number generator isn't shared because you can supply a separate instance to each test; however, it is volatile.
+
+| Dependency            | Shared | Volatile |
+|-----------------------|--------|----------|
+| Database              | Yes    | Yes      |
+| File System           | Yes    | No       |
+| Random Number Generator | No     | Yes      |
+
+
+Shared dependencies decrease execution speed. Since the necessity to run quickly is the second attribute of the unit test definition, calls to shared dependencies fall out of the realm of unit testing and fall into the area of integration testing.
 
 The classical approach views unit testing as isolating the unit tests themselves from each other. Isolating unit tests from each other entails isolating the class under test from dependencies only. Private dependencies can be kept intact.
 
