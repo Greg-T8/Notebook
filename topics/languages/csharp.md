@@ -20,6 +20,8 @@ Most of my notes are taken from [C# 12 and .NET 8 Modern Cross-Platform Developm
 - **Modern .NET**: refers to .NET 8 and its predecessors like .NET 6 that derive from .NET Core
 - **Legacy .NET**: refers to the .NET Framework, Mono, Xamarin, and .NET Standard
 
+Modern .NET is modularized compared to the legacy .NET Framework, which is monolithic. Morden .NET is open source, and Microsoft makes decisions about improvements and changes in the open. 
+
 <details>
   <summary>Brief Overview of .NET</summary>
 
@@ -46,6 +48,7 @@ Since 2015, Microsoft has been working to rewrite the .NET Framework to be truly
 .NET Core includes versions up to .NET Core 3.1. 
 
 ### Modern .NET
+
 The term **modern .NET** refers to .NET 5 and up and its predecessors that come from .NET Core.  The term **legacy .NET** refers to the .NET Framework, Mono, and Xamarin.
 
 Starting with .NET 5, Microsoft rebranded .NET Core as **.NET**. New versions are released each year in November.  See [.NET and .NET Core Support Policy](https://dotnet.microsoft.com/en-us/platform/support/policy/dotnet-core).
@@ -56,7 +59,55 @@ Modern .NET aims to unify .NET Core with the original .NET Framework into a sing
 
 </details>
 
+<details><summary>.NET Support</summary>
 
+.NET versions fall in three categories:
+
+- Long Term Support (LTS): supported by Microsoft for 3 years after General Availability, or 1 year after the next LTS release ships, whichever is longer.
+- Standard Term Support (STS): Formerly known as "Current". Includes features that change based on feedback, such as the latest improvements. Supported by Microsoft 18 months after GA, or 6 months until the next STS or LTS ships, whichever is longer.
+- Preview: for public testing. Not supported by Microsoft, but some Release Candidates (RC) may be declared Go Live, meaning that Microsoft supports them in production.
+
+<img src='img/20240250-035006.png' width=500px>
+
+See https://dotnet.microsoft.com/en-us/platform/support/policy
+
+</details>
+
+<details><summary>Understanding .NET runtime and .NET SDK versions</summary>
+
+The .NET runtime is the minimum needed to install so that the system can run a .NET application. The .NET SDK includes the .NET runtime as well as the compilers and other tools needed to build .NET code and apps. The following diagram shows alignment between the major and minor numbers, but the SDK uses a separate convention for the patch number.
+
+<img src='img/20240202-040256.png' width=500px>
+
+See https://learn.microsoft.com/en-us/dotnet/core/versions/
+
+</details>
+
+<details><summary>Listing and installing .NET versions</summary>
+
+Use the `dotnet` command to list details about the runtimes and SDKs installed.
+
+`dotnet --list-sdks`
+
+<img src='img/20240221-042115.png' width=300px>
+
+`dotnet --list-runtimes`
+
+<img src='img/20240222-042210.png' width=600px>
+
+`dotnet --info`
+
+<img src='img/20240224-042428.png' width=600px>
+
+You can use `winget search Microsoft.DotNet` to find all the available versions.
+
+<img src='img/20240226-042627.png' width=600px>
+
+Then use `winget install` to install a specific runtime or SDK version.
+
+<img src='img/20240227-042725.png' width=600px>
+
+</details>
 
 ### Understanding Intermediate Language
 
