@@ -211,6 +211,16 @@ The following table sums up the difference between the London and Classical styl
 
 </details>
 
+<details><summary>The London approach or the Classical approach?</summary>
+
+In the chapters that follow, the author discusses that the most important attribute of a unit test is its resistance to refactoring. To achieve resistance to refactoring, you must decouple the unit test from its implementation details.
+
+The London school advises mocking for all intra-system and inter-system dependencies. When mocking intra-system dependencies, there becomes a reliance on implementation details, as the end user doesn't care about private classes or private functions; the end user just needs to verify the result. Mocking intra-system dependencies leads to fragile tests (false positives).
+
+With this concept in mind, the author advises for the Classical approach so that mocks are only established for dependencies that are external to the application. Dependencies for intra-system communications are not mocked in the Classical approach.
+
+</details>
+
 ## The Anatomy of a Unit Test
 
 A unit test tests a single unit of behavior, not a single unit of code.
@@ -385,6 +395,12 @@ Using mocks to assert intra-system communications leads to _fragile_ tests. Mock
 </details>
 
 ## The Styles of Unit Testing
+
+There are threes styles of unit testing:
+- Output-based testing
+- State-based testing
+- Communication-based testing
+
 
 
 
