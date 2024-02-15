@@ -397,9 +397,34 @@ Using mocks to assert intra-system communications leads to _fragile_ tests. Mock
 ## The Styles of Unit Testing
 
 There are threes styles of unit testing:
+
 - Output-based testing
 - State-based testing
 - Communication-based testing
+
+
+
+### Output-Based Style
+
+The _output-based_ style of unit testing is where you feed an input into the system under test (SUT) and check the output it produces. This style of unit testing is only applicable to code that doesn't change a global or internal state, so the only component to verify is its return value.
+
+<img src='img/20240231-043122.png' width=600px>
+
+The output-based style of unit testing is also known as _functional_. This name takes root in _functional programming_, a method of programming that emphasizes a preference for side-effect-free code.
+
+### State-Based Style
+
+The _state-based_ style is about verifying the state of the system after an operation is complete. The term _state_ can refer to the SUT itself, or one of its collaborators, or an out-of-process dependency, such as the database or file system.
+
+<img src='img/20240234-043454.png' width=600px>
+
+### Communication-Based Style
+
+The _communication-based_ style uses mocks to verify communications between the SUT and its collaborators.
+
+<img src='img/20240237-043725.png' width=600px>
+
+### Comparing the Three Styles of Unit testing
 
 
 
