@@ -152,10 +152,66 @@ See [Configure language version](https://learn.microsoft.com/en-us/dotnet/csharp
 
 </details>
 
-<details>
-  <summary>Troubleshooting Visual Studio</summary>
+<details><summary>Visual Studio Basics</summary>
 
-Build Error - Unable to find packages
+<details><summary>Visual Studio Temporary Build Files</summary>
+Visual Studio creates compiler-generated folders for `obj` and `bin`. The `obj` folder contains one compiled object for each source code file. These objects haven't been linked to the final executable yet. The `bin` folder contains the binary executable for the application or class library.
+
+<img src='img/20240248-034855.png' width=200px>
+
+The compiler creates many temporary files in these folders. Use Build > Clean Solution to remove these temporary files.  You can also run `dotnet clean`.
+
+<img src='img/20240254-035423.png' width=400px>
+
+</details>
+
+<details><summary>Understanding Top-Level Programs</summary>
+
+Projects created with .NET SDK 5 or earlier always start with the following boilerplate code.
+
+```dotnet
+namespace ConsoleApp1
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Hello, World!");
+        }
+    }
+}
+```
+
+Starting with .NET 6, Microsoft updated the project template such that new projects use the following minimal statements. These minimal statements are enabled because the required code is written for you by the compiler when you target .NET 6 or later.
+
+```dotnet
+// See https://aka.ms/new-console-template for more information
+Console.WriteLine("Hello, World!");
+```
+
+The only functional difference is that the auto-generated code does not define a namespace, so the `Program` class is implicitly defined in an empty namespace with no name instead of a namespace that matches the project.
+
+One main requirement is there can only be one file like this in a project.
+
+See [Explore top-level statements](https://learn.microsoft.com/en-us/dotnet/csharp/tutorials/top-level-statements).
+
+</details>
+
+<details><summary>Implicitly Imported Namespaces</summary>
+
+Using the statement `Console.Writeline` requires the `using System` statement at the top of the file. Starting with .NET 6, this import is handed automatically by using **global namespace imports**, which handle imports for some commonly used namespaces like `System`.
+
+<img src='img/20240227-042723.png' width=600px>
+
+See the following:
+
+- [Implicit using directives](https://learn.microsoft.com/en-us/dotnet/core/project-sdk/overview#implicit-using-directives).
+- [Global and implicit usings](https://devblogs.microsoft.com/dotnet/welcome-to-csharp-10/)
+
+</details>
+
+
+<details><summary>Build Error - Unable to find packages</summary>
 
 When creating a new application and building it for the first time, you may get an error like this:
 ![](img/20230656-155606.png)
@@ -165,5 +221,7 @@ The error message is related to missing package sources from the NuGet package m
 ![](img/20230658-155829.png)
 
 See [Visual Studio Package Sources](https://learn.microsoft.com/en-us/nuget/consume-packages/install-use-packages-visual-studio#package-sources) for more details.
+
+</details>
 
 </details>
