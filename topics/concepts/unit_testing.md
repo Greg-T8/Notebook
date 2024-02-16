@@ -426,6 +426,27 @@ The _communication-based_ style uses mocks to verify communications between the 
 
 ### Comparing the Three Styles of Unit testing
 
+Output-based unit tests are preferred over state-based and communication-based unit tests. Output-based tests are easier to maintain because (1) they contain less code and (2) they do not rely on out-of-process dependencies.
+
+<img src='img/20240243-044355.png' width=500px>
+
+However, the output-based style of unit testing is only applicable to code that is written in a functional way, which is rarely the case for most object-oriented languages.
+
+### Understanding Functional Architecture
+
+Functional programming is programming with mathematical functions. A mathematical function is a function (or method) that doesn't have any hidden inputs or outputs. All inputs and outputs of a mathematical function must be explicitly express in its _method signature_, which consists of the method's name, arguments, and return type. A mathematical function produces the same output for a given input regardless of how many times it's called.
+
+Mathematical functions are the only type of methods where you can apply output-based testing, which has the best maintability and the lowest chance of producing a false positive.
+
+Hidden inputs and outputs make the code less testable (and less readable, too). Types of hidden inputs and outputs include:
+
+- Side effects: A _side effect_ is an output that isn't expressed in the method signature and, therefore, is hidden. An operation creates a side effect when it mutates the state of a class instance, updates a file on the disk, etc.
+
+- Exceptions: When a method throws an exception, it creates a path in the program flow that bypasses the contract established by the method's signature. The thrown exception can be caught anywhere in the call stack, thus introducing an additional output that the method signature doesn't carry.
+
+- A reference to an internal or external state: For example, a method can get the current date and time using a static property such as DateTime.Now. It can query data from the database, or it can refer to a private mutable field. These are all inputs to the execution flow that aren't present in the method signature and, therefore, are hidden.
+
+
 
 
 
