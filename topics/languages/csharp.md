@@ -152,20 +152,20 @@ See [Configure language version](https://learn.microsoft.com/en-us/dotnet/csharp
 
 </details>
 
-<details><summary>Visual Studio Basics</summary>
+<details><summary>Visual Studio Package Source Error</summary>
 
-<details><summary>Visual Studio Temporary Build Files</summary>
-Visual Studio creates compiler-generated folders for `obj` and `bin`. The `obj` folder contains one compiled object for each source code file. These objects haven't been linked to the final executable yet. The `bin` folder contains the binary executable for the application or class library.
+When creating a new application and building it for the first time, you may get an error like this:
+![](img/20230656-155606.png)
 
-<img src='img/20240248-034855.png' width=200px>
+The error message is related to missing package sources from the NuGet package manager.  To fix this, open the NuGet package manager settings and verify the package source URL has been added:
 
-The compiler creates many temporary files in these folders. Use Build > Clean Solution to remove these temporary files.  You can also run `dotnet clean`.
+![](img/20230658-155829.png)
 
-<img src='img/20240254-035423.png' width=400px>
+See [Visual Studio Package Sources](https://learn.microsoft.com/en-us/nuget/consume-packages/install-use-packages-visual-studio#package-sources) for more details.
 
 </details>
 
-<details><summary>Understanding Top-Level Programs</summary>
+<details open><summary>Understanding Top-Level Programs</summary>
 
 Projects created with .NET SDK 5 or earlier always start with the following boilerplate code.
 
@@ -189,7 +189,15 @@ Starting with .NET 6, Microsoft updated the project template such that new proje
 Console.WriteLine("Hello, World!");
 ```
 
+The following screenshot shows how the compiler defined a hidden `Program` class with a method named `<Main>$`:  
+
+<img src='img/20240245-064547.png' width=600px>
+
 The only functional difference is that the auto-generated code does not define a namespace, so the `Program` class is implicitly defined in an empty namespace with no name instead of a namespace that matches the project.
+
+The following screenshot shows how the Program class does not belong to a namespace:
+
+<img src='img/20240256-065649.png' width=500px>
 
 One main requirement is there can only be one file like this in a project.
 
@@ -211,17 +219,5 @@ See the following:
 </details>
 
 
-<details><summary>Build Error - Unable to find packages</summary>
 
-When creating a new application and building it for the first time, you may get an error like this:
-![](img/20230656-155606.png)
 
-The error message is related to missing package sources from the NuGet package manager.  To fix this, open the NuGet package manager settings and verify the package source URL has been added:
-
-![](img/20230658-155829.png)
-
-See [Visual Studio Package Sources](https://learn.microsoft.com/en-us/nuget/consume-packages/install-use-packages-visual-studio#package-sources) for more details.
-
-</details>
-
-</details>
