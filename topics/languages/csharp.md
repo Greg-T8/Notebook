@@ -1,7 +1,7 @@
 # My Notes on Learning .NET
 
 - [Resources](#resources)
-- [Understanding .NET](#understanding-net)
+- [Introduction](#introduction)
 
 ## Resources
 Most of my notes are taken from [C# 12 and .NET 8 Modern Cross-Platform Development Fundamentals](https://www.amazon.com/gp/product/B0CGZVT568/ref=ppx_yo_dt_b_d_asin_title_o00?ie=UTF8&psc=1).
@@ -9,15 +9,15 @@ Most of my notes are taken from [C# 12 and .NET 8 Modern Cross-Platform Developm
 - [C# Documentation](https://learn.microsoft.com/en-us/dotnet/csharp/)
 - [GitHub repository for Modern Cross-Platform Development Fundamentals](https://github.com/markjprice/cs12dotnet8)
 
-## Understanding .NET
+## Introduction
+
+<details><summary>Brief overview of .NET</summary>
+There are two main flavors of .NET:
 
 - **Legacy .NET**: refers to the .NET Framework, Mono, Xamarin, and .NET Standard
 - **Modern .NET**: refers to .NET 8 and its predecessors like .NET 6 that derive from .NET Core
 
 Modern .NET is modularized compared to the legacy .NET Framework, which is monolithic. Modern .NET is open source.
-
-<details>
-  <summary>Brief Overview of .NET</summary>
 
 See this article for a discussion on the history of .NET: https://github.com/markjprice/cs12dotnet8/blob/main/docs/ch01-dotnet-history.md
 
@@ -53,7 +53,7 @@ Modern .NET aims to unify .NET Core with the original .NET Framework into a sing
 
 </details>
 
-<details><summary>.NET Support</summary>
+<details><summary>About .NET support</summary>
 
 .NET versions fall in three categories:
 
@@ -71,15 +71,19 @@ See https://dotnet.microsoft.com/en-us/platform/support/policy
 
 The .NET runtime is the minimum needed to install so that the system can run a .NET application. The .NET SDK includes the .NET runtime as well as the compilers and other tools needed to build .NET code and apps. The following diagram shows alignment between the major and minor numbers, but the SDK uses a separate convention for the patch number.
 
-<img src='img/20240202-040256.png' width=500px>
+<img src='img/20240202-040256.png' width=400px>
 
 See https://learn.microsoft.com/en-us/dotnet/core/versions/
 
 </details>
 
-<details><summary>Listing and installing .NET versions</summary>
+<details><summary>Using dotnet.exe to list installed .NET versions</summary>
 
-Use the `dotnet` command to list details about the runtimes and SDKs installed.
+Use the `dotnet` command to uncover information about versions, runtimes, and SDKs.
+
+`dotnet --version`
+
+<img src='img/20240231-053104.png' width=150px>
 
 `dotnet --list-sdks`
 
@@ -117,55 +121,22 @@ See https://github.com/dotnet/roslyn
 
 </details>
 
-<details>
-  <summary>The dotnet.exe command</summary>
-
-This section provides guidance on using the `dotnet.exe` command.  See the [dotnet command reference](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet) for more info.
-
-Use `dotnet --version` to list the which version of the .NET SDK is being used:  
-
-<img src='img/20231203-140355.png' width=400px>
-
-Use `dotnet --info` to list other information in addition to the installed SDKs and runtimes:  
-
-<img src='img/20231205-140504.png' width=400px>
-
-Use `dotnet net console` to create a new console app:
-
-![](img/20230646-164605.png)
-
-This command targets your latest .NET SDK version by default.  Use the `-f` switch to specify a target framework:
-
-`dotnet new console -f net6.0`
-
-Use `dotnet run` to compile and execute the program:
-
-![](img/20230659-165904.png)
-
-You can specify the language version in the project file: 
-
-![](img/20230659-155936.png)
-
-See [Configure language version](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/configure-language-version) for information on enabling a specific language version compiler. Getting a list of language versions is tricky. See [this explanation](https://github.com/dotnet/docs/issues/27101#issuecomment-1172989898) for more info. Using this technique, you can uncover the supported language versions, even for preview releases:  
-
-![](img/20230601-160143.png)
-
-</details>
 
 <details><summary>Visual Studio Package Source Error</summary>
 
 When creating a new application and building it for the first time, you may get an error like this:
-![](img/20230656-155606.png)
+
+<img src='img/20230656-155606.png' width=600px>
 
 The error message is related to missing package sources from the NuGet package manager.  To fix this, open the NuGet package manager settings and verify the package source URL has been added:
 
-![](img/20230658-155829.png)
+<img src='img/20230658-155829.png' width=500px>
 
 See [Visual Studio Package Sources](https://learn.microsoft.com/en-us/nuget/consume-packages/install-use-packages-visual-studio#package-sources) for more details.
 
 </details>
 
-<details open><summary>Understanding Top-Level Programs</summary>
+<details><summary>About top-level programs</summary>
 
 Projects created with .NET SDK 5 or earlier always start with the following boilerplate code.
 
@@ -205,7 +176,7 @@ See [Explore top-level statements](https://learn.microsoft.com/en-us/dotnet/csha
 
 </details>
 
-<details><summary>Implicitly Imported Namespaces</summary>
+<details><summary>About implicitly imported namespaces</summary>
 
 Using the statement `Console.Writeline` requires the `using System` statement at the top of the file. Starting with .NET 6, this import is handed automatically by using **global namespace imports**, which handle imports for some commonly used namespaces like `System`.
 
@@ -218,6 +189,64 @@ See the following:
 
 </details>
 
+<details><summary>Visual Studio - Configure startup projects</summary>
+
+In Visual Studio, when you have multiple projects in a solution you must manually change a project as the startup project to run the application. You can avoid this behavior by setting the startup project to the current selection.
+
+In Visual Studio, from the Solution options, click **Configure Startup Projects** and set the startup project to **Current Selection**. This makes it very easy to switch startup projects simply by clicking the project to make it the startup project.
+
+<img src='img/20240214-051435.png' width=600px>
+
+</details>
+
+<details open>
+  <summary>Using dotnext.exe to create solutions and projects</summary>
+
+Using `dotnet help <command>` will open a web browser with the page in the documentation about the command.
+
+See the following page for an overview on using the `dotnet` options: https://github.com/markjprice/cs12dotnet8/blob/main/docs/ch01-project-options.md
+
+Use `dotnet new sln` to create a new solution.
+
+<img src='img/20240238-053807.png' width=350px>
+
+Here are the contents of the resulting solution file:
+
+<img src='img/20240239-053934.png' width=400px>
+
+Use `dotnet new console` to create a new console application:
+
+<img src='img/20240241-054101.png' width=400px>
+
+This action creates a new file structure with the `.csproj` file:
+
+<img src='img/20240242-054248.png' width=400px>
+
+The previous command targets your latest .NET SDK version by default.  Use the `-f` switch to specify a target framework:
+
+`dotnet new console -f net6.0`
+
+Use `dotnet sln add` to add the project to the solution:
+
+<img src='img/20240244-054454.png' width=400px>
+
+Use `dotnet run` to compile and execute the program:
+
+<img src='img/20240253-055306.png' width=500px>
+
+</details>
+
+<details><summary>Specifying the language version</summary>
+
+You can specify the language version in the project file. See [Configure language version](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/configure-language-version) for information on enabling a specific language version compiler.
+
+<img src='img/20240200-060026.png' width=350px>
+
+Getting a list of language versions is tricky. See [this explanation](https://github.com/dotnet/docs/issues/27101#issuecomment-1172989898) for more info. Using this technique, you can uncover the supported language versions, even for preview releases:  
+
+<img src='img/20240259-055916.png' width=300px>
+
+</details>
 
 
 
