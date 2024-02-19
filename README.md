@@ -24,7 +24,7 @@ Use the links below to discover more about my learning journey.
 
 ## Programming Languages
 
-- [C# and .NET](/topics/languages/csharp.md)
+- [.NET](/topics/languages/dotnet.md)
 - [C](/topics/languages/c.md)
 - [Assembly](/topics/languages/assembly.md)
 

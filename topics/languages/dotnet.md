@@ -199,8 +199,7 @@ In Visual Studio, from the Solution options, click **Configure Startup Projects*
 
 </details>
 
-<details open>
-  <summary>Using dotnext.exe to create solutions and projects</summary>
+<details><summary>Using dotnext.exe to create solutions and projects</summary>
 
 Using `dotnet help <command>` will open a web browser with the page in the documentation about the command.
 
@@ -247,6 +246,50 @@ Getting a list of language versions is tricky. See [this explanation](https://gi
 <img src='img/20240259-055916.png' width=300px>
 
 </details>
+
+<details><summary>Displaying inline hints</summary>
+
+To enable assistance with explicitly-specified parameters, in Visual Studio enable the option **Display inline parameter hints**.
+
+<img src='img/20240239-033947.png' width=450px>
+
+Visual Studio Code has a setting with the same name.
+
+This feature shows the names of the parameters without you having to type them.
+
+<img src='img/20240244-034418.png' width=500px>
+
+</details>
+
+<details open><summary>C# Language and Features</summary>
+
+**Timeline**
+
+- 1999: Before the first release of C#, the codename was **C-like Object-Oriented Language (COOL)**.
+  - Lead architect: Anders Hejlsberg
+  - Anders indicates that flaws in most major programming languages (e.g. C++, Java) drove the fundamentals of the Common Language Runtime (CLR), which in turn drove the design of the C# language
+  - "C sharp" implies that the language is an increment of C++
+- 2002: C# 1 release
+- 2023: C# 12
+
+See here for a complete timeline: https://github.com/markjprice/cs12dotnet8/blob/main/docs/ch02-features.<!-- markdownlint-capture -->
+
+**Standards**
+
+C# has also become part of several standards. However, adoption takes a long time, as the latest version 6.0 was released in 2015. A draft 7.3, released in 2018, is currently in draft.
+
+<img src='img/20240257-035744.png' width=400px>
+
+**Public Repositories**
+
+- [C# Language Design](https://github.com/dotnet/csharplang) - Includes meeting notes, proposals, and spec.
+- [Compiler Implementation (Roslyn)](https://github.com/dotnet/roslyn)
+- [Standard to describe the language](https://github.com/dotnet/csharpstandard)
+
+
+
+
+
 
 
 
