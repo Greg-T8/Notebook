@@ -11,6 +11,8 @@ Most of my notes are taken from [C# 12 and .NET 8 Modern Cross-Platform Developm
 
 ## Introduction
 
+<details><summary>Get started with .NET and Visual Studio</summary>
+
 <details><summary>Brief overview of .NET</summary>
 There are two main flavors of .NET:
 
@@ -77,7 +79,7 @@ See https://learn.microsoft.com/en-us/dotnet/core/versions/
 
 </details>
 
-<details><summary>Using dotnet.exe to list installed .NET versions</summary>
+<details><summary>Using dotnet.exe to list and install .NET runtime and SDK versions</summary>
 
 Use the `dotnet` command to uncover information about versions, runtimes, and SDKs.
 
@@ -235,18 +237,6 @@ Use `dotnet run` to compile and execute the program:
 
 </details>
 
-<details><summary>Specifying the language version</summary>
-
-You can specify the language version in the project file. See [Configure language version](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/configure-language-version) for information on enabling a specific language version compiler.
-
-<img src='img/20240200-060026.png' width=350px>
-
-Getting a list of language versions is tricky. See [this explanation](https://github.com/dotnet/docs/issues/27101#issuecomment-1172989898) for more info. Using this technique, you can uncover the supported language versions, even for preview releases:  
-
-<img src='img/20240259-055916.png' width=300px>
-
-</details>
-
 <details><summary>Displaying inline hints</summary>
 
 To enable assistance with explicitly-specified parameters, in Visual Studio enable the option **Display inline parameter hints**.
@@ -261,7 +251,12 @@ This feature shows the names of the parameters without you having to type them.
 
 </details>
 
-<details open><summary>C# Language and Features</summary>
+<details><summary>C# Language and Features</summary>
+
+**Public Repositories**
+
+- [C# Language Design](https://github.com/dotnet/csharplang) - Includes meeting notes, proposals, and spec.
+- [Compiler Implementation (Roslyn)](https://github.com/dotnet/roslyn)
 
 **Timeline**
 
@@ -276,20 +271,44 @@ See here for a complete timeline: https://github.com/markjprice/cs12dotnet8/blob
 
 **Standards**
 
-C# has also become part of several standards. However, adoption takes a long time, as the latest version 6.0 was released in 2015. A draft 7.3, released in 2018, is currently in draft.
+C# has also become part of several standards. However, adoption takes a long time. The language is currently at 11/12, but the latest version standard, 6.0, was released in 2015. There are drafts for 7, 8, and 9. See [Standard to describe the language](https://github.com/dotnet/csharpstandard)
 
 <img src='img/20240257-035744.png' width=400px>
 
-**Public Repositories**
+</details>
 
-- [C# Language Design](https://github.com/dotnet/csharplang) - Includes meeting notes, proposals, and spec.
-- [Compiler Implementation (Roslyn)](https://github.com/dotnet/roslyn)
-- [Standard to describe the language](https://github.com/dotnet/csharpstandard)
+<details><summary>Specifying SDK and C# Language versions</summary>
+
+The .NET language compiler for C# is also known as **Roslyn**. There is a separate compiler for F#. Both compilers are distributed as part of the .NET SDK. To use a specific version of C#, you must have at least that version of the .NET SDK installed. The projects you create can target older versions of .NET and still use a modern compiler version. 
+
+Use `dotnet --version` to output the SDK version:
+
+<img src='img/20240247-034747.png' width=150px>
+
+The SDK will use the latest supported language version by default. To target a specific language version compiler, you must add the `<LangVersion>` tag to the project configuration file (*.csproj):
+
+<img src='img/20240252-035248.png' width=300px>
+
+Targeting a specific language version will override the default language version that is picked from the `<TargetFramework>` tag.  
+
+The [C# language version reference](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/configure-language-version) shows all supported C# language versions and their corresponding .NET versions.
+
+You can also get a list of supported language versions on your system. See [this explanation](https://github.com/dotnet/docs/issues/27101#issuecomment-1172989898) for more info. Using this technique, you can uncover the supported language versions, even for preview releases:  
+
+<img src='img/20240259-055916.png' width=300px>
+
+To confirm the language and compiler version, enter the following statement in a blank .cs program file and run it:  `#error version`.  You will get an error, but the error will indicate the language and compiler version. See [Override the default](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/configure-language-version#override-the-default).
+
+<img src='img/20240207-040703.png' width=700px>
+
+</details>
+
+</details>
+
+<details open><summary>C# Language Features</summary>
 
 
-
-
-
+</details>
 
 
 
