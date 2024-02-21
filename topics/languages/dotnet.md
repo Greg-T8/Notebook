@@ -11,7 +11,9 @@ Most of my notes are taken from [C# 12 and .NET 8 Modern Cross-Platform Developm
 
 ## Introduction
 
-<details><summary>Get started with .NET and Visual Studio</summary>
+<details><summary>1. Get started with .NET and Visual Studio</summary>
+
+Expand the sections below to understand more on the topic:
 
 <details><summary>Brief overview of .NET</summary>
 There are two main flavors of .NET:
@@ -109,7 +111,7 @@ Then use `winget install` to install a specific runtime or SDK version.
 
 </details>
 
-<details><summary>Understanding Intermediate Language</summary>
+<details><summary>Understanding intermediate language</summary>
 
 The C# compiler (named **Roslyn**) used by the `dotnet.exe` CLI tool converts C# source code into **intermediate language (IL)** code and stores the IL in an **assembly** (a DLL or EXE file). IL code statements are like assembly language instructions, which are executed by .NET's virtual machine, known as CoreCLR.
 
@@ -124,7 +126,7 @@ See https://github.com/dotnet/roslyn
 </details>
 
 
-<details><summary>Visual Studio Package Source Error</summary>
+<details><summary>Visual Studio package source error</summary>
 
 When creating a new application and building it for the first time, you may get an error like this:
 
@@ -178,11 +180,35 @@ See [Explore top-level statements](https://learn.microsoft.com/en-us/dotnet/csha
 
 </details>
 
-<details><summary>About implicitly imported namespaces</summary>
+<details open><summary>Implicitly and globally importing namespaces</summary>
 
-Using the statement `Console.Writeline` requires the `using System` statement at the top of the file. Starting with .NET 6, this import is handed automatically by using **global namespace imports**, which handle imports for some commonly used namespaces like `System`.
+Using the statement `Console.Writeline` requires the `using System` statement at the top of the file. Traditionally, every `.cs` file that needs to import namespaces would have to start with `using` statements to import those namespaces. Namespaces like `System` and `System.Linq` are needed in almost all `.cs` files.  
+
+C# 10 introduced the `global using` keyword combination, which means you only need to import a namespace in one `.cs` file, and it will be available throughout all `.cs` files.
+
+You can put `global using` statements in the `Program.cs` file, but it's recommended to create a separate file for those statements. The file can be named something like `GlobalUsings.cs` and could look like:
+
+```c#
+global using global::System;
+global using global::System.Linq;
+global using global::System.Collections.Generic;
+```
+
+Starting with .NET 6, for any new projects, the compiler generates a `<ProjectName>.GlobalUsings.g.cs` file. Note the **g** for **generated** to differentiate it from developer-written code files. The list of implicitly imported namespaces depends on which SDK you target, e.g. `Microsoft.NET.Sdk`, `Microsoft.NET.Sdk.Web`, `Microsoft.NET.Sdk.Worker`.
 
 <img src='img/20240227-042723.png' width=600px>
+
+You can control which namespaces are implicitly imported in the project's `.csproj` file by adding the `<ItemGroup>` and `<Using>` elements: 
+
+<img src='img/20240225-042543.png' width=400px>
+
+Upon saving the `.csproj` file, the `GlobalUsings.cs` file is automatically updated:
+
+<img src='img/20240224-042457.png' width=400px>
+
+Because we imported the `Console` class, his change allows you to call methods like `WriteLine` without having to prefix them with `Console`. You can also reference the `Environment` class using its alias `Env`: 
+
+<img src='img/20240229-042959.png' width=600px>
 
 See the following:
 
@@ -191,7 +217,7 @@ See the following:
 
 </details>
 
-<details><summary>Visual Studio - Configure startup projects</summary>
+<details><summary>Visual Studio - configure startup projects</summary>
 
 In Visual Studio, when you have multiple projects in a solution you must manually change a project as the startup project to run the application. You can avoid this behavior by setting the startup project to the current selection.
 
@@ -251,7 +277,7 @@ This feature shows the names of the parameters without you having to type them.
 
 </details>
 
-<details><summary>C# Language and Features</summary>
+<details><summary>C# language and features</summary>
 
 **Public Repositories**
 
@@ -267,7 +293,7 @@ This feature shows the names of the parameters without you having to type them.
 - 2002: C# 1 release
 - 2023: C# 12
 
-See here for a complete timeline: https://github.com/markjprice/cs12dotnet8/blob/main/docs/ch02-features.<!-- markdownlint-capture -->
+See here for a complete timeline: [C# language versions and features](https://github.com/markjprice/cs12dotnet8/blob/main/docs/ch02-features.md) 
 
 **Standards**
 
@@ -277,7 +303,7 @@ C# has also become part of several standards. However, adoption takes a long tim
 
 </details>
 
-<details><summary>Specifying SDK and C# Language versions</summary>
+<details><summary>Specifying SDK and C# language versions</summary>
 
 The .NET language compiler for C# is also known as **Roslyn**. There is a separate compiler for F#. Both compilers are distributed as part of the .NET SDK. To use a specific version of C#, you must have at least that version of the .NET SDK installed. The projects you create can target older versions of .NET and still use a modern compiler version. 
 
@@ -305,7 +331,14 @@ To confirm the language and compiler version, enter the following statement in a
 
 </details>
 
-<details open><summary>C# Language Features</summary>
+<details open><summary>2. C# Language Features</summary>
+
+<details><summary>C# grammar and vocabulary</summary>
+
+[Common C# Coding Conventions](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions)
+
+
+</details>
 
 
 </details>
