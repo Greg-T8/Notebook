@@ -180,7 +180,7 @@ See [Explore top-level statements](https://learn.microsoft.com/en-us/dotnet/csha
 
 </details>
 
-<details open><summary>Implicitly and globally importing namespaces</summary>
+<details><summary>Implicitly and globally importing namespaces</summary>
 
 Using the statement `Console.Writeline` requires the `using System` statement at the top of the file. Traditionally, every `.cs` file that needs to import namespaces would have to start with `using` statements to import those namespaces. Namespaces like `System` and `System.Linq` are needed in almost all `.cs` files.  
 
@@ -277,7 +277,7 @@ This feature shows the names of the parameters without you having to type them.
 
 </details>
 
-<details><summary>C# language and features</summary>
+<details><summary>C# timeline, language, and features</summary>
 
 **Public Repositories**
 
@@ -333,13 +333,104 @@ To confirm the language and compiler version, enter the following statement in a
 
 <details open><summary>2. C# Language Features</summary>
 
-<details><summary>C# grammar and vocabulary</summary>
 
 [Common C# Coding Conventions](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions)
 
+<details><summary>C# Types vs Classes</summary>
+
+C# doesn't define any types. Keywords such as `string` that look like types are **aliases**, which represent types provied by the platform on which C# runs. C# cannot exist alone. The platform on which C# runs is .NET, which provides tens of thousands of types to C#, including `System.Int32`, which is the C# keyword alias `int` maps to. In theory, someone could write a C# compiler that uses a different platform, with different underlying types.
+
+**Type** is often confused with **class**. In C#, every **type** can be categorized as a `class`, `struct`, `enum`, `interface`, or `delegate`. As an example, the C# keyword `string` is a `class`, but `int` is a `struct`. So, it is best to use the term **type** to refer to both.
+
+The following code outputs the number of types and methods in each loaded assembly:
+```c#
+using System.Reflection; 
+
+System.Data.DataSet ds = new();
+HttpClient client = new();
+
+Assembly? myApp = Assembly.GetEntryAssembly();
+if (myApp is null) return;
+foreach (AssemblyName name in myApp.GetReferencedAssemblies())
+{
+    Assembly a =Assembly.Load(name);
+    int methodCount = 0;
+    foreach (TypeInfo t in a.DefinedTypes)
+    {
+        methodCount += t.GetMethods().Length;
+    }
+    WriteLine("{0:N0} types with {1:N0} methods in {2} assembly.",
+        arg0: a.DefinedTypes.Count(),
+        arg1: methodCount,
+        arg2: name.Name);  
+}
+```
+
+Output:  
+<img src='img/20240253-035328.png' width=400px>
+
+.NET assemblies have a large number of types and methods. The `System.Runtime` assembly does not have any types or methods because it only contains **type-forwarders** rather than actual types. A type-forwarder represents a type that has been implemented outside of .NET or for some other advanced reason.  
+
+For this reason, learning C# can be challenging because there is an overwhelming number of types and methods to learn.
 
 </details>
 
+<details><summary>Variables and Naming Conventions</summary>
+
+When using variables, you should think about, firstly, how much space the variable takes up in memory, and, secondly, how fast it can be processed. You control this by picking an appropriate type. 
+
+**Naming Conventions**
+In addition to what's shown below, some developers prefix the names of private fields with an underscore, e.g. `_dateOfBirth`.
+
+<img src='img/20240201-040139.png' width=600px>
+
+</details>
+
+<details><summary>Chars</summary>
+
+For text, a single letter is stored as a `char` type. However, don't always assume one `char` equals one letter or you could introduce bugs in your code. For example, the Egyptian Hieroglyph A002 (U +13001) needs two `System.Char` values (known as surrogate pairs) to represent it: `\uD80C` and `\uDC01`.
+
+A `char` is assigned using single quotes around the literal value.
+
+```c#
+char letter = 'A';
+char digit = '1';
+char symbol = '$';
+char userChoice = GetChar();
+```
+
+Text with multiple letters are stored as a `string` type instead of a `char` type.
+
+</details>
+
+<details><summary>Regular string literals</summary>
+
+A literal string is a sequence of characters enclosed in double quotes `"`. Literal strings allow for the inclusion of escape sequences. For example, `\n` represents a newline, `\t` represents a tab, and `\\` represents a backslash.
+
+```c#
+string regularString = "First Line,\nSecondLine.";
+```
+
+</details>
+
+<details open><summary>Verbatim string literals</summary>
+
+A verbatim string is used to denote that the string should be taken exactly as is, without interpreting any escape sequences or special characters within it. All characters in the string, including newlines, tabs, and other escape sequences, are treated as literal characters and are part of the string itself.
+
+In C#, verbatim strings are denoted by the `@` symbole placed before the opening quotation mark:
+
+```c#
+string path = @"C:\Users\Example\Documents\file.txt"
+```
+
+In this example, normally the backslash character is used as an escape character in strings, meaning it would need to be doubled `\\` to represent a single backslash in a regular string. However, by using a verbatim string (prefixing the string with the `@` character), every character string is treated exactly as it appears, so single backslashes can be used directly without needing to be escaped.
+
+Verbatim strings are useful for file paths, regular expressions, and any other strings where escape characters might frequently occur, simplifying the string's readability and maintenance.
+
+
+
+
+</details>
 
 </details>
 
