@@ -413,11 +413,11 @@ string regularString = "First Line,\nSecondLine.";
 
 </details>
 
-<details open><summary>Verbatim string literals</summary>
+<details><summary>Verbatim string literals</summary>
 
 A verbatim string is used to denote that the string should be taken exactly as is, without interpreting any escape sequences or special characters within it. All characters in the string, including newlines, tabs, and other escape sequences, are treated as literal characters and are part of the string itself.
 
-In C#, verbatim strings are denoted by the `@` symbole placed before the opening quotation mark:
+In C#, verbatim strings are denoted by the `@` symbol placed before the opening quotation mark:
 
 ```c#
 string path = @"C:\Users\Example\Documents\file.txt"
@@ -427,10 +427,108 @@ In this example, normally the backslash character is used as an escape character
 
 Verbatim strings are useful for file paths, regular expressions, and any other strings where escape characters might frequently occur, simplifying the string's readability and maintenance.
 
-
-
+Verbatim string literals were introduced with the language's inception, which was C# 1.0, released in 2000.
 
 </details>
+
+<details><summary>Interpolated string literals</summary>
+
+Interpolated strings simplify string creation by allowing the inclusion of expression values directly within a string literal.
+
+An interpolated string is identified by a dollar sign `$` prefix before the string literal quote. Inside the string, curly braces (`{}`) are used to denote expressions.
+
+```c#
+var name = "World";
+var greeting = $"Hello, {name}!";
+Console.WriteLine(greeting); // Output: Hello, World!
+```
+
+This feature was introduced in C# 6.0, which was released as part of the .NET Framework 4.6 in July 2015.
+
+</details>
+
+<details><summary>Interpolated verbatim string literals</summary>
+
+For strings that need to include escape sequences like file paths, you can combine interpolated strings with verbatim strings by using both `$` and `@` symbols:
+
+```c#
+var userName = "JohnDoe";
+var documentsFolder = @"C:\Users";
+
+// Using an interpolated verbatim string to construct a file path
+var userProfilePath = $@"{documentsFolder}\{userName}\Profile.txt";
+
+Console.WriteLine(userProfilePath);
+```
+</details>
+
+<details><summary>Raw string literals</summary>
+
+Raw string literals  allow for multi-line strings and minimize the need for escape sequences. They are particularly useful for working with complex strings, such as JSON, XML, HTML, or regular expressions, making the code more readable by directly mirroring the content's format within the string. 
+
+Here is an example of a raw string literal: 
+
+```c#
+var jsonString = """
+{
+  "name": "John Doe",
+  "age": 30,
+  "isEmployee": true,
+  "addresses": [
+    {
+      "street": "1234 Elm Street",
+      "city": "Gotham",
+      "state": "NY"
+    },
+    {
+      "street": "5678 Maple Avenue",
+      "city": "Metropolis",
+      "state": "IL"
+    }
+  ]
+}
+""";
+```
+
+Raw string literals have three or more double-quote characters.  Why three or more?  For scenarios where the content itself needs to have three double-quote characters, you can then use four double-quote characters to indicate the beginning and end of the content. Where the content needs to have four double-quote characters, you can then use five double-quote characters, and so on.
+
+The compiler also looks at the indentation of the last three or more double-quote characters, and then automatically removes that level of indentation from all content inside the raw string literal. 
+
+Example: No indentation of double-quote characters; output retains spacing
+
+<img src='img/20240214-041427.png' width=400px>
+
+Example: Indentation of double-quote characters; spacing removed
+
+<img src='img/20240216-041658.png' width=400px>
+
+Raw string literals were introduced in C# 11, as part of the .NET 7 preview releases in 2022.  
+
+</details>
+
+<details><summary>Raw interpolated string literals</summary>
+
+Raw interpolated string literals combine the features of raw string literals and string interpolation, allowing you to include expressions within a raw string literal. Raw interpolated string literals simplify working with strings that span multiple lines and contain embedded expressions, without needing to escape special characters. These string types are particularly useful for generating strings with complex formats where readability and maintainability are important, and it avoides common pitfalls of traditional string concatenation or escape sequences.
+
+Raw interpolated string literals are prefixed with a double dollar sign `$$`. The number of dollar signs tells the compiler how many curly braces are needed to become recognized as an interpolated expression. Inside the string, the number of curly braces are used to indicate the expression.
+
+```c#
+string name = "John";
+int age = 30;
+
+var message = $$"""
+Hello, {{name}}!
+You are {{age}} years old.
+""";
+
+Console.WriteLine(message);
+```
+
+Raw interpolated string literals were introduced in C# 11 in 2022, along with raw string literals.
+
+</details>
+
+
 
 </details>
 
