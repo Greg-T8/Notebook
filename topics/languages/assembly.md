@@ -7,7 +7,11 @@ This page covers my journey on learning assembly language. Why learn assembly la
 - [Apress: Learn to Program with Assembly](https://www.amazon.com/Learn-Program-Assembly-Foundational-Programmers/dp/1484274369/ref=sr_1_1?crid=1QMJ66XZ89N6X&keywords=learn+to+program+with+assembly&qid=1702762822&sprefix=learn+to+program+with+assembly%2Caps%2C109&sr=8-1)
 - [Apress Source Code](https://github.com/Apress/learn-to-program-w-assembly)
 
-## A Simple Assembly Program
+## Getting Started
+
+<details><summary>1. A simple assembly program</summary>
+
+<br>
 
 Here's a look at the simplest assembly program. The following program does nothing. It just exits with a status code of 3.
 
@@ -29,8 +33,9 @@ Here are the commands used to assemble, link, and execute the program. Note the 
 
 <img src='img/20231237-043747.png' width=250px>
 
-<details>
-  <summary>Command Explanation</summary>
+<details><summary>Command Explanation</summary>
+
+<br>
 
 **`as myexit.s -o myexit.o`**:
 
@@ -57,8 +62,9 @@ _ `$?` is a special shell variable that holds the exit status of the most recent
 
 </details>
 
-<details>
-  <summary>Code Explanation</summary>
+<details><summary>Code Explanation</summary>
+
+<br>
 
 **`.globl _start`**:
 
@@ -98,8 +104,9 @@ _ `$?` is a special shell variable that holds the exit status of the most recent
 
 </details>
 
-<details>
-  <summary>Debugging Guidance</summary>
+<details><summary>Debugging Guidance</summary>
+
+<br>
 
 To debug assembly you must specify the `-g` flag when assembling and linking.
 This flag tells the assembler and linker to include debugging information in the
@@ -129,7 +136,13 @@ You can also view registers in the Variables window.
 
 </details>
 
-## Assembly Language Syntax
+</details>
+
+<details open><summary>2. Assembly language syntax</summary>
+
+<br>
+
+<details><summary>AT&T syntax vs NASM syntax</summary>
 
 The assembly language syntax used by the GNU assembler is known as AT&T syntax.
 This syntax is the native syntax for the Linux kernel and output by the GNU
@@ -166,39 +179,87 @@ first, followed by the destination.
 It's important to note that there were no universal standards for assembly
 language when these syntaxes were being developed.
 
-## Register Descriptions
+</details>
+
+<details><summary>Register descriptions</summary>
+
+<br>
 
 In the AT&T syntax, registers are prefixed with a `%` to distinguish from other types of identifiers, such as variables or labels.
 
-<details><summary>The RAX Register</summary>
+<details><summary>The RAX register</summary>
 
-**RAX**  
-The RAX register is a general-purpose register in x86-64 architecture, which is an extension of the original x86 architecture. This register is part of the family of registers that originated with the 16-bit AX register in the x86 architecture. Here's a breakdown of its evolution and uses:
+<br>
+
+The RAX register is a general-purpose register in x86-64 architecture, which is an extension of the original x86 architecture. The "AX" in "RAX" stands for "Accumulator Register". In the context of the x86 architecture, the accumulator register is used primarily for arithmetic, logic, and data operations. For example, operations like addition, subtraction, and multiplication often store their results in the accumulator. The AX register has a special role where it is implicitly used for operations such as multiplication, division, and certain bitwise operations.
+
+**Historical Context**:
+
+The naming convention for the "AX" register, where "A" stands for "Accumulator" and "X" does not explicitly stand for anything, is rooted in historical precedent and the evolution of the x86 architecture. The use of "X" in "AX" (and similarly in "BX", "CX", "DX") follows a tradition from early microprocessor and assembly language design, where certain letters were chosen to denote specific purposes or functions of registers, without necessarily forming an acronym or abbreviation that stands for descriptive words.
+
+- **Accumulator**: The term "accumulator" is one of the oldest in computing, referring to a register where arithmetic and logic results are "accumulated." Historically, the accumulator was often the primary register for arithmetic operations in many early computer designs.
+
+- **Register Naming**: In the original Intel 8086 processor (~1978), registers were named with letters to indicate their primary use:
+  - **A** for the Accumulator, used primarily for arithmetic operations.
+  - **B** for the Base register, used in array indexing.
+  - **C** for the Count register, used in loops and string operations.
+  - **D** for the Data register, used for I/O operations.
+
+The "X" in "AX" (and similarly "BX", "CX", "DX") likely served multiple purposes:
+- It helped standardize the register naming convention, making it easier to remember and distinguish between them.
+- It indicated that these registers could be used for general purposes beyond their primary functions. 
+- The "X" might implicitly suggest "eXtended" or "eXtra" to denote versatility or a broader use case, but this interpretation is more about making sense of the convention after the fact rather than the original intention.
+
 
 **Evolution of the AX Register:**
 
-**AX:** In 16-bit x86 architecture, AX was one of the primary registers. It was often used for arithmetic, logical operations, and data transfer.  
-**EAX:** With the advent of 32-bit x86 architecture, AX was extended to EAX to support 32-bit processing.  
-**RAX:** In the x86-64 architecture, EAX was further extended to RAX to support 64-bit processing. The "R" in RAX stands for "register" in 64-bit architecture.  
+- **AX (Accumulator Register):** In 16-bit x86 architecture, AX was one of the primary registers. It was often used for arithmetic, logical operations, and data transfer.
+  
+- **EAX (Extended Accumulator Register):** With the advent of 32-bit x86 architecture, AX was extended to EAX to support 32-bit processing.  
+
+- **RAX (Register Accumulator Register):** In the x86-64 architecture, EAX was further extended to RAX to support 64-bit processing.
 
 **Usage of RAX:**
 
-**Accumulator for Arithmetic Operations:** RAX often acts as an accumulator in arithmetic operations (like addition, multiplication, etc.), where it stores results.
+- **Accumulator for Arithmetic Operations:** RAX often acts as an accumulator in arithmetic operations (like addition, multiplication, etc.), where it stores results.
 
-**Return Value from Functions:** In many calling conventions, RAX is used to store the return value of a function. When a function completes, it places its return value in RAX.
+- **Return Value from Functions:** In many calling conventions, RAX is used to store the return value of a function. When a function completes, it places its return value in RAX.
 
-**Data Manipulation and Transfer:** It is used for general data manipulation and transfer operations.
+- **Data Manipulation and Transfer:** It is used for general data manipulation and transfer operations.
 
-**Compatibility with Previous Architectures:** RAX is backward compatible with EAX, AX, and AL, meaning that software written for older x86 architectures can still operate on the x86-64 system. RAX includes EAX as its lower 32 bits, AX as the lower 16 bits of EAX, and AL as the lower 8 bits of AX.
-
-**General Purpose Nature:**
-
-Like other general-purpose registers (RBX, RCX, RDX, etc.), RAX can be used for various purposes by different programs. Its exact use can depend on the context of the program or the requirements of a specific software application.
+- **Compatibility with Previous Architectures:** RAX is backward compatible with EAX, AX, and AL, meaning that software written for older x86 architectures can still operate on the x86-64 system. RAX includes EAX as its lower 32 bits, AX as the lower 16 bits of EAX, and AL as the lower 8 bits of AX.
 
 </details>
 
+<details><summary>The RDI register</summary>
 
-## Assembly Instructions
+<br>
+
+The RDI register is a general-purpose register that is primarily used in data movement and function calling conventions. "RDI" stands for "Register Destination Index".
+
+**Evolution of the DI Register**
+
+- **DI (Data Index)**: Introduced in the 16-bit x86 architecture and was initially used in string and memory operations, acting as a pointer to the destination for operations that move data from one memory location to another. It was particularly useful in operations that involve string operation, where DI would often point to the destination string in memory.
+
+- **EDI (Extended Data Index)**: Introduced with the 32-bit x86 architecture (aka IA-32), the registers were expanded to 32 bits to accommodate the larger address spaces and data sizes inherent to 32-bit computing. This expansion included the DI register, which became the EDI register. 
+
+- **RDI (Register Destination Index)**: Introduced with the transition to x86-x64 (or AMD64) architecture and extended the register size to 64 bits. The RDI continued to serve traditional roles in string and memory operations but the 64-bit size but it now developed utility in function calling conventions, especially in UNIX-like systems where RDI is used to pass the first argument to functions. 
+
+**Usage**
+
+- **String and memory operations**: RDI is often used as a pointer to a destination in string operations or memory manipulation functions. For example, operations like `movsb`, `movsw`, `movsd`, and `movsq`, which copy data from one memory location to another, RDI points to the destination memory location.
+
+- **Function call conventions**: In the System V AMD64 ABI (Application Binary Interface), which is used by Linux, macOS, and other UNIX-like operating systems, RDI is used to pass the first integer or pointer argument to functions. This is a departure from the x86 calling convention, where arguments were passed on the stack.
+
+- **System calls**: In Linux, RDI is also ued to pass the first argument to system calls.
+
+</details>
+
+</details>
+
+<details><summary>Assembly instructions</summary>
+
+<br>
 
 | Instruction | Example | Description |
 | - | - | - |
@@ -207,4 +268,97 @@ Like other general-purpose registers (RBX, RCX, RDX, etc.), RAX can be used for 
 | `addq` | `addq $25, %rdi` | Takes the decimal value of 25, adds it to `%rdi`, and stores it in `$rdi` |
 |  
 
+<details><summary>The movq instruction</summary>
+
+<br>
+
+The `movq` instruction is part of the x86-64 assembly language, which denotes a move operation for quadwords. A quadword is 64-bits (8 bytes) in size, making `movq` crucial for operations involving 64-bit data transfers. The term "quadword" refers to a data size that is four times larger than the size of a "word", which is the fundamental unit of data size in computer architecture. 
+
+**History on "quadword"** 
+
+Historically, the size of a word in computer architecture was determined by the natural size of integers and addresses used by the processor. A word was essentially the amount of data a machine could process at one time. In early computing, word sizes of 8, 16, or 32 bits were common. 
+
+As computing evolved, so did the need for larger data types and more memory addressing capabilities. With the transition from 16-bit to 32-bit architectures (late 80s, early 90s), the word size in many contexts became 32 bits (4 bytes). Consequently, a "double word" (dword) referred to a 64-bit (2x32 bits) data size, and a "quadword" then naturally extended this to 128 bits (4x32 bits) in some contexts.
+
+However, in the context of x86-64 architecture (aka AMD64),the term "quadword" signifies a 64-bit (8-byte) data size. This shift in terminology reflects the architecture's 64-bit word size.
+
+**Evolution**
+
+The evolution of the movq instruction is tied to the evolution of the x86 architecture itself. In earlier versions of the architecture (16-bit and 32-bit), the move instruction was primarily used with different operands, such as `movb` for bytes, `movw` for words (16 bits), and `movl` (or `movd` when dealing with MMX registers) for double words (32 bits). As the architecture evolved to support 64-bit processing capabilities, the need to efficiently move 64-bit data led to the introduction of the `movq` instruction.
+
+The `movq` instruction is a part of the x86-64 assembly language, which denotes a move operation for quadwords. A quadword is 64 bits (8 bytes) in size, making `movq` crucial for operations involving 64-bit data transfers in x86-64 architecture. The instruction's primary function is to move data from one place to another, typically from a register to memory, memory to a register, or between registers.
+
+**Usage**
+
+- **Register to Register**: `movq` is used to move 64-bit values from one register to another. For example, `movq %rax, %rbx` moves the 64-bit value from RAX to RBX.
+
+- **Memory to Register**: It can also move a 64-bit value from a memory location to a register. For example, `movq 8(%rbp), %rax` would move the 64-bit value from the memory address offset by 8 bytes from the base pointer (RBP) into the RAX register.
+
+- **Register to Memory**: Conversely, it can move data from a register to a memory location. For instance, `movq %rax, 8(%rbp)` moves the 64-bit value in RAX to the memory location 8 bytes from RBP.
+
+- **Immediate to Register**: `movq` can move an immediate 64-bit value directly into a register, e.g., `movq $0x1, %rax` moves the immediate value `0x1` into RAX.
+
+**Significance in x86-64 Architecture**
+
+The `movq` instruction is integral to the x86-64 architecture for several reasons:
+
+- **Efficient Data Handling**: It allows for the efficient handling and manipulation of 64-bit data types, which are prevalent in modern computing for applications that require large numerical computations or operate on large data structures.
+
+- **Function Calling Conventions**: In x86-64 assembly, `movq` is essential for setting up function arguments according to the calling convention. For example, in the System V AMD64 ABI, used by Linux and other UNIX-like systems, `movq` is often used to place arguments in the correct registers before a function call.
+
+- **Memory Operations**: It facilitates direct memory operations, crucial for low-level programming and system tasks, such as operating systems and device drivers, where precise control over memory is necessary.
+
+</details>
+
+<details><summary>The syscall instruction</summary>
+
+<br>
+
+The `syscall` instruction is a crucial component in modern computing, especially within x86 and x86-64 architectures. It facilitates a transition from user mode to kernel mode, allowing user-space applications to access system functions and resources managed by the operating system's kernel. This instruction is central to performing system calls, which are requests for service made by programs to the operating system.
+
+**Functionality**
+
+The `syscall` instruction is used to invoke operating system services. When a program needs to perform an operation that requires kernel privileges (such as reading from a file, communicating over a network, or managing processes), it executes a `syscall` instruction. This instruction triggers a context switch from user mode to kernel mode, where the operating system takes over, performs the requested service, and then returns control back to the user-mode program.
+
+**History and Evolution**
+
+The concept of a system call interface predates the `syscall` instruction, with its roots in early operating systems that needed a mechanism for user programs to safely access hardware resources and other protected services.
+
+- **Earlier Systems**: In earlier x86 systems, system calls were made using software interrupts, like `int 0x80`. This method involved triggering an interrupt to switch to kernel mode, which was less efficient due to the overhead of handling an interrupt.
+
+- **Transition to `syscall`/`sysenter`**: With the evolution of processor architectures and the need for more efficient system call mechanisms, the `syscall` instruction (alongside `sysenter` in Intel processors) was introduced. These instructions were designed to provide a faster transition to kernel mode than software interrupts.
+
+- **`syscall` in x86-64**: The `syscall` instruction became particularly important with the advent of the x86-64 architecture, where it is the standard method for initiating system calls. Its efficiency and speed improvements over software interrupts are significant, especially given the increased complexity and demands of modern software.
+
+**Usage**
+
+- **System Call Invocation**: In x86-64 architecture, when a program executes the `syscall` instruction, it must first place the system call number (which identifies the requested service) in the RAX register. Other arguments required by the system call are placed in specific registers (e.g., RDI, RSI, RDX, etc.).
+
+- **Transition to Kernel Mode**: Executing `syscall` triggers a switch to kernel mode, where the CPU jumps to a predefined address in memory that holds the system call handler. This handler reads the system call number from the RAX register, determines which kernel function to execute, and then processes the request.
+
+- **Returning Control**: After the system call is processed, control is returned to the user-space program via the `sysret` instruction (or `sysexit` in Intel), and execution continues from where it left off.
+
+**Significance**
+
+The introduction and use of the `syscall` instruction represent a significant optimization in the way user-space applications interact with the operating system kernel. By providing a more efficient mechanism for performing system calls, it enhances the overall performance of software applications, especially those requiring frequent kernel services. The evolution from software interrupts to dedicated instructions like `syscall` reflects the ongoing optimization and refinement in computer architecture to meet the demands of modern computing environments.
+
+The transition from using software interrupts like `int 0x80` for system calls to using the `syscall` instruction in x86 architectures was largely driven by the evolution from 32-bit to 64-bit processing and the need for more efficient system call mechanisms. This transition didn't happen at a single point in time but rather evolved as processor and operating system technologies advanced.
+
+**Key Points in the Transition:**
+
+- **1990s - Introduction of `sysenter` and `sysexit`**: Intel introduced the `sysenter` and `sysexit` instructions with the Pentium II processor in the late 1990s (around 1997), which provided a more efficient mechanism than the traditional `int 0x80` interrupt for entering and exiting system calls in 32-bit x86 systems. However, this was an Intel-specific solution.
+
+- **Early 2000s - Introduction of `syscall` and `sysret`**: AMD introduced the `syscall` and `sysret` instructions with the AMD64 architecture (also known as x86-64) in the early 2000s, specifically with their K8 series of processors (around 2003). This was part of the extension of x86 to 64-bit computing. Intel later adopted the x86-64 architecture (calling it Intel 64) and these instructions for consistency across platforms.
+
+- **Adoption in Operating Systems**: Linux, for example, started supporting `syscall` for x86-64 systems with the transition to 64-bit processing. The adoption dates vary by operating system, but Linux kernel versions from the early to mid-2000s (circa 2005) began to utilize `syscall` in x86-64. Windows and other operating systems made similar transitions as they adopted the x86-64 architecture.
+
+**Reasons for the Transition:**
+
+- **Efficiency**: The `syscall` instruction is more efficient than using software interrupts. It reduces the overhead associated with the interrupt mechanism, allowing for faster system call entry and exit. This efficiency is particularly beneficial in modern computing environments, where system calls are frequent.
+
+- **64-bit Computing**: The transition to 64-bit computing required reevaluation of system call mechanisms to ensure they were optimized for the new architecture. `syscall` and `sysret` were part of this optimization process.
+
+While the transition didn't happen overnight, the early 2000s mark the period when `syscall` became the preferred mechanism for system calls in x86-64 architectures, coinciding with the broader adoption of 64-bit processors and operating systems. This transition reflects ongoing efforts to improve the efficiency and performance of system-level operations in modern computing environments.
+
+</details>
 
