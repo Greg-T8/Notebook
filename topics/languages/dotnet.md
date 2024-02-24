@@ -13,7 +13,7 @@ Most of my notes are taken from [C# 12 and .NET 8 Modern Cross-Platform Developm
 
 <details><summary>1. Get started with .NET and Visual Studio</summary>
 
-Expand the sections below to understand more on the topic:
+<br>
 
 <details><summary>Brief overview of .NET</summary>
 There are two main flavors of .NET:
@@ -333,8 +333,7 @@ To confirm the language and compiler version, enter the following statement in a
 
 <details open><summary>2. C# Language Features</summary>
 
-
-[Common C# Coding Conventions](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions)
+<br>
 
 <details><summary>C# Types vs Classes</summary>
 
@@ -527,6 +526,28 @@ Console.WriteLine(message);
 Raw interpolated string literals were introduced in C# 11 in 2022, along with raw string literals.
 
 </details>
+
+<details><summary>Decimal, Binary, and Hexadecimal Numbers</summary>
+
+Whole numbers can be stored in decimal, binary, or hexadecimal notation. An underscore can be used as a digit separator to improve legibility.
+
+```c#
+int decimalNotation = 2_000_000;
+int binaryNotation = 0b_0001_1110_1000_0100_1000_0000;
+int hexadecimalNotation = 0x_001E_8480;
+
+Console.WriteLine($"{decimalNotation == binaryNotation}"); // True
+Console.WriteLine($"{decimalNotation == hexadecimalNotation}"); // True
+Console.WriteLine($"{decimalNotation:N0}"); // 2,000,000
+Console.WriteLine($"{binaryNotation:N0}"); // 2,000,000
+Console.WriteLine($"{hexadecimalNotation:N0}"); // 2,000,000
+Console.WriteLine($"{decimalNotation:X}"); // 1E8480
+Console.WriteLine($"{binaryNotation:X}"); // 1E8480
+Console.WriteLine($"{hexadecimalNotation:X}"); // 1E8480
+```
+
+</details>
+
 
 
 
