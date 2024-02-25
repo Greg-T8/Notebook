@@ -104,7 +104,9 @@ _ `$?` is a special shell variable that holds the exit status of the most recent
 
 </details>
 
-<details><summary>Debugging Guidance</summary>
+</details>
+
+<details><summary>2. Debugging Assembly Guidance</summary>
 
 <br>
 
@@ -118,27 +120,64 @@ Assembler command, `as`, to assemble the source code with the `-g` flag.
 
 <img src='img/20231207-140714.png' width=700px>
 
-You can use the GDB debugger to step through the assembly code. However, the
-[CodeLLDB](https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb)
-extension for VS Code provides a more user-friendly experience. After installing
-the lldb debugger and the CodeLLDB extension, you can use the following VS Code
-configuration to debug the assembly code:
+There are a number of VS Code extensions that will debug assembly code.  My two favorite ones are:
 
-<img src='img/20231230-143035.png' width=600px>
+- [Native Debug](https://marketplace.visualstudio.com/items?itemName=webfreak.debug)
+- [CodeLLDB](https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb)
 
-When debugging with CodeLLDB, you get the disassembly view of the code.
+Both debuggers require you to configure a debug task in the `launch.json` file. The following configuration is what I use. Each debugger has specific configuration fields.  
+
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "LLDB: Launch (CodeLLDB)",
+            "type": "lldb",
+            "request": "launch",
+            "stopOnEntry": true,
+            "program": "${workspaceFolder}/${fileBasenameNoExtension}",
+            "console": "internalConsole",
+            "internalConsoleOptions": "neverOpen",
+            "terminal": "integrated",
+            "preLaunchTask": "Assemble and Link"
+        },
+        {
+            "name": "GDB: Launch (Native Debug)",
+            "type": "gdb",
+            "request": "launch",
+            "target": "${workspaceFolder}/${fileBasenameNoExtension}",
+            "cwd": "${workspaceRoot}",
+            "preLaunchTask": "Assemble and Link",
+        },
+}
+```
+
+Both debuggers utilize `gdb`. The **Native Debug** debugger provides an easier experience up front. It's advantages over the CodeLLDB debugger include:
+
+1. Specify break points in the source file without having a separate disassembly window
+2. Prints registers in decimal instead of hexadecimal
+3. Does not require you to pause on program start
+
+Here's a screenshot of debugging in **Native Debug**: 
+
+<img src='img/20240232-153205.png' width=700px>
+
+When debugging with **CodeLLDB**, you can install the `lldb` debugger and get a disassembly view of the code. This view allows you to see the virtual memory address along with the operation codes.  
 
 <img src='img/20231232-143224.png' width=500px>
 
-You can also view registers in the Variables window.
+The registers window shows value in hexadecimal instead of decimal:
 
 <img src='img/20231233-143329.png' width=500px>
 
-</details>
+With the **CodeLLDB** debugger you cannot set breakpoints directly on the assembly source file; you must set the breakpoints on the disassembly file. This makes working with **CodeLLDB** slightly more cumberson.
 
 </details>
 
-<details open><summary>2. Assembly language syntax</summary>
+</details>
+
+<details open><summary>3. Assembly language syntax</summary>
 
 <br>
 
