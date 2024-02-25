@@ -1,14 +1,20 @@
 # C Language Notes
 
-<details>
-<summary>References</summary>
+<details><summary>References</summary>
+
+<br>
+
 The C Programming Language, 2nd Edition, Brian W. Kernighan and Dennis M. Ritchie, 1988, Prentice Hall, ISBN 0-13-110362-8
 
 <img src='img/20231246-054601.png' width=400px>
 
 </details>
 
-## A Tour of the C Language Basics
+## Introduction to C
+
+<details><summary>Hello World</summary>
+
+<br>
 
 The followings screenshot shows a simple C program that prints "hello, world" to the console.
 
@@ -26,16 +32,18 @@ The Hello, World program produces the following output:
 
 <img src='img/20240217-161723.png' width=400px>
 
+</details>
+
 <details open><summary>VS Code Task Configuration</summary>
 
-Here's a look at the VS Code task configuration in `tasks.json` for building and running the program.
+Here's a look at the VS Code task configuration in `tasks.json` for building and running the program. With `GCC Run` set to the default build task, you can use the `CTRL+SHIFT+B` shortcut key to compile and run the program.
 
 ```json
 {
     "tasks": [
         {
-            "type": "cppbuild",
             "label": "GCC Build",
+            "type": "cppbuild",
             "command": "/usr/bin/gcc",
             "args": [
                 "-fdiagnostics-color=always",
@@ -58,22 +66,18 @@ Here's a look at the VS Code task configuration in `tasks.json` for building and
                 "revealProblems": "onProblem",
                 "focus": false,
                 "panel": "shared",
-                "clear": true,
+                "clear": false,
                 "showReuseMessage": false,
             },
             "group": {
                 "kind": "build",
-                "isDefault": true
+                "isDefault": false
             },
         },
         {
-            "type": "shell",
             "label": "GCC Run",
+            "type": "shell",
             "command": "${fileDirname}/${fileBasenameNoExtension}",
-            "group": {
-                "kind": "none",
-                "isDefault": true
-            },
             "presentation": {
                 "echo": true,
                 "reveal": "always",
@@ -85,6 +89,10 @@ Here's a look at the VS Code task configuration in `tasks.json` for building and
             },
             "dependsOn": "GCC Build",
             "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         }
     ],
     "version": "2.0.0"
@@ -183,7 +191,7 @@ Width and precision may be omitted from the specification:
 
 </details>
 
-<details open><summary>The For Statement</summary>
+<details><summary>The For Statement</summary>
 
 Here's a version of the temperature program using a for loop:
 
@@ -211,4 +219,55 @@ Things to note:
 - You can use an expression instead of a variable in the `printf` statement
 
 </details>
+
+<details><summary>Symbolic constants</summary>
+
+<br>
+
+A symbolic constant is a name that represents a fixed value that does not change during the execution of a program. Unlike variables, which occupy storage space, symbolic constants replace their values in the code at the preprocessing stage. 
+
+The syntax for defining a symbolic constant is as follows:
+
+```c
+#define SYMBOLIC_CONSTANT_NAME value
+```
+
+For example:
+
+```c
+#define PI 3.14159
+```
+
+Symbolic constantsare defined using the `#define` preprocessor directive, which replaces all occurrences of the constant with its value during the preprocessing phase, before actual compilation begins. Also, symbolic constants do not end with a semicolon at the end of a #define line.
+
+Using symbolic constants has several advantages:
+
+1. **Readability**: It makes the code more readable by giving meaningful names to otherwise obscure numerical values.
+
+2. **Maintainability**: It allows for easier maintenance of the code since you only need to change the value in one place if it needs to be updated.
+
+3. **Prevention of errors**: It helps prevent errors that can occur from typing the wrong value multiple times throughout the code.
+
+Symbolic constants can represent numerical values, character constants, string constants, or even expressions. They are conventionally written in uppercase letters to distinguish them from variable names.
+
+Here is an example program that uses symbolic constants:
+
+```c
+#include <stdio.h>
+
+/* print Fahrenheit-Celsius table*/
+
+#define LOWER 0
+#define UPPER 300
+#define STEP 20
+
+int main()
+{
+    int fahr;
+    for (fahr = LOWER; fahr <= UPPER; fahr = fahr + STEP)
+        printf("%3d %6.1f\n", fahr, (5.0 / 9.0) * (fahr - 32));
+}
+```
+
+
 
