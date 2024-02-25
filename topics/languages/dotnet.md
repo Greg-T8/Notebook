@@ -16,6 +16,9 @@ Most of my notes are taken from [C# 12 and .NET 8 Modern Cross-Platform Developm
 <br>
 
 <details><summary>Brief overview of .NET</summary>
+
+<br>
+
 There are two main flavors of .NET:
 
 - **Legacy .NET**: refers to the .NET Framework, Mono, Xamarin, and .NET Standard
@@ -59,6 +62,8 @@ Modern .NET aims to unify .NET Core with the original .NET Framework into a sing
 
 <details><summary>About .NET support</summary>
 
+<br>
+
 .NET versions fall in three categories:
 
 - Long Term Support (LTS): supported by Microsoft for 3 years after General Availability, or 1 year after the next LTS release ships, whichever is longer.
@@ -73,6 +78,8 @@ See https://dotnet.microsoft.com/en-us/platform/support/policy
 
 <details><summary>Understanding .NET runtime and .NET SDK versions</summary>
 
+<br>
+
 The .NET runtime is the minimum needed to install so that the system can run a .NET application. The .NET SDK includes the .NET runtime as well as the compilers and other tools needed to build .NET code and apps. The following diagram shows alignment between the major and minor numbers, but the SDK uses a separate convention for the patch number.
 
 <img src='img/20240202-040256.png' width=400px>
@@ -82,6 +89,8 @@ See https://learn.microsoft.com/en-us/dotnet/core/versions/
 </details>
 
 <details><summary>Using dotnet.exe to list and install .NET runtime and SDK versions</summary>
+
+<br>
 
 Use the `dotnet` command to uncover information about versions, runtimes, and SDKs.
 
@@ -113,6 +122,8 @@ Then use `winget install` to install a specific runtime or SDK version.
 
 <details><summary>Understanding intermediate language</summary>
 
+<br>
+
 The C# compiler (named **Roslyn**) used by the `dotnet.exe` CLI tool converts C# source code into **intermediate language (IL)** code and stores the IL in an **assembly** (a DLL or EXE file). IL code statements are like assembly language instructions, which are executed by .NET's virtual machine, known as CoreCLR.
 
 At runtime, CoreCLR loads the IL code from the assembly, the **just-in-time (JIT)** compiler compiles it into native CPU instructions, and then it is executed by the CPU on your machine.
@@ -128,6 +139,8 @@ See https://github.com/dotnet/roslyn
 
 <details><summary>Visual Studio package source error</summary>
 
+<br>
+
 When creating a new application and building it for the first time, you may get an error like this:
 
 <img src='img/20230656-155606.png' width=600px>
@@ -141,6 +154,8 @@ See [Visual Studio Package Sources](https://learn.microsoft.com/en-us/nuget/cons
 </details>
 
 <details><summary>About top-level programs</summary>
+
+<br>  
 
 Projects created with .NET SDK 5 or earlier always start with the following boilerplate code.
 
@@ -182,6 +197,8 @@ See [Explore top-level statements](https://learn.microsoft.com/en-us/dotnet/csha
 
 <details><summary>Implicitly and globally importing namespaces</summary>
 
+<br>
+
 Using the statement `Console.Writeline` requires the `using System` statement at the top of the file. Traditionally, every `.cs` file that needs to import namespaces would have to start with `using` statements to import those namespaces. Namespaces like `System` and `System.Linq` are needed in almost all `.cs` files.  
 
 C# 10 introduced the `global using` keyword combination, which means you only need to import a namespace in one `.cs` file, and it will be available throughout all `.cs` files.
@@ -219,6 +236,8 @@ See the following:
 
 <details><summary>Visual Studio - configure startup projects</summary>
 
+<br>
+
 In Visual Studio, when you have multiple projects in a solution you must manually change a project as the startup project to run the application. You can avoid this behavior by setting the startup project to the current selection.
 
 In Visual Studio, from the Solution options, click **Configure Startup Projects** and set the startup project to **Current Selection**. This makes it very easy to switch startup projects simply by clicking the project to make it the startup project.
@@ -228,6 +247,8 @@ In Visual Studio, from the Solution options, click **Configure Startup Projects*
 </details>
 
 <details><summary>Using dotnext.exe to create solutions and projects</summary>
+
+<br>
 
 Using `dotnet help <command>` will open a web browser with the page in the documentation about the command.
 
@@ -265,6 +286,8 @@ Use `dotnet run` to compile and execute the program:
 
 <details><summary>Displaying inline hints</summary>
 
+<br>
+
 To enable assistance with explicitly-specified parameters, in Visual Studio enable the option **Display inline parameter hints**.
 
 <img src='img/20240239-033947.png' width=450px>
@@ -277,7 +300,25 @@ This feature shows the names of the parameters without you having to type them.
 
 </details>
 
-<details><summary>C# timeline, language, and features</summary>
+<details><summary>C# public repositories, design guidelines, standards, and timeline</summary>
+
+<br>
+
+**Design Guidelines**
+
+Back in the early .NET Framework era, Microsoft published a book that gave good practices in all areas of .NET development. Those recommendations are still very much applicable to modern .NET. Topics include:
+
+- Naming guidelines
+- Type design guidelines
+- Member design guidelines
+- Designing for extensibility
+- Exception design guidelines
+- Usage guidelines
+- Common design patterns
+
+Microsoft has made excerpts of this book available at the following link:
+
+- https://learn.microsoft.com/en-us/dotnet/standard/design-guidelines/
 
 **Public Repositories**
 
@@ -293,6 +334,8 @@ This feature shows the names of the parameters without you having to type them.
 - 2002: C# 1 release
 - 2023: C# 12
 
+<img src='img/20240231-063131.png' width=200px>
+
 See here for a complete timeline: [C# language versions and features](https://github.com/markjprice/cs12dotnet8/blob/main/docs/ch02-features.md) 
 
 **Standards**
@@ -304,6 +347,8 @@ C# has also become part of several standards. However, adoption takes a long tim
 </details>
 
 <details><summary>Specifying SDK and C# language versions</summary>
+
+<br>
 
 The .NET language compiler for C# is also known as **Roslyn**. There is a separate compiler for F#. Both compilers are distributed as part of the .NET SDK. To use a specific version of C#, you must have at least that version of the .NET SDK installed. The projects you create can target older versions of .NET and still use a modern compiler version. 
 
@@ -329,6 +374,8 @@ To confirm the language and compiler version, enter the following statement in a
 
 </details>
 
+<br>
+
 </details>
 
 <details open><summary>2. C# Language Features</summary>
@@ -337,12 +384,15 @@ To confirm the language and compiler version, enter the following statement in a
 
 <details><summary>C# Types vs Classes</summary>
 
+<br>
+
 C# doesn't define any types. Keywords such as `string` that look like types are **aliases**, which represent types provied by the platform on which C# runs. C# cannot exist alone. The platform on which C# runs is .NET, which provides tens of thousands of types to C#, including `System.Int32`, which is the C# keyword alias `int` maps to. In theory, someone could write a C# compiler that uses a different platform, with different underlying types.
 
 **Type** is often confused with **class**. In C#, every **type** can be categorized as a `class`, `struct`, `enum`, `interface`, or `delegate`. As an example, the C# keyword `string` is a `class`, but `int` is a `struct`. So, it is best to use the term **type** to refer to both.
 
 The following code outputs the number of types and methods in each loaded assembly:
 ```c#
+
 using System.Reflection; 
 
 System.Data.DataSet ds = new();
@@ -376,6 +426,8 @@ For this reason, learning C# can be challenging because there is an overwhelming
 
 <details><summary>Variables and Naming Conventions</summary>
 
+<br>
+
 When using variables, you should think about, firstly, how much space the variable takes up in memory, and, secondly, how fast it can be processed. You control this by picking an appropriate type. 
 
 **Naming Conventions**
@@ -386,6 +438,8 @@ In addition to what's shown below, some developers prefix the names of private f
 </details>
 
 <details><summary>Chars</summary>
+
+<br>
 
 For text, a single letter is stored as a `char` type. However, don't always assume one `char` equals one letter or you could introduce bugs in your code. For example, the Egyptian Hieroglyph A002 (U +13001) needs two `System.Char` values (known as surrogate pairs) to represent it: `\uD80C` and `\uDC01`.
 
@@ -404,6 +458,8 @@ Text with multiple letters are stored as a `string` type instead of a `char` typ
 
 <details><summary>Regular string literals</summary>
 
+<br>
+
 A literal string is a sequence of characters enclosed in double quotes `"`. Literal strings allow for the inclusion of escape sequences. For example, `\n` represents a newline, `\t` represents a tab, and `\\` represents a backslash.
 
 ```c#
@@ -413,6 +469,8 @@ string regularString = "First Line,\nSecondLine.";
 </details>
 
 <details><summary>Verbatim string literals</summary>
+
+<br>
 
 A verbatim string is used to denote that the string should be taken exactly as is, without interpreting any escape sequences or special characters within it. All characters in the string, including newlines, tabs, and other escape sequences, are treated as literal characters and are part of the string itself.
 
@@ -432,6 +490,8 @@ Verbatim string literals were introduced with the language's inception, which wa
 
 <details><summary>Interpolated string literals</summary>
 
+<br>
+
 Interpolated strings simplify string creation by allowing the inclusion of expression values directly within a string literal.
 
 An interpolated string is identified by a dollar sign `$` prefix before the string literal quote. Inside the string, curly braces (`{}`) are used to denote expressions.
@@ -448,6 +508,8 @@ This feature was introduced in C# 6.0, which was released as part of the .NET Fr
 
 <details><summary>Interpolated verbatim string literals</summary>
 
+<br>
+
 For strings that need to include escape sequences like file paths, you can combine interpolated strings with verbatim strings by using both `$` and `@` symbols:
 
 ```c#
@@ -462,6 +524,8 @@ Console.WriteLine(userProfilePath);
 </details>
 
 <details><summary>Raw string literals</summary>
+
+<br>
 
 Raw string literals  allow for multi-line strings and minimize the need for escape sequences. They are particularly useful for working with complex strings, such as JSON, XML, HTML, or regular expressions, making the code more readable by directly mirroring the content's format within the string. 
 
@@ -507,6 +571,8 @@ Raw string literals were introduced in C# 11, as part of the .NET 7 preview rele
 
 <details><summary>Raw interpolated string literals</summary>
 
+<br>
+
 Raw interpolated string literals combine the features of raw string literals and string interpolation, allowing you to include expressions within a raw string literal. Raw interpolated string literals simplify working with strings that span multiple lines and contain embedded expressions, without needing to escape special characters. These string types are particularly useful for generating strings with complex formats where readability and maintainability are important, and it avoides common pitfalls of traditional string concatenation or escape sequences.
 
 Raw interpolated string literals are prefixed with a double dollar sign `$$`. The number of dollar signs tells the compiler how many curly braces are needed to become recognized as an interpolated expression. Inside the string, the number of curly braces are used to indicate the expression.
@@ -528,6 +594,8 @@ Raw interpolated string literals were introduced in C# 11 in 2022, along with ra
 </details>
 
 <details><summary>Decimal, Binary, and Hexadecimal Numbers</summary>
+
+<br>
 
 Whole numbers can be stored in decimal, binary, or hexadecimal notation. An underscore can be used as a digit separator to improve legibility.
 
