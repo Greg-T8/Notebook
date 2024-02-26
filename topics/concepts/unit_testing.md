@@ -446,6 +446,28 @@ Hidden inputs and outputs make the code less testable (and less readable, too). 
 
 - A reference to an internal or external state: For example, a method can get the current date and time using a static property such as DateTime.Now. It can query data from the database, or it can refer to a private mutable field. These are all inputs to the execution flow that aren't present in the method signature and, therefore, are hidden.
 
+**NOTE:** The goal of functional programming is not to elimate side effects but rather to introduce a separation between code that handles business logic and code that incurs side effects.
+
+Functional architecture separates business logic from side effects by pushing those side effects to the edges of a business operation. The separation between business logic and side effects is done by segregating two types of code:
+
+- Code that makes a decision - this code doesn't require side effects and thus can be written using mathematical functions
+- Code that acts upon that decision - this code converts all the decisions made by the mathematical functions into visible bits, such as changes in the database or messages sent to a bus.
+
+The code that makes decisions is also known as the _functional core_ (or _immutable core_). The code that acts upon those decisions is a _mutable shell_.
+
+<img src='img/20240239-043940.png' width=500px>
+
+The functional core and the mutable shell cooperate in the following way:
+
+- The mutable shell gathers all inputs
+- The functional core generates decisions
+- The shell converts those decisions into side effects
+
+To maintain proper separation you need to make sure the classes representing the decisions contain enough information for the mutable shell to act upon them without additional decision-making. In other words, the mutable shell must be as dumb as possible. The goal is to cover the functional core extensively with output-based tests and leave the mutable shell to a much smaller number of integration tests.
+
+Example:
+
+
 
 
 
