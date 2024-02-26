@@ -465,10 +465,4 @@ The functional core and the mutable shell cooperate in the following way:
 
 To maintain proper separation you need to make sure the classes representing the decisions contain enough information for the mutable shell to act upon them without additional decision-making. In other words, the mutable shell must be as dumb as possible. The goal is to cover the functional core extensively with output-based tests and leave the mutable shell to a much smaller number of integration tests.
 
-Example:
-
-
-
-
-
 
