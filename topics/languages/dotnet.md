@@ -593,7 +593,7 @@ Raw interpolated string literals were introduced in C# 11 in 2022, along with ra
 
 </details>
 
-<details><summary>Decimal, Binary, and Hexadecimal Numbers</summary>
+<details><summary>Integer literals: Decimal, Binary, and Hexadecimal Numbers</summary>
 
 <br>
 
@@ -614,10 +614,91 @@ Console.WriteLine($"{binaryNotation:X}"); // 1E8480
 Console.WriteLine($"{hexadecimalNotation:X}"); // 1E8480
 ```
 
+See https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/integral-numeric-types#integer-literals
+
 </details>
 
+<details><summary>Integral types (Integers)</summary>
 
+<br>
 
+Integral numeric types represent integer numbers. The table in [Characteristics of integral types](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/integral-numeric-types#characteristics-of-the-integral-types) lists all the supported types.
+
+The following types are the main ones, but there are also additional signed types:
+
+```c#
+Console.WriteLine($"byte uses {sizeof(byte)} bytes and can store numbers in the range {byte.MinValue:N0} to {byte.MaxValue:N0}.");
+Console.WriteLine($"short uses {sizeof(short)} bytes and can store numbers in the range {short.MinValue:N0} to {short.MaxValue:N0}.");
+Console.WriteLine($"int uses {sizeof(int)} bytes and can store numbers in the range {int.MinValue:N0} to {int.MaxValue:N0}.");
+Console.WriteLine($"long uses {sizeof(long)} bytes and can store numbers in the range {long.MinValue:N0} to {long.MaxValue:N0}.");
+```
+
+Output:  
+<img src='img/20240248-034826.png' width=500px>
+
+</details>
+
+<details><summary>Floating-point numeric types</summary>
+
+<br>
+
+Floating-point numeric types represent real numbers. C# supports three predefined floating-point types: float, double, and decimal.
+
+<img src='img/20240253-035341.png' width=700px>
+
+Interestingly, the smaller-sized double, which uses 8 bytes can store a wider range of numbers than the larger-sized decimal, which uses 16 bytes. The reason for this discrepancy pertains to the intent of use for eacy type.
+
+The **Double** type uses 64-bits (8 bytes) of memory. Out of these bits, 1 bit is for the sign, 11 bits are for the exponent, and the remaining 52 bits are for the significant digts. The number of bits dedicated for storing the exponent are what yields the large range of numbers, but that large range comes at a cost of precision when compared to the **Decimal** type.
+
+The **Decimal** types uses 128 bits (16 bytes) of memory. Out of these bits, 1 bit is for the sign, 5 bits are for the exponent, and the remaining 122 bits are for the signficant digits.
+
+Because the **Decimal** type reserves a much higher number of bits for significant digits, it has a higher range of precision. As a result, the decimal type is appropriate applications where the degree of precision is important, such as financial applications.
+
+The **Double** and **Decimal** use different internal representations, one of which may lead to unanticipated results.
+
+Take the following code:
+
+```c#
+Console.WriteLine("Using doubles:");
+double a = 0.1;
+double b = 0.2;
+if (a+b == 0.3)
+{
+    Console.WriteLine($"{a} + {b} equals 0.3");
+}
+else
+{
+    Console.WriteLine($"{a} + {b} does NOT equal 0.3");
+}  
+
+Console.WriteLine("Using decimals:");
+decimal c = 0.1M;
+decimal d = 0.2M;
+if (c+d == 0.3M)
+{
+    Console.WriteLine($"{c} + {d} equals 0.3");
+}
+else
+{
+    Console.WriteLine($"{c} + {d} does NOT equal 0.3");
+}
+```
+
+Output:  
+
+<img src='img/20240216-041628.png' width=200px>
+
+Why doesn't the **Double** type yield expected results?
+
+The reason is that the **Double** type represents numbers in base-2 (binary) floating-point format. This format has finite precision, and numbers are stored in a way that _some_ decimal numbers cannot be represented exactly in binary.
+
+For example, the number `0.1` represented in binary is an infinite pattern of `0.00011001100110011...`. The pattern must be truncated to fit within the finite number of bits allocated for storing floating-point numbers, resulting in a small rounding error.
+
+To contrast, the **Decimal** type represents numbers in base-10 format rather than base-2. This allows it to precisely represent decimal fractions like `0.1` without rounding errors.
+
+**Good Practice**: Never compare `double` values using `==`. 
+
+See https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/floating-point-numeric-types
 
 </details>
 
