@@ -232,7 +232,7 @@ In the AT&T syntax, registers are prefixed with a `%` to distinguish from other 
 
 The RAX register is a general-purpose register in x86-64 architecture, which is an extension of the original x86 architecture. The "AX" in "RAX" stands for "Accumulator Register". In the context of the x86 architecture, the accumulator register is used primarily for arithmetic, logic, and data operations. For example, operations like addition, subtraction, and multiplication often store their results in the accumulator. The AX register has a special role where it is implicitly used for operations such as multiplication, division, and certain bitwise operations.
 
-**Historical Context**:
+### `RAX` Historical Context
 
 The naming convention for the "AX" register, where "A" stands for "Accumulator" and "X" does not explicitly stand for anything, is rooted in historical precedent and the evolution of the x86 architecture. The use of "X" in "AX" (and similarly in "BX", "CX", "DX") follows a tradition from early microprocessor and assembly language design, where certain letters were chosen to denote specific purposes or functions of registers, without necessarily forming an acronym or abbreviation that stands for descriptive words.
 
@@ -245,12 +245,13 @@ The naming convention for the "AX" register, where "A" stands for "Accumulator" 
   - **D** for the Data register, used for I/O operations.
 
 The "X" in "AX" (and similarly "BX", "CX", "DX") likely served multiple purposes:
+
 - It helped standardize the register naming convention, making it easier to remember and distinguish between them.
 - It indicated that these registers could be used for general purposes beyond their primary functions. 
 - The "X" might implicitly suggest "eXtended" or "eXtra" to denote versatility or a broader use case, but this interpretation is more about making sense of the convention after the fact rather than the original intention.
 
 
-**Evolution of the AX Register:**
+### `RAX` Evolution
 
 - **AX (Accumulator Register):** In 16-bit x86 architecture, AX was one of the primary registers. It was often used for arithmetic, logical operations, and data transfer.
   
@@ -258,7 +259,7 @@ The "X" in "AX" (and similarly "BX", "CX", "DX") likely served multiple purposes
 
 - **RAX (Register Accumulator Register):** In the x86-64 architecture, EAX was further extended to RAX to support 64-bit processing.
 
-**Usage of RAX:**
+### `RAX` Usage
 
 - **Accumulator for Arithmetic Operations:** RAX often acts as an accumulator in arithmetic operations (like addition, multiplication, etc.), where it stores results.
 
@@ -276,7 +277,7 @@ The "X" in "AX" (and similarly "BX", "CX", "DX") likely served multiple purposes
 
 The RDI register is a general-purpose register that is primarily used in data movement and function calling conventions. "RDI" stands for "Register Destination Index".
 
-**Evolution of the DI Register**
+### `RDI` Evolution
 
 - **DI (Data Index)**: Introduced in the 16-bit x86 architecture and was initially used in string and memory operations, acting as a pointer to the destination for operations that move data from one memory location to another. It was particularly useful in operations that involve string operation, where DI would often point to the destination string in memory.
 
@@ -284,13 +285,41 @@ The RDI register is a general-purpose register that is primarily used in data mo
 
 - **RDI (Register Destination Index)**: Introduced with the transition to x86-x64 (or AMD64) architecture and extended the register size to 64 bits. The RDI continued to serve traditional roles in string and memory operations but the 64-bit size but it now developed utility in function calling conventions, especially in UNIX-like systems where RDI is used to pass the first argument to functions. 
 
-**Usage**
+### `RDI` Usage
 
 - **String and memory operations**: RDI is often used as a pointer to a destination in string operations or memory manipulation functions. For example, operations like `movsb`, `movsw`, `movsd`, and `movsq`, which copy data from one memory location to another, RDI points to the destination memory location.
 
 - **Function call conventions**: In the System V AMD64 ABI (Application Binary Interface), which is used by Linux, macOS, and other UNIX-like operating systems, RDI is used to pass the first integer or pointer argument to functions. This is a departure from the x86 calling convention, where arguments were passed on the stack.
 
 - **System calls**: In Linux, RDI is also ued to pass the first argument to system calls.
+
+</details>
+
+<details><summary>The RDX register</summary>
+
+<br>
+
+The `RDX` register is part of the x86-64 architecture, which is an extension of the original x86 architecture designed by Intel. x86-64, also known as AMD64 (AMD's implementation) or Intel 64 (Intel's implementation), expanded the capabilities of the processor to support a 64-bit computing environment. The evolution and usage of the `RDX` register can be understood in the context of the broader development of the x86 architecture.
+
+### `RDX` Overview
+
+In the original 16-bit x86 architecture (8086/8088 processors), there were four general-purpose registers named `AX`, `BX`, `CX`, and `DX`, each 16 bits wide. These registers were used for a variety of purposes, including arithmetic operations, memory address calculations, and I/O operations. The `DX` register, in particular, was often used in conjunction with the `AX` register for certain operations that required a 32-bit operand (e.g., multiplication and division) or for I/O port addressing.
+
+### `RDX` Evolution
+
+- **32-bit x86 (IA-32):** With the advent of the 32-bit x86 architecture, the general-purpose registers were extended to 32 bits, and their names were prefixed with an "E" to denote "Extended." Thus, `DX` became `EDX`. This expansion allowed for more efficient processing of larger data types and more complex operations in software.
+- **64-bit x86-64 (AMD64/Intel 64):** The introduction of the x86-64 architecture further extended these registers to 64 bits, and new register names were prefixed with an "R" to signify the 64-bit width. Consequently, `EDX` became `RDX`. The x86-64 architecture also introduced additional general-purpose registers (R8 through R15), expanding the capabilities for software to handle more data and more complex algorithms efficiently.
+
+### `RDX` Usage
+
+The `RDX` register is used in a variety of operations in 64-bit environments:
+
+- **Arithmetic and Logical Operations:** Like its predecessors, `RDX` can be used for arithmetic (add, sub, mul, div) and logical operations (and, or, xor).
+- **Extended Precision:** For certain operations that produce results larger than 64 bits, `RDX` is used together with `RAX` to hold the upper or lower half of the result. For example, in multiplication (`mul`) and division (`div`) operations, `RDX` may hold the most significant bits of the result or the remainder.
+- **Function Calling Conventions:** In some calling conventions, `RDX` is used to pass a third argument to functions or to hold a return value.
+- **System Calls and I/O:** Similar to its use in the 32-bit and 16-bit environments, `RDX` can be involved in system calls and I/O operations, depending on the operating system's conventions.
+
+The `RDX` register's role in the x86-64 architecture demonstrates both continuity with the past conventions of the x86 family and the expanded capabilities of modern 64-bit computing. Its use in arithmetic operations, function calling, and system interactions illustrates the register's versatility and importance in software development and system programming.
 
 </details>
 
@@ -302,10 +331,16 @@ The RDI register is a general-purpose register that is primarily used in data mo
 
 | Instruction | Example | Description |
 | - | - | - |
-| `movq` | `movq $60, %rax` | Stores the decimal value of 60 into the `%rax` register | 
-| `addq` | `addq %rax, %rdi` | Takes the value of `%rax`, adds it to `%rdi`, and stores it in `%rdi` |
-| `addq` | `addq $25, %rdi` | Takes the decimal value of 25, adds it to `%rdi`, and stores it in `$rdi` |
-|  
+| `movq` | `movq $60, %rax` | Stores the decimal value of 60 into the `RAX` register | 
+| `addq` | `addq %rax, %rdi` | Takes the value of `RAX`, adds it to `RDI`, and stores it in `RDI` |
+| `addq` | `addq $25, %rdi` | Takes the decimal value of 25, adds it to `RDI`, and stores it in `RDI` |
+| `subq` | `subq $10, %rax` | Subtracts 10 from the current value in `RAX` and stores it in `RAX` |
+| `incq` | `incq %rax` | Increases value stored in a register or memory location by one |
+| `decq` | `decq %rax` | Decreases value stored in a register or memory location by one |
+| `mulq` | `mulq %rdi` | Multiplies the number stored in RDI by RAX and stores it in RAX | 
+| `divq` | `divq %rdi` | Divides RAX by RDI and stores it in RAX. The remainder is stored in another register, RDX, which should be set to zero before the instruction occurs.
+
+For `mulq` and `divq` the destination is _implicit_ in the instruction. That is, we never write `%rax`; it is implied by the instruction itself.
 
 <details><summary>The movq instruction</summary>
 
@@ -313,7 +348,7 @@ The RDI register is a general-purpose register that is primarily used in data mo
 
 The `movq` instruction is part of the x86-64 assembly language, which denotes a move operation for quadwords. A quadword is 64-bits (8 bytes) in size, making `movq` crucial for operations involving 64-bit data transfers. The term "quadword" refers to a data size that is four times larger than the size of a "word", which is the fundamental unit of data size in computer architecture. 
 
-**History on "quadword"** 
+### History on "quadword"
 
 Historically, the size of a word in computer architecture was determined by the natural size of integers and addresses used by the processor. A word was essentially the amount of data a machine could process at one time. In early computing, word sizes of 8, 16, or 32 bits were common. 
 
@@ -321,13 +356,13 @@ As computing evolved, so did the need for larger data types and more memory addr
 
 However, in the context of x86-64 architecture (aka AMD64),the term "quadword" signifies a 64-bit (8-byte) data size. This shift in terminology reflects the architecture's 64-bit word size.
 
-**Evolution**
+### Evolution of `movq`
 
 The evolution of the movq instruction is tied to the evolution of the x86 architecture itself. In earlier versions of the architecture (16-bit and 32-bit), the move instruction was primarily used with different operands, such as `movb` for bytes, `movw` for words (16 bits), and `movl` (or `movd` when dealing with MMX registers) for double words (32 bits). As the architecture evolved to support 64-bit processing capabilities, the need to efficiently move 64-bit data led to the introduction of the `movq` instruction.
 
 The `movq` instruction is a part of the x86-64 assembly language, which denotes a move operation for quadwords. A quadword is 64 bits (8 bytes) in size, making `movq` crucial for operations involving 64-bit data transfers in x86-64 architecture. The instruction's primary function is to move data from one place to another, typically from a register to memory, memory to a register, or between registers.
 
-**Usage**
+### Usage
 
 - **Register to Register**: `movq` is used to move 64-bit values from one register to another. For example, `movq %rax, %rbx` moves the 64-bit value from RAX to RBX.
 
