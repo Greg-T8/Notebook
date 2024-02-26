@@ -2,6 +2,9 @@
 
 - [Resources](#resources)
 - [Introduction](#introduction)
+  - [.NET Framework](#net-framework)
+    - [Mono, Xamarin, and Unity Projects\*\*](#mono-xamarin-and-unity-projects)
+    - [**.NET Core**](#net-core)
 
 ## Resources
 Most of my notes are taken from [C# 12 and .NET 8 Modern Cross-Platform Development Fundamentals](https://www.amazon.com/gp/product/B0CGZVT568/ref=ppx_yo_dt_b_d_asin_title_o00?ie=UTF8&psc=1).
@@ -28,13 +31,13 @@ Modern .NET is modularized compared to the legacy .NET Framework, which is monol
 
 See this article for a discussion on the history of .NET: https://github.com/markjprice/cs12dotnet8/blob/main/docs/ch01-dotnet-history.md
 
-**.NET Framework**
+### .NET Framework
 
 .NET Framework is a development platform that includes a **Common Language Runtime (CLR)**, which manages execution of code, and a **Base Class Library (BCL)**, which provides a rich library of classes to build applications from.
 
 .NET Framework has been an official component of the Windows operating system. However, it is now considered a Windows-only and a legacy platform.  Do not create new apps using it.
 
-**Mono, Xamarin, and Unity Projects**
+#### Mono, Xamarin, and Unity Projects**
 
 Third parties developed a .NET Framework implementation named the **Mono** project. Mono is cross-platform but fell behind the official implementation of .NET Framework.
 
@@ -42,7 +45,7 @@ Mono has a niche as the foundation of the **Xamarin** mobile platform as well as
 
 Microsoft purchased Xamarin in 2016 and has integrated its functionality into Visual Studio 2022 for Mac.  
 
-**.NET Core**
+#### **.NET Core**
 
 Since 2015, Microsoft has been working to rewrite the .NET Framework to be truly cross-platform. The new modernized product was initially branded **.NET Core**.  .NET Core was designed to run on Windows, Linux, and macOS. .NET Core shares some components with .NET Framework but has its own runtime and set of libraries known as CoreFX. .NET Core is an open source revamp of .NET, optimized for modern application development, mainly focusing on cloud and web applications.
 
