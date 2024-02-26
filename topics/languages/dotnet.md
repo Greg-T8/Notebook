@@ -638,7 +638,7 @@ Output:
 
 </details>
 
-<details><summary>Floating-point numeric types</summary>
+<details><summary>Floating-point numeric types (Float, Double, Decimal)</summary>
 
 <br>
 
@@ -696,7 +696,7 @@ For example, the number `0.1` represented in binary is an infinite pattern of `0
 
 To contrast, the **Decimal** type represents numbers in base-10 format rather than base-2. This allows it to precisely represent decimal fractions like `0.1` without rounding errors.
 
-**Good Practice**: Never compare `double` values using `==`. 
+**Good Practice**: Never compare `float` or `double` values using `==`.
 
 See https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/floating-point-numeric-types
 
