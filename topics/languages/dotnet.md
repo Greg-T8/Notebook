@@ -647,7 +647,7 @@ Floating-point numeric types represent real numbers. C# supports three predefine
 
 - Use `double` for general purpose and where exact representation of numbers is not critical.
 
-- Use `double` where exact representation of numbers is critical and when a high level of accuracy is required.
+- Use `decimal` where exact representation of numbers is critical and when a high level of accuracy is required.
 
 When initializing a **Decimal** to a literal, you must specify the `m` or `M` suffix. This is because the C# compiler defaults to treating numeric literals with a decimal point as a **Double**. The `m` suffix explicitly tells the compiler that the literal should be treated as a **Decimal**.
 
