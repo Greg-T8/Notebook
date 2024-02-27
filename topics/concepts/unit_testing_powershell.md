@@ -1,5 +1,15 @@
 # Unit Testing with PowerShell
 
+When developming PowerShell modules for use with a CI/CD pipeline, you need tools that facilitate the buiding and publishing of PowerShell modules.
+
+The `PowerShellGet` module has tools that ena
+
+e the `PowerShellGet` module to demonstrate the development of unit tests. When developing modules for use with a CI/CD pipeline, 
+
+The `PowerShellGet` module is an interesting test case
+
+The `PowerShellGet` module has commands, like `Install-Module` that make it easy to search for and install PowerShell modules. The 1.0-version of this module is installed by default in Windows. Later versions introduce additional functionality, such as `Update-ModuleManifest`, that cater to developing and publishing your own PowerShell module.
+
 Example of a script that installs the latest version of the `PowerShellGet` module.
 
 ```powershell
@@ -35,7 +45,11 @@ function VerifyPowerShellGet {
 
 Some things to note about this code: 
 
-- The script makes a couple of calls to out-of-process dependencies. Out-of-process dependencies 
+- The script uses `Get-Module`, which looks for the `PowerShellGet` module
+- The scritp may call `Install-Module` to install the latest version of `VerifyPowerShellGet`
+
+
+
 
 Here's a unit test for `VerifyPowerShellGet`:
 
