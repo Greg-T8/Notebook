@@ -1,12 +1,5 @@
-# My Notes on Learning .NET
+# C# and .NET Notes
 
-- [Resources](#resources)
-- [Introduction](#introduction)
-  - [.NET Framework](#net-framework)
-    - [Mono, Xamarin, and Unity Projects\*\*](#mono-xamarin-and-unity-projects)
-    - [**.NET Core**](#net-core)
-
-## Resources
 Most of my notes are taken from [C# 12 and .NET 8 Modern Cross-Platform Development Fundamentals](https://www.amazon.com/gp/product/B0CGZVT568/ref=ppx_yo_dt_b_d_asin_title_o00?ie=UTF8&psc=1).
 
 - [C# Documentation](https://learn.microsoft.com/en-us/dotnet/csharp/)
@@ -37,7 +30,7 @@ See this article for a discussion on the history of .NET: https://github.com/mar
 
 .NET Framework has been an official component of the Windows operating system. However, it is now considered a Windows-only and a legacy platform.  Do not create new apps using it.
 
-#### Mono, Xamarin, and Unity Projects**
+### Mono, Xamarin, and Unity Projects**
 
 Third parties developed a .NET Framework implementation named the **Mono** project. Mono is cross-platform but fell behind the official implementation of .NET Framework.
 
@@ -45,13 +38,13 @@ Mono has a niche as the foundation of the **Xamarin** mobile platform as well as
 
 Microsoft purchased Xamarin in 2016 and has integrated its functionality into Visual Studio 2022 for Mac.  
 
-#### **.NET Core**
+### .NET Core
 
 Since 2015, Microsoft has been working to rewrite the .NET Framework to be truly cross-platform. The new modernized product was initially branded **.NET Core**.  .NET Core was designed to run on Windows, Linux, and macOS. .NET Core shares some components with .NET Framework but has its own runtime and set of libraries known as CoreFX. .NET Core is an open source revamp of .NET, optimized for modern application development, mainly focusing on cloud and web applications.
 
 .NET Core includes versions up to .NET Core 3.1. 
 
-**Modern .NET**
+### Modern .NET**
 
 The term **modern .NET** refers to .NET 5 and up and its predecessors that come from .NET Core.  The term **legacy .NET** refers to the .NET Framework, Mono, and Xamarin.
 
@@ -307,7 +300,7 @@ This feature shows the names of the parameters without you having to type them.
 
 <br>
 
-**Design Guidelines**
+### Design Guidelines
 
 Back in the early .NET Framework era, Microsoft published a book that gave good practices in all areas of .NET development. Those recommendations are still very much applicable to modern .NET. Topics include:
 
@@ -323,12 +316,12 @@ Microsoft has made excerpts of this book available at the following link:
 
 - https://learn.microsoft.com/en-us/dotnet/standard/design-guidelines/
 
-**Public Repositories**
+### Public Repositories
 
 - [C# Language Design](https://github.com/dotnet/csharplang) - Includes meeting notes, proposals, and spec.
 - [Compiler Implementation (Roslyn)](https://github.com/dotnet/roslyn)
 
-**Timeline**
+### Timeline
 
 - 1999: Before the first release of C#, the codename was **C-like Object-Oriented Language (COOL)**.
   - Lead architect: Anders Hejlsberg
@@ -341,7 +334,7 @@ Microsoft has made excerpts of this book available at the following link:
 
 See here for a complete timeline: [C# language versions and features](https://github.com/markjprice/cs12dotnet8/blob/main/docs/ch02-features.md) 
 
-**Standards**
+### Standards
 
 C# has also become part of several standards. However, adoption takes a long time. The language is currently at 11/12, but the latest version standard, 6.0, was released in 2015. There are drafts for 7, 8, and 9. See [Standard to describe the language](https://github.com/dotnet/csharpstandard)
 
@@ -394,6 +387,7 @@ C# doesn't define any types. Keywords such as `string` that look like types are 
 **Type** is often confused with **class**. In C#, every **type** can be categorized as a `class`, `struct`, `enum`, `interface`, or `delegate`. As an example, the C# keyword `string` is a `class`, but `int` is a `struct`. So, it is best to use the term **type** to refer to both.
 
 The following code outputs the number of types and methods in each loaded assembly:
+
 ```c#
 
 using System.Reflection; 
@@ -433,7 +427,8 @@ For this reason, learning C# can be challenging because there is an overwhelming
 
 When using variables, you should think about, firstly, how much space the variable takes up in memory, and, secondly, how fast it can be processed. You control this by picking an appropriate type. 
 
-**Naming Conventions**
+### Naming Conventions
+
 In addition to what's shown below, some developers prefix the names of private fields with an underscore, e.g. `_dateOfBirth`.
 
 <img src='img/20240201-040139.png' width=600px>
@@ -524,6 +519,7 @@ var userProfilePath = $@"{documentsFolder}\{userName}\Profile.txt";
 
 Console.WriteLine(userProfilePath);
 ```
+
 </details>
 
 <details><summary>Raw string literals</summary>
@@ -645,17 +641,38 @@ Output:
 
 <br>
 
-Floating-point numeric types represent real numbers. C# supports three predefined floating-point types: float, double, and decimal.
+Floating-point numeric types represent real numbers. C# supports three predefined floating-point types: float, double, and decimal. Here are general usage guidelines:
+
+- Use `float` when you need to save memory and do not require high precision. 
+
+- Use `double` for general purpose and where exact representation of numbers is not critical.
+
+- Use `double` where exact representation of numbers is critical and when a high level of accuracy is required.
+
+When initializing a **Decimal** to a literal, you must specify the `m` or `M` suffix. This is because the C# compiler defaults to treating numeric literals with a decimal point as a **Double**. The `m` suffix explicitly tells the compiler that the literal should be treated as a **Decimal**.
+
+You must also use the `f` suffix to explicitly tell the compiler that the literal is to be treated as a `float`.
+
+Optionally, you can specify the `d` suffix to explicitly tell the compiler that the literal is a double.
+
+```c#
+float a = 1.0f;
+double b = 1.0d;
+double c = 1.0;
+decimal d = 2.1m;
+```
+
+The following screenshot depicts the size of each floating-point type and its range in values.
 
 <img src='img/20240253-035341.png' width=700px>
 
-Interestingly, the smaller-sized double, which uses 8 bytes can store a wider range of numbers than the larger-sized decimal, which uses 16 bytes. The reason for this discrepancy pertains to the intent of use for eacy type.
+Interestingly, the smaller-sized double, which uses 8 bytes can store a wider range of numbers than the larger-sized decimal, which uses 16 bytes. The reason for this discrepancy pertains to the intent of use for each type.
 
 The **Double** type uses 64-bits (8 bytes) of memory. Out of these bits, 1 bit is for the sign, 11 bits are for the exponent, and the remaining 52 bits are for the significant digts. The number of bits dedicated for storing the exponent are what yields the large range of numbers, but that large range comes at a cost of precision when compared to the **Decimal** type.
 
 The **Decimal** types uses 128 bits (16 bytes) of memory. Out of these bits, 1 bit is for the sign, 5 bits are for the exponent, and the remaining 122 bits are for the signficant digits.
 
-Because the **Decimal** type reserves a much higher number of bits for significant digits, it has a higher range of precision. As a result, the decimal type is appropriate applications where the degree of precision is important, such as financial applications.
+Because the **Decimal** type reserves a much higher number of bits for significant digits than the **Double** type, 122 vs 52, it has a much higher range of precision. As a result, the decimal type is appropriate applications where the degree of precision is important, such as financial applications.
 
 The **Double** and **Decimal** use different internal representations, one of which may lead to unanticipated results.
 
@@ -691,19 +708,48 @@ Output:
 
 <img src='img/20240216-041628.png' width=200px>
 
-Why doesn't the **Double** type yield expected results?
+Why doesn't the **Double** type yield expected results, i.e. `0.1 + 0.2 == 0.3`?
 
 The reason is that the **Double** type represents numbers in base-2 (binary) floating-point format. This format has finite precision, and numbers are stored in a way that _some_ decimal numbers cannot be represented exactly in binary.
 
 For example, the number `0.1` represented in binary is an infinite pattern of `0.00011001100110011...`. The pattern must be truncated to fit within the finite number of bits allocated for storing floating-point numbers, resulting in a small rounding error.
 
-To contrast, the **Decimal** type represents numbers in base-10 format rather than base-2. This allows it to precisely represent decimal fractions like `0.1` without rounding errors.
+To contrast, the **Decimal** type represents numbers in base-10 format rather than base-2. This allows it to precisely represent decimal fractions like `0.1` without rounding errors. As mentioned earlier, the 128-bit **Decimal** type reserves 122 bits for the significant digits. 96 bits of this amount are used to store the significant digits of the decimal number in binary as three 32-bit integer value.
 
-**Good Practice**: Never compare `float` or `double` values using `==`.
+**Good Practice**: 
+
+- Never compare `float` or `double` values using `==`.
+- Use `int` for whole numbers. Use `double` for real numbers that will not be compared for equality (but you can compare for less than and greater than). Use `decimal` to compare the "equality" of a real number and where the accuracy of a real number is important.
 
 See https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/floating-point-numeric-types
 
 </details>
+
+<details><summary>Implicit conversions of numeric types</summary>
+
+<br>
+
+You can mix [integral](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/integral-numeric-types) and the `float` and `double` types in an expression. In this case, integral types are implicitly converted to one of the following floating-point types and, if necessary, the `float` type is implicitly converted to `double`.
+
+The expression is evaluated as follows:
+
+- If there is a `double` type in the expression, the expression evaluates to `double` or to `bool` in relational and equality comparisons.
+- If there is no `double` type in the expression, the expression evaluates to `float`, or to `bool` in relational and equality comparisons.
+
+You can also mix integral and the `decimal` type in an expression. In this case, integral types are implicitly converted to the `decimal` type and the expression evaluates to `decimal`, or to `bool` in relational and equality comparisons.
+
+You cannot mix the `decimal` type with the `float` and `double` types in an expression. If you want to perform an arithmetic, comparison, or equality operations, you must explicitly convert the operands either from or to the `decimal` type.
+
+```c#
+double a = 1.0;
+decimal b = 2.1m;
+Console.WriteLine(a + (double)b);
+Console.WriteLine((decimal)a + b);
+```
+
+</details>
+
+
 
 
 
