@@ -635,6 +635,8 @@ Console.WriteLine($"long uses {sizeof(long)} bytes and can store numbers in the 
 Output:  
 <img src='img/20240248-034826.png' width=500px>
 
+See [sizeof operator - determine the memory needs for a given type](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/sizeof).
+
 </details>
 
 <details><summary>Floating-point numeric types (Float, Double, Decimal)</summary>
@@ -649,11 +651,7 @@ Floating-point numeric types represent real numbers. C# supports three predefine
 
 - Use `decimal` where exact representation of numbers is critical and when a high level of accuracy is required.
 
-When initializing a **Decimal** to a literal, you must specify the `m` or `M` suffix. This is because the C# compiler defaults to treating numeric literals with a decimal point as a **Double**. The `m` suffix explicitly tells the compiler that the literal should be treated as a **Decimal**.
-
-You must also use the `f` suffix to explicitly tell the compiler that the literal is to be treated as a `float`.
-
-Optionally, you can specify the `d` suffix to explicitly tell the compiler that the literal is a double.
+When initializing a **Decimal** to a literal, you must specify the `m` or `M` suffix. This is because the C# compiler defaults to treating numeric literals with a decimal point as a **Double**. The `m` suffix explicitly tells the compiler that the literal should be treated as a **Decimal**. Similarly, you must also use the `f` suffix to explicitly tell the compiler that the literal is to be treated as a `float`. Optionally, you can specify the `d` suffix to explicitly tell the compiler that the literal is a double.
 
 ```c#
 float a = 1.0f;
@@ -676,7 +674,7 @@ Because the **Decimal** type reserves a much higher number of bits for significa
 
 The **Double** and **Decimal** use different internal representations, one of which may lead to unanticipated results.
 
-Take the following code:
+Take the following code, which tests whether `0.1 + 0.2` is equal to `0.3` each for `Double` and `Decimal` types:
 
 ```c#
 Console.WriteLine("Using doubles:");
@@ -710,16 +708,24 @@ Output:
 
 Why doesn't the **Double** type yield expected results, i.e. `0.1 + 0.2 == 0.3`?
 
-The reason is that the **Double** type represents numbers in base-2 (binary) floating-point format. This format has finite precision, and numbers are stored in a way that _some_ decimal numbers cannot be represented exactly in binary.
+The reason is that the **Double** (and **Float**) type represents numbers in base-2 (binary) floating-point format, according to the [IEEE 754](https://en.wikipedia.org/wiki/IEEE_754) standard. This format has finite precision, and numbers are stored in a way that _most_ numbers cannot be represented exactly in binary.
 
-For example, the number `0.1` represented in binary is an infinite pattern of `0.00011001100110011...`. The pattern must be truncated to fit within the finite number of bits allocated for storing floating-point numbers, resulting in a small rounding error.
+In this standard, the number `0.1` represented in binary is an infinite pattern of `0.00011001100110011...`. The pattern must be truncated to fit within the finite number of bits allocated for storing floating-point numbers, _resulting in a small rounding errors_.
 
-To contrast, the **Decimal** type represents numbers in base-10 format rather than base-2. This allows it to precisely represent decimal fractions like `0.1` without rounding errors. As mentioned earlier, the 128-bit **Decimal** type reserves 122 bits for the significant digits. 96 bits of this amount are used to store the significant digits of the decimal number in binary as three 32-bit integer value.
+To contrast, the **Decimal** type represents numbers in base-10 format rather than base-2. This allows it to precisely represent decimal fractions like `0.1` without rounding errors. As mentioned earlier, the 128-bit **Decimal** type reserves 122 bits for the significant digits. 96 bits of this amount are used to store the significant digits of the decimal number in binary as a three-32-bit integer value.
 
 **Good Practice**: 
 
-- Never compare `float` or `double` values using `==`.
+- Never compare `float` or `double` values for exact equality, i.e. using `==`.
 - Use `int` for whole numbers. Use `double` for real numbers that will not be compared for equality (but you can compare for less than and greater than). Use `decimal` to compare the "equality" of a real number and where the accuracy of a real number is important.
+
+The `float` and `double` types have some useful special values:
+
+- `NaN` represents not-a-number (for example, the result of dividing by zero)
+- `Epsilon` represents the smallest positive number that can be stored in a `float` or `double`
+- `PositiveInfinity` and `Negative Infinity` represent infinitely large positive and negative values
+
+There are also methods for checking these special values, like `IsInfinity` and `IsNaN`.
 
 See https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/floating-point-numeric-types
 
@@ -747,8 +753,43 @@ Console.WriteLine(a + (double)b);
 Console.WriteLine((decimal)a + b);
 ```
 
+
 </details>
 
+
+<details><summary>New number types (Half, Int128) and unsafe code</summary>
+
+<br>
+
+The `System.Half` type was introduced in .NET 5. See [Introducing the half type](https://devblogs.microsoft.com/dotnet/introducing-the-half-type/). Like `float` and `double`, it can store real numbers. It normally uses two bytes of memory. This type is useful in scenarios where the range and precision of `float` is not necessary and minimizing memory usage is desirable. Scenarios include game development, machine learning and AI, scientific computing, data transfer and storage, and embedded systems and IoT devices.
+
+The `System.Int128` and `System.UInt128` types were introduced in .NET 7. Like `int` and `uint`, they can store signed and unsigned integers. They normally use 16 bytes of memory. This type is useful in scenarios requiring the representation of very large integers or precise arithmetic operations, including cryptography, financial calculations, scientific computing, high-resolution timekeeping, big data and analytics, game development, and distributed systems and blockchain.
+
+For these new number types, the `sizeof` operator only works in an unsafe code block, and you must compile the project using an option to enable unsafe code.
+
+```c#
+unsafe
+{
+    Console.WriteLine($"Half uses {sizeof(Half)} bytes and can store numbers in the range {Half.MinValue:N0} to {Half.MaxValue:N0}.");
+    Console.WriteLine($"Int128 uses {sizeof(Int128)} bytes and can store numbers in the range {Int128.MinValue:N0} to {Int128.MaxValue:N0}.");
+}
+```
+
+Ouptut:
+
+<img src='img/20240225-042520.png' width=700px>
+
+To enable unsafe code, use the `<AllowUnsafeBlocks>` tag in the `.csproj` file: 
+
+<img src='img/20240214-041413.png' width=300px>
+
+See the following:
+
+- [Unsafe code, pointer types, and function pointers](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/unsafe-code)
+- [AllowUnsafeBlocks](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-options/language#allowunsafeblocks)
+- [Unsafe keyword](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/unsafe)
+
+</details>
 
 
 
