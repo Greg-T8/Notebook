@@ -1,5 +1,98 @@
 # Unit Testing with PowerShell
 
+The simplest case...
+
+```powershell
+function Set-TextFile {
+    Set-Content -Path "$PSScriptRoot\TextFile.txt" -Value 'Hello, World!'
+}
+
+Describe "Set-TextFile" {
+    It "writes 'Hello, World!' to TextFile.txt" {
+
+        # Call function
+        Set-TextFile
+
+        # Assert test result
+        Get-Content -Path "$PSScriptRoot\TextFile.txt" | Should -Be "Hello, World!"
+    }
+}
+```
+
+Output: 
+
+<img src='img/20240247-044707.png' width=500px>
+
+
+Generalizing the function...
+
+```powershell
+function Set-TextFile {
+    param(
+        $Path,
+        $Message
+    )
+    Set-Content -Path $Path -Value $Message
+}
+
+Describe "Set-TextFile" {
+    It "writes a message' to a text file" {
+        # Arrange test data
+        $message = 'Hello, World!'
+        $path = "$PSScriptRoot\TextFile.txt"
+
+        # Call function
+        Set-TextFile -Path $path -Message $message
+
+        # Assert test result
+        Get-Content -Path $path | Should -Be $message
+    }
+}
+```
+
+Output: 
+
+<img src='img/20240258-045814.png' width=500px>
+
+
+Converting to functional programming...
+
+```powershell
+function Set-TextFile {
+    param(
+        $Path,
+        $Message,
+        [scriptblock]$SetContent = ${function:SetActualContent}
+    )
+    & $SetContent -Path $Path -Message $Message
+}
+
+function SetActualContent {
+    param(
+        $Path,
+        $Message
+    )
+    Set-Content -Path $Path -Value $Message
+}
+
+Describe "Set-TextFile" {
+    It "writes a message' to a text file" {
+        # Arrange test data
+        $message = 'Hello, World!'
+        $path = "$PSScriptRoot\TextFile.txt"
+        $setTestContent = { Write-Host "Writing $message to $path." }
+
+        # Call function
+        Set-TextFile -Path $path -Message $message -SetContent $setTestContent
+
+        # Assert test result
+    }
+}
+```
+
+
+## For later
+
 When developming PowerShell modules for use with a CI/CD pipeline, you need tools that facilitate the buiding and publishing of PowerShell modules.
 
 The `PowerShellGet` module has tools that ena
