@@ -56,6 +56,45 @@ Modern .NET aims to unify .NET Core with the original .NET Framework into a sing
 
 </details>
 
+<details><summary>C# and .NET Timeline</summary>
+
+<br>
+
+### Timeline
+
+In 1999, before the first release of C#, the codename was **C-like Object-Oriented Language (COOL)**. The lead architect was Anders Hejlsberg. Anders indicates that flaws in most major programming languages (e.g. C++, Java) drove the fundamentals of the Common Language Runtime (CLR), which in turn drove the design of the C# language. "C sharp" implies that the language is an increment of C++.
+
+| C# Version | Release Date | .NET Version(s)                          | Key C# Language Features Introduced                                           | Major .NET Introductions                                   |
+|------------|--------------|------------------------------------------|-------------------------------------------------------------------------------|-------------------------------------------------------------|
+| 1.0        | 2002         | .NET Framework 1.0                       | Classes, structs, interfaces, events, properties                             | Initial release of .NET Framework                          |
+| 2.0        | 2005         | .NET Framework 2.0                       | Generics, partial types, anonymous methods, nullable types, iterator blocks  | Generics, partial classes, nullable types                   |
+| 3.0        | 2007         | .NET Framework 3.0                       | LINQ, lambda expressions, extension methods                                  | WPF, WCF, WF, CardSpace                                    |
+| 4.0        | 2010         | .NET Framework 4                         | Dynamic binding, named and optional arguments, generic co- and contravariance| Parallel Extensions, MEF                                    |
+| 5.0        | N/A          | N/A                                      | N/A                                                                           | N/A                                                         |
+| 6.0        | 2015         | .NET Framework 4.6                       | Roslyn compiler, string interpolation, expression-bodied members            | Compilation and runtime performance improvements            |
+| 7.0        | 2017         | .NET Core 1.0/1.1, .NET Framework 4.6.2  | Out variables, tuples, pattern matching, local functions                     | Introduction of .NET Core, a cross-platform framework       |
+| 8.0        | 2019         | .NET Core 3.0, .NET Framework 4.8        | Nullable reference types, async streams, default interface methods          | .NET Core 3.0 supports desktop applications (WPF, Windows Forms) |
+| 9.0        | 2020         | .NET 5.0                                 | Records, init-only setters, top-level statements                             | Unified .NET SDK experience, performance improvements      |
+| 10.0       | 2021         | .NET 6.0                                 | Global using directives, file-scoped namespaces, record structs             | Hot reload, minimal APIs, LTS release                       |
+| 11.0       | 2022         | .NET 7.0                                 | List patterns, required members, raw string literals                         | Performance improvements, enhanced containers support      |
+| 12.0       | 2023         | .NET 8.0                                 | Primary constructors, collection expressions, inline arrays, optional parameters in lamda expressions, alias any type, experimental attribute, interceptors |
+| 13.0       | ?            | .NET 9.0 | | 
+
+Please note:
+
+- C# 5.0 is not listed; the version numbers went from 4.0 directly to 6.0.
+- The table combines .NET Framework, .NET Core, and .NET versions, reflecting the evolution from .NET Framework to .NET Core and then to .NET (5.0 and beyond), which unifies these platforms.
+- The .NET introductions listed include only major highlights. Each version introduced numerous features and improvements not listed here for brevity.
+- For the most current information, including C# and .NET versions released after April 2023, consult the official Microsoft documentation or the .NET Blog.
+
+
+
+See here for a complete timeline: [C# language versions and features](https://github.com/markjprice/cs12dotnet8/blob/main/docs/ch02-features.md) 
+
+
+
+</details>
+
 <details><summary>About .NET support</summary>
 
 <br>
@@ -320,19 +359,6 @@ Microsoft has made excerpts of this book available at the following link:
 
 - [C# Language Design](https://github.com/dotnet/csharplang) - Includes meeting notes, proposals, and spec.
 - [Compiler Implementation (Roslyn)](https://github.com/dotnet/roslyn)
-
-### Timeline
-
-- 1999: Before the first release of C#, the codename was **C-like Object-Oriented Language (COOL)**.
-  - Lead architect: Anders Hejlsberg
-  - Anders indicates that flaws in most major programming languages (e.g. C++, Java) drove the fundamentals of the Common Language Runtime (CLR), which in turn drove the design of the C# language
-  - "C sharp" implies that the language is an increment of C++
-- 2002: C# 1 release
-- 2023: C# 12
-
-<img src='img/20240231-063131.png' width=200px>
-
-See here for a complete timeline: [C# language versions and features](https://github.com/markjprice/cs12dotnet8/blob/main/docs/ch02-features.md) 
 
 ### Standards
 
@@ -791,6 +817,83 @@ See the following:
 
 </details>
 
+<details><summary>Booleans</summary>
+
+<br>
+
+Booleans can only containe one of two literal values `true` or `false`, as shown:
+
+```c#
+bool happy = true;
+bool sad = false;
+```
+Booleans are mostly used to branch and loop.
+
+See [bool (C# reference)](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/bool)
+
+</details>
+
+<details><summary>Storing any type of object (Object type)</summary>
+
+<br>
+
+There is a special type named `object` that can store any type of data, but its flexibility comes at the cost of messier code and possibly poor performance. Because of those two reasons, you should avoid it whenever possible. 
+
+The following steps show how you can use the `object` type:
+
+```c#
+object height = 1.88; // storing a double in an object
+object name = "Amir"; // storing a string in an object 
+Console.WriteLine($"{name} is {height} metres tall");
+// int length1 = name.Length; // gives compile error!
+int length2 = ((string)name).Length; // tell compiler it is a string
+Console.WriteLine($"{name} has {length2} characters.");
+```
+
+The `object` type has been available since the first version of C#, but C# 2 and later have a better alternative called _generics_, which are covered later.
+
+See [The object type](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/reference-types#the-object-type)
+
+</details>
+
+<details><summary>Dynamic types</summary>
+
+<br>
+
+The `dynamic` keyword was introduced with C# 4.0 (2010) and enables dynamic type resolution at runtime. Unlike statically-typed variables, where the type is known at compile time, a `dynamic` type bypasses compile-time checking. This means that the operations involving `dynamic` variables are not checked by the compiler for correctnesss. 
+
+Dynamic variables allow for flexibility, especially when interacting with components or APIs where the type information is not available or not important at compile time. However, operations on `dynamic` variables, since they are not checked at compile time, can lead to runtime exceptions if the operation is not valid for the runtime object. 
+
+Dynamic variables are most useful in scenarios where static type checking is either not possible or overly restrictive, such as when interacting with COM objects, dynamic programming languages, or when dealing with structures like JSON that may have a variable structure not known until runtime. Dynamic types are also useful when operating with non-.NET systems. For example, you might need to work with a class library written in F#, Python, or some JavaScript. You might also need to interop with technologies like **Component Object Model (COM)** when automating things in Word or Excel.
+
+Here's an example on using the `dynamic` type:
+
+```c#
+dynamic something;
+// Storing an array of int values in a dynamic object
+// An array of any type has a Length property
+something = new[] { 3, 5, 7 };
+// Storing an int in a dynamic object
+// int does not have a Length property
+something = 12;
+// Storing a string in a dynamic object
+// string has a Length property
+something = "Hello, World!";
+// This compiles but might thrown an exception at run-time
+Console.WriteLine($"The length of something is {something.Length}");
+// Output the type of the something variable
+Console.WriteLine($"The type of something is {something.GetType()}");
+```
+
+Output:  
+<img src='img/20240224-042447.png' width=300px>
+
+
+See
+- [Understanding the Dynamic keyword in C#](https://learn.microsoft.com/en-us/archive/msdn-magazine/2011/february/msdn-magazine-dynamic-net-understanding-the-dynamic-keyword-in-csharp-4)
+- [Using type dynamic](https://learn.microsoft.com/en-us/dotnet/csharp/advanced-topics/interop/using-type-dynamic)
+
+</details>
 
 
 
