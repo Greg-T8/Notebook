@@ -1,14 +1,25 @@
 # Unit Testing with PowerShell
 
-The simplest case...
+TODO:
+
+- The need for testing and when you should have tests
+- Define a unit test
+- Distinguish between a unit test and an integration test
+
+## Introduction to Pester Testing
+
+### The simple Pester test
+
+The simplest case. This test confirms output to written to text file by calling `Get-Content`. Given that this test verifies an operation outside of the script's execution process, i.e. writing something to the file system, it is considered an integration test instead of a unit test.
 
 ```powershell
+# SimpleTest.Integration.ps1
 function Set-TextFile {
     Set-Content -Path "$PSScriptRoot\TextFile.txt" -Value 'Hello, World!'
 }
 
 Describe "Set-TextFile" {
-    It "writes 'Hello, World!' to TextFile.txt" {
+    It "writes 'Hello, World!' to a text file" {
 
         # Call function
         Set-TextFile
@@ -21,10 +32,62 @@ Describe "Set-TextFile" {
 
 Output: 
 
-<img src='img/20240247-044707.png' width=500px>
+<img src='img/20240249-044949.png' width=500px>
 
 
-Generalizing the function...
+Explain here how many integration tests slow down the feedback cycle for development and therefore demonstrate the need for converting integration tests to unit tests.
+
+
+### Avoiding the reliance on external dependencies
+
+Converting from an integration test to a unit test
+
+To convert from an integration test to a unit test, calls to external dependencies, such as the file system, must be replaced, with code that returns similar results.
+
+In the prior code example, `Set-Content` was used to write content to the file system. 
+
+In unit testing, Mocks are used replace the actions of `Set-Content`. Instead of making a change to the system, the Mock returns the same value as Set-Content, which is nothing. 
+
+Instead of verifying the output written to an external dependency, you trust the command you issue will work as expected, and only check that the command to the external dependency is called. In this case, you only confirm that `Set-Content` would have been called and successfully executed givent that you have supplied it with the correct input.  
+
+```powershell
+#SimpleTest.Unit.ps1
+function Set-TextFile {
+    Set-Content -Path "$PSScriptRoot\TextFile.txt" -Value 'Hello, World!'
+}
+
+Describe "Set-TextFile" {
+    It "writes 'Hello, World!' to a text file" {
+        # Set up intercept to Set-Content
+        Mock Set-Content
+
+        # Call function
+        Set-TextFile
+
+        # Assert test result
+        Should -Invoke -CommandName 'Set-Content' -Exactly 1
+    }
+}
+```
+Ouptut:
+
+<img src='img/20240248-044840.png' width=500px>
+
+Explain the limitations of this test:
+
+- The assertion check is tied to the implementation details
+
+You can use at least three other ways to write a string to a text file:
+
+```powershell
+"Your string here" | Out-File -FilePath "path\to\your\file.txt"
+Add-Content -Path "path\to\your\file.txt" -Value "Your string here"
+[System.IO.File]::WriteAllText("path\to\your\file.txt", "Your string here")
+```
+
+### Avoiding dependence on implementation details
+
+Convert to output-based testing
 
 ```powershell
 function Set-TextFile {
@@ -54,6 +117,8 @@ Output:
 
 <img src='img/20240258-045814.png' width=500px>
 
+
+### Avoiding the liberal use of Mocks
 
 Converting to functional programming...
 
