@@ -5,6 +5,7 @@ Most of my notes are taken from [C# 12 and .NET 8 Modern Cross-Platform Developm
 - [C# Documentation](https://learn.microsoft.com/en-us/dotnet/csharp/)
 - [GitHub repository for Modern Cross-Platform Development Fundamentals](https://github.com/markjprice/cs12dotnet8)
 
+
 ## Introduction
 
 <details><summary>1. Get started with .NET and Visual Studio</summary>
@@ -873,27 +874,232 @@ dynamic something;
 // Storing an array of int values in a dynamic object
 // An array of any type has a Length property
 something = new[] { 3, 5, 7 };
+Console.WriteLine($"The length of something is {something.Length}");
+// Output the type of the something variable
+Console.WriteLine($"The type of something is {something.GetType()}");
+```
+
+**Output**: The code runs successfully because an array type has a `Length` property.
+
+<img src='img/20240336-033659.png' width=250px>
+
+
+```c#
+dynamic something;
+// Storing a string in a dynamic object
+// string has a Length property
+something = "Hello, World!";
+Console.WriteLine($"The length of something is {something.Length}");
+// Output the type of the something variable
+Console.WriteLine($"The type of something is {something.GetType()}");
+```
+
+**Output**: The code runs successfully because a string type has a `Length` property.
+
+<img src='img/20240341-034104.png' width=250px>
+
+
+```c#
+dynamic something;
 // Storing an int in a dynamic object
 // int does not have a Length property
 something = 12;
 // Storing a string in a dynamic object
-// string has a Length property
-something = "Hello, World!";
 // This compiles but might thrown an exception at run-time
 Console.WriteLine($"The length of something is {something.Length}");
 // Output the type of the something variable
 Console.WriteLine($"The type of something is {something.GetType()}");
 ```
 
-Output:  
-<img src='img/20240224-042447.png' width=300px>
+**Output**: The code compiles but throws an error at runtime because an int type does not have a `Length` property.
 
+<img src='img/20240343-034338.png' width=700px>
 
-See
+See the following: 
+
 - [Understanding the Dynamic keyword in C#](https://learn.microsoft.com/en-us/archive/msdn-magazine/2011/february/msdn-magazine-dynamic-net-understanding-the-dynamic-keyword-in-csharp-4)
 - [Using type dynamic](https://learn.microsoft.com/en-us/dotnet/csharp/advanced-topics/interop/using-type-dynamic)
 
 </details>
 
+<details><summary>The var keyword and implicitly-typed local variables</summary>
 
+<br>
+
+You can use the `var` keyword to declare local variables with C# 3 (2007) and later. The compiler infers the type from the value that you assign after the assignment operator, `=`. This happens at compile time, so using `var` has no effect on runtime performance.
+
+The following table shows inference of local variable types:
+
+| Type   | Suffix | Inferred Type |
+|--------|--------|---------------|
+| Number without decimal | (none) | int          |
+| Number without decimal | L      | long         |
+| Number without decimal | UL     | ulong        |
+| Number without decimal | M      | decimal      |
+| Number without decimal | D      | double       |
+| Number without decimal | F      | float        |
+| Number with decimal    | (none) | double       |
+| Number with decimal    | M      | decimal      |
+| Number with decimal    | F      | float        |
+| Text                  | " "    | string       |
+| Character             | ' '    | char         |
+| Boolean               | true/false | bool     |
+
+See the following example code:
+
+```c#
+var population = 67_000_000; // 67 million in UK
+var weight = 1.88; // in kilograms
+var price = 4.99m; // in pounds sterling
+var fruit = "Apples"; // strings use double-quotes
+var letter = 'Z'; // chars use single-quotes
+var happy = true; // Booleans have value of true or false
+```
+
+The following code example shows a good use case of the `var` keyword and a poor use case.
+
+```c#
+using System.Xml;
+
+// Good use of var because it avoids the repeated type
+// as shown in the more verbose second statement
+var xml1 = new XmlDocument();  // Works with C# 3 and later
+XmlDocument xml2 = new XmlDocument();  // Works with all C# versions
+
+// Bad use of var because we cannot tell the type, so we
+// should use a specific type declaration as shown in the 
+// second statement.
+var file1 = File.CreateText("something1.txt");
+StreamWriter file2 = File.CreateText("something2.txt");
+```
+
+The second code block that uses `var file1` is a poor use choice because it is not clear what type `file` is. Hovering over the `var` keyword indicates the type is `System.IO.StreamWriter`.
+
+<img src='img/20240307-040712.png' width=500px>
+
+As a good practice, use `var` when the type is obvious. When in doubt, spell it out.  
+
+See [Implicitly Typed Local Variables](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/implicitly-typed-local-variables)
+
+</details>
+
+<details><summary>Using target-typed new to instantiate objects</summary>
+
+<br>
+
+Microsoft introduced target-typed `new` expressions in C# 9.0 (2020) to improve the conciseness of code. This feature allows the type of the new expression to be inferred by the compiler based on the context in which it is used, eliminating the need to explicitly specify the type if it can be clearly inferred from the assignment or declaration.
+
+**Benefits of Target-Typed New Expressions:**
+
+1. **Conciseness and Readability**: It reduces the amount of boilerplate code, making the code more concise and easier to read, especially when the type is already mentioned in the variable declaration.
+
+2. **Maintainability**: If you need to change the type of the variable, you only need to change it in the declaration, not in the instantiation.
+
+3. **Less Redundancy**: It avoids the redundancy of having to repeat the type when it is already evident from the context.
+
+4. **Compatibility with Anonymous Types**: It allows for more consistent syntax when dealing with anonymous types or when the exact type is unknown or cumbersome to type out.
+
+Here's an example to illustrate the difference:
+
+**Before C# 9.0:**
+```csharp
+List<string> names = new List<string>();
+```
+
+**With C# 9.0 using target-typed new expressions:**
+```csharp
+List<string> names = new();
+```
+
+In the example above, `List<string>` is specified twice in the pre-C# 9.0 syntax. With the introduction of target-typed `new` expressions, the type is specified once, and the `new` expression infers the type from the variable declaration.
+
+**Prior to the Introduction:**
+
+Before this feature was introduced, when instantiating objects or collections, developers had to specify the type both at the declaration and at the instantiation. This was particularly verbose when dealing with complex generic types or when the type was already specified on the left-hand side of an assignment. For example, when you had a property or method return type specified, you still had to repeat the type name when using `new` to create an instance.
+
+**Example without target-typed new expressions:**
+```csharp
+Dictionary<int, List<string>> map = new Dictionary<int, List<string>>();
+```
+
+The introduction of target-typed `new` expressions streamlined object creation and made the code less verbose and more focused on the developer's intent rather than repeating type information.
+
+**Good Practice**: Use target-typed `new` to intsantiate objects because it requires fewer characters, you immediately know the type of the variable, and it is not limited to local variables like `var` is. The only reason not to use target-typed `new` is if youmust use a pre-version 9 C# compiler, though this opinion may not be accepted by the whole C# community.
+
+See [Target-typed `new` expressions](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-9.0/target-typed-new)
+
+</details>
+
+<details><summary>Value types and reference types</summary>
+
+<br>
+
+In C#, the distinction between value types and reference types is a fundamental concept related to how they are stored and handled in memory.
+
+**Value Types:**
+
+1. **Storage**: Value types are stored on the stack, which means they hold their data directly in the location where they are declared. However, when they are part of a class (which is a reference type), they are stored in the heap within that class object.
+
+2. **Copying**: When a value type is assigned to another variable, a copy of the value is made. Changes to one variable do not affect the other.
+
+3. **Default Values**: Value types cannot be null (unless they are nullable types) and have default values. For example, the default value for an `int` is `0`.
+
+4. **Types**: Value types include all the primitive types such as `int`, `double`, `char`, `bool`, as well as structures (`struct`) and enumerations (`enum`).
+
+**Reference Types:**
+
+1. **Storage**: Reference types are stored on the heap. A variable of a reference type stores a reference (pointer) to the memory location where the data is held, not the data itself.
+
+2. **Copying**: When a reference type is assigned to another variable, the reference is copied, not the object itself. This means both variables now refer to the same object in memory, so changes to one affect the other.
+
+3. **Default Values**: Reference types can be null, meaning they do not reference any object.
+
+4. **Types**: Reference types include classes (`class`), arrays, delegates, and interfaces (`interface`).
+
+**Examples:**
+
+Value type example:
+```csharp
+int a = 10;
+int b = a; // b is a copy of a
+b = 20; // Changing b does not affect a
+```
+
+Reference type example:
+```csharp
+var list1 = new List<int> { 1, 2, 3 };
+var list2 = list1; // list2 references the same object as list1
+list2.Add(4); // Changing list2 affects list1 because they reference the same object
+```
+
+**Boxing and Unboxing:**
+
+The process of converting a value type to a reference type is called boxing, and the reverse process is called unboxing. Boxing is implicit, while unboxing is explicit and requires a cast. Boxing and unboxing can have performance implications because they involve copying data and potentially heap allocation.
+
+**Example of Boxing and Unboxing:**
+
+Boxing:
+```csharp
+int valType = 10;
+object obj = valType; // Boxing
+```
+
+Unboxing:
+```csharp
+int valTypeAgain = (int)obj; // Unboxing
+```
+
+Understanding the difference between value types and reference types is crucial for effective memory management and performance optimization in C#.
+
+See [Value types and reference types](https://learn.microsoft.com/en-us/dotnet/visual-basic/programming-guide/language-features/data-types/value-types-and-reference-types)
+
+</details>
+
+<details><summary>The Default keyword</summary>
+
+<br>
+
+
+
+</details>
 
