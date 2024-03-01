@@ -90,39 +90,36 @@ Add-Content -Path "path\to\your\file.txt" -Value "Your string here"
 Convert to output-based testing
 
 ```powershell
+# SimpleTest.Unit.OutputBased.ps1
 function Set-TextFile {
-    param(
-        $Path,
-        $Message
-    )
-    Set-Content -Path $Path -Value $Message
+    Set-Content -Path "$PSScriptRoot\TextFile.txt" -Value 'Hello, World!' -ErrorVariable error
+    if (-not $error) { return $true }
 }
 
 Describe "Set-TextFile" {
-    It "writes a message' to a text file" {
-        # Arrange test data
-        $message = 'Hello, World!'
-        $path = "$PSScriptRoot\TextFile.txt"
+    It "writes 'Hello, World!' to a text file" {
+        # Set up intercept to Set-Content
+        Mock Set-Content
 
         # Call function
-        Set-TextFile -Path $path -Message $message
+        $result = Set-TextFile
 
         # Assert test result
-        Get-Content -Path $path | Should -Be $message
+        $result | Should -Be $true
     }
 }
 ```
 
 Output: 
 
-<img src='img/20240258-045814.png' width=500px>
-
+<img src='img/20240340-044007.png' width=600px>
 
 ### Avoiding the liberal use of Mocks
 
 Converting to functional programming...
 
 ```powershell
+# SimpleTest.Unit.WithOutputAndFunctionalProgramming.ps1
 function Set-TextFile {
     param(
         $Path,
@@ -137,7 +134,8 @@ function SetActualContent {
         $Path,
         $Message
     )
-    Set-Content -Path $Path -Value $Message
+    Set-Content -Path $Path -Value $Message -ErrorVariable error
+    if (-not $error) { return $true }
 }
 
 Describe "Set-TextFile" {
@@ -145,16 +143,26 @@ Describe "Set-TextFile" {
         # Arrange test data
         $message = 'Hello, World!'
         $path = "$PSScriptRoot\TextFile.txt"
-        $setTestContent = { Write-Host "Writing $message to $path." }
+        $setTestContent = { return $true }
 
         # Call function
-        Set-TextFile -Path $path -Message $message -SetContent $setTestContent
+        $result = Set-TextFile -Path $path -Message $message -SetContent $setTestContent
 
         # Assert test result
+        $result | Should -Be $true
     }
 }
 ```
 
+Output:
+
+<img src='img/20240346-044640.png' width=700px>
+
+Things to note:
+
+- The call to `SetActualContent` is never made, and therefore the call to `Set-Content` is never made
+- No use of Mocks
+- 
 
 ## For later
 

@@ -1,5 +1,37 @@
 # Unit Testing Notes
 
+This article is for the IT admin that writes PowerShell scripts that are used in CI/CD pipelines. Any PowerShell script that has some importance, complexity, and a long lifespan could benefit from the value and techniques this article provides.
+
+As PowerShell scripts get more complex and the number of admins grows to manage the script, it becomes tougher to avoid introducing buggy code, i.e. regressions.
+
+Software engineers create test suites to catch bugs before they reach production. In PowerShell, test suites are written using functionality from the `Pester` module. The term "Pester" is a playful nod to what tests do: they persitently bother or "pester" the code to ensure it behaves as expected under various conditions.
+
+In the sections that follow, I'll introduce a number of code sections and encourage you to follow along in VS Code. 
+
+Here's the most basic example of a Pester test:
+
+```powershell
+function Set-TextFile {
+    Set-Content -Path "$PSScriptRoot\TextFile.txt" -Value 'Hello, World!'
+}
+
+Describe "Set-TextFile" {
+    It "writes 'Hello, World!' to a text file" {
+
+        # Call function
+        Set-TextFile
+
+        # Assert test result
+        Get-Content -Path "$PSScriptRoot\TextFile.txt" | Should -Be "Hello, World!"
+    }
+}
+```
+
+
+
+
+
+
 This page covers my learnings on unit testing. Most of the material on this page comes from the book "Unit Testing: Principles, Practices, and Patterns" by Vladimir Khorikov.
 
 <details><summary>Types of Testing in Software Development</summary>
