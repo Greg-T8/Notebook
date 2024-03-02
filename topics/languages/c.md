@@ -34,7 +34,9 @@ The Hello, World program produces the following output:
 
 </details>
 
-<details open><summary>VS Code Task Configuration</summary>
+<details><summary>VS Code Task Configuration</summary>
+
+<br>
 
 Here's a look at the VS Code task configuration in `tasks.json` for building and running the program. With `GCC Run` set to the default build task, you can use the `CTRL+SHIFT+B` shortcut key to compile and run the program.
 
@@ -269,5 +271,16 @@ int main()
 }
 ```
 
+</details>
+
+<details><summary>Character input and output</summary>
+
+<br>
+
+The standard C library provides the functions `getchar()` and `putchar()` for reading and writing one character at a time.
+
+
+
+</details>
 
 
