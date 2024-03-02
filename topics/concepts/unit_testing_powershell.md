@@ -2,6 +2,8 @@
 
 This article is for the IT admin who writes PowerShell scripts that are important to the company. Any PowerShell script that has some importance, complexity, and a long lifespan could benefit from the value and techniques this article provides.
 
+I wouldn't say that I'm an expert on PowerShell or on unit testing, but I do have a keen interest in both subjects. The material I present in this article is to raise awareness to PowerShell coding techniques that support effective unit tests. The material from this article comes from the book [Unit Testing Principals, Practices, and Patterns by Vladimir Khorkov](https://a.co/d/6wa024c).
+
 As PowerShell scripts get more complex and the number of admins grows to manage the script, it becomes tougher to avoid introducing buggy code. Software engineers refer to buggy code as regressions.
 
 For smaller PowerShell scripts, Visual Studio Code provides powerful, easy-to-use tools for squashing bugs. However, when the complexity of code increases, such as when using multiple, dependent custom PowerShell modules, it becomes increasingly difficult to avoid unintended side effects.
@@ -28,7 +30,7 @@ Here's a basic example of a Pester test.
 ```powershell
 #SimpleTest.ps1
 function Set-TextFile {
-    Set-Content -Path "$PSScriptRoot\TextFile.txt" -Value 'Hello, World!'
+    Set-Content -Path "$PSScriptRoot\TextFile.txt" -Value 'Hello, World!' 
 }
 
 Describe "Set-TextFile" {
