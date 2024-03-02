@@ -1030,7 +1030,7 @@ See [Target-typed `new` expressions](https://learn.microsoft.com/en-us/dotnet/cs
 
 </details>
 
-<details><summary>Value types and reference types</summary>
+<details><summary>Value types and reference types, boxing and unboxing</summary>
 
 <br>
 
@@ -1095,11 +1095,152 @@ See [Value types and reference types](https://learn.microsoft.com/en-us/dotnet/v
 
 </details>
 
-<details><summary>The Default keyword</summary>
+<details><summary>Default value expressions</summary>
+
+<br>
+The `default` operator in C# is used to obtain the default value of a type. The behavior of the `default` operator depends on whether the type is a reference type or a value type:
+
+- For **reference types** (strings, classes, interfaces, delegates, or records), the default value is `null`.
+- For **value types** (structs, enums, and all primitive types like `int`, `bool`, `char`, etc.), the default value is a bit pattern that represents 0. For example, for numeric types, it's `0`; for `bool`, it's `false`; and for a struct, it's each member set to its default value.
+
+### When It Was Introduced
+
+The `default` keyword has been part of C# since its early versions, but its usage was enhanced in C# 7.1.
+
+- **Prior to C# 7.1**, you had to specify the type when using `default`, like `default(int)` or `default(T)` where `T` is a type parameter in generics.
+- **Starting with C# 7.1**, you can use the `default` literal without specifying a type, and the compiler infers the type based on the context. This means you can write `int myInt = default;` instead of `int myInt = default(int);`.
+
+### Practical Use Cases
+
+1. **Initialization**: When you need to initialize a variable to its default value but don't want to hardcode a specific value. This is particularly useful in generics where the type `T` might be unknown.
+   
+   ```csharp
+   T value = default;
+   ```
+
+2. **Resetting Values**: In scenarios where you need to reset a variable to its default state.
+
+   ```csharp
+   myVariable = default;
+   ```
+
+3. **Default Parameters in Methods**: You can use `default` as a way to specify default values for parameters in methods, especially for generic parameters.
+
+   ```csharp
+   void MyMethod<T>(T param = default) { }
+   ```
+
+4. **Switch Statements**: In pattern matching with `switch` statements, you can use `default` as a catch-all case for types that don't match any of the specified patterns.
+
+   ```csharp
+   switch (obj)
+   {
+       case int i:
+           Console.WriteLine("It's an integer");
+           break;
+       default:
+           Console.WriteLine("It's something else");
+           break;
+   }
+   ```
+
+5. **Null Coalescing and Conditional Operations**: You can use `default` with the null-coalescing operator `??` to provide a default value for nullable types when they are null.
+
+   ```csharp
+   int? nullableInt = null;
+   int myInt = nullableInt ?? default; // myInt will be 0
+   ```
+
+6. **Generics and Constraints**: When working with generic types with constraints, `default` can be used to initialize or reset generic variables to a base state without knowing the specific type at compile time.
+
+In summary, the `default` operator in C# offers a flexible and type-safe way to work with default values, making code more readable and maintainable, especially in generic programming and scenarios where type inference is beneficial.
+
+### Exploring default values
+
+Take the following code:
+
+```c#
+Console.WriteLine($"default(int) = {default(int)}");
+Console.WriteLine($"default(bool) = {default(bool)}");
+Console.WriteLine($"default(DateTime) = {default(DateTime)}");
+Console.WriteLine($"default(string) = {default(string)}");
+```
+
+Output: 
+
+<img src='img/20240324-042428.png' width=200px>
+
+The following code assigns a variable to its `default` value:
+
+```c#
+int number = 13;
+Console.WriteLine($"number set to: {number}");
+number = default;
+Console.WriteLine($"number reset to its default: {number}");
+```
+
+Output:
+
+<img src='img/20240328-042827.png' width=200px>
+
+See [default value expressions - produce the default value](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/default)
+
+</details>
+
+<details><summary>Formatting using numbered positional arguments</summary>
 
 <br>
 
+One way of generating formatted strings is to use numbered positional arguments. This feature is supported in methods like `Write()`, `WriteLine()`, and `Format()`. These methods have up to three numbered arguments, named `arg0`, `arg1`, and `arg2`. If you need to pass more values, you cannot name them.
 
+Example:
+
+```c#
+int numberOfApples = 12;
+decimal pricePerApple = 0.35M;
+string type = "organic";
+
+// Up to three parameter values can use named arguments
+Console.WriteLine(
+    format: "{0} {1} apples cost {2:C}",
+    arg0: numberOfApples,
+    arg1: type,
+    arg2: pricePerApple * numberOfApples);
+
+// Four or more parameter values cannot use named arguments
+Console.WriteLine(
+    "{0} {1} lived in {2} and worked in the {3} team at {4}.",
+    "Roger", "Cevung", "Stockholm", "Education", "Optimizely");
+
+```
+
+**Good Practice**: Once you become familiar with formatting strings, you should stop naming the parameters. For example, stop using `format:`, `arg0:`, and `arg1:`. The preceeding code using a canonical style to show where the `0` and `1` came from.
+
+In C#, formatting strings with numbered positional arguments enhances string manipulation and output formatting by providing a more flexible and readable way to compose strings with dynamic data. This feature is particularly useful in scenarios involving internationalization, complex string constructions, and when reusing arguments in different places within the same string.
+
+### Benefits of Numbered Positional Arguments
+
+1. **Reusability of Arguments**: You can reuse the same argument multiple times in a formatting string without having to specify it multiple times. This reduces redundancy and the potential for errors.
+
+2. **Order Independence**: The arguments can be placed in any order within the string, providing flexibility in how the string is composed. This is especially useful for localization where the order of words might change based on the language.
+
+3. **Improved Readability**: By using numbered placeholders, the string's intended structure is clearer to the reader, especially in complex formats or when the same argument is used multiple times.
+
+4. **Simplifies Dynamic Content Insertion**: It makes it easier to dynamically insert content into strings, as the placeholders clearly define where the dynamic content goes.
+
+### History and Evolution
+
+- **Early C# Versions**: Initially, C# supported format strings in methods like `String.Format()`, `Console.WriteLine()`, and others, using indexed placeholders (`{0}`, `{1}`, etc.) which referred to the zero-based index of the corresponding object in the method call. This feature has been available since the first version of C#.
+
+- **C# 6.0 (Introduced in 2015)**: String interpolation was introduced, allowing developers to embed expressions directly in string literals using the `$` syntax. However, this doesn't use numbered positional arguments but rather directly embeds the variable or expression within the string.
+
+- **C# 10 and Beyond**: While the basic concept of formatting strings with numbered positional arguments has not fundamentally changed, improvements and additions to string manipulation and formatting options have been introduced over the years, including enhanced string interpolation, raw string literals for better handling of escape sequences and newlines, and more.
+
+The introduction of string interpolation did not eliminate the use of numbered positional arguments but provided an alternative that can be more readable and concise for inline expressions and variables. The choice between using traditional format strings with numbered placeholders and string interpolation often comes down to the specific needs of the application, such as whether the format string is dynamically generated or localized, or the preference for inline variable embedding versus explicit positional arguments.
+
+In summary, the use of numbered positional arguments in C# format strings offers a combination of flexibility, readability, and reusability that is essential for producing dynamic strings in a maintainable and error-resistant manner. This feature complements the string manipulation capabilities of C#, adapting to various scenarios from simple console outputs to complex internationalized applications.
 
 </details>
+
+
 

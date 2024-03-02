@@ -1,5 +1,55 @@
 # Unit Testing with PowerShell
 
+This article is for the IT admin who writes PowerShell scripts that are important to the company. Any PowerShell script that has some importance, complexity, and a long lifespan could benefit from the value and techniques this article provides.
+
+As PowerShell scripts get more complex and the number of admins grows to manage the script, it becomes tougher to avoid introducing buggy code. Software engineers refer to buggy code as regressions.
+
+For smaller PowerShell scripts, Visual Studio Code provides powerful, easy-to-use tools for squashing bugs. However, when the complexity of code increases, such as when using multiple, dependent custom PowerShell modules, it becomes increasingly difficult to avoid unintended side effects.
+
+## Why testing
+It is important to have an automated testing process to manage the unintended side effects. However, as the figure below illustrates, it's important to understand how to write good tests. Otherwise, bad tests will leave you in a similar predicament as without having any tests. 
+
+<figure>
+  <img src='img/20240306-060633.png' width=400px>
+  <figcaption>Source: Unit Testing: Principles, Practices, and Patterns by Vladimir Khorikov</figcaption>
+</figure>
+
+
+## When to do testing
+
+
+
+## Introducing a test
+
+In PowerShell, test suites are written using the [`Pester`](https://pester.dev/) module. The term "pester" is a playful nod to what tests do: they persitently bother or "pester" the code to ensure it behaves as expected under various conditions.
+
+Here's a basic example of a Pester test. 
+
+```powershell
+#SimpleTest.ps1
+function Set-TextFile {
+    Set-Content -Path "$PSScriptRoot\TextFile.txt" -Value 'Hello, World!'
+}
+
+Describe "Set-TextFile" {
+    It "writes 'Hello, World!' to a text file" {
+
+        # Call function
+        Set-TextFile
+
+        # Assert test result
+        Get-Content -Path "$PSScriptRoot\TextFile.txt" | Should -Be "Hello, World!"
+    }
+}
+```
+Note the usage of `Describe`, `It`, and `Should`. In software testing, test cases are written in a human-readable format that describes the _expected behavior of the software_. That last part is important to remember, as effective tests prioritize the end result rather than the inner details. More on that later.
+
+When you run this script in Visual Studio Code, the PowerShell extension recognizes the testing syntax and outputs the result.
+
+<img src='img/20240316-061617.png' width=300px>
+
+Some things to note about this test. While it might appear to finish in a short time
+
 TODO:
 
 - The need for testing and when you should have tests
