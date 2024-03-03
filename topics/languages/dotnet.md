@@ -1242,5 +1242,212 @@ In summary, the use of numbered positional arguments in C# format strings offers
 
 </details>
 
+<details><summary>Formatting using interpolated strings</summary>
+
+<br>
+
+In .NET, interpolated strings provide a convenient way to format strings with embedded expressions. Introduced in C# 6 (2015), interpolated strings allow you to insert values of variables or expressions directly into a string literal, making your code more readable and easier to understand. The interpolated string is defined by using the `$` symbol before the string literal, and expressions are enclosed in `{}` braces.
+
+Here’s a basic overview of how to use interpolated strings in .NET:
+
+### Basic Syntax
+
+```csharp
+var name = "John";
+var age = 30;
+var message = $"My name is {name} and I am {age} years old.";
+Console.WriteLine(message);
+```
+
+In the example above, `name` and `age` are variables whose values are embedded into the `message` string. The output will be: "My name is John and I am 30 years old."
+
+### Formatting Expressions
+
+You can also apply format specifiers to control the formatting of the embedded expressions. Format specifiers follow the expression, separated by a colon `:`.
+
+```csharp
+var price = 123.456;
+var formattedMessage = $"The price is {price:C2}.";
+Console.WriteLine(formattedMessage);
+```
+
+In this example, `C2` is a format specifier that formats the number as currency with two decimal places. The output depends on the culture settings of your system; in the US, it might be "The price is $123.46."
+
+### Using With `CultureInfo`
+
+You can specify the culture for formatting numbers, dates, and currencies within an interpolated string by using the `FormattableString` class and `CultureInfo`.
+
+```csharp
+using System.Globalization;
+
+var date = DateTime.Now;
+var culture = new CultureInfo("en-US");
+var message = FormattableString.Invariant($"Today's date is {date:D}.");
+var formattedMessage = string.Format(culture, $"Today's date is {date:D}.");
+Console.WriteLine(message);
+Console.WriteLine(formattedMessage);
+```
+
+In the above example, `FormattableString.Invariant` is used to apply a culture-invariant format, and `string.Format` along with `CultureInfo` is used to format the date according to a specific culture.
+
+### Escaping Braces
+
+If you need to include a literal `{` or `}` in the string, you double them:
+
+```csharp
+var score = 10;
+var message = $"Your score is {{score}}: {score}.";
+Console.WriteLine(message);
+```
+
+This will output: "Your score is {score}: 10."
+
+### Combining `string` constants
+
+Before C# 10 (2021), `string` constants could only be combined by using concatenation with the `+` operator, as shown here:
+
+```csharp
+private const string firstname = "Omar";
+private const string lastname = "Rudberg";
+private const string fullname = firstname + " " + lastname;
+```
+
+With C# 10, interpolated strings (prefixed with `$`) can now be used, as shown below:
+
+```csharp
+private const string fullname = $"{firstname}{lastname}";
+```
+
+This only works for combining `string` constant values. It cannot work for other types like numbers, which would require runtime data type conversions.
+
+### Caveats with interpolated strings
+
+For short, formatted `string` values, an interpolated `string` can be easier for people to read. But things can get tricky if you need to restrict strings to certain column widths, where statements then need to wrap over multiple lines. In this case, it is easier to use numbered positional arguments rather than interpolated strings.
 
 
+
+References:
+
+- [String interpolation using `$`](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/tokens/interpolated)
+- [String interpolation in C#](https://learn.microsoft.com/en-us/dotnet/csharp/tutorials/string-interpolation)
+
+</details>
+
+<details><summary>Interpolated strings with newlines in C# 11</summary>
+
+<br>
+
+Typically strings cannot include newlines its text segments, and must instead use escape sequences (like `\r\n`).  
+
+```c#
+// The following statement must be all on one line when using C# 10 or earlier.
+// If using C# 11 or later, we can include a line break in the middle of an
+// expression but not in the string text.
+
+Console.WriteLine($"{numberOfApples} apples cost {pricePerApple 
+    * numberOfApples:C}");
+```
+
+In C# 11 (2022), a notable improvement was made regarding string interpolation, specifically allowing new-lines (line breaks) in all interpolations within interpolated strings. This enhancement is part of the broader efforts to make string handling in C# more flexible and expressive, particularly in scenarios involving complex string construction or when embedding large blocks of text or code.
+
+### Before C# 11
+
+Prior to C# 11, if you wanted to include an expression within an interpolated string that spanned multiple lines, you had to explicitly handle the new-lines or concatenate multiple interpolated strings together, which could lead to less readable and more cumbersome code.
+
+For example, consider you had a multi-line expression you wanted to embed within an interpolated string. You would typically need to do something like the following:
+
+```csharp
+var name = "John";
+var age = 30;
+var address = "123 Main St";
+
+// Pre C# 11 - Needing to concatenate strings or use workarounds
+var message = $"Name: {name}\n" +
+              $"Age: {age}\n" +
+              $"Address: {address}";
+```
+
+### With C# 11
+
+Starting with C# 11, you can directly include new-line characters within interpolations in an interpolated string, making it significantly easier to work with multi-line expressions. This means you can now insert expressions that span multiple lines directly into the interpolation braces (`{}`), improving the readability and maintainability of your code.
+
+Here's how you can leverage this in C# 11:
+
+```csharp
+var name = "John";
+var age = 30;
+var address = "123 Main St";
+
+// C# 11 - Allowing new-lines in all interpolations
+var message = $"""
+    Name: {name}
+    Age: {age}
+    Address: {
+address}
+    """;
+```
+
+In this example, notice how the address expression is included directly within the interpolation braces and spans multiple lines. This is just a simple demonstration; the real benefit comes when dealing with complex expressions or formatting that would otherwise clutter your code.
+
+### Benefits and Use Cases
+
+- **Improved Readability:** Code involving complex string constructions becomes easier to read and understand.
+- **Enhanced Maintainability:** Reduces the need for concatenation or using additional variables to handle multi-line expressions, making code maintenance simpler.
+- **Better Formatting Control:** Offers more control over the formatting of embedded expressions, especially when dealing with dynamically generated content or templates.
+
+References:
+
+- [Allow new-lines in all interpolations](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-11.0/new-line-in-interpolation)
+
+</details>
+
+<details><summary>Format strings</summary>
+
+<br>
+
+Understanding format strings in C# is crucial for creating well-formatted, readable output. Format strings allow you to control how values are displayed, including numbers, dates, times, and custom formats. C# utilizes composite formatting, which combines a format string with an array of objects to produce a formatted result. This system is used across various methods like `String.Format`, `Console.WriteLine`, and string interpolation (introduced in C# 6 with the `$` prefix).
+
+A format string consists of static text intermixed with indexed placeholders, referred to as format items. A format item is enclosed in braces `{}` and can contain an index, an optional format string, and an optional alignment component:
+
+```plaintext
+{index[,alignment][:formatString]}
+```
+
+- **Index**: Refers to the zero-based position of the item in the method's argument list.
+- **Alignment**: An optional integer indicating the total length of the field in which the argument is inserted. Positive values align the text to the right, while negative values align it to the left.
+- **Format String**: An optional directive specifying how the argument should be formatted.
+
+Here's an example:
+
+```csharp
+string applesText = "Apples";
+int applesCount = 1234;
+string bananasText = "Bananas";
+int bananasCount = 56789;
+Console.WriteLine();
+Console.WriteLine(format: "{0,-10}{1,6}",
+    arg0: "Name", arg1: "Count");
+Console.WriteLine(format: "{0,-10}{1,6:N0}",
+    arg0:applesText, arg1: applesCount);
+Console.WriteLine(format: "{0,-10}{1,6:N0}",
+    arg0:bananasText, arg1: bananasCount);
+```
+
+Output:
+
+<img src='img/20240334-053414.png' width=200px>
+
+Reference:
+
+- [Standard numeric format strings](https://learn.microsoft.com/en-us/dotnet/standard/base-types/standard-numeric-format-strings)
+- [Custom numeric format strings](https://learn.microsoft.com/en-us/dotnet/standard/base-types/custom-numeric-format-strings)
+
+</details>
+
+<details><summary>Text input</summary>
+
+<br>
+
+
+
+</details>
