@@ -1,15 +1,16 @@
 # Unit Testing with PowerShell
 
-This article is for the IT admin who writes PowerShell scripts that are important to the company. Any PowerShell script that has some importance, complexity, and a long lifespan could benefit from the value and techniques this article provides.
+This article is for the IT admin who develops and maintains PowerShell scripts that have some importance, complexity, and longevity in their purpose.
 
-I wouldn't say that I'm an expert on PowerShell or on unit testing, but I do have a keen interest in both subjects. The material I present in this article is to raise awareness to PowerShell coding techniques that support effective unit tests. The material from this article comes from the book [Unit Testing Principals, Practices, and Patterns by Vladimir Khorkov](https://a.co/d/6wa024c).
+About me: I have a keen interest in both PowerShell and writing good code. The material I present in this article is to raise awareness to PowerShell coding techniques that support bug-free code that is easy to refactor and maintain. The material from this article comes from the book [Unit Testing Principals, Practices, and Patterns by Vladimir Khorkov](https://a.co/d/6wa024c).
 
-As PowerShell scripts get more complex and the number of admins grows to manage the script, it becomes tougher to avoid introducing buggy code. Software engineers refer to buggy code as regressions.
+## The need for testing
 
-For smaller PowerShell scripts, Visual Studio Code provides powerful, easy-to-use tools for squashing bugs. However, when the complexity of code increases, such as when using multiple, dependent custom PowerShell modules, it becomes increasingly difficult to avoid unintended side effects.
+Simple PowerShell scripts are ideal for utility. However, code itself is a liability. The more code you introduce, the more code that must be maintained, and the more likelihood that changing or adding code introduces bugs.
 
-## Why testing
-It is important to have an automated testing process to manage the unintended side effects. However, as the figure below illustrates, it's important to understand how to write good tests. Otherwise, bad tests will leave you in a similar predicament as without having any tests. 
+Visual Studio Code provides powerful, easy-to-use tools for squashing bugs. However, over time, as the need arises to introduce more features, it becomes increasingly difficult to avoid introducing bugs. Software testing combats this problem by establishing a separate portion of code&mdash;test code&mdash;that is dedicated to identify bugs before the system code makes it it to production.
+
+In fact, without this test code, you can expect the number of hours spent maintaining system code to increase exponentially over its development lifecycle. Furthermore, it's not just sufficient to write tests, because writing bad tests will put you in a similar position as not having any tests. Therefore, it's important to know how to write good tests to optimize effort spent maintaining and improving the codebase.
 
 <figure>
   <img src='img/20240306-060633.png' width=400px>
@@ -17,15 +18,14 @@ It is important to have an automated testing process to manage the unintended si
 </figure>
 
 
-## When to do testing
-
+When should you test?
 
 
 ## Introducing a test
 
 In PowerShell, test suites are written using the [`Pester`](https://pester.dev/) module. The term "pester" is a playful nod to what tests do: they persitently bother or "pester" the code to ensure it behaves as expected under various conditions.
 
-Here's a basic example of a Pester test. 
+Here's a basic example of a Pester test. You can put this code in a `.ps1` file and run it.
 
 ```powershell
 #SimpleTest.ps1
@@ -44,11 +44,12 @@ Describe "Set-TextFile" {
     }
 }
 ```
-Note the usage of `Describe`, `It`, and `Should`. In software testing, test cases are written in a human-readable format that describes the _expected behavior of the software_. That last part is important to remember, as effective tests prioritize the end result rather than the inner details. More on that later.
-
 When you run this script in Visual Studio Code, the PowerShell extension recognizes the testing syntax and outputs the result.
 
 <img src='img/20240316-061617.png' width=300px>
+
+Note the usage of `Describe`, `It`, and `Should`. In software testing, test cases are written in a human-readable format that describes the _expected behavior of the software_. 
+
 
 Some things to note about this test. While it might appear to finish in a short time
 
@@ -126,6 +127,9 @@ Ouptut:
 <img src='img/20240248-044840.png' width=500px>
 
 Explain the limitations of this test:
+
+Expected behavior is the end result of the script or function you are testing. In the example above, the expected behavior is that some block of text gets written to a text file. The details on how it gets done are not important. For example, one can use a variety of methods to write text to a file, including `Set-Content`, `Out-File`, redirection operators `>`, or the `[System.IO.StreamWriter]` class. The important piece is that text gets successfully written. More on why later.
+
 
 - The assertion check is tied to the implementation details
 
