@@ -1405,7 +1405,11 @@ References:
 
 <br>
 
-Understanding format strings in C# is crucial for creating well-formatted, readable output. Format strings allow you to control how values are displayed, including numbers, dates, times, and custom formats. C# utilizes composite formatting, which combines a format string with an array of objects to produce a formatted result. This system is used across various methods like `String.Format`, `Console.WriteLine`, and string interpolation (introduced in C# 6 with the `$` prefix).
+Format strings allow you to control how values are displayed, including numbers, dates, times, and custom formats. C# utilizes composite formatting, which combines a format string with an array of objects to produce a formatted result. This system is used across various methods like `String.Format`, `Console.WriteLine`, and string interpolation (introduced in C# 6 with the `$` prefix).
+
+```csharp
+public static void WriteLine (string format, object? arg0, object? arg1);
+```
 
 A format string consists of static text intermixed with indexed placeholders, referred to as format items. A format item is enclosed in braces `{}` and can contain an index, an optional format string, and an optional alignment component:
 
@@ -1447,6 +1451,22 @@ Reference:
 <details><summary>Text input</summary>
 
 <br>
+Here's an example of using `Console.Readline()` to capture input.  
+
+```csharp
+Console.WriteLine("Type your first name and press Enter: ");
+string? firstName = Console.ReadLine();
+Console.WriteLine("Type your age and press Enter: ");
+string age = Console.ReadLine()!;
+Console.WriteLine($"Hello {firstName}, you look good for {age}!");
+```
+
+Things to note:
+
+1. The `?` after `string` declaration is used to indicate the variable is nullable. See [Nullable Reference Types](https://learn.microsoft.com/en-us/dotnet/csharp/nullable-references).
+2. The `!` before the semicolon suppresses nullable warnings. See [Null-forgiving operator](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/null-forgiving).
+
+
 
 
 
