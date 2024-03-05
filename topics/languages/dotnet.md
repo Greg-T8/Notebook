@@ -8,13 +8,15 @@ Most of my notes are taken from [C# 12 and .NET 8 Modern Cross-Platform Developm
 
 ## Introduction
 
-<details><summary>1. Get started with .NET and Visual Studio</summary>
+<details><summary>
 
-<br>
+### 1. Getting started with .NET and Visual Studio
+
+</summary>
 
 <details><summary>Brief overview of .NET</summary>
 
-<br>
+### Brief overview of .NET
 
 There are two main flavors of .NET:
 
@@ -25,13 +27,13 @@ Modern .NET is modularized compared to the legacy .NET Framework, which is monol
 
 See this article for a discussion on the history of .NET: https://github.com/markjprice/cs12dotnet8/blob/main/docs/ch01-dotnet-history.md
 
-### .NET Framework
+##### .NET Framework
 
 .NET Framework is a development platform that includes a **Common Language Runtime (CLR)**, which manages execution of code, and a **Base Class Library (BCL)**, which provides a rich library of classes to build applications from.
 
 .NET Framework has been an official component of the Windows operating system. However, it is now considered a Windows-only and a legacy platform.  Do not create new apps using it.
 
-### Mono, Xamarin, and Unity Projects**
+##### Mono, Xamarin, and Unity Projects**
 
 Third parties developed a .NET Framework implementation named the **Mono** project. Mono is cross-platform but fell behind the official implementation of .NET Framework.
 
@@ -39,13 +41,13 @@ Mono has a niche as the foundation of the **Xamarin** mobile platform as well as
 
 Microsoft purchased Xamarin in 2016 and has integrated its functionality into Visual Studio 2022 for Mac.  
 
-### .NET Core
+##### .NET Core
 
 Since 2015, Microsoft has been working to rewrite the .NET Framework to be truly cross-platform. The new modernized product was initially branded **.NET Core**.  .NET Core was designed to run on Windows, Linux, and macOS. .NET Core shares some components with .NET Framework but has its own runtime and set of libraries known as CoreFX. .NET Core is an open source revamp of .NET, optimized for modern application development, mainly focusing on cloud and web applications.
 
 .NET Core includes versions up to .NET Core 3.1. 
 
-### Modern .NET**
+##### Modern .NET**
 
 The term **modern .NET** refers to .NET 5 and up and its predecessors that come from .NET Core.  The term **legacy .NET** refers to the .NET Framework, Mono, and Xamarin.
 
@@ -59,9 +61,7 @@ Modern .NET aims to unify .NET Core with the original .NET Framework into a sing
 
 <details><summary>C# and .NET Timeline</summary>
 
-<br>
-
-### Timeline
+#### C# and .NET Timeline
 
 In 1999, before the first release of C#, the codename was **C-like Object-Oriented Language (COOL)**. The lead architect was Anders Hejlsberg. Anders indicates that flaws in most major programming languages (e.g. C++, Java) drove the fundamentals of the Common Language Runtime (CLR), which in turn drove the design of the C# language. "C sharp" implies that the language is an increment of C++.
 
@@ -92,13 +92,13 @@ Please note:
 
 See here for a complete timeline: [C# language versions and features](https://github.com/markjprice/cs12dotnet8/blob/main/docs/ch02-features.md) 
 
-
-
 </details>
 
-<details><summary>About .NET support</summary>
+<details><summary>
 
-<br>
+#### About .NET support (LTS, STS, and Preview)
+
+</summary>
 
 .NET versions fall in three categories:
 
@@ -112,9 +112,11 @@ See https://dotnet.microsoft.com/en-us/platform/support/policy
 
 </details>
 
-<details><summary>Understanding .NET runtime and .NET SDK versions</summary>
+<details><summary>
 
-<br>
+#### Understanding .NET runtime and .NET SDK versions
+
+</summary>
 
 The .NET runtime is the minimum needed to install so that the system can run a .NET application. The .NET SDK includes the .NET runtime as well as the compilers and other tools needed to build .NET code and apps. The following diagram shows alignment between the major and minor numbers, but the SDK uses a separate convention for the patch number.
 
@@ -124,9 +126,11 @@ See https://learn.microsoft.com/en-us/dotnet/core/versions/
 
 </details>
 
-<details><summary>Using dotnet.exe to list and install .NET runtime and SDK versions</summary>
+<details><summary>
 
-<br>
+#### Using dotnet.exe to list and install .NET runtime and SDK versions
+
+</summary>
 
 Use the `dotnet` command to uncover information about versions, runtimes, and SDKs.
 
@@ -156,9 +160,11 @@ Then use `winget install` to install a specific runtime or SDK version.
 
 </details>
 
-<details><summary>Understanding intermediate language</summary>
+<details><summary>
 
-<br>
+#### Understanding intermediate language
+
+</summary>
 
 The C# compiler (named **Roslyn**) used by the `dotnet.exe` CLI tool converts C# source code into **intermediate language (IL)** code and stores the IL in an **assembly** (a DLL or EXE file). IL code statements are like assembly language instructions, which are executed by .NET's virtual machine, known as CoreCLR.
 
@@ -173,9 +179,11 @@ See https://github.com/dotnet/roslyn
 </details>
 
 
-<details><summary>Visual Studio package source error</summary>
+<details><summary>
 
-<br>
+#### Visual Studio package source error
+
+</summary>
 
 When creating a new application and building it for the first time, you may get an error like this:
 
@@ -189,9 +197,11 @@ See [Visual Studio Package Sources](https://learn.microsoft.com/en-us/nuget/cons
 
 </details>
 
-<details><summary>About top-level programs</summary>
+<details><summary>
 
-<br>  
+#### About top-level programs and boilerplate code
+
+</summary>
 
 Projects created with .NET SDK 5 or earlier always start with the following boilerplate code.
 
@@ -231,9 +241,11 @@ See [Explore top-level statements](https://learn.microsoft.com/en-us/dotnet/csha
 
 </details>
 
-<details><summary>Implicitly and globally importing namespaces</summary>
+<details><summary>
 
-<br>
+#### Implicitly and globally importing namespaces
+
+</summary>
 
 Using the statement `Console.Writeline` requires the `using System` statement at the top of the file. Traditionally, every `.cs` file that needs to import namespaces would have to start with `using` statements to import those namespaces. Namespaces like `System` and `System.Linq` are needed in almost all `.cs` files.  
 
@@ -270,9 +282,11 @@ See the following:
 
 </details>
 
-<details><summary>Visual Studio - configure startup projects</summary>
+<details><summary>
 
-<br>
+#### Visual Studio - configure startup projects
+
+</summary>
 
 In Visual Studio, when you have multiple projects in a solution you must manually change a project as the startup project to run the application. You can avoid this behavior by setting the startup project to the current selection.
 
@@ -282,9 +296,11 @@ In Visual Studio, from the Solution options, click **Configure Startup Projects*
 
 </details>
 
-<details><summary>Using dotnext.exe to create solutions and projects</summary>
+<details><summary>
 
-<br>
+#### Using dotnext.exe to create solutions and projects
+
+</summary>
 
 Using `dotnet help <command>` will open a web browser with the page in the documentation about the command.
 
@@ -320,9 +336,11 @@ Use `dotnet run` to compile and execute the program:
 
 </details>
 
-<details><summary>Displaying inline hints</summary>
+<details><summary>
 
-<br>
+#### Displaying inline hints
+
+</summary>
 
 To enable assistance with explicitly-specified parameters, in Visual Studio enable the option **Display inline parameter hints**.
 
@@ -336,11 +354,13 @@ This feature shows the names of the parameters without you having to type them.
 
 </details>
 
-<details><summary>C# public repositories, design guidelines, standards, and timeline</summary>
+<details><summary>
 
-<br>
+#### C# public repositories, design guidelines, standards
 
-### Design Guidelines
+</summary>
+
+##### Design Guidelines
 
 Back in the early .NET Framework era, Microsoft published a book that gave good practices in all areas of .NET development. Those recommendations are still very much applicable to modern .NET. Topics include:
 
@@ -356,12 +376,12 @@ Microsoft has made excerpts of this book available at the following link:
 
 - https://learn.microsoft.com/en-us/dotnet/standard/design-guidelines/
 
-### Public Repositories
+##### Public Repositories
 
 - [C# Language Design](https://github.com/dotnet/csharplang) - Includes meeting notes, proposals, and spec.
 - [Compiler Implementation (Roslyn)](https://github.com/dotnet/roslyn)
 
-### Standards
+##### Standards
 
 C# has also become part of several standards. However, adoption takes a long time. The language is currently at 11/12, but the latest version standard, 6.0, was released in 2015. There are drafts for 7, 8, and 9. See [Standard to describe the language](https://github.com/dotnet/csharpstandard)
 
@@ -369,9 +389,11 @@ C# has also become part of several standards. However, adoption takes a long tim
 
 </details>
 
-<details><summary>Specifying SDK and C# language versions</summary>
+<details><summary>
 
-<br>
+#### Specifying SDK and C# language versions
+
+</summary>
 
 The .NET language compiler for C# is also known as **Roslyn**. There is a separate compiler for F#. Both compilers are distributed as part of the .NET SDK. To use a specific version of C#, you must have at least that version of the .NET SDK installed. The projects you create can target older versions of .NET and still use a modern compiler version. 
 
@@ -402,6 +424,10 @@ To confirm the language and compiler version, enter the following statement in a
 </details>
 
 <details open><summary>2. C# Language Features</summary>
+
+### C# Language Features
+
+
 
 <br>
 
@@ -1448,7 +1474,7 @@ Reference:
 
 </details>
 
-<details><summary>Text input</summary>
+<details><summary>Text input and handling null cases</summary>
 
 <br>
 Here's an example of using `Console.Readline()` to capture input.  
@@ -1466,8 +1492,40 @@ Things to note:
 1. The `?` after `string` declaration is used to indicate the variable is nullable. See [Nullable Reference Types](https://learn.microsoft.com/en-us/dotnet/csharp/nullable-references).
 2. The `!` before the semicolon suppresses nullable warnings. See [Null-forgiving operator](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/null-forgiving).
 
+</details>
+
+<details>
+
+<summary>
+
+Importing static class members
+
+</summary>
+
+<br>
+
+You can statically import the `System.Console` class by specifying the following at the top of the code:
+
+```csharp
+using static System.Console
+```
+
+This specification is used to make the code more concise by allowing direct access to static members without having to repeat the class name (`Console` in this case). It's a feature introduced in C# 6.0 (2015) to improve code readability and reduce redundancy.
+
+In C# and other .NET languages, the `static` keyword used in the context of a `using` directive serves a specific purpose that differs from the usage without `static`:
+
+1. **`using System.Console;`**:
+   - This line of code, as stated, would be incorrect because the `using` directive is typically used to include namespaces, not classes. The purpose of a `using` directive is to allow the use of types in a namespace so that you don't have to qualify the use of a type in that namespace with the namespace's name.
+   - For example, `using System;` allows you to use types in the `System` namespace without prefixing them with `System.`, like `Console.WriteLine()` instead of `System.Console.WriteLine()`.
+
+2. **`using static System.Console;`**:
+   - This syntax is correct and useful. The `using static` directive imports the static members of a class, allowing you to use those static members without specifying the class name.
+   - When you write `using static System.Console;`, you are telling the compiler that you want to use the static members of the `Console` class without having to prefix them with `Console.` every time. This means you can just write `WriteLine("Hello, World!");` instead of `Console.WriteLine("Hello, World!");`.
+   - This makes the code cleaner and more concise, especially when you are using a lot of static members from a single class.
 
 
+Instead of statically importing the `Console` class just for one code file, you can import it globally for all code files in a project.
 
+<img src='img/20240317-041754.png' width=400px>
 
 </details>
