@@ -8,9 +8,9 @@ This page is a collection of my notes on learning C# and .NET. I captured most o
 
 ## Table of Contents
 
-- [Table of Contents](#table-of-contents)
-- [Introduction](#introduction)
-  - [Getting started with .NET and Visual Studio](#getting-started-with-net-and-visual-studio)
+- Introduction
+  - <details><summary>Getting Started with .NET and Visual Studio</summary>
+
     - [Brief overview of .NET](#brief-overview-of-net)
     - [C# and .NET Timeline](#c-and-net-timeline)
     - [About .NET support (LTS, STS, and Preview)](#about-net-support-lts-sts-and-preview)
@@ -25,7 +25,11 @@ This page is a collection of my notes on learning C# and .NET. I captured most o
     - [Displaying inline hints](#displaying-inline-hints)
     - [C# public repositories, design guidelines, standards](#c-public-repositories-design-guidelines-standards)
     - [Specifying SDK and C# language versions](#specifying-sdk-and-c-language-versions)
-  - [C# Language Features](#c-language-features)
+
+  </details>
+
+  - <details><summary>C# Language Features</summary>
+
     - [C# Types vs Classes](#c-types-vs-classes)
     - [Variables and Naming Conventions](#variables-and-naming-conventions)
     - [Chars](#chars)
@@ -54,6 +58,7 @@ This page is a collection of my notes on learning C# and .NET. I captured most o
     - [Text input and handling null cases](#text-input-and-handling-null-cases)
     - [Importing static class members](#importing-static-class-members)
 
+    </details>
 
 ## Introduction
 
