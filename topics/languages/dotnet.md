@@ -125,7 +125,7 @@ In 1999, before the first release of C#, the codename was **C-like Object-Orient
 | 12.0       | 2023         | .NET 8.0                                 | Primary constructors, collection expressions, inline arrays, optional parameters in lamda expressions, alias any type, experimental attribute, interceptors |
 | 13.0       | ?            | .NET 9.0 | | 
 
-Please note:
+Things to note:
 
 - C# 5.0 is not listed; the version numbers went from 4.0 directly to 6.0.
 - The table combines .NET Framework, .NET Core, and .NET versions, reflecting the evolution from .NET Framework to .NET Core and then to .NET (5.0 and beyond), which unifies these platforms.
