@@ -1,22 +1,65 @@
 # C# and .NET Notes
 
-Most of my notes are taken from [C# 12 and .NET 8 Modern Cross-Platform Development Fundamentals](https://www.amazon.com/gp/product/B0CGZVT568/ref=ppx_yo_dt_b_d_asin_title_o00?ie=UTF8&psc=1).
+This page is a collection of my notes on learning C# and .NET. I captured most of my notes from the following resources:
 
+- [C# 12 and .NET 8 Modern Cross-Platform Development Fundamentals](https://www.amazon.com/gp/product/B0CGZVT568/ref=ppx_yo_dt_b_d_asin_title_o00?ie=UTF8&psc=1)
 - [C# Documentation](https://learn.microsoft.com/en-us/dotnet/csharp/)
 - [GitHub repository for Modern Cross-Platform Development Fundamentals](https://github.com/markjprice/cs12dotnet8)
+
+## Table of Contents
+
+- [Table of Contents](#table-of-contents)
+- [Introduction](#introduction)
+  - [Getting started with .NET and Visual Studio](#getting-started-with-net-and-visual-studio)
+    - [Brief overview of .NET](#brief-overview-of-net)
+    - [C# and .NET Timeline](#c-and-net-timeline)
+    - [About .NET support (LTS, STS, and Preview)](#about-net-support-lts-sts-and-preview)
+    - [Understanding .NET runtime and .NET SDK versions](#understanding-net-runtime-and-net-sdk-versions)
+    - [Using dotnet.exe to list and install .NET runtime and SDK versions](#using-dotnetexe-to-list-and-install-net-runtime-and-sdk-versions)
+    - [Understanding intermediate language](#understanding-intermediate-language)
+    - [Specifying Visual Studio package source](#specifying-visual-studio-package-source)
+    - [About top-level programs and boilerplate code](#about-top-level-programs-and-boilerplate-code)
+    - [Implicitly and globally importing namespaces](#implicitly-and-globally-importing-namespaces)
+    - [Visual Studio - configure startup projects](#visual-studio---configure-startup-projects)
+    - [Using dotnext.exe to create solutions and projects](#using-dotnextexe-to-create-solutions-and-projects)
+    - [Displaying inline hints](#displaying-inline-hints)
+    - [C# public repositories, design guidelines, standards](#c-public-repositories-design-guidelines-standards)
+    - [Specifying SDK and C# language versions](#specifying-sdk-and-c-language-versions)
+  - [C# Language Features](#c-language-features)
+    - [C# Types vs Classes](#c-types-vs-classes)
+    - [Variables and Naming Conventions](#variables-and-naming-conventions)
+    - [Chars](#chars)
+    - [Regular string literals](#regular-string-literals)
+    - [Verbatim string literals](#verbatim-string-literals)
+    - [Interpolated string literals](#interpolated-string-literals)
+    - [Interpolated verbatim string literals](#interpolated-verbatim-string-literals)
+    - [Raw string literals](#raw-string-literals)
+    - [Raw interpolated string literals](#raw-interpolated-string-literals)
+    - [Integer literals: Decimal, Binary, and Hexadecimal Numbers](#integer-literals-decimal-binary-and-hexadecimal-numbers)
+    - [Integral types (Integers)](#integral-types-integers)
+    - [Floating-point numeric types (Float, Double, Decimal)](#floating-point-numeric-types-float-double-decimal)
+    - [Implicit conversions of numeric types](#implicit-conversions-of-numeric-types)
+    - [New number types (Half, Int128) and unsafe code](#new-number-types-half-int128-and-unsafe-code)
+    - [Booleans](#booleans)
+    - [Storing any type of object (Object type)](#storing-any-type-of-object-object-type)
+    - [Dynamic types](#dynamic-types)
+    - [The var keyword and implicitly-typed local variables](#the-var-keyword-and-implicitly-typed-local-variables)
+    - [Using target-typed new to instantiate objects](#using-target-typed-new-to-instantiate-objects)
+    - [Value types and reference types, boxing and unboxing](#value-types-and-reference-types-boxing-and-unboxing)
+    - [Default value expressions](#default-value-expressions)
+    - [Formatting using numbered positional arguments](#formatting-using-numbered-positional-arguments)
+    - [Formatting using interpolated strings](#formatting-using-interpolated-strings)
+    - [Interpolated strings with newlines in C# 11](#interpolated-strings-with-newlines-in-c-11)
+    - [Format strings](#format-strings)
+    - [Text input and handling null cases](#text-input-and-handling-null-cases)
+    - [Importing static class members](#importing-static-class-members)
 
 
 ## Introduction
 
-<details><summary>
+### Getting started with .NET and Visual Studio
 
-### 1. Getting started with .NET and Visual Studio
-
-</summary>
-
-<details><summary>Brief overview of .NET</summary>
-
-### Brief overview of .NET
+#### Brief overview of .NET
 
 There are two main flavors of .NET:
 
@@ -33,7 +76,7 @@ See this article for a discussion on the history of .NET: https://github.com/mar
 
 .NET Framework has been an official component of the Windows operating system. However, it is now considered a Windows-only and a legacy platform.  Do not create new apps using it.
 
-##### Mono, Xamarin, and Unity Projects**
+##### Mono, Xamarin, and Unity Projects
 
 Third parties developed a .NET Framework implementation named the **Mono** project. Mono is cross-platform but fell behind the official implementation of .NET Framework.
 
@@ -56,10 +99,6 @@ Starting with .NET 5, Microsoft rebranded .NET Core as **.NET**. New versions ar
 Modern .NET aims to unify .NET Core with the original .NET Framework into a single, consistent platform. Enhancements include performance improvements, more APIs, better tooling, and a range of features to support various types of development, including web, mobile (via MAUI), desktop, cloud, and IoT applications.
 
 .NET MAUI (Multi-platform App UI) is an evolution of Xamarin.Forms and aims to simplify the development of cross-platform applications for mobile and desktop from a single codebase.
-
-</details>
-
-<details><summary>C# and .NET Timeline</summary>
 
 #### C# and .NET Timeline
 
@@ -92,13 +131,7 @@ Please note:
 
 See here for a complete timeline: [C# language versions and features](https://github.com/markjprice/cs12dotnet8/blob/main/docs/ch02-features.md) 
 
-</details>
-
-<details><summary>
-
 #### About .NET support (LTS, STS, and Preview)
-
-</summary>
 
 .NET versions fall in three categories:
 
@@ -110,13 +143,7 @@ See here for a complete timeline: [C# language versions and features](https://gi
 
 See https://dotnet.microsoft.com/en-us/platform/support/policy
 
-</details>
-
-<details><summary>
-
 #### Understanding .NET runtime and .NET SDK versions
-
-</summary>
 
 The .NET runtime is the minimum needed to install so that the system can run a .NET application. The .NET SDK includes the .NET runtime as well as the compilers and other tools needed to build .NET code and apps. The following diagram shows alignment between the major and minor numbers, but the SDK uses a separate convention for the patch number.
 
@@ -124,13 +151,7 @@ The .NET runtime is the minimum needed to install so that the system can run a .
 
 See https://learn.microsoft.com/en-us/dotnet/core/versions/
 
-</details>
-
-<details><summary>
-
 #### Using dotnet.exe to list and install .NET runtime and SDK versions
-
-</summary>
 
 Use the `dotnet` command to uncover information about versions, runtimes, and SDKs.
 
@@ -158,13 +179,7 @@ Then use `winget install` to install a specific runtime or SDK version.
 
 <img src='img/20240227-042725.png' width=600px>
 
-</details>
-
-<details><summary>
-
 #### Understanding intermediate language
-
-</summary>
 
 The C# compiler (named **Roslyn**) used by the `dotnet.exe` CLI tool converts C# source code into **intermediate language (IL)** code and stores the IL in an **assembly** (a DLL or EXE file). IL code statements are like assembly language instructions, which are executed by .NET's virtual machine, known as CoreCLR.
 
@@ -176,14 +191,7 @@ See [this ChatGPT thread](https://chat.openai.com/share/37fbe918-a6fd-470b-9ffe-
 
 See https://github.com/dotnet/roslyn
 
-</details>
-
-
-<details><summary>
-
-#### Visual Studio package source error
-
-</summary>
+#### Specifying Visual Studio package source
 
 When creating a new application and building it for the first time, you may get an error like this:
 
@@ -195,13 +203,7 @@ The error message is related to missing package sources from the NuGet package m
 
 See [Visual Studio Package Sources](https://learn.microsoft.com/en-us/nuget/consume-packages/install-use-packages-visual-studio#package-sources) for more details.
 
-</details>
-
-<details><summary>
-
 #### About top-level programs and boilerplate code
-
-</summary>
 
 Projects created with .NET SDK 5 or earlier always start with the following boilerplate code.
 
@@ -239,13 +241,7 @@ One main requirement is there can only be one file like this in a project.
 
 See [Explore top-level statements](https://learn.microsoft.com/en-us/dotnet/csharp/tutorials/top-level-statements).
 
-</details>
-
-<details><summary>
-
 #### Implicitly and globally importing namespaces
-
-</summary>
 
 Using the statement `Console.Writeline` requires the `using System` statement at the top of the file. Traditionally, every `.cs` file that needs to import namespaces would have to start with `using` statements to import those namespaces. Namespaces like `System` and `System.Linq` are needed in almost all `.cs` files.  
 
@@ -280,13 +276,7 @@ See the following:
 - [Implicit using directives](https://learn.microsoft.com/en-us/dotnet/core/project-sdk/overview#implicit-using-directives).
 - [Global and implicit usings](https://devblogs.microsoft.com/dotnet/welcome-to-csharp-10/)
 
-</details>
-
-<details><summary>
-
 #### Visual Studio - configure startup projects
-
-</summary>
 
 In Visual Studio, when you have multiple projects in a solution you must manually change a project as the startup project to run the application. You can avoid this behavior by setting the startup project to the current selection.
 
@@ -294,13 +284,7 @@ In Visual Studio, from the Solution options, click **Configure Startup Projects*
 
 <img src='img/20240214-051435.png' width=600px>
 
-</details>
-
-<details><summary>
-
 #### Using dotnext.exe to create solutions and projects
-
-</summary>
 
 Using `dotnet help <command>` will open a web browser with the page in the documentation about the command.
 
@@ -334,13 +318,7 @@ Use `dotnet run` to compile and execute the program:
 
 <img src='img/20240253-055306.png' width=500px>
 
-</details>
-
-<details><summary>
-
 #### Displaying inline hints
-
-</summary>
 
 To enable assistance with explicitly-specified parameters, in Visual Studio enable the option **Display inline parameter hints**.
 
@@ -352,13 +330,7 @@ This feature shows the names of the parameters without you having to type them.
 
 <img src='img/20240244-034418.png' width=500px>
 
-</details>
-
-<details><summary>
-
 #### C# public repositories, design guidelines, standards
-
-</summary>
 
 ##### Design Guidelines
 
@@ -387,13 +359,7 @@ C# has also become part of several standards. However, adoption takes a long tim
 
 <img src='img/20240257-035744.png' width=400px>
 
-</details>
-
-<details><summary>
-
 #### Specifying SDK and C# language versions
-
-</summary>
 
 The .NET language compiler for C# is also known as **Roslyn**. There is a separate compiler for F#. Both compilers are distributed as part of the .NET SDK. To use a specific version of C#, you must have at least that version of the .NET SDK installed. The projects you create can target older versions of .NET and still use a modern compiler version. 
 
@@ -417,23 +383,9 @@ To confirm the language and compiler version, enter the following statement in a
 
 <img src='img/20240207-040703.png' width=700px>
 
-</details>
-
-<br>
-
-</details>
-
-<details open><summary>2. C# Language Features</summary>
-
 ### C# Language Features
 
-
-
-<br>
-
-<details><summary>C# Types vs Classes</summary>
-
-<br>
+#### C# Types vs Classes
 
 C# doesn't define any types. Keywords such as `string` that look like types are **aliases**, which represent types provied by the platform on which C# runs. C# cannot exist alone. The platform on which C# runs is .NET, which provides tens of thousands of types to C#, including `System.Int32`, which is the C# keyword alias `int` maps to. In theory, someone could write a C# compiler that uses a different platform, with different underlying types.
 
@@ -472,25 +424,15 @@ Output:
 
 For this reason, learning C# can be challenging because there is an overwhelming number of types and methods to learn.
 
-</details>
-
-<details><summary>Variables and Naming Conventions</summary>
-
-<br>
+#### Variables and Naming Conventions</summary>
 
 When using variables, you should think about, firstly, how much space the variable takes up in memory, and, secondly, how fast it can be processed. You control this by picking an appropriate type. 
-
-### Naming Conventions
 
 In addition to what's shown below, some developers prefix the names of private fields with an underscore, e.g. `_dateOfBirth`.
 
 <img src='img/20240201-040139.png' width=600px>
 
-</details>
-
-<details><summary>Chars</summary>
-
-<br>
+#### Chars
 
 For text, a single letter is stored as a `char` type. However, don't always assume one `char` equals one letter or you could introduce bugs in your code. For example, the Egyptian Hieroglyph A002 (U +13001) needs two `System.Char` values (known as surrogate pairs) to represent it: `\uD80C` and `\uDC01`.
 
@@ -505,11 +447,7 @@ char userChoice = GetChar();
 
 Text with multiple letters are stored as a `string` type instead of a `char` type.
 
-</details>
-
-<details><summary>Regular string literals</summary>
-
-<br>
+#### Regular string literals
 
 A literal string is a sequence of characters enclosed in double quotes `"`. Literal strings allow for the inclusion of escape sequences. For example, `\n` represents a newline, `\t` represents a tab, and `\\` represents a backslash.
 
@@ -517,11 +455,7 @@ A literal string is a sequence of characters enclosed in double quotes `"`. Lite
 string regularString = "First Line,\nSecondLine.";
 ```
 
-</details>
-
-<details><summary>Verbatim string literals</summary>
-
-<br>
+#### Verbatim string literals
 
 A verbatim string is used to denote that the string should be taken exactly as is, without interpreting any escape sequences or special characters within it. All characters in the string, including newlines, tabs, and other escape sequences, are treated as literal characters and are part of the string itself.
 
@@ -537,11 +471,7 @@ Verbatim strings are useful for file paths, regular expressions, and any other s
 
 Verbatim string literals were introduced with the language's inception, which was C# 1.0, released in 2000.
 
-</details>
-
-<details><summary>Interpolated string literals</summary>
-
-<br>
+#### Interpolated string literals
 
 Interpolated strings simplify string creation by allowing the inclusion of expression values directly within a string literal.
 
@@ -555,11 +485,7 @@ Console.WriteLine(greeting); // Output: Hello, World!
 
 This feature was introduced in C# 6.0, which was released as part of the .NET Framework 4.6 in July 2015.
 
-</details>
-
-<details><summary>Interpolated verbatim string literals</summary>
-
-<br>
+#### Interpolated verbatim string literals
 
 For strings that need to include escape sequences like file paths, you can combine interpolated strings with verbatim strings by using both `$` and `@` symbols:
 
@@ -573,11 +499,7 @@ var userProfilePath = $@"{documentsFolder}\{userName}\Profile.txt";
 Console.WriteLine(userProfilePath);
 ```
 
-</details>
-
-<details><summary>Raw string literals</summary>
-
-<br>
+#### Raw string literals
 
 Raw string literals  allow for multi-line strings and minimize the need for escape sequences. They are particularly useful for working with complex strings, such as JSON, XML, HTML, or regular expressions, making the code more readable by directly mirroring the content's format within the string. 
 
@@ -619,11 +541,7 @@ Example: Indentation of double-quote characters; spacing removed
 
 Raw string literals were introduced in C# 11, as part of the .NET 7 preview releases in 2022.  
 
-</details>
-
-<details><summary>Raw interpolated string literals</summary>
-
-<br>
+#### Raw interpolated string literals
 
 Raw interpolated string literals combine the features of raw string literals and string interpolation, allowing you to include expressions within a raw string literal. Raw interpolated string literals simplify working with strings that span multiple lines and contain embedded expressions, without needing to escape special characters. These string types are particularly useful for generating strings with complex formats where readability and maintainability are important, and it avoides common pitfalls of traditional string concatenation or escape sequences.
 
@@ -643,11 +561,7 @@ Console.WriteLine(message);
 
 Raw interpolated string literals were introduced in C# 11 in 2022, along with raw string literals.
 
-</details>
-
-<details><summary>Integer literals: Decimal, Binary, and Hexadecimal Numbers</summary>
-
-<br>
+#### Integer literals: Decimal, Binary, and Hexadecimal Numbers
 
 Whole numbers can be stored in decimal, binary, or hexadecimal notation. An underscore can be used as a digit separator to improve legibility.
 
@@ -668,11 +582,7 @@ Console.WriteLine($"{hexadecimalNotation:X}"); // 1E8480
 
 See https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/integral-numeric-types#integer-literals
 
-</details>
-
-<details><summary>Integral types (Integers)</summary>
-
-<br>
+#### Integral types (Integers)
 
 Integral numeric types represent integer numbers. The table in [Characteristics of integral types](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/integral-numeric-types#characteristics-of-the-integral-types) lists all the supported types.
 
@@ -690,11 +600,7 @@ Output:
 
 See [sizeof operator - determine the memory needs for a given type](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/sizeof).
 
-</details>
-
-<details><summary>Floating-point numeric types (Float, Double, Decimal)</summary>
-
-<br>
+#### Floating-point numeric types (Float, Double, Decimal)
 
 Floating-point numeric types represent real numbers. C# supports three predefined floating-point types: float, double, and decimal. Here are general usage guidelines:
 
@@ -782,11 +688,7 @@ There are also methods for checking these special values, like `IsInfinity` and 
 
 See https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/floating-point-numeric-types
 
-</details>
-
-<details><summary>Implicit conversions of numeric types</summary>
-
-<br>
+#### Implicit conversions of numeric types
 
 You can mix [integral](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/integral-numeric-types) and the `float` and `double` types in an expression. In this case, integral types are implicitly converted to one of the following floating-point types and, if necessary, the `float` type is implicitly converted to `double`.
 
@@ -806,13 +708,7 @@ Console.WriteLine(a + (double)b);
 Console.WriteLine((decimal)a + b);
 ```
 
-
-</details>
-
-
-<details><summary>New number types (Half, Int128) and unsafe code</summary>
-
-<br>
+#### New number types (Half, Int128) and unsafe code
 
 The `System.Half` type was introduced in .NET 5. See [Introducing the half type](https://devblogs.microsoft.com/dotnet/introducing-the-half-type/). Like `float` and `double`, it can store real numbers. It normally uses two bytes of memory. This type is useful in scenarios where the range and precision of `float` is not necessary and minimizing memory usage is desirable. Scenarios include game development, machine learning and AI, scientific computing, data transfer and storage, and embedded systems and IoT devices.
 
@@ -842,11 +738,7 @@ See the following:
 - [AllowUnsafeBlocks](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-options/language#allowunsafeblocks)
 - [Unsafe keyword](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/unsafe)
 
-</details>
-
-<details><summary>Booleans</summary>
-
-<br>
+#### Booleans
 
 Booleans can only containe one of two literal values `true` or `false`, as shown:
 
@@ -858,11 +750,7 @@ Booleans are mostly used to branch and loop.
 
 See [bool (C# reference)](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/bool)
 
-</details>
-
-<details><summary>Storing any type of object (Object type)</summary>
-
-<br>
+#### Storing any type of object (Object type)
 
 There is a special type named `object` that can store any type of data, but its flexibility comes at the cost of messier code and possibly poor performance. Because of those two reasons, you should avoid it whenever possible. 
 
@@ -881,11 +769,7 @@ The `object` type has been available since the first version of C#, but C# 2 and
 
 See [The object type](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/reference-types#the-object-type)
 
-</details>
-
-<details><summary>Dynamic types</summary>
-
-<br>
+#### Dynamic types
 
 The `dynamic` keyword was introduced with C# 4.0 (2010) and enables dynamic type resolution at runtime. Unlike statically-typed variables, where the type is known at compile time, a `dynamic` type bypasses compile-time checking. This means that the operations involving `dynamic` variables are not checked by the compiler for correctnesss. 
 
@@ -946,11 +830,7 @@ See the following:
 - [Understanding the Dynamic keyword in C#](https://learn.microsoft.com/en-us/archive/msdn-magazine/2011/february/msdn-magazine-dynamic-net-understanding-the-dynamic-keyword-in-csharp-4)
 - [Using type dynamic](https://learn.microsoft.com/en-us/dotnet/csharp/advanced-topics/interop/using-type-dynamic)
 
-</details>
-
-<details><summary>The var keyword and implicitly-typed local variables</summary>
-
-<br>
+#### The var keyword and implicitly-typed local variables
 
 You can use the `var` keyword to declare local variables with C# 3 (2007) and later. The compiler infers the type from the value that you assign after the assignment operator, `=`. This happens at compile time, so using `var` has no effect on runtime performance.
 
@@ -1007,11 +887,7 @@ As a good practice, use `var` when the type is obvious. When in doubt, spell it 
 
 See [Implicitly Typed Local Variables](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/implicitly-typed-local-variables)
 
-</details>
-
-<details><summary>Using target-typed new to instantiate objects</summary>
-
-<br>
+#### Using target-typed new to instantiate objects
 
 Microsoft introduced target-typed `new` expressions in C# 9.0 (2020) to improve the conciseness of code. This feature allows the type of the new expression to be inferred by the compiler based on the context in which it is used, eliminating the need to explicitly specify the type if it can be clearly inferred from the assignment or declaration.
 
@@ -1054,11 +930,7 @@ The introduction of target-typed `new` expressions streamlined object creation a
 
 See [Target-typed `new` expressions](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-9.0/target-typed-new)
 
-</details>
-
-<details><summary>Value types and reference types, boxing and unboxing</summary>
-
-<br>
+#### Value types and reference types, boxing and unboxing
 
 In C#, the distinction between value types and reference types is a fundamental concept related to how they are stored and handled in memory.
 
@@ -1119,24 +991,21 @@ Understanding the difference between value types and reference types is crucial 
 
 See [Value types and reference types](https://learn.microsoft.com/en-us/dotnet/visual-basic/programming-guide/language-features/data-types/value-types-and-reference-types)
 
-</details>
+#### Default value expressions
 
-<details><summary>Default value expressions</summary>
-
-<br>
 The `default` operator in C# is used to obtain the default value of a type. The behavior of the `default` operator depends on whether the type is a reference type or a value type:
 
 - For **reference types** (strings, classes, interfaces, delegates, or records), the default value is `null`.
 - For **value types** (structs, enums, and all primitive types like `int`, `bool`, `char`, etc.), the default value is a bit pattern that represents 0. For example, for numeric types, it's `0`; for `bool`, it's `false`; and for a struct, it's each member set to its default value.
 
-### When It Was Introduced
+##### When It Was Introduced
 
 The `default` keyword has been part of C# since its early versions, but its usage was enhanced in C# 7.1.
 
 - **Prior to C# 7.1**, you had to specify the type when using `default`, like `default(int)` or `default(T)` where `T` is a type parameter in generics.
 - **Starting with C# 7.1**, you can use the `default` literal without specifying a type, and the compiler infers the type based on the context. This means you can write `int myInt = default;` instead of `int myInt = default(int);`.
 
-### Practical Use Cases
+##### Practical Use Cases
 
 1. **Initialization**: When you need to initialize a variable to its default value but don't want to hardcode a specific value. This is particularly useful in generics where the type `T` might be unknown.
    
@@ -1181,7 +1050,7 @@ The `default` keyword has been part of C# since its early versions, but its usag
 
 In summary, the `default` operator in C# offers a flexible and type-safe way to work with default values, making code more readable and maintainable, especially in generic programming and scenarios where type inference is beneficial.
 
-### Exploring default values
+##### Exploring default values
 
 Take the following code:
 
@@ -1211,11 +1080,7 @@ Output:
 
 See [default value expressions - produce the default value](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/default)
 
-</details>
-
-<details><summary>Formatting using numbered positional arguments</summary>
-
-<br>
+#### Formatting using numbered positional arguments
 
 One way of generating formatted strings is to use numbered positional arguments. This feature is supported in methods like `Write()`, `WriteLine()`, and `Format()`. These methods have up to three numbered arguments, named `arg0`, `arg1`, and `arg2`. If you need to pass more values, you cannot name them.
 
@@ -1244,7 +1109,7 @@ Console.WriteLine(
 
 In C#, formatting strings with numbered positional arguments enhances string manipulation and output formatting by providing a more flexible and readable way to compose strings with dynamic data. This feature is particularly useful in scenarios involving internationalization, complex string constructions, and when reusing arguments in different places within the same string.
 
-### Benefits of Numbered Positional Arguments
+##### Benefits of Numbered Positional Arguments
 
 1. **Reusability of Arguments**: You can reuse the same argument multiple times in a formatting string without having to specify it multiple times. This reduces redundancy and the potential for errors.
 
@@ -1254,7 +1119,7 @@ In C#, formatting strings with numbered positional arguments enhances string man
 
 4. **Simplifies Dynamic Content Insertion**: It makes it easier to dynamically insert content into strings, as the placeholders clearly define where the dynamic content goes.
 
-### History and Evolution
+##### History and Evolution
 
 - **Early C# Versions**: Initially, C# supported format strings in methods like `String.Format()`, `Console.WriteLine()`, and others, using indexed placeholders (`{0}`, `{1}`, etc.) which referred to the zero-based index of the corresponding object in the method call. This feature has been available since the first version of C#.
 
@@ -1266,17 +1131,13 @@ The introduction of string interpolation did not eliminate the use of numbered p
 
 In summary, the use of numbered positional arguments in C# format strings offers a combination of flexibility, readability, and reusability that is essential for producing dynamic strings in a maintainable and error-resistant manner. This feature complements the string manipulation capabilities of C#, adapting to various scenarios from simple console outputs to complex internationalized applications.
 
-</details>
-
-<details><summary>Formatting using interpolated strings</summary>
-
-<br>
+#### Formatting using interpolated strings
 
 In .NET, interpolated strings provide a convenient way to format strings with embedded expressions. Introduced in C# 6 (2015), interpolated strings allow you to insert values of variables or expressions directly into a string literal, making your code more readable and easier to understand. The interpolated string is defined by using the `$` symbol before the string literal, and expressions are enclosed in `{}` braces.
 
 Here’s a basic overview of how to use interpolated strings in .NET:
 
-### Basic Syntax
+##### Basic Syntax
 
 ```csharp
 var name = "John";
@@ -1287,7 +1148,7 @@ Console.WriteLine(message);
 
 In the example above, `name` and `age` are variables whose values are embedded into the `message` string. The output will be: "My name is John and I am 30 years old."
 
-### Formatting Expressions
+##### Formatting Expressions
 
 You can also apply format specifiers to control the formatting of the embedded expressions. Format specifiers follow the expression, separated by a colon `:`.
 
@@ -1299,7 +1160,7 @@ Console.WriteLine(formattedMessage);
 
 In this example, `C2` is a format specifier that formats the number as currency with two decimal places. The output depends on the culture settings of your system; in the US, it might be "The price is $123.46."
 
-### Using With `CultureInfo`
+##### Using With `CultureInfo`
 
 You can specify the culture for formatting numbers, dates, and currencies within an interpolated string by using the `FormattableString` class and `CultureInfo`.
 
@@ -1316,7 +1177,7 @@ Console.WriteLine(formattedMessage);
 
 In the above example, `FormattableString.Invariant` is used to apply a culture-invariant format, and `string.Format` along with `CultureInfo` is used to format the date according to a specific culture.
 
-### Escaping Braces
+##### Escaping Braces
 
 If you need to include a literal `{` or `}` in the string, you double them:
 
@@ -1328,7 +1189,7 @@ Console.WriteLine(message);
 
 This will output: "Your score is {score}: 10."
 
-### Combining `string` constants
+##### Combining `string` constants
 
 Before C# 10 (2021), `string` constants could only be combined by using concatenation with the `+` operator, as shown here:
 
@@ -1346,22 +1207,16 @@ private const string fullname = $"{firstname}{lastname}";
 
 This only works for combining `string` constant values. It cannot work for other types like numbers, which would require runtime data type conversions.
 
-### Caveats with interpolated strings
+##### Caveats with interpolated strings
 
 For short, formatted `string` values, an interpolated `string` can be easier for people to read. But things can get tricky if you need to restrict strings to certain column widths, where statements then need to wrap over multiple lines. In this case, it is easier to use numbered positional arguments rather than interpolated strings.
-
-
 
 References:
 
 - [String interpolation using `$`](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/tokens/interpolated)
 - [String interpolation in C#](https://learn.microsoft.com/en-us/dotnet/csharp/tutorials/string-interpolation)
 
-</details>
-
-<details><summary>Interpolated strings with newlines in C# 11</summary>
-
-<br>
+#### Interpolated strings with newlines in C# 11
 
 Typically strings cannot include newlines its text segments, and must instead use escape sequences (like `\r\n`).  
 
@@ -1376,7 +1231,7 @@ Console.WriteLine($"{numberOfApples} apples cost {pricePerApple
 
 In C# 11 (2022), a notable improvement was made regarding string interpolation, specifically allowing new-lines (line breaks) in all interpolations within interpolated strings. This enhancement is part of the broader efforts to make string handling in C# more flexible and expressive, particularly in scenarios involving complex string construction or when embedding large blocks of text or code.
 
-### Before C# 11
+##### Before C# 11
 
 Prior to C# 11, if you wanted to include an expression within an interpolated string that spanned multiple lines, you had to explicitly handle the new-lines or concatenate multiple interpolated strings together, which could lead to less readable and more cumbersome code.
 
@@ -1393,7 +1248,7 @@ var message = $"Name: {name}\n" +
               $"Address: {address}";
 ```
 
-### With C# 11
+##### With C# 11
 
 Starting with C# 11, you can directly include new-line characters within interpolations in an interpolated string, making it significantly easier to work with multi-line expressions. This means you can now insert expressions that span multiple lines directly into the interpolation braces (`{}`), improving the readability and maintainability of your code.
 
@@ -1415,7 +1270,7 @@ address}
 
 In this example, notice how the address expression is included directly within the interpolation braces and spans multiple lines. This is just a simple demonstration; the real benefit comes when dealing with complex expressions or formatting that would otherwise clutter your code.
 
-### Benefits and Use Cases
+##### Benefits and Use Cases
 
 - **Improved Readability:** Code involving complex string constructions becomes easier to read and understand.
 - **Enhanced Maintainability:** Reduces the need for concatenation or using additional variables to handle multi-line expressions, making code maintenance simpler.
@@ -1425,11 +1280,7 @@ References:
 
 - [Allow new-lines in all interpolations](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-11.0/new-line-in-interpolation)
 
-</details>
-
-<details><summary>Format strings</summary>
-
-<br>
+#### Format strings
 
 Format strings allow you to control how values are displayed, including numbers, dates, times, and custom formats. C# utilizes composite formatting, which combines a format string with an array of objects to produce a formatted result. This system is used across various methods like `String.Format`, `Console.WriteLine`, and string interpolation (introduced in C# 6 with the `$` prefix).
 
@@ -1472,11 +1323,8 @@ Reference:
 - [Standard numeric format strings](https://learn.microsoft.com/en-us/dotnet/standard/base-types/standard-numeric-format-strings)
 - [Custom numeric format strings](https://learn.microsoft.com/en-us/dotnet/standard/base-types/custom-numeric-format-strings)
 
-</details>
+#### Text input and handling null cases
 
-<details><summary>Text input and handling null cases</summary>
-
-<br>
 Here's an example of using `Console.Readline()` to capture input.  
 
 ```csharp
@@ -1492,17 +1340,7 @@ Things to note:
 1. The `?` after `string` declaration is used to indicate the variable is nullable. See [Nullable Reference Types](https://learn.microsoft.com/en-us/dotnet/csharp/nullable-references).
 2. The `!` before the semicolon suppresses nullable warnings. See [Null-forgiving operator](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/null-forgiving).
 
-</details>
-
-<details>
-
-<summary>
-
-Importing static class members
-
-</summary>
-
-<br>
+#### Importing static class members
 
 You can statically import the `System.Console` class by specifying the following at the top of the code:
 
@@ -1528,4 +1366,3 @@ Instead of statically importing the `Console` class just for one code file, you 
 
 <img src='img/20240317-041754.png' width=400px>
 
-</details>
