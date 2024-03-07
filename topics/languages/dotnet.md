@@ -8,9 +8,9 @@ This page is a collection of my notes on learning C# and .NET. I captured most o
 
 ## Table of Contents
 
-- Introduction
-  - <details><summary>Getting Started with .NET and Visual Studio</summary>
-
+- [Table of Contents](#table-of-contents)
+- [Introduction](#introduction)
+  - [Getting started with .NET and Visual Studio](#getting-started-with-net-and-visual-studio)
     - [Brief overview of .NET](#brief-overview-of-net)
     - [C# and .NET Timeline](#c-and-net-timeline)
     - [About .NET support (LTS, STS, and Preview)](#about-net-support-lts-sts-and-preview)
@@ -19,17 +19,13 @@ This page is a collection of my notes on learning C# and .NET. I captured most o
     - [Understanding intermediate language](#understanding-intermediate-language)
     - [Specifying Visual Studio package source](#specifying-visual-studio-package-source)
     - [About top-level programs and boilerplate code](#about-top-level-programs-and-boilerplate-code)
-    - [Implicitly and globally importing namespaces](#implicitly-and-globally-importing-namespaces)
+    - [Implicitly importing namespaces and static members](#implicitly-importing-namespaces-and-static-members)
     - [Visual Studio - configure startup projects](#visual-studio---configure-startup-projects)
     - [Using dotnext.exe to create solutions and projects](#using-dotnextexe-to-create-solutions-and-projects)
     - [Displaying inline hints](#displaying-inline-hints)
     - [C# public repositories, design guidelines, standards](#c-public-repositories-design-guidelines-standards)
     - [Specifying SDK and C# language versions](#specifying-sdk-and-c-language-versions)
-
-  </details>
-
-  - <details><summary>C# Language Features</summary>
-
+  - [C# Language Features](#c-language-features)
     - [C# Types vs Classes](#c-types-vs-classes)
     - [Variables and Naming Conventions](#variables-and-naming-conventions)
     - [Chars](#chars)
@@ -56,9 +52,10 @@ This page is a collection of my notes on learning C# and .NET. I captured most o
     - [Interpolated strings with newlines in C# 11](#interpolated-strings-with-newlines-in-c-11)
     - [Format strings](#format-strings)
     - [Text input and handling null cases](#text-input-and-handling-null-cases)
-    - [Importing static class members](#importing-static-class-members)
+    - [Key input](#key-input)
+    - [Passing arguments to a console app](#passing-arguments-to-a-console-app)
 
-    </details>
+
 
 ## Introduction
 
@@ -246,11 +243,11 @@ One main requirement is there can only be one file like this in a project.
 
 See [Explore top-level statements](https://learn.microsoft.com/en-us/dotnet/csharp/tutorials/top-level-statements).
 
-#### Implicitly and globally importing namespaces
+#### Implicitly importing namespaces and static members
 
 Using the statement `Console.Writeline` requires the `using System` statement at the top of the file. Traditionally, every `.cs` file that needs to import namespaces would have to start with `using` statements to import those namespaces. Namespaces like `System` and `System.Linq` are needed in almost all `.cs` files.  
 
-C# 10 introduced the `global using` keyword combination, which means you only need to import a namespace in one `.cs` file, and it will be available throughout all `.cs` files.
+C# 10 (2021) introduced the `global using` keyword combination, which means you only need to import a namespace in one `.cs` file, and it will be available throughout all `.cs` files.
 
 You can put `global using` statements in the `Program.cs` file, but it's recommended to create a separate file for those statements. The file can be named something like `GlobalUsings.cs` and could look like:
 
@@ -264,7 +261,7 @@ Starting with .NET 6, for any new projects, the compiler generates a `<ProjectNa
 
 <img src='img/20240227-042723.png' width=600px>
 
-You can control which namespaces are implicitly imported in the project's `.csproj` file by adding the `<ItemGroup>` and `<Using>` elements: 
+You can control which namespaces are implicitly imported  by adding the `<ItemGroup>` and `<Using>` elements in the project's `.csproj` file:
 
 <img src='img/20240225-042543.png' width=400px>
 
@@ -272,9 +269,37 @@ Upon saving the `.csproj` file, the `GlobalUsings.cs` file is automatically upda
 
 <img src='img/20240224-042457.png' width=400px>
 
-Because we imported the `Console` class, his change allows you to call methods like `WriteLine` without having to prefix them with `Console`. You can also reference the `Environment` class using its alias `Env`: 
+**Good Practice**: Modify the project's `.csproj` file to change what is included in the auto-generated class file in the `obj` folder hierarchy.
+
+##### Importing a static type for a single file
+
+You can statically import the `System.Console` class by specifying the following at the top of the code:
+
+```csharp
+using static System.Console
+```
+
+This change allows you to call methods like `WriteLine` without having to prefix them with `Console`. You can also reference the `Environment` class using its alias `Env`:
 
 <img src='img/20240229-042959.png' width=600px>
+
+This specification is used to make the code more concise by allowing direct access to static members without having to repeat the class name (`Console` in this case). It's a feature introduced in C# 6.0 (2015) to improve code readability and reduce redundancy.
+
+In C# and other .NET languages, the `static` keyword used in the context of a `using` directive serves a specific purpose that differs from the usage without `static`:
+
+1. **`using System.Console;`**:
+   - This line of code, as stated, would be incorrect because the `using` directive is typically used to include namespaces, not classes. The purpose of a `using` directive is to allow the use of types in a namespace so that you don't have to qualify the use of a type in that namespace with the namespace's name.
+   - For example, `using System;` allows you to use types in the `System` namespace without prefixing them with `System.`, like `Console.WriteLine()` instead of `System.Console.WriteLine()`.
+
+2. **`using static System.Console;`**:
+   - This syntax is correct and useful. The `using static` directive imports the static members of a class, allowing you to use those static members without specifying the class name.
+   - When you write `using static System.Console;`, you are telling the compiler that you want to use the static members of the `Console` class without having to prefix them with `Console.` every time. This means you can just write `WriteLine("Hello, World!");` instead of `Console.WriteLine("Hello, World!");`.
+   - This makes the code cleaner and more concise, especially when you are using a lot of static members from a single class.
+
+
+Instead of statically importing the `Console` class just for one code file, you can import it globally for all code files in a project.
+
+<img src='img/20240317-041754.png' width=400px>
 
 See the following:
 
@@ -1345,29 +1370,29 @@ Things to note:
 1. The `?` after `string` declaration is used to indicate the variable is nullable. See [Nullable Reference Types](https://learn.microsoft.com/en-us/dotnet/csharp/nullable-references).
 2. The `!` before the semicolon suppresses nullable warnings. See [Null-forgiving operator](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/null-forgiving).
 
-#### Importing static class members
+#### Key input
 
-You can statically import the `System.Console` class by specifying the following at the top of the code:
+You can use the `ReadKey` mehtod to get keyboard input from a user. This method waits for the user to press a key or key combination, which is returned as a `ConsoleKeyInfo` value.
 
 ```csharp
-using static System.Console
+using static System.Console;
+
+Write("Press any key combination: ");
+ConsoleKeyInfo key = ReadKey();
+WriteLine();
+WriteLine("Key: {0}, Char: {1}, Modifiers: {2}", 
+    arg0:key.Key, arg1:key.KeyChar, arg2:key.Modifiers);
 ```
 
-This specification is used to make the code more concise by allowing direct access to static members without having to repeat the class name (`Console` in this case). It's a feature introduced in C# 6.0 (2015) to improve code readability and reduce redundancy.
+Output: note how `key` has the properties representing the key pressed and any modifier keys
 
-In C# and other .NET languages, the `static` keyword used in the context of a `using` directive serves a specific purpose that differs from the usage without `static`:
+<img src='img/20240332-043232.png' width=300px>
 
-1. **`using System.Console;`**:
-   - This line of code, as stated, would be incorrect because the `using` directive is typically used to include namespaces, not classes. The purpose of a `using` directive is to allow the use of types in a namespace so that you don't have to qualify the use of a type in that namespace with the namespace's name.
-   - For example, `using System;` allows you to use types in the `System` namespace without prefixing them with `System.`, like `Console.WriteLine()` instead of `System.Console.WriteLine()`.
-
-2. **`using static System.Console;`**:
-   - This syntax is correct and useful. The `using static` directive imports the static members of a class, allowing you to use those static members without specifying the class name.
-   - When you write `using static System.Console;`, you are telling the compiler that you want to use the static members of the `Console` class without having to prefix them with `Console.` every time. This means you can just write `WriteLine("Hello, World!");` instead of `Console.WriteLine("Hello, World!");`.
-   - This makes the code cleaner and more concise, especially when you are using a lot of static members from a single class.
+#### Passing arguments to a console app
 
 
-Instead of statically importing the `Console` class just for one code file, you can import it globally for all code files in a project.
 
-<img src='img/20240317-041754.png' width=400px>
+
+
+
 
