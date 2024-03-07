@@ -2,7 +2,36 @@
 
 This page covers my learnings on unit testing. Most of the material on this page comes from the book "Unit Testing: Principles, Practices, and Patterns" by Vladimir Khorikov.
 
-<details><summary>Types of Testing in Software Development</summary>
+- [Types of Testing in Software Development](#types-of-testing-in-software-development)
+- [The Need for Unit Testing](#the-need-for-unit-testing)
+  - [About Code Coverage](#about-code-coverage)
+- [Properties of Successful Test Suites](#properties-of-successful-test-suites)
+- [What is a Unit Test?](#what-is-a-unit-test)
+  - [The London Approach vs the Classical Approach](#the-london-approach-vs-the-classical-approach)
+  - [Dependency Types](#dependency-types)
+  - [The London approach or the Classical approach?](#the-london-approach-or-the-classical-approach)
+- [The Anatomy of a Unit Test](#the-anatomy-of-a-unit-test)
+- [The Four Pillars of a Good Unit Test](#the-four-pillars-of-a-good-unit-test)
+  - [1. Protection against regression](#1-protection-against-regression)
+  - [2. Resistance to refactoring](#2-resistance-to-refactoring)
+    - [About false positives](#about-false-positives)
+  - [3. Fast feedback](#3-fast-feedback)
+  - [4. Maintainability](#4-maintainability)
+  - [Determining Test Value](#determining-test-value)
+- [Mocks and Test Doubles](#mocks-and-test-doubles)
+  - [Other Test Double Types](#other-test-double-types)
+  - [Asserting interactions with stubs](#asserting-interactions-with-stubs)
+    - [Observable Behavior vs Implementation Detail](#observable-behavior-vs-implementation-detail)
+  - [Intra-System and Inter-System Communications](#intra-system-and-inter-system-communications)
+- [The Styles of Unit Testing](#the-styles-of-unit-testing)
+  - [Output-Based Style](#output-based-style)
+  - [State-Based Style](#state-based-style)
+  - [Communication-Based Style](#communication-based-style)
+  - [Comparing the Three Styles of Unit testing](#comparing-the-three-styles-of-unit-testing)
+  - [Understanding Functional Architecture](#understanding-functional-architecture)
+
+
+## Types of Testing in Software Development
 
 The Test Pyramid represents the three major test types. The width of the pyramid refers to the prevalance of a particular type of test in the suite. The wider the layer, the greater the test count. The height is a measure of how close these tests are to emulating the user's behavior. 
 
@@ -28,9 +57,9 @@ Understanding the different types of testing suites is crucial in software devel
    - **Method:** This involves testing the complete flow of an application from start to finish, including its interaction with external interfaces and networks.
    - **Example:** Testing an e-commerce application from product selection, cart management, checkout, payment, to order confirmation.
 
-**Other Test Types**
+4. **Other Test Types**
 
-The following tests types fall under the categories mentioned above:
+  The following tests types fall under the categories mentioned above:
 
 - **Functional Testing:**
   - **Focus:** The overall functionality of the system.
@@ -56,9 +85,7 @@ The following tests types fall under the categories mentioned above:
   - **Method:** Typically automated, it involves re-running functional and non-functional tests to ensure that previously developed and tested software still performs after a change.
   - **Example:** Re-running tests after bug fixes or new feature additions.
 
-</details>
-
-<details><summary>The Need for Unit Testing</summary>
+## The Need for Unit Testing
 
 Code tends to deteriorate. Each time you change something in a code base, the amount of disorder in it, or entropy, increases. Without proper care, such as constant cleaning and refactoring, the system becomes increasingly complex and disorganized. Tests help overturn this tendency.
 
@@ -75,9 +102,7 @@ Keep in mind that not every test holds the same importance. While certain tests 
 
 > Code is a liability, not an asset. The more code you introduce, the more you extend the surface area for potential bugs in your software, and the higher the project's upkeep cost. It's always better to solve problems with as little code as possible. Tests are code too.
 
-</details>
-
-<details><summary>About Code Coverage</summary>
+### About Code Coverage
 
 A coverage metric shows how much source code a test suite examines, from none to 100%. However, code coverage metrics don't tell the full story for two reasons:
   
@@ -92,8 +117,6 @@ Per #2 above, external code paths may yield different results based on the input
 
 _The best way to view a coverage metric is as an indicator, not a goal in and of itself_. It's good to have a high level of coverage in core parts of your system.  It's bad to make this high level a requirement.
 
-</details>
-
 ## Properties of Successful Test Suites
 
 A successful test suite has the following properties:
@@ -101,8 +124,6 @@ A successful test suite has the following properties:
 - It's integrated into the development cycle
 - It targets only the most important parts of your code base
 - It provides maximum value with minimum maintenance costs
-
-<details><summary>More info</summary>
 
 The only point in having automated tests is if you constantly use them. All tests should execute on every code change, even the smallest one.
 
@@ -125,8 +146,6 @@ The most difficult part of unit testing is achieving maximum value with minimum 
 - Learn how to differentiate between a good test and a bad test
 - Be able to refactor a test to make it more valuable
 
-</details>
-
 ## What is a Unit Test?
 
 A unit test is an automated test that
@@ -135,7 +154,7 @@ A unit test is an automated test that
 2. Does it quickly, and
 3. Does it in an isolated manner
 
-<details><summary>The London Approach vs the Classical Approach</summary>
+### The London Approach vs the Classical Approach
 
 Most people agree on the first and second points above. The third point, isolation, is so controversial that there are two distinct views on unit testing:
 
@@ -171,9 +190,8 @@ In the Pester PowerShell testing suite, mocks are used as a test double. However
 
 In the classical approach, it's not the code that needs to be tested in an isolated manner; instead, the unit tests themselves should be run in isolation from each other. Isolating unit tests works fine so as long as they all reside in memory and don't reach out to a shared state, through which the tests can affect each other's execution context.  Typical examples of shared state are out-of-process dependencies&mdash;the database, the filesystem, and so on.
 
-</details>
 
-<details><summary>Dependency Types</summary>
+### Dependency Types
 
 A dependency refers to any external system or component that the code under test interacts with or relies upon to function correctly.
 
@@ -209,17 +227,13 @@ The following table sums up the difference between the London and Classical styl
 
 <img src='img/20240244-044411.png' width=700px>
 
-</details>
-
-<details><summary>The London approach or the Classical approach?</summary>
+### The London approach or the Classical approach?
 
 In the chapters that follow, the author discusses that the most important attribute of a unit test is its resistance to refactoring. To achieve resistance to refactoring, you must decouple the unit test from its implementation details.
 
 The London school advises mocking for all intra-system and inter-system dependencies. When mocking intra-system dependencies, there becomes a reliance on implementation details, as the end user doesn't care about private classes or private functions; the end user just needs to verify the result. Mocking intra-system dependencies leads to fragile tests (false positives).
 
 With this concept in mind, the author advises for the Classical approach so that mocks are only established for dependencies that are external to the application. Dependencies for intra-system communications are not mocked in the Classical approach.
-
-</details>
 
 ## The Anatomy of a Unit Test
 
@@ -243,9 +257,7 @@ A good unit test has the following four attributes:
 
 There is always a tradeoff between the first three pillars.
 
-<details><summary>More details on the four pillars of a good unit test...</summary>
-
-### Protection against regression
+### 1. Protection against regression
 
 A regression (i.e. a software bug) refers to a situation where a previously functioning feature  stops working after changes. With regard to protection against regression, here are a few points to keep in mind:
 
@@ -257,7 +269,7 @@ A regression (i.e. a software bug) refers to a situation where a previously func
 
 Protection against regressions is a measure of how good the test is at indicateing the presence of bugs (regressions). The more code the test executes (both your code and the code of libraries and frameworks used in the project), the higher the chance the test will reveal a bug.
 
-### Resistance to refactoring
+### 2. Resistance to refactoring
 
 Resistance to refactoring is the degree to which a test can sustain application code refactoring without producing a false alarm.
 
@@ -265,7 +277,7 @@ Resistance to refactoring is the degree to which a test can sustain application 
 
 Refactoring means changing existing code without modifying its observable behavior. The intention of refactoring is usually to increase readability and reduce complexity. Resistance to refactoring is the degree to which a test can sustain a refactoring of the underlying application code without turning red (failing).
 
-<details><summary>About false positives</summary>
+#### About false positives
 
 False positives in unit tests that result from refactoring interfere with the benefits of units tests in the following ways:
 
@@ -280,11 +292,7 @@ Good unit tests focus on the end result. Bad unit tests focus on the implementat
 
 <img src='img/20240158-045854.png' width=700px>
 
-</details>
-
-
-
-### Fast feedback
+### 3. Fast feedback
 
 Fast tests are an essential property of a unit test. The faster the tests, the more of them you can have in your test suite and the more often you can run them.
 
@@ -292,7 +300,7 @@ Slow tests delay feedback and discourage you from running them often.
 
 Unit tests, by their isolated nature, are fast tests as compared to other types of tests, e.g. integration tests.
 
-### Maintainability
+### 4. Maintainability
 
 The ability to maintain a unit test has two components:
 
@@ -322,9 +330,7 @@ When needing to prioritize, resistance to refactoring is non-negotiable because 
 
 Tests must focus on the "what", not the "how"!
 
-</details>
-
-## Mocks and Test Fragility
+## Mocks and Test Doubles
 
 A test double is an overarching term that describes all kinds of non-production-ready, fake dependencies to facilitate testing. There are five variations of test doubles: dummy, stub, spy, mock, and fake.
 
@@ -334,7 +340,7 @@ The five variations of the test doubles can be grouped into two types: mocks and
 
 - Stub: emulate incoming interactions, for example calls that the system under test makes to get data. A stub is used to provide predetermined responses to calls made during the test. Stubs return fixed values and are programmed with simple logic to respond to different inputs in a controlled manner. However, they do not contribute to business logic and have no side effects. Example: if a method requires data from a database to proceed, a stub can be used to simulate database responses without connecting to an actual database.
 
-<details><summary>Other Test Double Types</summary>
+### Other Test Double Types
 
 An important distinction between a mock and a stub is that mocks help to _emulate_ and _examine_ interactions between the system under test (SUT) and its dependencies, while stubs only help to emulate those interactions. 
 
@@ -350,9 +356,9 @@ The other test types are closely related to Mocks and Stubs:
 
 **NOTE**: The term _mock_ is overloaded and can mean different things. You can use a mock (the tool) to create a test double (mock or stub). For example, in PowerShell you use the `mock` command to create a mock for function calls.
 
-</details>
+### Asserting interactions with stubs
 
-<details><summary>Never Assert Interactions with Stubs!</summary>
+Never assert interactions with stubs!
 
 A call from a stub is not a part of the end result the system under test (SUT) produces. Such a call is only a means to produce the end result: a stub provides input from which the SUT then generates output.
 
@@ -362,9 +368,7 @@ The process of verifying things that aren't part of the end result is also calle
 
 Mocks are a more complicated subject:  not all uses of mocks lead to test fragility, but a lot of them do.
 
-</details>
-
-<details><summary>Observable Behavior vs Implementation Detail</summary>
+#### Observable Behavior vs Implementation Detail
 
 To improve the fragility of tests, the tests themselves must focus on the "what", not the "how". The "how" is the implementation detail.  The "what" is observable behavior.
 
@@ -382,17 +386,13 @@ Any code that does neither of these things is an _implementation detail_.
 
 Well-designed code is code whose observable behavior coincides with the public API and whose implementation details are hidden behind the private API. A code _leaks_ implementation detail when its public API extends beyond the observable behavior.
 
-</details>
-
-<details><summary>Intra-System and Inter-System Communications</summary>
+### Intra-System and Inter-System Communications
 
 There are two types of communications in an application: intra-system communications and inter-system communications. Intra-system communications are implementation details. Inter-system communications are observable behavior, with the exception of external systems that are accessible only through your application. In the exception case, interactions with external systems are implementations details too, because the resulting side effects are not observed externally.
 
 Using mocks to assert intra-system communications leads to _fragile_ tests. Mocking is legitimate only when it's used for inter-system communications&mdash;communications that cross the application boundary&mdash;and only when the side effects of those communications are visible to the external world.
 
 <img src='img/20240214-051425.png' width=600px>
-
-</details>
 
 ## The Styles of Unit Testing
 
@@ -401,8 +401,6 @@ There are threes styles of unit testing:
 - Output-based testing
 - State-based testing
 - Communication-based testing
-
-
 
 ### Output-Based Style
 
