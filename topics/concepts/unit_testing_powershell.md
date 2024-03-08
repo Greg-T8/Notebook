@@ -2,35 +2,39 @@
 
 This article is for the IT admin who develops and maintains PowerShell scripts that have some importance, complexity, and longevity in their purpose.
 
-About me: I have a keen interest in both PowerShell and writing good code. The material I present in this article is to raise awareness to PowerShell coding techniques that support bug-free code that is easy to refactor and maintain. The material from this article comes from the book [Unit Testing Principals, Practices, and Patterns by Vladimir Khorkov](https://a.co/d/6wa024c).
+About me: I have a keen interest in both PowerShell and writing good code. The material I present in this article is to raise awareness on PowerShell coding techniques that support bug-free code. The material I present in this article comes from the book [Unit Testing Principals, Practices, and Patterns by Vladimir Khorkov](https://a.co/d/6wa024c).
 
 ## The need for testing
 
-Simple PowerShell scripts are ideal for utility. However, code itself is a liability. The more code you introduce, the more code that must be maintained, and the more likelihood that changing or adding code introduces bugs.
+Simple PowerShell scripts are ideal for utility. However, when scripts get complex and become critical to operations, it becomes necessary to introduce controls and automation to prevent service disruption. 
 
-Visual Studio Code provides powerful, easy-to-use tools for squashing bugs. However, over time, as the need arises to introduce more features, it becomes increasingly difficult to avoid introducing bugs. Software testing combats this problem by establishing a separate portion of code&mdash;test code&mdash;that is dedicated to identify bugs before the system code makes it it to production.
+Code itself is a liability. The more code you introduce, the more code that must be maintained, and the more likelihood that changing or adding code introduces bugs.
 
-In fact, without this test code, you can expect the number of hours spent maintaining system code to increase exponentially over its development lifecycle. Furthermore, it's not just sufficient to write tests, because writing bad tests will put you in a similar position as not having any tests. Therefore, it's important to know how to write good tests to optimize effort spent maintaining and improving the codebase.
+Visual Studio Code provides powerful, easy-to-use tools for squashing bugs. However, over time, as the need arises to introduce more features, it becomes increasingly difficult to avoid introducing bugs. Software testing combats this problem by establishing a separate portion of code&mdash;test code&mdash;that is designed to catch bugs before they make it it to production.
+
+Without tests, over time, you can expect the number of hours spent maintaining system code to increase exponentially as new code is introduced. And it's not just sufficient to write test code, because writing bad tests will put you in a similar position as not having any tests. Therefore, it's important to know how to write good tests to optimize the effort spent maintaining and improving the codebase.
 
 <figure>
   <img src='img/20240306-060633.png' width=400px>
   <figcaption>Source: Unit Testing: Principles, Practices, and Patterns by Vladimir Khorikov</figcaption>
 </figure>
 
+But again, code is a liability, and test code is no exception. If you're not careful, test code can become as much of a liability as system code, and the end result is a complicated test suite that brings little value and more headache.
 
-When should you test?
+In the coming sections, you will understand how to create a basic test in PowerShell, the difference between an integration test and a unit test, what makes a good unit test, and how to restructure both your system code and test code to bring the most value.
 
+Let's start with a basic PowerShell test...
 
-## Introducing a test
+## A basic PowerShell test
 
 In PowerShell, test suites are written using the [`Pester`](https://pester.dev/) module. The term "pester" is a playful nod to what tests do: they persitently bother or "pester" the code to ensure it behaves as expected under various conditions.
 
-Here's a basic example of a Pester test. You can put this code in a `.ps1` file and run it.
+Here's a basic example of a Pester test in PowerShell. You can put this code in a `.ps1` file and run it.
 
 ```powershell
 #SimpleTest.ps1
 function Set-TextFile {
-    Set-Content -Path "$PSScriptRoot\TextFile.txt" -Value 'Hello, World!' 
+    Set-Content -Path "$PSScriptRoot/textfile.txt" -Value 'Hello, World!' 
 }
 
 Describe "Set-TextFile" {
@@ -40,16 +44,16 @@ Describe "Set-TextFile" {
         Set-TextFile
 
         # Assert test result
-        Get-Content -Path "$PSScriptRoot\TextFile.txt" | Should -Be "Hello, World!"
+        Get-Content -Path "$PSScriptRoot\textfile.txt" | Should -Be "Hello, World!"
     }
 }
 ```
+
 When you run this script in Visual Studio Code, the PowerShell extension recognizes the testing syntax and outputs the result.
 
 <img src='img/20240316-061617.png' width=300px>
 
-Note the usage of `Describe`, `It`, and `Should`. In software testing, test cases are written in a human-readable format that describes the _expected behavior of the software_. 
-
+Note the usage of `Describe`, `It`, and `Should`. In software testing, test cases are written in a human-readable style that describes the _expected behavior of the software_. I emphasize this point to distinguish expected behavior (the end result) from implementation details. More on this later.
 
 Some things to note about this test. While it might appear to finish in a short time
 
