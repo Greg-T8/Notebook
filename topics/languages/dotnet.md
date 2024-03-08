@@ -54,6 +54,8 @@ This page is a collection of my notes on learning C# and .NET. I captured most o
     - [Text input and handling null cases](#text-input-and-handling-null-cases)
     - [Key input](#key-input)
     - [Passing arguments to a console app](#passing-arguments-to-a-console-app)
+    - [Setting options with arguments](#setting-options-with-arguments)
+    - [Handling platforms that do not support an API](#handling-platforms-that-do-not-support-an-api)
 
 
 
@@ -269,7 +271,7 @@ Upon saving the `.csproj` file, the `GlobalUsings.cs` file is automatically upda
 
 <img src='img/20240224-042457.png' width=400px>
 
-**Good Practice**: Modify the project's `.csproj` file to change what is included in the auto-generated class file in the `obj` folder hierarchy.
+**Good Practice**: To simplify your code, each time you create a new project, modify the project's `.csproj` file to change what is included in the auto-generated class file in the `obj` folder hierarchy.
 
 ##### Importing a static type for a single file
 
@@ -417,7 +419,7 @@ To confirm the language and compiler version, enter the following statement in a
 
 #### C# Types vs Classes
 
-C# doesn't define any types. Keywords such as `string` that look like types are **aliases**, which represent types provied by the platform on which C# runs. C# cannot exist alone. The platform on which C# runs is .NET, which provides tens of thousands of types to C#, including `System.Int32`, which is the C# keyword alias `int` maps to. In theory, someone could write a C# compiler that uses a different platform, with different underlying types.
+C# doesn't define any types. Keywords such as `string` that look like types are **aliases**, which represent types provided by the platform on which C# runs. C# cannot exist alone. The platform on which C# runs is .NET, which provides tens of thousands of types to C#, including `System.Int32`, which is the C# keyword alias `int` maps to. In theory, someone could write a C# compiler that uses a different platform, with different underlying types.
 
 **Type** is often confused with **class**. In C#, every **type** can be categorized as a `class`, `struct`, `enum`, `interface`, or `delegate`. As an example, the C# keyword `string` is a `class`, but `int` is a `struct`. So, it is best to use the term **type** to refer to both.
 
@@ -1389,6 +1391,81 @@ Output: note how `key` has the properties representing the key pressed and any m
 <img src='img/20240332-043232.png' width=300px>
 
 #### Passing arguments to a console app
+
+When you want to run a console app, you often want to change its behavior by passing arguments. In every version of .NET prior to version 6 (2015), the console app project template made it obvious, as shown in the following code:
+
+```csharp
+namespace Arguments
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Hello, World!");
+        }
+    }
+}
+```
+
+The `string[] args` arguments are declared and passed in the `Main` method of the `Program` class. However, in top-level programs, as used by the console app project template in .NET 6 and later, the `Program` class and its `Main` method are hidden, along with declaration of the `args` array. The trick is that you must know it still exists.
+
+Command-line arguments are separated by spaces. Other characters like hyphens and colons are treated as part of an argument value.
+
+To include spaces in an argument value, enclose the argument value in single or double quotes.
+
+In Visual Studio, you can specify the arguments for running your program by clicking **Debug > "Project Name" Debug Properties**. This action brings up the "Launch Profiles" menu, where you can specify the arguments.
+
+<img src='img/20240357-035733.png' width=400px>
+
+The results of the launch profile configuration are written to the **launchSettings.json** file in the project directory.
+
+<img src='img/20240358-035842.png' width=400px>
+
+Given the following code, 
+
+```csharp
+WriteLine($"There are {args.Length} arguments.");
+foreach (string arg in args)
+    WriteLine(arg);
+```
+
+The resulting output is:
+
+<img src='img/20240359-035957.png' width=200px>
+
+#### Setting options with arguments
+
+The following example shows how you can 
+
+```csharp
+if (args.Length < 3)
+{
+    WriteLine("You must specify two colors and cursor size, e.g.");
+    WriteLine("dotnet run red yellow 50");
+    return; // stop running
+}
+
+ForegroundColor = (ConsoleColor)Enum.Parse(
+    enumType: typeof(ConsoleColor),
+    value: args[0], ignoreCase: true);
+BackgroundColor = (ConsoleColor)Enum.Parse(
+    enumType: typeof(ConsoleColor),
+    value: args[1], ignoreCase: true);
+CursorSize = int.Parse(args[2]);
+```
+
+When specifying `red yellow 50` in the launch profile configuration, the resulting output is, indicating that the foreground color was set to `red`, and the background color was set to `yellow`, and the cursor size, which you can't see, was set to `50`:
+
+<img src='img/20240314-041456.png' width=400px>
+
+References
+
+- [System.Console class](https://learn.microsoft.com/en-us/dotnet/api/system.console?view=net-8.0)
+
+#### Handling platforms that do not support an API
+
+
+
 
 
 
