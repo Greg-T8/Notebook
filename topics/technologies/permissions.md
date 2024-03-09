@@ -29,17 +29,17 @@ There are several concepts for the RBAC model:
 - Role Group: a set of roles that enable users to do their jobs across compliance solutions in the compliance portal
 
 You add users to role groups. Role groups contain multiple roles, with each role having a set of permissions.  
-![](../img/20230549-034923.png)
+![](./img/20230549-034923.png)
 
 You can create new role groups but you cannot create new roles. To make things confusing, there are roles with the same name as role groups.  For example, the Security Administrator role group contains the Security Administrator role, among other roles. To make things even more confusing, there are role groups with the same name as Azure AD roles, e.g. "Compliance Administrator". Membership in the Azure AD role does not carry over to membership in the Purview compliance role group&mdash;they are completely separate.
 
 The **Permissions** tab lists role groups. To view the Permissions tab, you need to be an admin. Specifically, you need to be assigned the **Role Management** role, and that role is assigned only to the **Organization Management** role group by default. The **Role Management** role also allows you to view, create, and modify role groups. 
 
-![](../img/20230546-034659.png)
+![](./img/20230546-034659.png)
 
 You may view the corresponding Azure AD roles and Microsoft Purview compliance role groups in the permissions tab.  Again, these are completely separate groups, even though some groups carry the same name.  
  
-![](../img/20230550-055029.png)
+![](./img/20230550-055029.png)
 
 See [Role groups in Microsoft Defender for Office 365 and Microsoft Purview compliance](https://learn.microsoft.com/en-us/microsoft-365/security/office-365-security/scc-permissions?toc=%2Fmicrosoft-365%2Fcompliance%2Ftoc.json&bc=%2Fmicrosoft-365%2Fbreadcrumb%2Ftoc.json&view=o365-worldwide#role-groups-in-microsoft-defender-for-office-365-and-microsoft-purview-compliance) for a table that lists the role groups along with their roles.
 
@@ -157,11 +157,11 @@ View all role-based commands in Microsoft Purview.  Requires either Azure AD Glo
 ```powershell
 Get-Command -Module tmp* -Noun *role*
 ```
-![](../img/20230556-055635.png)
+![](./img/20230556-055635.png)
 
 **Note:** Unlike many other parameters in PowerShell, the `-Identity` parameter in the cmdlets for managing role groups is case sensitive. You will get an error if you specify the wrong case:  
 
-![](../img/20230526-042652.png)
+![](./img/20230526-042652.png)
 
 
 ### Get Role Group Details
@@ -174,7 +174,7 @@ Get-RoleGroup |
       @{n='Roles'; e={ ($_ | Select -ExpandProperty roles) -replace '.*/', '' -join "`n" }} |
   Sort RoleCount -Descending | ft -wrap
 ```
-![](../img/20230516-031652.png)
+![](./img/20230516-031652.png)
 
 ### Get Role Details
 Use the following PowerShell command to pull role information. In PowerShell, a role is called a *management role*. 
@@ -196,7 +196,7 @@ function Get-PvManagementRole {
         Select Name, Description | Sort Name
 }
 ```
-![](../img/20230558-045824.png)
+![](./img/20230558-045824.png)
 
 Use the following command to list all role groups that contain the specified management role:
 ```powershell
@@ -211,7 +211,7 @@ function Get-PvRoleGroup {
         Select @{n='Role'; e={$role}}, @{n='RoleGroup';e={$roleGroup.DisplayName}}
 }
 ```
-![](../img/20230503-050342.png)
+![](./img/20230503-050342.png)
 
 ### Compare Role Assignments in Role Groups
 Use the following commands to compare role assignments between role groups.
@@ -222,7 +222,7 @@ $orgMgmtRoles = Get-RoleGroup -Identity 'OrganizationManagement' | select -Expan
 Compare-Object $allManagementRoles $orgMgmtRoles | Sort InputObject
 ```
 For the example above, the results below show all roles which the Organization Management role group does not have.  
-![](../img/20230534-033453.png)
+![](./img/20230534-033453.png)
 
 Let's say you want to compare role assignments between the following two role groups - Compliance Administrator and Compliance Data Administrator.  You can use the following approach:  
 ```powershell
@@ -236,7 +236,7 @@ Compare-Object $complianceAdministratorRoles $complianceDataAdministratorRoles |
 ```
 
 This command results in the following output:  
-![](../img/20230521-042116.png)
+![](./img/20230521-042116.png)
 
 To get role details you can expand on this further:  
 ```powershell
@@ -247,11 +247,11 @@ Compare-Object $complianceAdministratorRoles $complianceDataAdministratorRoles |
 ```
 Here are the results which list the role details available in the Compliance Administrator role group but are not available in the Compliance Data Administrator role group:  
 
-![](../img/20230522-042240.png)
+![](./img/20230522-042240.png)
 
 Additional command to compare role groups:
 
-![](../img/20230619-051915.png)
+![](./img/20230619-051915.png)
 
 ### Audit Membership for all Microsoft Purview Role Groups
 Use the following command to list all users and their corresponding Microsoft Purview role group membership:  
@@ -263,7 +263,7 @@ function Get-PvAllRoleGroupAssignments {
         Sort Name, RoleGroup 
 }
 ```
-![](../img/20230522-052214.png)
+![](./img/20230522-052214.png)
 
 A couple of things to note about this command:
 1. `Write-Output` is needed for `-PipelineVariable`, as this parameter doesn't seem to work for `Get-RoleGroup`
@@ -285,7 +285,7 @@ function Get-PvRoleGroupAssignment {
         Sort User, RoleGroup
 }
 ```
-![](../img/20230544-044433.png)
+![](./img/20230544-044433.png)
 
 Use the following command to list all role groups and roles for a set of users:
 ```powershell
@@ -303,7 +303,7 @@ function Get-PvManagementRoleAssignment {
         Sort User, Role, RoleGroup
 }
 ```
-![](../img/20230551-035141.png)
+![](./img/20230551-035141.png)
 
 Here is another version that uses the functions defined above. This example shows that the role group *Information Protection* is a higher-privileged role group than *Information Protection Admins*.  
 ```powershell
@@ -311,7 +311,7 @@ $ipa = Get-PvManagementRole -RoleGroup 'Information Protection Admins' | Select 
 $ip = Get-PvManagementRole -RoleGroup 'Information Protection' | Select -ExpandProperty Name
 Compare-Object $ip $ipa -IncludeEqual
 ```
-![](../img/20230636-033600.png)
+![](./img/20230636-033600.png)
 
 ### Manage Role Membership
 Use the following command to add a member to a role group:  
@@ -347,4 +347,4 @@ function Remove-PvAllRoleGroupAssignments {
 ```
 Note: the empty string `''` on the 5th line is to force output to the Select statement, as `Remove-RoleGroupMember` does not send any output to the pipeline.
 
-![](../img/20230517-051721.png)
+![](./img/20230517-051721.png)

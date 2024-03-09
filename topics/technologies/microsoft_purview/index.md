@@ -5,7 +5,7 @@
 - [Microsoft Purview Customer Experience Engineering (CxE)](https://microsoft.github.io/ComplianceCxE/)
 
 ## Topics
-- [Purview Permissions Model](/topics/technologies/microsoft_purview/permissions.md)
+- [Purview Permissions Model](/topics/technologies/permissions.md)
 - [Sensitive Information Types](/topics/technologies/microsoft_purview/sensitive_information_types.md)
 - [Trainable Classifiers](/topics/technologies/microsoft_purview/trainable_classifiers.md)
 - [Sensitivity Labels](/topics/technologies/microsoft_purview/sensitivity_labels.md)
