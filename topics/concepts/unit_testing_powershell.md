@@ -27,9 +27,9 @@ Let's start with a basic PowerShell test...
 
 ## A basic PowerShell test
 
-In PowerShell, test suites are written using the [`Pester`](https://pester.dev/) module. The term "pester" is a playful nod to what tests do: they persitently bother or "pester" the code to ensure it behaves as expected under various conditions.
+In PowerShell, test suites are written using the [`Pester`](https://pester.dev/) module. The term "pester" is a playful nod to what tests do: they persitently bother or "pester" the code to ensure it behaves as expected under various conditions. The `Pester` module comes with PowerShell by default, and the cmdlets should be immediately available for you to use.
 
-Here's a basic example of a Pester test in PowerShell. You can put this code in a `.ps1` file and run it.
+Here's a basic example of a Pester test in PowerShell. Feel free to put this code in a `.ps1` file and run it.
 
 ```powershell
 #SimpleTest.ps1

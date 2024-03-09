@@ -4,7 +4,6 @@ This page is a collection of my notes on learning C# and .NET. I captured most o
 
 - [C# 12 and .NET 8 Modern Cross-Platform Development Fundamentals](https://www.amazon.com/gp/product/B0CGZVT568/ref=ppx_yo_dt_b_d_asin_title_o00?ie=UTF8&psc=1)
 - [C# Documentation](https://learn.microsoft.com/en-us/dotnet/csharp/)
-- [GitHub repository for Modern Cross-Platform Development Fundamentals](https://github.com/markjprice/cs12dotnet8)
 
 ## Table of Contents
 
@@ -55,9 +54,9 @@ This page is a collection of my notes on learning C# and .NET. I captured most o
     - [Key input](#key-input)
     - [Passing arguments to a console app](#passing-arguments-to-a-console-app)
     - [Setting options with arguments](#setting-options-with-arguments)
-    - [Handling platforms that do not support an API](#handling-platforms-that-do-not-support-an-api)
-
-
+    - [Handling platforms that do not support an API (conditional preprocessor directives)](#handling-platforms-that-do-not-support-an-api-conditional-preprocessor-directives)
+    - [Understanding async and await](#understanding-async-and-await)
+    - [Knowledge check](#knowledge-check)
 
 ## Introduction
 
@@ -114,7 +113,7 @@ In 1999, before the first release of C#, the codename was **C-like Object-Orient
 | 2.0        | 2005         | .NET Framework 2.0                       | Generics, partial types, anonymous methods, nullable types, iterator blocks  | Generics, partial classes, nullable types                   |
 | 3.0        | 2007         | .NET Framework 3.0                       | LINQ, lambda expressions, extension methods                                  | WPF, WCF, WF, CardSpace                                    |
 | 4.0        | 2010         | .NET Framework 4                         | Dynamic binding, named and optional arguments, generic co- and contravariance| Parallel Extensions, MEF                                    |
-| 5.0        | N/A          | N/A                                      | N/A                                                                           | N/A                                                         |
+| 5.0        | 2012         | .NET Framework 4.5                       | `async` and `await` keywords                                                 | Portable Class Libraries (PCL)                               |
 | 6.0        | 2015         | .NET Framework 4.6                       | Roslyn compiler, string interpolation, expression-bodied members            | Compilation and runtime performance improvements            |
 | 7.0        | 2017         | .NET Core 1.0/1.1, .NET Framework 4.6.2  | Out variables, tuples, pattern matching, local functions                     | Introduction of .NET Core, a cross-platform framework       |
 | 8.0        | 2019         | .NET Core 3.0, .NET Framework 4.8        | Nullable reference types, async streams, default interface methods          | .NET Core 3.0 supports desktop applications (WPF, Windows Forms) |
@@ -1462,14 +1461,105 @@ References
 
 - [System.Console class](https://learn.microsoft.com/en-us/dotnet/api/system.console?view=net-8.0)
 
-#### Handling platforms that do not support an API
+#### Handling platforms that do not support an API (conditional preprocessor directives)
 
+In the last section, the call to set the cursor size is not supported on the macOS platform; it throws an exception. You can use `try`-`catch` statements to catch the exception and provide a friendlier message:
 
+```csharp
+try
+{
+    CursorSize = int.Parse(args[2]);
+}
+catch (PlatformNotSupportedException)
+{
+    WriteLine("This current platform does not support changing the size of the cursor.")
+}
+```
 
+Another way to handle the differences is to use the `OperatingSystem` class in the `System` namespace, as shown:
 
+```csharp
+if (OperatingSystem.IsWindows())
+{
+    // Execute code that only works in Windows
+} 
+else if (OperatingSystem.IsWindowsVersionAtLeast(major:10))
+{
+    // Execute code that only works on Windows 10 or later
+} else if (OperatingSystem.IsIOSVersionAtLeast(major:14, minor:5))
+{
+   // Execute code that only works on iOS 14.5 or later 
+} else if (OperatingSystem.IsBrowser())
+{
+    // Execute code that only works in the browser with Blazor
+}
+```
 
+See [OperatingSystem class](https://learn.microsoft.com/en-us/dotnet/api/system.operatingsystem?view=net-8.0)
 
+A third way to handle different platforms is to use conditional compilation statements. There are four preprocessor directives that control conditional compilation: `#if`, `#elif`, `#else`, and `#endif`. The conditional preprocessor directives let you include or exclude code based on the existence of one or more symbols.
 
+You define symbols using `#define` as shown:
 
+```csharp
+#define MYSYMBOL
+```
 
+Many symbols are automatically defined for you:
+
+<img src='img/20240346-044627.png' width=600px>
+
+You can then write statements that will compile only for the specified platforms:
+
+```csharp
+#if NET7_0_ANDROID
+// Compile statements that only work on Android
+#elif NET7_0_IOS
+// Compile statements that only work on iOS
+# else
+// Compile statements that work everywhere else.
+#endif
+```
+
+See [C# preprocessor directives](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/preprocessor-directives)
+
+#### Understanding async and await
+
+C# 5 (2012) introduced two C# keywords when working with the `Task` type that enable easy multi-threading. The pair of keywords is especially useful in
+
+- Implementing multitasking for a graphical user interface
+- Improving the scalability of web applications and web services
+- Preventing blocking calls when interacting with the filesystem, databases, and remote services, all of which tend to take a long time to complete their work
+
+One of the limitations with console apps is that you can only use the `await` keyword inside methods that are marked as `async`, but C# 7 (2015) and earlier do not allow the `Main` mehtod to be marked as `async`. Luckily, a new feature introduced in C# 7.1 was support for `async` in `Main`.
+
+The following code provides an example of how `async` can be used in a console app.
+
+```csharp
+HttpClient client = new();
+HttpResponseMessage response = await client.GetAsync("http://www.apple.com");
+WriteLine("Apple's home page has {0:N0} bytes.", response.Content.Headers.ContentLength);
+```
+
+Output:
+
+<img src='img/20240308-050851.png' width=300px>
+
+In .NET 5 and earlier you would've received an error message indicating the `await` operator can only be used within an async method, and to change the return type of the method to `Task`. You would've had to add the `async` keyword for your `Main` method and change its return type from `Void` to `Task`. 
+
+With .NET 6 and later, the console app project template uses the top-level program feature to automatically define the `Program` class with an asynchronous `<Main>$` method for you.
+
+<img src='img/20240245-064547.png' width=600px>
+
+#### Knowledge check
+
+##### Exercise 2.1 - Test your knowledge
+
+<details><summary>1. What statement can you type in a C# file to discover the compiler and language version?</summary>
+
+<br>
+
+blah
+
+</details>
 
