@@ -9,7 +9,7 @@ Use the links below to discover more about what I'm learning.
 
 ## Technologies
 
-- [Microsoft Defender](/topics/technologies/microsoft_defender/defender.md)
+- [Microsoft Defender](/topics/technologies/defender.md)
 - [Microsoft Purview](/topics/technologies/microsoft_purview/index.md)
 
 ## Programming Languages
