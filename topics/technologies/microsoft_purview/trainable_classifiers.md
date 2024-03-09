@@ -49,7 +49,7 @@
 ### Trainable Classifiers
 To manage trainable classifiers, a user needs to access the **Data Classification** node in Microsoft Purview compliance portal.
 
-![](img/20230514-031406.png)
+![](../img/20230514-031406.png)
 
 The following roles are able to access the Data Classification > Classifiers > Trainable Classifiers node:  
 - Global Administrator (Azure AD)
@@ -64,7 +64,7 @@ Access to Content Explorer is highly restricted because it lest you read the con
 
 To provide feedback in Content Explorer, you must be a member of a role group that has the *Data Classification Content Viewer* and *Data Classification List Viewer* roles. You will receive the following message if you are not a member of a role group that has these roles. See [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/data-classification-content-explorer?view=o365-worldwide#permissions) for more info.
  
-![](img/20230534-053452.png)
+![](../img/20230534-053452.png)
 
 The following Microsoft Purview role groups have access provide feedback in Content Explorer: 
 - Privacy Management
@@ -89,11 +89,11 @@ If you want these roles to have access to Content Explorer then you must also ad
 ### Scanning Opt-in
 A Global Admin must opt in to scan the organization's content. This message first appears when accessing the Trainable Classifiers tab. 
 
-![](img/20230557-035736.png)
+![](../img/20230557-035736.png)
 
 The opt-in takes 12 days for Microsoft 365 to complete a baseline evaluation of the organization's content. See [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/classifier-get-started-with?view=o365-worldwide#timeline). During this time the option to create a trainable classifier will be disabled.
 
-![](img/20230542-034225.png)
+![](../img/20230542-034225.png)
 
 ## Licensing
 - Reference
@@ -123,7 +123,7 @@ This categorization method is based on Machine Learning and is well-suited to co
 
 You can view the trainable classifiers in content explorer by expanding **Trainable Classifiers** in the filters panel. 
 
-![](img/20230525-052558.png)
+![](../img/20230525-052558.png)
 
 **Types of Classifiers**
 There are two types of classifiers  
@@ -164,7 +164,7 @@ Examples for which you can create trainable classifiers:
 ### Process flow for creating custom classifiers
 Creating and publishing a classifier for use in compliance solutions, such as retention policies and communication supervision, follows this flow. For more detail on creating a custom trainable classifier, see [Creating a custom classifier]().  The process starts by using seed data with a minimum of 50 samples. You then create the classifier and provide sample data, consisting of positive and negative samples. Finally, you provide feedback to the model and then publish the classifier.
 
-![](img/20230549-054907.png)
+![](../img/20230549-054907.png)
 
 #### Seed content
 When you want a trainable classifier to independently and accurately identify an item as being in a particular category of content, you must first have to present it with many samples of the type of content that are in the category. This feeding of samples to the trainable classifier is known as *seeding*. Seed content is selected by a human and is judged to represent the category of the document. 
@@ -198,17 +198,17 @@ Once the trainable classifier has processed enough positive samples to build a p
 
 6. Pick the SharePoint Online site, library, and folder URL for the seed content site for step 2. Choose `Add`. 
 
-![](img/20230610-041001.png)
+![](../img/20230610-041001.png)
 
 7. Review the settings and choose `Create trainable classifier`. 
 
-![](img/20230611-041131.png)
+![](../img/20230611-041131.png)
 
 8. Within 24 hours the trainable classifier will process the seed data and build a prediction model. The classifier status is `In Progress` while it processes the seed data. When the classifier is finished processing the seed data, the status changes to `Need test items`. 
 
 9.  You can now view the details page by choosing the classifier.
 
-![](img/20230546-034603.png)
+![](../img/20230546-034603.png)
 
 10. Collect at least 200 test content items (10,000 max) for best results. These should be a mix of items that are strong positives, strong negatives, and some that are a little less obvious in their nature. 
 
@@ -222,17 +222,17 @@ Once the trainable classifier has processed enough positive samples to build a p
 
 15. When the trainable classifier is done processing your test files, the status on the details page will change to `Ready to review`. If you need to increase the sample size, choose `Add items to test` and allow the trainable classifier to process the additional items.
 
-![](img/20230554-035422.png)
+![](../img/20230554-035422.png)
 
 16. Choose `Tested items to review` tab to review items.
 
 17. Microsoft 365 will present 30 items at a time. Review them and in the `We predict this items is "Relevant". Do you agree?` box choose either `Yes` or `No` or `Not sure, skip to the next item`. Model accuracy is automatically updated every 30 items.
 
-![](img/20230558-035814.png)
+![](../img/20230558-035814.png)
 
 18. Review at least 200 items. Once the accuracy score has stabilized, the **publish** option will become available and the classifier status will say `Ready to use`. 
 
-![](img/20230559-035930.png)
+![](../img/20230559-035930.png)
 
 19. Publish the classifier.
 
@@ -254,7 +254,7 @@ You can help improve the accuracy of all custom trainable classifiers and by pro
 - A classifier must already be published and in use before it can be retrained.
 - By default, only the user who creates a custom classifier can train and review predictions made by the classifier
 
-![](img/20230553-055316.png)
+![](../img/20230553-055316.png)
 
 You retrain your classifiers by evaluating the quality of the classifications made for items identified as being a match or not a match. After you make 30 evaluations for a classifier, it takes that feedback, and automatically retrains itself.  
 
@@ -285,11 +285,11 @@ Retraining information goes to the classifier in your tenant.  It does not go ba
 
 9. The classifier that was used in your Communications compliance policy will appear under the **Re-training** heading.
 
-![](img/20230605-040525.png)
+![](../img/20230605-040525.png)
 
 10. Once retraining completes, choose the classifier to open the retraining overview.
 
-![](img/20230606-040603.png)
+![](../img/20230606-040603.png)
 
 11. Review the recommended action, and the prediction comparisons of the retrained and currently published versions of the classifier.
 

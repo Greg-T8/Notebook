@@ -1,9 +1,10 @@
-# Sensitivity Labels in Microsoft Purview Information Protection
+# Microsoft Puview Notes
 
-- [Helpful Links](#helpful-links)
-- [Licensing for Sensitivity Labels](#licensing-for-sensitivity-labels)
-- [Overview](#overview)
-  - [Labels, Sublabels, and Label Scopes](#labels-sublabels-and-label-scopes)
+- [Sensitivity Labels](#sensitivity-labels)
+  - [Helpful Links](#helpful-links)
+  - [Licensing for Sensitivity Labels](#licensing-for-sensitivity-labels)
+  - [Overview](#overview)
+    - [Labels, Sublabels, and Label Scopes](#labels-sublabels-and-label-scopes)
   - [Container Support for Sensitivity Labels](#container-support-for-sensitivity-labels)
   - [Define and Create Sensitivity Labels](#define-and-create-sensitivity-labels)
   - [Editing or Deleting a Sensitivity Label](#editing-or-deleting-a-sensitivity-label)
@@ -73,7 +74,10 @@
   - [Remove an RMS Template](#remove-an-rms-template)
   - [Restore an RMS Template](#restore-an-rms-template)
 
-## Helpful Links
+## Sensitivity Labels
+
+### Helpful Links
+
 - [Learn about sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels?view=o365-worldwide)
 - [Create a well-designed data classification framework](https://learn.microsoft.com/en-us/compliance/assurance/assurance-create-data-classification-framework)
 - [Microsoft Information Protection SDK: Classification label concepts](https://learn.microsoft.com/en-us/information-protection/develop/concept-classification-labels)
@@ -88,8 +92,10 @@
 - [Migration Playbook for Built-in Labeling](https://microsoft.github.io/ComplianceCxE/playbooks/AIP2MIP/CompareAIP2MIP/)
 - [Known Issues - Azure Information Protection](https://learn.microsoft.com/en-us/azure/information-protection/known-issues)
 
-## Licensing for Sensitivity Labels
+### Licensing for Sensitivity Labels
+
 The following licenses are required for using Information Protection features:
+
 - An E5 license is required for each user who accesses protected documents in locations that use automatic labeling. 
 - An E3 license is required when using manual labeling. Labeling by using a default label is considered manual labeling, as the user has the option to accept or change the label. By default, information protection features are applied at the tenant level for all users within the tenant.
 - No license is necessary for someone who only opens and accesses the content in protected files.
@@ -97,10 +103,12 @@ The following licenses are required for using Information Protection features:
 See [Microsoft Licensing Guidance: Purview Information Protection](https://learn.microsoft.com/en-us/office365/servicedescriptions/microsoft-365-service-descriptions/microsoft-365-tenantlevel-services-licensing-guidance/microsoft-365-security-compliance-licensing-guidance#microsoft-purview-information-protection-sensitivity-labeling)
 
   
-## Overview
+### Overview
+
 Sensitivity labels enable you to protect files and containers (Teams, SharePoint, OneDrive) from unauthorized access. Sensitivity labels can be applied manually using the [Sensitivity Bar](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-office-apps?view=o365-worldwide#sensitivity-bar) in the Office apps. Sensitivity labels also have [PDF support](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-office-apps?view=o365-worldwide#pdf-support). See [Common scenarios for sensitivity labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/get-started-with-sensitivity-labels?view=o365-worldwide#common-scenarios-for-sensitivity-labels). A sensitivity label is stored in clear text in the metadata for files and emails. This allows third-party apps and services to read it and apply their own protective actions. It also means the label stays with the content, no matter where it's stored or saved.
 
-### Labels, Sublabels, and Label Scopes
+#### Labels, Sublabels, and Label Scopes
+
 When you create sensitivity labels, they appear in a list on the **Information Protection > Labels** page in Microsoft Purview Compliance (https://compliance.microsoft.com). In this list, the order of the labels is important because it reflects their priority. You want your most restrictive sensitivity label, such as Highly Confidential, to appear at the bottom of your list, and your least restrictive label to appear at the top.
 
 You can apply just one sensitivity label to an item, such as an email, document, or container. If you set an option that requires your users to provide a justification for changing a label to lower sensitivity, the order of this list identifies the lower sensitivity. However, users are not required to provide justification when changing to a lower priority *within a sublabel*. 
@@ -118,7 +126,7 @@ See [Learn about sensitivity labels](https://learn.microsoft.com/en-us/purview/s
 ### Container Support for Sensitivity Labels
 Containers include Teams, SharePoint sites, and Microsoft 365 Groups. Sensitivity labels can be applied to these containers, but the labels do not apply to the files within the containers. To protect files within Teams and SharePoint sites you must apply sensitivity labels to the files themselves (either manually or automatically) or to the SharePoint document library.
 
-<img src='../img/20230831-053108.png' width='600px'>
+<img src='img/20230831-053108.png' width='600px'>
 
 See [Use sensitivity labels with Teams, groups, and sites](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels-teams-groups-sites?view=o365-worldwide#how-to-enable-sensitivity-labels-for-containers-and-synchronize-labels) for enabling scopes for containers.
 
@@ -129,7 +137,7 @@ By default, tenants do not have any labels, so you must create them. Sensitivity
 
 Per [here](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-sensitivity-labels?view=o365-worldwide#when-to-expect-new-labels-and-changes-to-take-effect), allow up to 24 hours for labels and their settings to become available.  
 
-<img src='../img/20230633-033336.png' width='500px'>
+<img src='img/20230633-033336.png' width='500px'>
 
 See [Create and configure sensitivity labels and their policies](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-sensitivity-labels?view=o365-worldwide) for more info.
 
@@ -140,7 +148,7 @@ If you delete a sensitivity label from the admin portal, the label isn't automat
 
 When specifying the label settings, use the Content Marking section to apply visible marking. You can specify conditional settings for Word, Excel, PowerPoint, and Outlook. See [Dynamic markings with variables](https://learn.microsoft.com/en-us/purview/sensitivity-labels-office-apps#dynamic-markings-with-variables).
 
-<img src='../img/20231159-035920.png' width='500px'>
+<img src='img/20231159-035920.png' width='500px'>
 
 ### Built-in Labeling for the Office Apps
 A subscription edition of Office apps is required to use sensitivity labels. Standalone/perpetual editions of Office aren't supported.
@@ -241,30 +249,30 @@ See the following links for more information:
 ### Client-side Labeling
 Client-side labeling takes place within the Office apps (Word, Excel, PowerPoint, and Outlook) and supports two labeling methods: (1) recommending a label to users and (2) automatically applying a label. With client-side labeling, the auto-labeling settings are configured within the label.  See screenshot below.
 
-<img src='../img/20231107-040725.png' width=700px>
+<img src='img/20231107-040725.png' width=700px>
 
 #### Recommended Labeling
 
 When using recommended labeling, with sensitive information types, the Word application displays the **Show Sensitive Content** button. This button allows the user to see the sensitive information detected and optionally remove the content.
 
-<img src='../img/20231157-055712.png' width=600px>
+<img src='img/20231157-055712.png' width=600px>
 
 However, the **Show Sensitive Content** button does not appear for trainable classifiers. Instead, the user only receives the option to apply the label.
 
-<img src='../img/20231159-055919.png' width=600px>
+<img src='img/20231159-055919.png' width=600px>
 
 Soon Microsoft will introduce support for contextual highlighting for trainable classifiers.
 
-<img src='../img/20231137-063754.png' width=800px>
+<img src='img/20231137-063754.png' width=800px>
 
 #### Automatic Client-Side Labeling
 When configuring labeling settings, you also have the option to automatically apply a label.
 
-<img src='../img/20231112-041231.png' width=600px>
+<img src='img/20231112-041231.png' width=600px>
 
 When using automatic client-side labeling, the user receives a policy tip advising that a label has been applied. 
 
-<img src='../img/20231113-041331.png' width=400px>
+<img src='img/20231113-041331.png' width=400px>
 
 ### Service-side Auto Labeling
 See [How to configure auto-labeling policies for SharePoint, OneDrive, and Exchange](https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically#how-to-configure-auto-labeling-policies-for-sharepoint-onedrive-and-exchange).
@@ -273,7 +281,7 @@ When configuring auto labeling policies, you can't automatically label documents
 
 Service-side auto labeling enables you to label documents based on classifiers or based on file type, e.g. .docx, .pdf, etc.
 
-<img src='../img/20231106-060624.png' width=600px>
+<img src='img/20231106-060624.png' width=600px>
 
 You can also scope auto labeling policies to specific SharePoint sites, OneDrive accounts, or Exchange mailboxes.
 
@@ -288,11 +296,11 @@ In this case, the auto-labeling policy exists just for simulation purposes. The 
 
 The screenshot below shows an example of the simulation testing results.
 
-<img src='../img/20231101-060116.png' width=700px>
+<img src='img/20231101-060116.png' width=700px>
 
 You can then view the contextual summary for trainable classifiers or sensitive information types to help you understand why the content was marked as sensitive. 
 
-<img src='../img/20231102-060252.png' width=600px>
+<img src='img/20231102-060252.png' width=600px>
 
 
 ### Label Overrides
@@ -312,12 +320,12 @@ Sensitivity labels for SharePoint sites, Teams, and Microsoft 365 Groups is not 
 **Step 1: Enable sensitivity label support for groups in PowerShell**  
 Follow the guidance [here](https://learn.microsoft.com/en-us/azure/active-directory/enterprise-users/groups-assign-sensitivity-labels#enable-sensitivity-label-support-in-powershell) to set the `EnableMIPLabels` setting for groups to `True`. New tenants do not have a directory setting for groups, so you must create one. See [here](https://learn.microsoft.com/en-us/azure/active-directory/enterprise-users/groups-settings-cmdlets#template-settings) for a description of each template setting. Here are the default settings:
 
-![](../img/20230830-043058.png)
+![](img/20230830-043058.png)
 
 **Step 2: Synchronize sensitivity labels with Azure AD**  
 As a global administrator, run `Execute-AzureADLabelSync` in a Windows PowerShell session. 
 
-![](../img/20230807-030748.png)
+![](img/20230807-030748.png)
 
 This command is tricky to get working. I've only had success when running in the following scenarios:
 1. Running in Windows PowerShell, not modern PowerShell
@@ -327,7 +335,7 @@ In other scenarios, the command may time out after 5 minutes with a JSON error.
 
 In my case, the Sensitivity Label option for Microsoft 365 Groups appeared only after creating a Team, not a Microsoft 365 Group, and specifying a sensitivity label for the Team. The Sensitivity Label option will not appear for existing Microsoft 365 Groups.  
 
-<img src='../img/20230821-032128.png' width=500px>
+<img src='img/20230821-032128.png' width=500px>
 
 See the Microsoft Groups article [Assign sensitivity labels](https://learn.microsoft.com/en-us/azure/active-directory/enterprise-users/groups-assign-sensitivity-labels) for more info on changing, removing, and troubleshooting labels for Microsoft 365 Groups.
 
@@ -344,11 +352,11 @@ PDF support enables the following scenarios:
 
 To enable, use `SetSPOTenant` with the `-EnableSensitivityLabelforPDF:$true` option.
 
-<img src='../img/20231039-033953.png' width=600px>
+<img src='img/20231039-033953.png' width=600px>
 
 To confirm use `Get-SPOTenant` and view the `EnableSensitivityLabelforPDF` property. See [Get-SPOTenant](https://docs.microsoft.com/en-us/powershell/module/sharepoint-online/get-spotenant?view=sharepoint-ps).
 
-<img src='../img/20231040-034059.png' width=600px>
+<img src='img/20231040-034059.png' width=600px>
 
 
 ## Support for PDF Attachments in Message Encryption
@@ -362,7 +370,7 @@ In the first option using `Set-IRMConfiguration`, encryption of PDF files is onl
 
 The following screenshot enables PDF encryption for messages sent from Outlook on the web and mobile apps but not for the Outlook Win32 desktop app. See [Set-IRMConfiguration](https://docs.microsoft.com/en-us/powershell/module/exchange/set-irmconfiguration?view=exchange-ps).
 
-![](../img/20230836-043600.png)
+![](img/20230836-043600.png)
 
 The second option is intended to support the Win32 Outlook desktop app; however, users lose the ability to choose whether to apply encryption, as DLP and mail flow rules must receive an *unencrypted* message and then apply encryption based on certain conditions. 
 
@@ -417,24 +425,24 @@ Here are some of the key steps:
 
 When running through the prerequisites listed above you need to add permissions for the **Azure Rights Management Services** API and the **Microsoft Information Protection Sync Service** API:  
 
-<img src='../img/20231109-050925.png' width=700px>
+<img src='img/20231109-050925.png' width=700px>
 
 When running `Install-AIPScanner`, make sure to give the service accounts the rights it needs to access the SQL instance. Also make sure to specify the service account using the domain\username convention. Here's an example of a successful install.
 
-<img src='../img/20231251-035118.png' width=700px>
+<img src='img/20231251-035118.png' width=700px>
 
 When running `Set-AIPAuthentication`, use the `-DelegatedUser` parameter to specify an Azure AD user account that has an assigned labeling policy.  Use the `-OnBehalfOf` parameter to specify an Active Directory account that runs the scanner service. Specify the domain\username convention instead of the UPN convention. You must run this command using the scanner service account. The scanner service account needs to run this command from an administrative command window. The cloud account does not need a license.
 
-<img src='../img/20231118-051821.png' width=700px>
+<img src='img/20231118-051821.png' width=700px>
 
 While the result indicates success, it doesn't guarantee that the scanner will operate without error. After the installation is complete, run `Start-AIPScannerDiagnostics` to confirm the configuration:
 
-<img src='../img/20231128-052837.png' width=600px>
+<img src='img/20231128-052837.png' width=600px>
 
 ### Configuring the Scanner
 The scanner has a number of configuration options that are not immediately intuitive. See the following screenshot.
 
-<img src='../img/20231116-041658.png' width=400px>
+<img src='img/20231116-041658.png' width=400px>
 
 Full descriptions are available in the context menu. Here are some of the key options that warrant further explanation:
 
@@ -488,7 +496,7 @@ In the other three scenarios, you can get away with configuring the settings in 
 
 All configuration changes must come from the Purview Compliance portal. You can use the `Set-AIPScannerConfiguration` cmdlet to update configuration locally, but you must first set the scanner to function in **offline** mode. If you try to update the scanner locally without the scanner running in offline mode, then you will receive an error message.
 
-<img src='../img/20231114-071435.png' width=800px> 
+<img src='img/20231114-071435.png' width=800px> 
 
 You would only want to set the scanner in offline mode if there is a requirement for the scanner to not have internet connectivity. In this case you would export the scan job configuration from the portal and import the configuration using `Import-AIPScannerConfiguration`. You also need to run `Set-AIPScannerContentScanJob` with the `-Enforce On` option. See [Restriction: The scanner server cannot have internet connectivity](https://learn.microsoft.com/en-us/purview/deploy-scanner-prereqs#restriction-the-scanner-server-cannot-have-internet-connectivity).
 
@@ -507,7 +515,7 @@ Here's a list of useful commands:
 
 When in regular operation, you configure the scanner to operate on in an always-on mode by setting the **Schedule** in the portal to **Always**.  In this case, the scanner continually operates and remains in the **Scanning** state.
 
-<img src='../img/20231136-033600.png' width=350px>
+<img src='img/20231136-033600.png' width=350px>
 
 You cannot use `Stop-AIPScan` to stop the scanner service when the scanner is in always-on mode. To stop the scanner, you must (1) set the **Schedule** in the portal to **Manual** and (2) [recycle the scanner service](#recycle-the-scanner-service).
 
@@ -515,7 +523,7 @@ You cannot use `Stop-AIPScan` to stop the scanner service when the scanner is in
 
 In the **Content scan jobs** tab, use either the **Scan now** option or the **Rescan all files** option to run a manual scan. The **Scan now** option scans only new or modified files. The **Rescan all files** option scans all files, even if they have been scanned before and the Azure Information Protection policy has not changed.
 
-<img src='../img/20231114-041447.png' width=600px>
+<img src='img/20231114-041447.png' width=600px>
 
 When initiating a scan from the portal, it may take a few minutes for the scan to start. For immediate results, use `Start-AIPScan` with the `-Reset` option to perform a full scan of all files.
 
@@ -528,26 +536,26 @@ The portal doesn't show you details of the scan results. You must retrieve this 
 Get-AIPScannerStatus | Select -ExpandProperty nodesinfo | select -ExpandProperty summary
 ```
 
-<img src='../img/20231103-050311.png' width=600px>
+<img src='img/20231103-050311.png' width=600px>
 
 When the scan is complete, review the reports in **%localappdata\Microsoft\MSIP\Scanner\Reports**. The report is in a CSV format.
 
-<img src='../img/20231158-055807.png' width=800px>
+<img src='img/20231158-055807.png' width=800px>
 
 ### Troubleshooting the Scanner
 
 In the settings of the Purview Compliance portal, check the **Nodes** tab for errors.
 
-<img src='../img/20231112-041222.png' width=600px>
+<img src='img/20231112-041222.png' width=600px>
 
 Run `Get-AIPScannerStatus` and verify the cluster status: 
 
-<img src='../img/20231104-030416.png' width=500px>
+<img src='img/20231104-030416.png' width=500px>
 
 #### Troubleshoot the Scanner Configuration
 On the scanner server, run `Start-AIPScannerDiagnostics`.  The command will output text in red if there's an error in the scanner configuration. The DiagnosticLogs.zip file can be used for further troubleshooting. For example, the zip file includes an export of the **policy.xml** file, which you can use to confirm settings from the label policy.
 
-<img src='../img/20231132-033224.png' width=700px>
+<img src='img/20231132-033224.png' width=700px>
 
 #### Recycle the Scanner Service
 
@@ -589,44 +597,44 @@ The following link can be provided to external users to sign up for an Azure RMS
 #### Azure RMS Sign-Up Experiences
 Then accessing the Azure RMS for Individuals sign-up page, users are first presented with a box to provide their email address:  
 
-<img src='../img/20231011-041129.png' width=500px>
+<img src='img/20231011-041129.png' width=500px>
 
 ##### Scenario 1: Azure RMS for Individuals Account Already Exists
 If the user's email address is already associated with an Azure tenant, then the user receives a message indicating an account already exists.  Note: the account exists in an unmanaged Azure tenant that is created with security defaults enabled. If the age of the user account is beyond the initial 14-day grace period for MFA, then the user will be required to register for MFA when signing in.
 
-<img src='../img/20231013-041309.png' width=500px>
+<img src='img/20231013-041309.png' width=500px>
 
 After successful sign-in, the user receives a message indicating the Azure RMS Individuals account is ready for use. At this point, the user may open protected documents.
 
-<img src='../img/20231017-041733.png' width=500px>
+<img src='img/20231017-041733.png' width=500px>
 
 **Note:** The license mentioned is a **Rights Management Adhoc** license. Tenants are assigned with 10,000 of these licenses, and licenses are automatically assigned when users sign up for Azure RMS for Individuals. It is not necessary to manually assign these licenses. See [here](https://learn.microsoft.com/en-us/microsoft-365/troubleshoot/licensing/rights-management-adhoc-sku-office-365#cause) and [here](https://learn.microsoft.com/en-us/azure/information-protection/deployment-roadmap-classify-label-protect#confirm-your-subscription-and-assign-user-licenses) for more information on the Rights Management Adhoc license.
 
-<img src='../img/20231041-044158.png' width=300px>
+<img src='img/20231041-044158.png' width=300px>
 
 The screenshot above becomes available after taking over an unmanaged tenant.
 
 ##### Scenario 2: Azure RMS for Individuals Account Does Not Exist
 If the user's email address is not associated with an Azure tenant, then the user can choose **Yes** to create a new account and provide a password.  
 
-<img src='../img/20231022-042217.png' width=500px>
+<img src='img/20231022-042217.png' width=500px>
 
 To complete the registration process, the user must provide a verification code that is sent to the user's email address.
 
-<img src='../img/20231022-042249.png' width=500px>
+<img src='img/20231022-042249.png' width=500px>
 
 After successful sign-in, the user is redirected to the Microsoft Azure Information Portal. At this point, the user can close out the page and return to the original document to open it.
 
-<img src='../img/20231029-042914.png' width=500px>
+<img src='img/20231029-042914.png' width=500px>
 
 ##### Scenario 3: No Option to Create an Azure RMS for Individuals Account
 If the user's organization has performed a takeover of an unmanaged tenant, then the user will not be able to create an Azure RMS for Individuals account.  Instead, the user receives the following message advising that their IT admin create an account:
 
-<img src='../img/20231019-041940.png' width=500px>
+<img src='img/20231019-041940.png' width=500px>
 
 An IT admin can create an account for the user in Entra ID. No Office 365 or Exchange license is required. The user then may go back and complete the Azure RMS for Individuals registration process.
 
-<img src='../img/20231003-050321.png' width=500px>
+<img src='img/20231003-050321.png' width=500px>
 
 However, it's generally not practically to request the user's organization to create an Entra ID account for the user, as the organization may not be ready to provide this level of support. In this case, the best recourse is to provision a guest account for the user in your tenant.
 
@@ -634,11 +642,11 @@ However, it's generally not practically to request the user's organization to cr
 
 Any registered user can sign in to the Azure Portal with their newly-created Azure RMS for Individuals account and view items within the Entra ID services, including other user accounts that have been created.  
 
-<img src='../img/20231000-040033.png' width=800/>
+<img src='img/20231000-040033.png' width=800/>
 
 On tenant creation, the service places **Microsoft Rights Management Services** as the only Global Administrator.
 
-<img src='../img/20231056-035634.png' width=800/>
+<img src='img/20231056-035634.png' width=800/>
 
 If there is a need to take over the unmanaged tenant, Microsoft provides the following guidance for an admin takeover: [Take over an unmanaged directory as administrator in Microsoft Entra ID](https://learn.microsoft.com/en-us/azure/active-directory/enterprise-users/domains-admin-takeover).
 
@@ -647,7 +655,7 @@ If your organization requires MFA for guest users, then a guest account must exi
 
 Users will receive the following error message when a guest account does not exist.  This message applies for both Microsoft and non-Microsoft customers. The user receives this message after authenticating with MFA.
 
-![](../img/20231045-034512.png)
+![](img/20231045-034512.png)
 
 You have three options to avoid this error:
 
@@ -658,7 +666,7 @@ You have three options to avoid this error:
 #### Trust MFA Registrations from Other Tenants
 For users who have an account in Entra ID, Microsoft recommends using [External Identities cross-tenant access settings](https://learn.microsoft.com/en-us/azure/active-directory/external-identities/cross-tenant-access-overview#organizational-settings) to trust MFA claims from other tenants.  See [Conditional Access policies and encrypted documents](https://learn.microsoft.com/en-us/purview/encryption-azure-ad-configuration#conditional-access-policies-and-encrypted-documents). Note that unmanaged tenants used with Azure RMS for Individuals count as external tenants and would therefore benefit from this configuration.
 
-<img src='../img/20231000-040023.png' width=500px>
+<img src='img/20231000-040023.png' width=500px>
 
 #### Provision Guest Accounts in Your Tenant
 If you do not want to trust MFA registrations from other tenants, the next secure option is to use guest accounts. 
@@ -673,14 +681,14 @@ If a user does not have an account in Entra ID, then the authentication experien
 
 Registering for a Microsoft account is a separate process than registering for Azure RMS for Individuals. Users may use a Microsoft account to avoid the one-time passcode prompt. If a user has registered for both a Microsoft account and an Azure RMS for Individuals account, then the user will need to choose between "Work or school account" and "Personal account".  In this case the correct option is "Work or school", which corresponds to the Azure RMS for Individuals account.
 
-<img src='../img/20231011-031155.png' width=300px>
+<img src='img/20231011-031155.png' width=300px>
 
 #### Configure an Exception for the Azure Information Protection Application
 A third option is to configure an exception for the Azure Information Protection application. Prior to the introduction of external identities cross-tenant access settings, this option may have been the most practical. However, it is less secure because it allows any application to bypass MFA.
 
 See [Conditional Access policies for Azure Information Protection](https://techcommunity.microsoft.com/t5/security-compliance-and-identity/conditional-access-policies-for-azure-information-protection/ba-p/250357) and [FAQ](https://learn.microsoft.com/en-us/azure/information-protection/faqs#i-see-azure-information-protection-is-listed-as-an-available-cloud-app-for-conditional-accesshow-does-this-work).
 
-<img src='../img/20231012-041215.png' width=300px>
+<img src='img/20231012-041215.png' width=300px>
 
 ### Application Support for Accessing Protected Documents
 Users must use an Azure RMS-enlightened application to access protected content. This list includes
@@ -710,18 +718,18 @@ The Rights Management issuer also becomes the Rights Management owner. There are
 
 In these scenarios, you have the option to specify a separate owner.  For example, the `Set-AIPFileLabel` cmdlet has the (undocumented) **Owner** parameter, which you can use to assign the Rights Management owner to another account.
 
-<img src='../img/20231054-035434.png' width=700px>
+<img src='img/20231054-035434.png' width=700px>
 
 See [Rights Management Issuer and Rights Management Owner](https://learn.microsoft.com/en-us/azure/information-protection/configure-usage-rights#rights-management-issuer-and-rights-management-owner).
 
 ### Determine The Owner of a Protected Document
 If a document is protected with user-defined permissions, then the person opening the document who doesn't have permissions will receive a message to contact the document owner with email address provided:
 
-![](../img/20231030-053027.png)
+![](img/20231030-053027.png)
 
 If a document is protected with a label that uses predefined permissions, then the person opening the document who doesn't have permissions will receive a message to request permission from the contact owner. However, no email address is provided, leaving the user without any knowledge of the content owner:
 
-![](../img/20231037-053713.png)
+![](img/20231037-053713.png)
 
 The user can open the document properties and see the original author and the person who last saved the document, but this doesn't guarantee that the content owner, i.e. the person who encrypted the document, is the same as the original author.
 
@@ -734,16 +742,16 @@ The Azure Information Protection Unified Labeling client is set for retirement. 
 
 The Azure Information Protection Unified Labeling client introduces a context menu entry into Windows File Explorer called **Classify and Protect**. When a user opens a document using Classify and Protect without having permissions to the document, the client displays the content owner's email address:   
 
-<img src='../img/20231058-055858.png' width=700px>
+<img src='img/20231058-055858.png' width=700px>
 
 The **View Permission** button becomes available only when the user does have permissions to the document.
 
-<img src='../img/20231057-035720.png' width=500px>
+<img src='img/20231057-035720.png' width=500px>
 
 #### Get-AIPFileStatus Cmdlet
 An admin can use `Get-AIPFileStatus` to determine the owner of a protected document. See [Get-AIPFileStatus](https://learn.microsoft.com/en-us/powershell/module/azureinformationprotection/get-aipfilestatus?view=azureipps). This cmdlet is available in the [AzureInformationProtection](https://learn.microsoft.com/en-us/powershell/module/azureinformationprotection/?view=azureipps) PowerShell module, which is installed with the [Azure Innformation Protection Unified Labeling](https://learn.microsoft.com/en-us/azure/information-protection/rms-client/aip-clientv2) client.
 
-<img src='../img/20231054-035434.png' width=700px>
+<img src='img/20231054-035434.png' width=700px>
 
 When specifying a directory instead of a file name, the command recursively searches and provides file protection results for all protected files. See [Example 3: List the files labeled...](https://learn.microsoft.com/en-us/powershell/module/azureinformationprotection/get-aipfilestatus?view=azureipps#example-3-list-the-files-labeled-confidential-and-export-the-results-to-a-csv-file).
 
@@ -760,18 +768,18 @@ Note: `Set-AIPFileLabel` has an undocumented `-Owner` switch. However, this swit
 ### Remove Protection from a Document
 Use `Set-AIPFileLabel` with the `-RemoveProtection` option to remove protection from a document. `Set-AIPFileLabel` is available in the [AzureInformationProtection](https://learn.microsoft.com/en-us/powershell/module/azureinformationprotection/?view=azureipps) PowerShell module, which comes when installing the [Azure Information Protection Unified Labeling Client](https://learn.microsoft.com/en-us/azure/information-protection/rms-client/aip-clientv2).
 
-<img src='../img/20231012-061242.png' width=1100px>
+<img src='img/20231012-061242.png' width=1100px>
 
 To run this command successfully, the **SuperUserFeature** must be enabled, and the admin must be a super user. See [Enable the super user feature](https://docs.microsoft.com/en-us/azure/information-protection/configure-super-users).  
 
 ### Remove Encryption from a Document in SharePoint Online 
 See [Unlock-SPOSensitivityLabelEncryptedFile](https://learn.microsoft.com/en-us/powershell/module/sharepoint-online/unlock-sposensitivitylabelencryptedfile?view=sharepoint-ps). This method supports Office docs and PDFs. The **Modified By** column in SharePoint will reflect that the **System Account** modified the document.
 
-![](../img/20231030-033043.png)
+![](img/20231030-033043.png)
 
 To get the URL, copy the Path from document details:  
 
-<img src='../img/20231031-033150.png' width=200px>
+<img src='img/20231031-033150.png' width=200px>
 
 
 ### Manage the Azure Information Protection Service
@@ -788,11 +796,11 @@ When the super user feature is enabled, super users may open any protected docum
 
 You can use `Get-AipServiceAdminLog` to understand when the super user feature was used.  Protection See [Logging and analyzing the protection usage from Azure Information Protection](https://learn.microsoft.com/en-us/azure/information-protection/log-analyze-usage). The log file can be large, several MB in size, so use the `-FromTime` switch to keep the file size down.
 
-![](../img/20231032-043222.png)
+![](img/20231032-043222.png)
 
 The log captures all administrative events related to the Azure RMS service, including when admins accessed the log and when the super user feature was activated and deactivated. Log entry times are in UTC. See [Example auditing for the super user feature](https://learn.microsoft.com/en-us/azure/information-protection/configure-super-users#example-auditing-for-the-super-user-feature).
 
-![](../img/20231033-043336.png)
+![](img/20231033-043336.png)
 
 
 ## Track and Revoke Documents
@@ -813,44 +821,44 @@ Also note that usage of the Azure Information Protection Unified Labeling client
 #### Track Document Access
 Per [Track document access](https://learn.microsoft.com/en-us/purview/track-and-revoke-admin#track-document-access), from the `AIPService` PowerShell module, use `Get-AipServiceDocumentLog` and note the **ContentId**.
 
-<img src='../img/20231040-044020.png' width=900px>
+<img src='img/20231040-044020.png' width=900px>
 
 The cmdlet performs a string match on the **ContentName**. Wildcards are not supported. Log entries corresponding typically show up immediately after enabling tracking on a document, i.e. by opening a local document with a supported version of Office. An **Issuer** as *personal* means that the file was downloaded from OneDrive or SharePoint instead of being created locally.
 
 Note, you can use the undocumented `-UserEmail` option to search for tracked documents from a specific user:
 
-<img src='../img/20231004-040405.png' width=800px>
+<img src='img/20231004-040405.png' width=800px>
 
 In the screenshot below, note the document owner as the user in the resource tenant, i.e. where the tracking originated.  
 
-<img src='../img/20231003-040342.png' width=900px>
+<img src='img/20231003-040342.png' width=900px>
 
 Then use `Get-AipServiceTrackingLog` with the document's **ContentId** to return your tracking data.
 
 In the screenshot below, note the requester email is from an external tenant.  The time reported is in UTC, not local time.
 
-<img src='../img/20231006-040651.png' width=700px>
+<img src='img/20231006-040651.png' width=700px>
 
 #### Revoke Document Access
 See [Revoke document access from PowerShell](https://learn.microsoft.com/en-us/purview/track-and-revoke-admin#revoke-document-access-from-powershell).
 
 Use the same procedure above to find the **ContentId** of the document you wish to revoke; then run `Set-AIPServiceDocumentRevoked` with your document's **ContentId** to revoke access to the document.
 
-<img src='../img/20231039-043913.png' width=1100px>
+<img src='img/20231039-043913.png' width=1100px>
 
 Specify the **Issuer** (not the **Owner**) as found from `Get-AipServiceDocumentLog`:  
 
-<img src='../img/20231040-044020.png' width=900px>
+<img src='img/20231040-044020.png' width=900px>
 
 If **offline access** is allowed, users will continue to be able to access the documents that have been revoked until the offline policy period expires. If no expiration date is set, the default policy period is 30 days. See [Rights Management use license for offline access](https://learn.microsoft.com/en-us/purview/encryption-sensitivity-labels#rights-management-use-license-for-offline-access). You can change the default validity period for the tenant using `Set-AipServiceMaxUseLicenseValidityTime`.  See [Rights Management use license](https://learn.microsoft.com/en-us/azure/information-protection/configure-usage-rights#rights-management-use-license).
 
 When attempting to access a revoked document, the user receives a permissions message:
 
-<img src='../img/20231043-044315.png' width=900px>
+<img src='img/20231043-044315.png' width=900px>
 
 To restore access use `Clear-AipServiceDocumentRevoked`:
 
-<img src='../img/20231045-044540.png' width=900px>
+<img src='img/20231045-044540.png' width=900px>
 
 ## Audit Label Access and Usage
 You have several options to determine if a label has been accessed or used:
@@ -899,7 +907,7 @@ Documentation for managing labels through PowerShell can be found at [Policy and
 
 Run `Get-Command -Module tmp* -noun *label*` to see the available commands.
 
-<img src='../img/20230654-115431.png' width=700px>
+<img src='img/20230654-115431.png' width=700px>
 
 **AIP Service**
 The [AIPService](https://learn.microsoft.com/en-us/powershell/module/aipservice/?view=azureipps) PowerShell module provides additional commands for managing the underlying RMS service and templates. Notable commands include
@@ -919,7 +927,7 @@ Run `Get-Label` to get a list of all sensitivity labels in your tenant.
 ```powershell
 Get-Label | Select Priority, ContentType, DisplayName, ParentLabelDisplayName, Name, ExchangeObjectId, ParentId | ft -AutoSize
 ```
-![](../img/20230606-120634.png)
+![](img/20230606-120634.png)
 
 Wrapped in a function, this looks like:  
 ```powershell
@@ -932,13 +940,13 @@ function Get-PvLabel {
 
 Use the `-Identity` parameter to get a specific label. This parameter takes the label's Name property or GUID (ExchangeObjectId). **You cannot specify the label's DisplayName property for the `Identity` parameter.** In the case of Microsoft's default labels (see above picture), the `ExchangeObjectId` is the same as the label's `Name`. However, these two values will be different for custom labels that you create
 
-![](../img/20230657-045742.png)
+![](img/20230657-045742.png)
 
 Use `Get-LabelPolicy` to get a list of all label policies in your tenant. 
 ```powershell
 Get-LabelPolicy | Select Name, Priority, CreatedBy, WhenChanged, ExchangeObjectId, Labels, ScopedLabels | ft -AutoSize
 ```
-![](../img/20230610-041038.png)
+![](img/20230610-041038.png)
 
 The command output from above prints the labels but it doesn't make it easy to understand which labels are part of which policies. Use the following command to get a better view of the labels in each policy:  
 ```powershell
@@ -993,11 +1001,11 @@ $results | Select Name, @{n='Labels';e={$_.Labels -join "`n"}} | ft -wrap
 ```
 Use the `-TreeView` option to list the labels in order of priority.
 
-![](../img/20230657-035712.png)
+![](img/20230657-035712.png)
 
 You can also run the command without any options to obtain the ExchangeObjectId.
 
-![](../img/20230657-035759.png)
+![](img/20230657-035759.png)
 
 ### Create a Sensitivity Label
 Use `New-Label` to create a new sensitivity label. This command requires three parameters, `Name`, `DisplayName`, and `Tooltip`. When needing to create new labels quickly, such as in a test environment, you may use the following command to create a new label with only specifying the `DisplayName` property.
@@ -1018,7 +1026,7 @@ function New-PvLabel {
     }
 }
 ```
-![](../img/20230624-042415.png)
+![](img/20230624-042415.png)
 
 **ProTip!** As the company adopts the labeling system, the need to change label names may come up.  You can always change the `DisplayName` but you can't change the `Name`. Use a convention for the `Name` parameter such as `myorg_` followed by a GUID. This will allow you to change the `DisplayName` without having to recreate the label.
 
@@ -1027,7 +1035,7 @@ The Compliance portal only lets you select from a limited number of colors for a
 ```powershell
 Set-Label -Identity '<Name or ExchangeObjectId>' -AdvancedSettings @{Color="#40e0e0"}
 ```
-![](../img/20230733-033302.png)
+![](img/20230733-033302.png)
 
 
 ### Create a Label Policy
@@ -1051,21 +1059,21 @@ function New-PvLabelPolicy {
     }
 }
 ```
-![](../img/20230637-033711.png)
+![](img/20230637-033711.png)
 
 ### Add a Sensitivity Label to a Label Policy
 Use the following command to add one or more labels to a label policy:  
 ```powershell
 Set-LabelPolicy -Identity 'My Label Policy' -AddLabel 'ExchangeObjectId or Name'
 ```
-![](../img/20230658-035835.png)
+![](img/20230658-035835.png)
 
 ### Set the Parent Label for a Sensitivity Label
 Setting a parent label can only be done through PowerShell. Use the following command to set the parent label for a label:  
 ```powershell
 Set-Label -Identity 'ExchangeObjectId or Name' -ParentLabel 'ExchangeObjectId or Name'
 ```
-![](../img/20230612-041236.png)
+![](img/20230612-041236.png)
 
 
 ### Remove a Sensitivity Label from a Label Policy
@@ -1097,7 +1105,7 @@ function Remove-PvLabelFromPolicy {
 }
 ```
 Here's an example that removes the **Personal** label from all label policies:  
-![](../img/20230617-031746.png)
+![](img/20230617-031746.png)
 
 
 ### Remove a Label Policy
@@ -1107,7 +1115,7 @@ Run the following command to check the deletion state:
 ```powershell
 Get-LabelPolicy -Identity <Name or ExchangeObjectId> | Select Name, Mode, DistributionStatus
 ```
-![](../img/20230624-032455.png)
+![](img/20230624-032455.png)
 
 
 ### Remove a Sensitivity Label
@@ -1118,7 +1126,7 @@ Remove-Label -Identity <Name or ExchangeObjectId>
 
 After executing the command, the label will be placed in a pending deletion state. Allow 5-10 minutes for the deletion process to complete.
 
-![](../img/20230626-032657.png)
+![](img/20230626-032657.png)
 
 ### Get the Relationship Between a Label and an Azure RMS Template
 When you delete a label that uses protection, the underlying protection template remains in the Azure RMS service. It is usually desirable to allow these templates to remain in the service so that users can continue to decrypt documents that were encrypted with the template. 
@@ -1130,14 +1138,14 @@ Use `Get-Label` with the `-IncludeDetailedLabelActions` switch to list the ID of
 ```powershell
 Get-Label -IncludeDetailedLabelActions | select DisplayName, Name, ExchangeObjectId, EncryptionTemplateId
 ```
-![](../img/20230702-060249.png)
+![](img/20230702-060249.png)
 
 **From AIPService PowerShell**  
 Use the `LabelId` property from `Get-AipServiceTemplate` to find the label that corresponds to the template:  
 ```powershell
 [array](Get-AipServiceTemplate) | Select TemplateId, Status, LabelId, Names
 ```
-![](../img/20230708-060835.png)
+![](img/20230708-060835.png)
 
 A status of `Published` indicates that the template is in use by a label policy.  A status of `Archived` indicates the template is not in use by a label policy.
 
@@ -1147,7 +1155,7 @@ The `LabelId` property from `Get-AipServiceTemplate` (in the prior screenshot) c
 ```powershell
 Get-Label | Select DisplayName, Name, ExchangeObjectId, Guid
 ```
-![](../img/20230749-034935.png)
+![](img/20230749-034935.png)
 
 
 
@@ -1186,11 +1194,12 @@ In some cases you may want to completely remove an RMS template from the AIP ser
 
  As an additional note, you can only remove templates that you have created. The [Microsoft documentation](https://learn.microsoft.com/en-us/powershell/module/aipservice/remove-aipservicetemplate?view=azureipps) indicates you can only delete templates that you have created for your organization and that you cannot delete the default templates. However, in testing I 
 was able to delete the default templates.
-![](../img/20230710-051013.png)
+![](img/20230710-051013.png)
 
 If you remove an Azure RMS template that's still linked to a label, then you will receive a warning message when retrieving details about the label:  
-![](../img/20230725-042539.png)
+![](img/20230725-042539.png)
 
 ### Restore an RMS Template
 Use `Import-AipServiceTemplate` to restore an RMS template from an XML file. Given that RMS templates are unique to the tenant, you can only restore templates that were backed up from the same tenant.  
-![](../img/20230727-042727.png)
+![](img/20230727-042727.png)
+

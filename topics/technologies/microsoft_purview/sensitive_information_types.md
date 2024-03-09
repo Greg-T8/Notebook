@@ -102,23 +102,23 @@ Microsoft Purview Compliance Role Groups
 
 ## Identify Sensitive Information Types in Use
 Use the command `Get-DlpSiDetectionsReport` to retrieve a report that contains information about sensitive information type detections. The *Si* stands for *Sensitive Information*. 
-![](img/20230556-035602.png)
+![](../img/20230556-035602.png)
 
 Use the following one-liner to provide the common names of the detected SITs.  
 ```powershell
 Get-DlpSiDetectionsReport | Select-Object Date, @{n='SensitiveType'; e={Get-DlpSensitiveInformationType -Identity $_.SensitiveType | Select-Object -ExpandProperty Name}}, DocumentCount, ProtectionStatus
 ```
-![](img/20230502-040242.png)
+![](../img/20230502-040242.png)
 
 Use `Get-DlpDataReport` to get more detailed information. Here are some examples:
 
 ```
 $report = Get-DlpDataReport
 ```
-![](img/20230513-041306.png)
+![](../img/20230513-041306.png)
 
 You may then expand on the report to reveal further information.  
-![](img/20230520-042041.png)
+![](../img/20230520-042041.png)
 
 
 
@@ -171,13 +171,13 @@ Here are the default values:
 
 Use high confidence levels patterns with low counts, say 5-10, and low confidence with high confidence matches, say 20 or more.
 
-![](img/2023-04-24-03-21-57.png)
+![](../img/2023-04-24-03-21-57.png)
 
 
 
 Confidence values are declared as "High", "Medium", and "Low" in the portal. Specific values are declared in the resulting XML file.
 
-![](img/2023-05-06-05-26-27.png)
+![](../img/2023-05-06-05-26-27.png)
 
 ### Reviewing Built-in Sensitive Information Types
 Use the following commands to export the built-in Microsoft sensitive information types to XML:  
@@ -188,7 +188,7 @@ $rulepack = Get-DlpSensitiveInformationTypeRulePackage -Identity 'Microsoft Rule
 
 You can view the resulting XML file in VS Code. 
 
-![](img/20230512-031209.png)
+![](../img/20230512-031209.png)
 
 See [US Social Security Number (SSN)](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-defn-us-social-security-number?view=o365-worldwide) as a reference for this sensitive information type.
 
@@ -196,7 +196,7 @@ See [US Social Security Number (SSN)](https://learn.microsoft.com/en-us/microsof
 ### Providing Accuracy Feedback
 You can view number of SIT matches in the Content Explorer.
 
-![](img/2023-04-23-06-23-42.png)
+![](../img/2023-04-23-06-23-42.png)
 
 You can also provide feedback on trainer classifier accuracy by using the **Match, Not a Match** mechanism. See [Increase trainer accuracy](https://learn.microsoft.com/en-us/microsoft-365/compliance/data-classification-increase-accuracy?view=o365-worldwide)
 
@@ -211,7 +211,7 @@ Three methods for creating custom sensitive information types:
 
 ### [Sensitive Information Type Limits](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-limits?view=o365-worldwide)
 
-![](img/2023-04-30-06-19-47.png)
+![](../img/2023-04-30-06-19-47.png)
 
 #### Instance Count Supported Values for SIT
 For a scanned item to satisfy the rule criteria, the number of unique instances of a SIT in any single item must fall between the min and max values. This is called the **Instance count**.
@@ -238,7 +238,7 @@ References
 - Microsoft Priva
 - Exact data match sensitive information types
 
-![](img/2023-04-28-04-04-19.png)
+![](../img/2023-04-28-04-04-19.png)
 
 Named entity SITs come in two flavors: *bundled* and *unbundled*.  
 
@@ -246,15 +246,15 @@ Bundled named entity SITs detect all possible matches. Use them as broad criteri
 
 Unbundled named entity SITs have narrower focus, like a single country.  Use them when you need a DLP policy with a narrower scope.
 
-![](img/2023-04-28-04-09-51.png)
+![](../img/2023-04-28-04-09-51.png)
 
 To use bundled SITs, you must activate relevant DLP settings in [Advanced classification scanning and protection](https://learn.microsoft.com/en-us/microsoft-365/compliance/dlp-configure-endpoint-settings?view=o365-worldwide#advanced-classification-scanning-and-protection). By default, this feature is turned off.
 
-![](img/2023-04-28-04-17-34.png)
+![](../img/2023-04-28-04-17-34.png)
 
 Microsoft also provides examples of DLP policies that use named entity SITs. The Enhanced versions can be used in DLP and auto-labeling.
 
-![](img/2023-04-28-04-21-05.png)
+![](../img/2023-04-28-04-21-05.png)
 
 ## Custom Sensitive Information Types
 References
@@ -267,45 +267,45 @@ There are two ways to create a custom Sensitive Information Type
 Custom sensitive information types are stored in the rule package named `Microsoft.SCCManaged.CustomRulePack`. Use `Get-DlpSensitiveInformationTypeRulePackage` to view the contents.  
 
 ### Create a SIT from Scratch
-![](img/2023-04-30-06-29-53.png)
+![](../img/2023-04-30-06-29-53.png)
 
-![](img/2023-04-30-06-38-35.png)
+![](../img/2023-04-30-06-38-35.png)
 
 The following regular expression matches a string that starts with 4 digits for the year, followed by 2 digits for the month (01-12), followed by 2 digits for the day (01-31), and ends with 3 digits. For example, it will match the string “20230430001”.  The **Word match** option indicates the match must exist on its own.  The **String match** option means the match can be included within text.
 
-![](img/2023-04-30-06-50-17.png)
+![](../img/2023-04-30-06-50-17.png)
 
 When adding a regular expression, you may also choose from a number of regular expression validators.  For example, given the PO number contains a date, you can use the date validator as an additional check. This will filter out items that resemble the date structure but do not actually qualify, e.g. a number with 13 in the month place and 32 in the day place.
 
-![](img/2023-05-06-06-16-14.png)
+![](../img/2023-05-06-06-16-14.png)
 
 In the screenshot below be sure to enter keywords on separate lines.
 
-![](img/2023-04-30-06-53-22.png)
+![](../img/2023-04-30-06-53-22.png)
 
-![](img/2023-04-30-06-42-12.png)
+![](../img/2023-04-30-06-42-12.png)
 
-![](img/2023-04-30-06-42-31.png)
+![](../img/2023-04-30-06-42-31.png)
 
 The picture above asks you to select the recommended confidence level.  In addition to the confidence level for each pattern (see previous screenshot above), the sensitive information type, as a whole, must have a defined recommended confidence level. When you create a rule in a policy, e.g. a DLP policy, if you don't specify a confidence level for the rule to use, that rule will match based on the SIT's recommended confidence level. The recommended confidence level is a mandatory setting.
 
-![](img/2023-04-30-06-42-48.png)
+![](../img/2023-04-30-06-42-48.png)
 
-![](img/2023-04-30-06-43-31.png)
+![](../img/2023-04-30-06-43-31.png)
 
-![](img/2023-04-30-06-43-56.png)
+![](../img/2023-04-30-06-43-56.png)
 
 ### Test your Sensitive Information Type
 Create a test file and load it with a few examples. Space each sample so that they are out of the proximity range you defined.  
-![](img/2023-05-06-05-04-04.png)
+![](../img/2023-05-06-05-04-04.png)
 
 Use the **Test** feature in the portal to upload your test file.
 
-![](img/2023-05-06-05-05-26.png)
+![](../img/2023-05-06-05-05-26.png)
 
 Observe the matches and match behavior.
 
-![](img/2023-05-06-05-05-34.png)
+![](../img/2023-05-06-05-05-34.png)
 
 
 ### Example: Define Confidence Level Patterns
@@ -316,7 +316,7 @@ There are three confidence level options with a custom SIT&mdash;low, medium, an
 
 For a low confidence level we use anything that matches the regular expression.
 
-![](img/2023-05-02-03-13-14.png)
+![](../img/2023-05-02-03-13-14.png)
 
 For a medium confidence level we use additional checks, including the "Q" or "Q-" prefix and anything that starts with the years 199, 200, 201, and 202. All additional checks must match, not just one. 
 
@@ -326,19 +326,19 @@ There are a couple of important details to note when specifying values in **Addi
 - Do not separate values with a space;  all values should appear directly after the comma with no space
 - Multiple additional checks result in a logical AND, not a logical OR
 
-![](img/2023-05-06-05-08-49.png)
+![](../img/2023-05-06-05-08-49.png)
 
 For a high confidence level we use a keyword list as a secondary element in addition to the regular expression and additional checks from the medium confidence level: 
 
-![](img/2023-05-02-03-18-04.png)
+![](../img/2023-05-02-03-18-04.png)
 
 Here's an overall look at the patterns:
 
-![](img/2023-05-02-03-19-35.png)
+![](../img/2023-05-02-03-19-35.png)
 
 In cases where you have multiple pattern rules *within the same confidence level*, it is important to note that order matters. The scanning engine will only report a match for the first pattern rule in that confidence level. In the case below, the matches would be Pattern #1 for the Low and Pattern #3 for the High confidence level.
 
-![](img/2023-05-05-04-14-53.png)
+![](../img/2023-05-05-04-14-53.png)
 
 ### Customize Sensitive Information Types using PowerShell and XML
 Reference
@@ -370,20 +370,20 @@ Set-DlpSensitiveInformationTypeRulePackage -FileData ([System.IO.File]::ReadAllB
 #### View SIT rules with PowerShell
 Use `Get-DlpSensitiveInformationType` to view the properties of a custom SIT.
 
-![](img/2023-05-01-04-11-13.png)
+![](../img/2023-05-01-04-11-13.png)
 
 Unfortunately, `Set-DlpSensitiveInformationType` cannot be used for making changes to custom SITs; this command is really intended for updating document fingerprinting SITs.
 
 To update custom SITs outside of the portal you must use a combination of PowerShell and XMl.
 
 First, run `Get-DlpSensitiveInformationTypeRulePackage`. Custom sensitive information type rules are stored in `Microsoft.SCCManaged.CustomRulePack`. The `Microsoft Rule Package` contains all  of the built-in sensitive information types.  The `Document Fingerprint Rule Package` contains rule packages specific to file-based, i.e. form/template, sensitive information types.
-![](img/2023-05-04-03-14-23.png)
+![](../img/2023-05-04-03-14-23.png)
 
 For custom SITs, you typically work with the `Microsoft.SCCManaged.CustomRulePack`.  However, know there are options to create additional rule pack files for custom SITs. The maximum number of rule packages supported is 10, but each package can contain the definition of multiple sensitive information types ([see here](https://learn.microsoft.com/en-us/microsoft-365/compliance/create-a-custom-sensitive-information-type-in-scc-powershell?view=o365-worldwide#upload-your-rule-package)).
 
 When you return all properties of the `Microsoft.SCCManaged.CustomRulePack` you'll find the rule set is displayed in unformatted XML.
 
-![](img/2023-05-05-03-10-27.png)
+![](../img/2023-05-05-03-10-27.png)
 
 PowerShell does not have a built-in method for formatting XML. To format XML, I use the following function, which I place in my PowerShell profile ([reference](https://devblogs.microsoft.com/powershell/format-xml/)):
 
@@ -416,7 +416,7 @@ From here, use the following chain of commands to view the rule package definiti
 Get-DlpSensitiveInformationTypeRulePackage | Select -Index 2 | Select -ExpandProperty ClassificationRuleCollectionXml | Format-XML
 ```
 
-![](img/2023-05-04-03-44-52.png)
+![](../img/2023-05-04-03-44-52.png)
 
 #### Export custom SIT rules to XML  
 If you want to export the rule to an XML file then you must use the `SerializedClassificationRuleCollection` property. The following command exports the built-in `Microsoft.SCCManaged.CustomRulePack`.
@@ -428,11 +428,11 @@ $rulepak = Get-DlpSensitiveInformationTypeRulePackage -Identity 'Microsoft.SCCMa
 
 Use a text editor to view and make changes to the rules.
 
-![](img/2023-05-04-03-52-40.png)
+![](../img/2023-05-04-03-52-40.png)
 
 By default, VS Code doesn't display formatted XML. Use the **Format Document** command to format to readable XML.
 
-![](img/2023-05-05-03-32-53.png)
+![](../img/2023-05-05-03-32-53.png)
 
 #### Import custom SIT XML using PowerShell 
 Once you have exported an XML file and made changes, use `Set-DlpSensitiveInformationTypeRulePackage` to commit the changes.
@@ -444,7 +444,7 @@ Set-DlpSensitiveInformationTypeRulePackage -FileData ([System.IO.File]::ReadAllB
 #### Additional Notes on XML structure
 You may remove the proximity declaration for the pattern. In this case the pattern will use the entity's `patternsProximity` value.
 
-![](img/2023-05-06-05-24-57.png)
+![](../img/2023-05-06-05-24-57.png)
 
 #### Test custom SITs using PowerShell
 Use `Test-DataClassification` 
@@ -461,25 +461,25 @@ References
 #### Note: Additional checks result in logical AND, not logical OR
 When using multiple **Additional Checks**, the engine uses a logical AND, not a logical OR.
 
-![](img/2023-05-06-05-08-49.png)
+![](../img/2023-05-06-05-08-49.png)
 
 #### Issue: Unexpected results when using prefixes and suffixes additional check  
 For example, given patterns that match an included prefix of "Q" you get expected results when the high confidence match appears after the medium confidence match. 
 
-![](img/2023-05-06-06-08-45.png)
+![](../img/2023-05-06-06-08-45.png)
 
 However, when you place the high confidence match before the medium confidence match, the search results do not report the high confidence match.
 
-![](img/2023-05-06-06-10-03.png)
+![](../img/2023-05-06-06-10-03.png)
 
 #### Note: Specifying *Any of these* criteria
 When specifying the *Any of these criteria*, if you want to specify a range, you must include a number of supporting elements capable of satisfying the range.  Otherwise, the value will be `1 to Any`.
 
-![](img/2023-05-07-04-50-12.png)
+![](../img/2023-05-07-04-50-12.png)
 
 Here's how this pattern looks in XML: 
 
-![](img/2023-05-07-04-53-25.png)
+![](../img/2023-05-07-04-53-25.png)
 
 #### Note: Keyword Lists vs Keyword Dictionaries
 References
@@ -492,11 +492,11 @@ Words in a keyword dictionary, however, are stored outside of the rules XML file
 
 Use `Get-DlpKeywordDictionary` to view the list of dictionaries. There is a limit of 50 keyword dictionary-based SITs that can be created per tenant.
 
-![](img/2023-05-07-05-05-24.png)
+![](../img/2023-05-07-05-05-24.png)
 
 Use the portal to create a keyword dictionary. You can create the dictionary from a list or upload a .CSV or a .TXT file.
 
-![](img/2023-05-07-05-08-14.png)
+![](../img/2023-05-07-05-08-14.png)
 
 You can also use the following commands to manage keyword dictionaries:
 - `Get-DlpKeywordDictionary`
@@ -532,7 +532,7 @@ The schema is an XML file that defines
 #### Sensitive Information Source Table
 Contains values that the EDM SIT will look for.  Contains columns and rows.
 
-![](img/2023-04-24-04-05-07.png)
+![](../img/2023-04-24-04-05-07.png)
 
 #### Rule Package
 Every SIT has a rule package. You use a rule package in an EDM SIT to define
@@ -563,7 +563,7 @@ EDM works by comparing strings in your documents and emails against values in th
 Tip: Use EDM SITs and predefined SITs together in DLP rules for better detection. Use the EDM SIT with higher confidence levels and the predefined SIT with lower confidence levels.
 
 #### Services Supported by EDM
-![](img/2023-04-24-04-24-28.png)
+![](../img/2023-04-24-04-24-28.png)
 
 ### Creating and Managing EDM SITs
 References
@@ -655,7 +655,7 @@ Here are some guidelines for creating the sample file:
 - Column (field) names must start with a letter, be at least 3 characters long, and consiste of only alphanumeric characters. Can't include spaces, underscores, or other special characters
 
 Example  
-![](img/2023-05-08-04-23-44.png)
+![](../img/2023-05-08-04-23-44.png)
 
 See here for sample template files
 - [US Healthcare Data](https://go.microsoft.com/fwlink/?linkid=2224450)
@@ -664,7 +664,7 @@ See here for sample template files
 
 In the example that follows, I use a sample file based on two custom SITs I created&mdash;Purchase Order and Account Number.  Here's a look at the sample file.
 
-![](img/2023-05-09-03-59-12.png)
+![](../img/2023-05-09-03-59-12.png)
 
 Remember: for primary fields each column value must be unique!
 
@@ -675,47 +675,47 @@ Reference
 Here are the steps used to create an EDM schema in the new experience.
 
 Click **Create EDM classifier**  
-![](img/2023-05-09-03-48-38.png)
+![](../img/2023-05-09-03-48-38.png)
 
 Again, click **Create EDM classifier**  
-![](img/2023-05-09-03-51-04.png)
+![](../img/2023-05-09-03-51-04.png)
 
 Provide a name and description for the EDM classifier.  
-![](img/2023-05-09-03-53-51.png)
+![](../img/2023-05-09-03-53-51.png)
 
 Choose the option to upload a sample data file.  
-![](img/2023-05-09-03-54-39.png)
+![](../img/2023-05-09-03-54-39.png)
 
 Verify sample data  
-![](img/2023-05-09-03-56-12.png)
+![](../img/2023-05-09-03-56-12.png)
 
 Select primary elements. Remember that values for primary elements must be unique. In this case, the purchase order is always unique.  
-![](img/2023-05-09-04-04-32.png)
+![](../img/2023-05-09-04-04-32.png)
 
 Configure data settings  
-![](img/2023-05-09-04-06-45.png)
+![](../img/2023-05-09-04-06-45.png)
 
 Configure detection rules. EDM will automatically generate one detection rule for each of the primary elements identified.  
-![](img/2023-05-09-04-09-03.png)
+![](../img/2023-05-09-04-09-03.png)
 
 EDM will create a high confidence and a medium confidence rule  
-![](img/2023-05-09-04-09-24.png)
+![](../img/2023-05-09-04-09-24.png)
 
 Click **Submit**  
-![](img/2023-05-09-04-10-27.png)
+![](../img/2023-05-09-04-10-27.png)
 
 Confirm EDM classifier creation. The next step is to securely upload your sensitive information table data.  
-![](img/2023-05-09-04-11-17.png)
+![](../img/2023-05-09-04-11-17.png)
 
 ##### Create EDM schema (New Experience) - Manual Method
 Here's how the EDM schema creation experience looks when using the manual method, i.e. without the sample file.  
-![](img/2023-05-09-04-14-30.png)
+![](../img/2023-05-09-04-14-30.png)
 
 Define columns  
-![](img/2023-05-09-04-14-50.png)
+![](../img/2023-05-09-04-14-50.png)
 
 Select primary elements and SITs  
-![](img/2023-05-09-04-15-40.png)
+![](../img/2023-05-09-04-15-40.png)
 
 The rest of the process is the same.
 
@@ -724,10 +724,10 @@ Reference
 - [Create the schema for EDM classic experience](https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-get-started-exact-data-match-create-schema?view=o365-worldwide)
   
 Here's the workflow at a glance:  
-![](img/2023-05-15-04-23-18.png)
+![](../img/2023-05-15-04-23-18.png)
 
 In the Microsoft Purview compliance portal go to **Data Classification** > **Classifiers** > **EDM Classifiers** > **EDM Schemas**.  
-![](img/2023-05-15-04-33-18.png)  
+![](../img/2023-05-15-04-33-18.png)  
 
 Select **Create EDM Schema**.
 
@@ -739,7 +739,7 @@ A couple of notes here:
 
 Use the **New EDM schema** wizard to create the schema.  Searchable fields are mapped to sensitive information types and may become primary fields for specifying SIT rule packages in the following steps. At least one field must be designated as searchable. Non-searchable fields may only be used for supporting evidence.
 
-![](img/2023-05-15-04-42-26.png)
+![](../img/2023-05-15-04-42-26.png)
 
 
 #### Upload the Sensitive Information Source Table
@@ -785,30 +785,30 @@ There are a couple of caveats when installing and using the EDM Upload Agent too
 
 If you accept the defaults, then a standard user will receive the following error when running EdmUploadAgent.exe. The EDM Upload Agent tool writes trace files to the installation directory, and standard users don't have write access to C:\Program Files.    
 
-![](img/2023-05-11-03-12-07.png)
+![](../img/2023-05-11-03-12-07.png)
 
 Here's an overview of the installation process:  
 
 Microsoft Exact Data Match setup  
-![](img/2023-05-11-03-17-51.png)
+![](../img/2023-05-11-03-17-51.png)
 
 Install to a directory where standard users have write access.  
-![](img/2023-05-11-03-44-22.png)  
+![](../img/2023-05-11-03-44-22.png)  
 
 Accept EULA and then click **Finish**  
-![](img/2023-05-11-03-18-58.png)
+![](../img/2023-05-11-03-18-58.png)
 
 After the command completes you may receive an error related to accessing the TraceLogs folder. You can disregard this message.  
 
-![](img/2023-05-11-03-45-36.png)
+![](../img/2023-05-11-03-45-36.png)
 
 Verify usage with a standard user account:  
-![](img/2023-05-11-03-46-42.png)
+![](../img/2023-05-11-03-46-42.png)
 
 ###### Create EDM Folder structure
 The EDM Agent accesses several types of data. Use a folder structure for storing each of these data types&mdash;the sensitive data table, the EDM schema, and the hashes and salts used for encrypting the data.   
 
-![](img/2023-05-14-08-24-56.png)
+![](../img/2023-05-14-08-24-56.png)
 
 ###### Authorize the EDM Upload Agent
 Run the following command to authorize the EDM Upload Agent
@@ -818,7 +818,7 @@ Run the following command to authorize the EDM Upload Agent
 ```
 
 You will be prompted to enter credentials for a user that has access to the EDM_DataUploaders security group.
-![](img/2023-05-11-03-48-31.png) 
+![](../img/2023-05-11-03-48-31.png) 
 
 ##### Export the EDM schema to XML file
 ###### Export the EDM Schema using `Get-DlpEdmSchema`
@@ -832,7 +832,7 @@ Set-Content -Path "C:\EDM\Schema\CustomerInformationSchema.xml" -Value $schema.E
 ```
 
 Here's what the schema loos like:
-![](img/2023-05-10-03-20-28.png)
+![](../img/2023-05-10-03-20-28.png)
 
 ###### Export the EDM Schema using EdmUploadAgent.exe
 Use the `/GetDataStore` option to retrieve the datastore name.
@@ -840,14 +840,14 @@ Use the `/GetDataStore` option to retrieve the datastore name.
 .\EdmUploadAgent.exe /GetDataStore
 ```
 
-![](img/2023-05-11-04-03-36.png)
+![](../img/2023-05-11-04-03-36.png)
 
 Use the following command to export the EDM schema to an XML file.
 ```
 .\EdmUploadAgent.exe /SaveSchema /DataStoreName customerinformationschema /OutputDir ..\Schema\
 ```  
 
-![](img/2023-05-11-04-09-42.png)
+![](../img/2023-05-11-04-09-42.png)
 
 
 ##### EDM Upload Process
@@ -865,7 +865,7 @@ Run the following command to validate the EDM data table.
 ```
 
 Results should indicate a success.  
-![](img/2023-05-11-03-26-15.png)
+![](../img/2023-05-11-03-26-15.png)
 
 
 ###### Method 1: Hash and Upload
@@ -873,12 +873,12 @@ The following command hashes and uploads the sensitive information source table 
 ```
 .\EdmUploadAgent.exe /UploadData /DataStoreName customerinformationschema /DataFile '..\Data\Sensitive Data Table.csv' /HashLocation '..\Hash\' /Schema '..\Schema\customerinformationschema.xml' /AllowedBadLinesPercentage 5
 ```
-![](img/2023-05-11-04-15-17.png)
+![](../img/2023-05-11-04-15-17.png)
 
 Use the `/AllowedBadPercentage` parameter when your sensitive information table has some incorrectly formatted values, but you still want to import the remaining data while ignoring invalid rows. For example, a 5 percent threshold means that the tool hashes and uploads the sensitive information table, even if up to 5 percent of the rows are invalid. 
 
 The result of the command is a table with hashed values. This table is stored in the Microsoft cloud.  
-![](img/2023-05-11-04-16-28.png)
+![](../img/2023-05-11-04-16-28.png)
 
 ###### Method 2: Separate Hash and Upload
 It is best practice to separate the process of hashing and uploading the sensitive data so you can more easily isolate issues in the process. Once in production, keep the two steps separate in most cases. Performing the hashing process on an isolated computer and then transferring the file for upload to an Internet-facing computer ensures the actual data is never available in clear text form on a computer that could have been compromised due to its connection to the Internet.
@@ -891,7 +891,7 @@ $schemaFile = "C:\EDM\Schema\customerinformationschema.xml"
 .\EdmUploadAgent.exe /CreateHash /DataFile $dataFile /HashLocation $hashLocation /Schema $schemaFile /AllowedBadLinesPercentage 5
 ```
 The process creates a hash file and a salt file.  
-![](img/2023-05-14-09-03-34.png)
+![](../img/2023-05-14-09-03-34.png)
 
 Copy these files to the computer you use to upload your sensitive information source table to your tenant.
 
@@ -906,41 +906,41 @@ Use the following command to get upload status.
 .\EdmUploadAgent.exe /GetSession /DataStoreName customerinformationschema
 ```  
    
-![](img/2023-05-11-04-18-07.png)
+![](../img/2023-05-11-04-18-07.png)
 
 Look for the status to be in **ProcessingInProgress**. Check again every few minutes until the status changes to **Completed**. Once the status is completed, your EDM data is ready for use. Depending on the size of the sensitive information source table file, this can take from a few minutes to several hours. 
 
-![](img/2023-05-14-09-11-55.png)
+![](../img/2023-05-14-09-11-55.png)
 
 You can upload data with the EDMUploadAgent to any given data store up to five times per day.  You will receive an error message if attempting to upload more than five times.  
-![](img/2023-05-14-09-53-43.png)
+![](../img/2023-05-14-09-53-43.png)
 
 
 #### Create EDM SIT rules (Classic Experience)
 In the Microsoft Purview compliance portal, navigate to **Data Classification** > **Classifiers** > **EDM Classifiers** > **EDM sensitive info types**; then click **Create EDM sensitive info type**.  
-![](img/2023-05-15-04-59-16.png)
+![](../img/2023-05-15-04-59-16.png)
 
 Select the schema created from the classic experience. This is one point where the classic workflow diverges from the new workflow. With the classic workflow you are able to associate more than one EDM SIT to a schema. This is not possible with the new workflow. Note that schemas created from the new experience have the word *schema* appended.  
 
-![](img/2023-05-15-05-00-47.png)
+![](../img/2023-05-15-05-00-47.png)
 
 Confirm the schema fields.  
-![](img/2023-05-15-05-07-17.png)
+![](../img/2023-05-15-05-07-17.png)
 
 Define patterns for low, medium, and high confidence levels.  
-![](img/2023-05-15-05-10-26.png)
+![](../img/2023-05-15-05-10-26.png)
 
 Specify the recommended confidence level.  
-![](img/2023-05-15-05-11-01.png)
+![](../img/2023-05-15-05-11-01.png)
 
 Provide a name for the EDM SIT; then click **Done**.  
-![](img/2023-05-15-05-11-52.png)
+![](../img/2023-05-15-05-11-52.png)
 
 #### Rename an EDM SIT
 You cannot change the name of the EDM SIT in the compliance portal. To change the name you must export to XML and import. 
 
 EDM types are stored in a separate rule package named after the schema. Use `Get-DlpSensitiveInformationTypeRulePackage` to retrieve this list.
-![](img/20230535-033549.png)
+![](../img/20230535-033549.png)
 
 Use the following commands to export the rule package to an XML file:  
 ```powershell
@@ -948,7 +948,7 @@ $rulepack = Get-DlpSensitiveInformationTypeRulePackage -Identity 'Customer Infor
 [System.IO.File]::WriteAllBytes("$env:USERPROFILE\Desktop\exportedRulePack.xml", $rulepack.SerializedClassificationRuleCollection)
 ```
 Update the name and save the XML file.  
-![](img/20230539-033943.png)
+![](../img/20230539-033943.png)
 
 Then use the following command to upload the XML file:  
 ```powershell
@@ -956,16 +956,16 @@ Set-DlpSensitiveInformationTypeRulePackage -FileData ([System.IO.File]::ReadAllB
 ```
 
 Refresh the portal to confirm the name change.  
-![](img/20230541-034113.png)
+![](../img/20230541-034113.png)
 
 
 #### Test EDM SIT
 In the Microsoft Purview compliance portal, navigate to **Data Classification** > **Classifiers** > **Sensitive info types**; then locate the SIT and use the Test button.
 
-![](img/20230543-034346.png)
+![](../img/20230543-034346.png)
 
 Matches are determined by the number of supporting types found, as specified in the EDM SIT rules.  
-![](img/20230545-034536.png)
+![](../img/20230545-034536.png)
 
 ## Document Fingerprinting
 [Microsoft Docs: Document Fingerprinting](https://learn.microsoft.com/en-us/microsoft-365/compliance/document-fingerprinting?view=o365-worldwide)
@@ -991,14 +991,14 @@ Ideally, organizations already have an established business practice of using ce
 ### How document fingerprinting works
 In the same way that a person's fingerprints have unique patterns, documents have unique word patterns. When you upload a file, DLP identifies the unique word pattern in the document, creates a document fingerprint based on that pattern, and uses that document fingerprint to detect outbound documents containing the same pattern.
 
-![](img/2023-04-26-03-07-42.png)
+![](../img/2023-04-26-03-07-42.png)
 
 In the example above, the patent template contains blank fields "Patent Title", "Inventors", and "Description", along with descriptions for each field&mdash;that's the word pattern. When you upload the template, DLP converts the word pattern into a document fingerprint, which is a small Unicode XML file containing a unique hash value that represents the original text. The fingerprint is saved as a data classification in Active Directory. The original document isn't itself stored; only the hash value is stored. The patent fingerprint then becomes a Sensitive Information Type (SIT) that you can associate with a DLP policy. 
 
 ### Supported file types
 Document fingerprinting supports the same type of files that are supported by mail transport rules. Neither mail flow rules nor document fingerprinting supports the **.dotx** file type. See [here](https://learn.microsoft.com/en-us/exchange/security-and-compliance/mail-flow-rules/inspect-message-attachments#supported-file-types-for-mail-flow-rule-content-inspection) for supported file types.
 
-![](img/2023-04-26-03-16-20.png)
+![](../img/2023-04-26-03-16-20.png)
 
 ### Limitations
 Document fingerprinting doesn't work for
@@ -1024,49 +1024,49 @@ Fingerprint SITs do not work for the other DLP locations, including
 - Power BI
 
 You will get an error message if you select unsupported locations:
-![](img/2023-04-27-03-50-22.png)
+![](../img/2023-04-27-03-50-22.png)
 
 Here are the supported locations:
 
-![](img/2023-04-27-04-02-05.png)
+![](../img/2023-04-27-04-02-05.png)
 
 Note the Devices option is not available yet but is expected to be available in June.
 
-![](img/2023-04-28-03-42-52.png)
+![](../img/2023-04-28-03-42-52.png)
 
 There should be an option called **Advanced Fingerprinting** to enable document fingerprinting on devices.
 
-![](img/2023-04-28-03-44-05.png)
+![](../img/2023-04-28-03-44-05.png)
 
 ### Create Fingerprint SIT in Compliance Portal
 In the Microsoft Purview compliance portal, select **Data Classification > Classifiers**.  Then choose **Sensitive info types > Create Fingerprint based SIT**.
 
-![](img/2023-04-26-03-27-14.png)
+![](../img/2023-04-26-03-27-14.png)
 
-![](img/2023-04-26-03-44-04.png)
+![](../img/2023-04-26-03-44-04.png)
 
-![](img/2023-04-26-03-44-24.png)
+![](../img/2023-04-26-03-44-24.png)
 
-![](img/2023-04-26-03-44-39.png)
+![](../img/2023-04-26-03-44-39.png)
 
-![](img/2023-04-26-03-48-29.png)
+![](../img/2023-04-26-03-48-29.png)
 
 If you receive **Client Error** message when creating a new fingerprint-based SIT, wait a few minutes and try again.
 
-![](img/2023-04-26-03-45-46.png)
+![](../img/2023-04-26-03-45-46.png)
 
 ### Create Fingerprint SIT using PowerShell
 Use [New-DlpSensitiveInformationType](https://learn.microsoft.com/en-us/powershell/module/exchange/new-dlpsensitiveinformationtype?view=exchange-ps) to create the fingerprint SIT. The documentation doesn't mention the `FileData` parameter, but it's there.
 
-![](img/2023-04-26-04-14-00.png)
+![](../img/2023-04-26-04-14-00.png)
 
 Refer to [New-DlpFingerprint](https://learn.microsoft.com/en-us/powershell/module/exchange/new-dlpfingerprint?view=exchange-ps) for requirements in using the `FileData` parameter.  
 
-![](img/2023-04-26-04-17-16.png)
+![](../img/2023-04-26-04-17-16.png)
 
 If you receive the **Fingerprint Rule Package found in EXO but not EOP** message, wait a few minutes and try again.
 
-![](img/2023-04-26-04-08-44.png)
+![](../img/2023-04-26-04-08-44.png)
 
 ### Matching
 For partial matching specify percentage values for low, medium, and high. You can do this in the portal or using the `ThresholdConfig` parameter in PowerShell.
@@ -1075,41 +1075,41 @@ Exact matching of a document fingerprint matches only files that have exactly th
 
 Exact matching can only be configured through PowerShell using the `IsExact` parameter. This parameter is available through `Set-DlpSensitiveInformationType` but is undocumented. I ran into issues with it:
 
-![](img/2023-04-26-04-26-04.png)
+![](../img/2023-04-26-04-26-04.png)
 
 However, I was able to use the `Exact` parameter when creating the fingerprint SIT:
 
-![](img/2023-04-26-04-36-59.png)
+![](../img/2023-04-26-04-36-59.png)
 
 ### Test a Fingerprint SIT
 You can test the fingerprint SIT after creation.
 
-![](img/2023-04-26-03-48-53.png)
+![](../img/2023-04-26-03-48-53.png)
 
 However, initial testing results don't provide useful match information. This could be specific to fingerprint SITs.
 
-![](img/2023-04-26-03-51-32.png)
+![](../img/2023-04-26-03-51-32.png)
 
 You can also test in PowerShell using [`Test-DataClassification`](https://learn.microsoft.com/en-us/powershell/module/exchange/test-dataclassification?view=exchange-ps):
 
-![](img/2023-04-27-03-30-14.png)
+![](../img/2023-04-27-03-30-14.png)
 
 Similar unuseful match results for PowerShell.  Again, could be due to fingerprint SIT vs regular SIT.
 
-![](img/2023-04-27-03-32-17.png)
+![](../img/2023-04-27-03-32-17.png)
 
 ### Validate DLP Fingerprint Functionality
 From an existing DLP policy use `New-DlpComplianceRule` to add a rule that blocks the fingerprint SIT.
 
-![](img/2023-04-27-04-12-11.png)
+![](../img/2023-04-27-04-12-11.png)
 
 The user will receive an NDR when attempting to share the file over email:
 
-![](img/2023-04-27-04-12-54.png)
+![](../img/2023-04-27-04-12-54.png)
 
 The message trace indicates the email was blocked due to the **Patent Sharing Restriction** DLP rule:
 
-![](img/2023-04-27-04-14-59.png)
+![](../img/2023-04-27-04-14-59.png)
 
 Alternatively, you can use a mail flow rule in Exchange to block the fingerprint SIT.
 

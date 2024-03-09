@@ -16,12 +16,12 @@
   - Also links to comparison tables for various plans
 
 In general, licensing is required for any user that you intend to benefit from and/or access the service.  
-![](img/20230510-041054.png)
+![](../img/20230510-041054.png)
 
 ## Overview
 Data is exploding. Regulation is increasing. Discovering and managing data is challenging. 
 
-![](img/2023-04-23-05-18-48.png)
+![](../img/2023-04-23-05-18-48.png)
 
 Questions to consider
 - Do you know where your business critical and sensitive data reside and what is being done with it?
@@ -43,7 +43,7 @@ Information protection capabilities
 - Prevent data leakage through DLP policies
 - Business data separation on devices
 
-![](img/2023-04-23-05-24-48.png)
+![](../img/2023-04-23-05-24-48.png)
 
 Implementing an information protection system is a journey that involves people, process, and technology.
 
@@ -53,7 +53,7 @@ Information Protection Strategy Steps
 3. Prevent data loss - use data loss prevention (DLP)
 4. Govern your data - use Data Lifecycle Management and Records Management
 
-![](img/2023-04-23-06-00-22.png)
+![](../img/2023-04-23-06-00-22.png)
 
 Learn More
 - [Sensitivity Labels](https://learn.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels?azure-portal=true&view=o365-worldwide)
@@ -66,4 +66,4 @@ Learn More
 
 Info Protection concepts: https://learn.microsoft.com/en-us/information-protection/develop/concept-classification-labels
 
-![](img/20230536-143610.png)
+![](../img/20230536-143610.png)

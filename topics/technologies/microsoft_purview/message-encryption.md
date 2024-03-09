@@ -37,7 +37,7 @@ You can't encrypt inbound messages. You can only encrypt outbound messages. If y
 
 When using mail flow rules, use the option **Apply Office 365 Message Encryption and rights protection**. See [Define mail flow rules to encrypt email messages](https://learn.microsoft.com/en-us/purview/define-mail-flow-rules-to-encrypt-email).
 
-<img src='img/20231251-035100.png' width='400px'>
+<img src='../img/20231251-035100.png' width='400px'>
 
 ## Advanced Message Encryption
 
