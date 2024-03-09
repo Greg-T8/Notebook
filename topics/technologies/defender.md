@@ -122,7 +122,7 @@ Defender for Cloud Apps helps organizations secure their cloud environments, mit
 
 #### Defender for Cloud
 
-Microsoft Defender for Cloud is a cloud-native application protection platform (CNAPP) that is made up of security measures and practices that are designed to protect cloud-based applications from cyber threats and vulnerabilities. Defender for Cloud combines the following capabilities:
+Microsoft Defender for Cloud, formerly known as Azure Security Center, is a cloud-native application protection platform (CNAPP) that is made up of security measures and practices that are designed to protect cloud-based applications from cyber threats and vulnerabilities. Defender for Cloud combines the following capabilities:
 
 - A development security operations (DevSecOps) solution that unifies security management at the code level across multi-cloud and multi-pipeline environments
 - A cloud security posture management (CSPM) solution that surfaces actions you can take to prevent breaches
@@ -456,8 +456,6 @@ The following items are specific resources related to various Defender topics:
 
 ### Defender XDR Role-Based Access Control (RBAC)
 
-<details><summary>Expand to learn more about Microsoft Defender Unified RBAC</summary>
-
 Per [Manage access to Microsoft Defender XDR](https://learn.microsoft.com/en-us/microsoft-365/security/defender/m365d-permissions?view=o365-worldwide), there are two ways to manage access:
 
 - Global Microsoft Entra roles
@@ -490,8 +488,5 @@ Here are some caveats I've found during testing:
 - 
 
 See [What's new in Microsoft Defender XDR RBAC](https://learn.microsoft.com/en-us/microsoft-365/security/defender/whats-new-in-microsoft-defender-urbac?view=o365-worldwide) for the latest updates.
-
-</details>
-
 
 
