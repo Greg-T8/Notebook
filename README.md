@@ -21,7 +21,7 @@ Use the links below to discover more about what I'm learning.
 ## Concepts
 
 - [Unit Testing](/topics/concepts/unit_testing.md)
-- [Change Management](/topics/concepts/change_management)
+- [Change Management](/topics/concepts/change_management.md)
 
 ## Certifications
 
