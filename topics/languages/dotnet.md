@@ -4,6 +4,7 @@ This page is a collection of my notes on learning C# and .NET. I captured most o
 
 - [C# 12 and .NET 8 Modern Cross-Platform Development Fundamentals](https://www.amazon.com/gp/product/B0CGZVT568/ref=ppx_yo_dt_b_d_asin_title_o00?ie=UTF8&psc=1)
 - [C# Documentation](https://learn.microsoft.com/en-us/dotnet/csharp/)
+- [Companion Books](https://github.com/markjprice/cs12dotnet8?tab=readme-ov-file#companion-book)
 
 ## Table of Contents
 
@@ -34,28 +35,28 @@ This page is a collection of my notes on learning C# and .NET. I captured most o
     - [Interpolated verbatim string literals](#interpolated-verbatim-string-literals)
     - [Raw string literals](#raw-string-literals)
     - [Raw interpolated string literals](#raw-interpolated-string-literals)
-    - [Integer literals: Decimal, Binary, and Hexadecimal Numbers](#integer-literals-decimal-binary-and-hexadecimal-numbers)
-    - [Integral types (Integers)](#integral-types-integers)
-    - [Floating-point numeric types (Float, Double, Decimal)](#floating-point-numeric-types-float-double-decimal)
+    - [Integer literals: decimal, binary, and hexadecimal numbers](#integer-literals-decimal-binary-and-hexadecimal-numbers)
+    - [Integer types and the `sizeof` operator](#integer-types-and-the-sizeof-operator)
+    - [Real numbers: `float`, `double`, `decimal`](#real-numbers-float-double-decimal)
     - [Implicit conversions of numeric types](#implicit-conversions-of-numeric-types)
-    - [New number types (Half, Int128) and unsafe code](#new-number-types-half-int128-and-unsafe-code)
+    - [New number types, `Half`, `Int128`, and unsafe code](#new-number-types-half-int128-and-unsafe-code)
     - [Booleans](#booleans)
-    - [Storing any type of object (Object type)](#storing-any-type-of-object-object-type)
-    - [Dynamic types](#dynamic-types)
-    - [The var keyword and implicitly-typed local variables](#the-var-keyword-and-implicitly-typed-local-variables)
-    - [Using target-typed new to instantiate objects](#using-target-typed-new-to-instantiate-objects)
+    - [Storing any type of object using the `object` keyword](#storing-any-type-of-object-using-the-object-keyword)
+    - [Dynamic types using the `dynamic` keyword](#dynamic-types-using-the-dynamic-keyword)
+    - [The `var` keyword and implicitly-typed local variables](#the-var-keyword-and-implicitly-typed-local-variables)
+    - [Using target-typed new, `new()`, to instantiate objects](#using-target-typed-new-new-to-instantiate-objects)
     - [Value types and reference types, boxing and unboxing](#value-types-and-reference-types-boxing-and-unboxing)
-    - [Default value expressions](#default-value-expressions)
+    - [Default value expressions using the `default` operator](#default-value-expressions-using-the-default-operator)
     - [Formatting using numbered positional arguments](#formatting-using-numbered-positional-arguments)
     - [Formatting using interpolated strings](#formatting-using-interpolated-strings)
     - [Interpolated strings with newlines in C# 11](#interpolated-strings-with-newlines-in-c-11)
-    - [Format strings](#format-strings)
-    - [Text input and handling null cases](#text-input-and-handling-null-cases)
+    - [Format strings, `{1,6:N0}`](#format-strings-16n0)
+    - [Text input and handling null cases, `?` and `!`](#text-input-and-handling-null-cases--and-)
     - [Key input](#key-input)
     - [Passing arguments to a console app](#passing-arguments-to-a-console-app)
     - [Setting options with arguments](#setting-options-with-arguments)
     - [Handling platforms that do not support an API (conditional preprocessor directives)](#handling-platforms-that-do-not-support-an-api-conditional-preprocessor-directives)
-    - [Understanding async and await](#understanding-async-and-await)
+    - [Understanding `async` and `await`](#understanding-async-and-await)
     - [Knowledge check](#knowledge-check)
 
 ## Introduction
@@ -91,7 +92,7 @@ Microsoft purchased Xamarin in 2016 and has integrated its functionality into Vi
 
 Since 2015, Microsoft has been working to rewrite the .NET Framework to be truly cross-platform. The new modernized product was initially branded **.NET Core**.  .NET Core was designed to run on Windows, Linux, and macOS. .NET Core shares some components with .NET Framework but has its own runtime and set of libraries known as CoreFX. .NET Core is an open source revamp of .NET, optimized for modern application development, mainly focusing on cloud and web applications.
 
-.NET Core includes versions up to .NET Core 3.1. 
+.NET Core includes versions up to .NET Core 3.1.
 
 ##### Modern .NET**
 
@@ -410,9 +411,13 @@ You can also get a list of supported language versions on your system. See [this
 
 <img src='img/20240259-055916.png' width=300px>
 
-To confirm the language and compiler version, enter the following statement in a blank .cs program file and run it:  `#error version`.  You will get an error, but the error will indicate the language and compiler version. See [Override the default](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/configure-language-version#override-the-default).
-
+To confirm the language and compiler version, enter the following statement in a blank .cs program file and run it:  `#error version`.  You will get an error, but the error will indicate the language and compiler version. 
 <img src='img/20240207-040703.png' width=700px>
+
+See:
+
+- [Override the default](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/configure-language-version#override-the-default)
+- [Error and Warning information](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/preprocessor-directives#error-and-warning-information)
 
 ### C# Language Features
 
@@ -592,7 +597,7 @@ Console.WriteLine(message);
 
 Raw interpolated string literals were introduced in C# 11 in 2022, along with raw string literals.
 
-#### Integer literals: Decimal, Binary, and Hexadecimal Numbers
+#### Integer literals: decimal, binary, and hexadecimal numbers
 
 Whole numbers can be stored in decimal, binary, or hexadecimal notation. An underscore can be used as a digit separator to improve legibility.
 
@@ -613,7 +618,7 @@ Console.WriteLine($"{hexadecimalNotation:X}"); // 1E8480
 
 See https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/integral-numeric-types#integer-literals
 
-#### Integral types (Integers)
+#### Integer types and the `sizeof` operator
 
 Integral numeric types represent integer numbers. The table in [Characteristics of integral types](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/integral-numeric-types#characteristics-of-the-integral-types) lists all the supported types.
 
@@ -631,7 +636,7 @@ Output:
 
 See [sizeof operator - determine the memory needs for a given type](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/sizeof).
 
-#### Floating-point numeric types (Float, Double, Decimal)
+#### Real numbers: `float`, `double`, `decimal`
 
 Floating-point numeric types represent real numbers. C# supports three predefined floating-point types: float, double, and decimal. Here are general usage guidelines:
 
@@ -739,7 +744,7 @@ Console.WriteLine(a + (double)b);
 Console.WriteLine((decimal)a + b);
 ```
 
-#### New number types (Half, Int128) and unsafe code
+#### New number types, `Half`, `Int128`, and unsafe code
 
 The `System.Half` type was introduced in .NET 5. See [Introducing the half type](https://devblogs.microsoft.com/dotnet/introducing-the-half-type/). Like `float` and `double`, it can store real numbers. It normally uses two bytes of memory. This type is useful in scenarios where the range and precision of `float` is not necessary and minimizing memory usage is desirable. Scenarios include game development, machine learning and AI, scientific computing, data transfer and storage, and embedded systems and IoT devices.
 
@@ -781,7 +786,7 @@ Booleans are mostly used to branch and loop.
 
 See [bool (C# reference)](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/bool)
 
-#### Storing any type of object (Object type)
+#### Storing any type of object using the `object` keyword
 
 There is a special type named `object` that can store any type of data, but its flexibility comes at the cost of messier code and possibly poor performance. Because of those two reasons, you should avoid it whenever possible. 
 
@@ -800,11 +805,11 @@ The `object` type has been available since the first version of C#, but C# 2 and
 
 See [The object type](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/reference-types#the-object-type)
 
-#### Dynamic types
+#### Dynamic types using the `dynamic` keyword
 
-The `dynamic` keyword was introduced with C# 4.0 (2010) and enables dynamic type resolution at runtime. Unlike statically-typed variables, where the type is known at compile time, a `dynamic` type bypasses compile-time checking. This means that the operations involving `dynamic` variables are not checked by the compiler for correctnesss. 
+The `dynamic` keyword was introduced with C# 4.0 (2010) and enables dynamic type resolution at runtime. Unlike statically-typed variables, where the type is known at compile time, a `dynamic` type bypasses compile-time checking. This means that the operations involving `dynamic` variables are not checked by the compiler for correctnesss.
 
-Dynamic variables allow for flexibility, especially when interacting with components or APIs where the type information is not available or not important at compile time. However, operations on `dynamic` variables, since they are not checked at compile time, can lead to runtime exceptions if the operation is not valid for the runtime object. 
+Dynamic variables allow for flexibility, especially when interacting with components or APIs where the type information is not available or not important at compile time. However, operations on `dynamic` variables, since they are not checked at compile time, can lead to runtime exceptions if the operation is not valid for the runtime object.
 
 Dynamic variables are most useful in scenarios where static type checking is either not possible or overly restrictive, such as when interacting with COM objects, dynamic programming languages, or when dealing with structures like JSON that may have a variable structure not known until runtime. Dynamic types are also useful when operating with non-.NET systems. For example, you might need to work with a class library written in F#, Python, or some JavaScript. You might also need to interop with technologies like **Component Object Model (COM)** when automating things in Word or Excel.
 
@@ -861,7 +866,7 @@ See the following:
 - [Understanding the Dynamic keyword in C#](https://learn.microsoft.com/en-us/archive/msdn-magazine/2011/february/msdn-magazine-dynamic-net-understanding-the-dynamic-keyword-in-csharp-4)
 - [Using type dynamic](https://learn.microsoft.com/en-us/dotnet/csharp/advanced-topics/interop/using-type-dynamic)
 
-#### The var keyword and implicitly-typed local variables
+#### The `var` keyword and implicitly-typed local variables
 
 You can use the `var` keyword to declare local variables with C# 3 (2007) and later. The compiler infers the type from the value that you assign after the assignment operator, `=`. This happens at compile time, so using `var` has no effect on runtime performance.
 
@@ -916,9 +921,25 @@ The second code block that uses `var file1` is a poor use choice because it is n
 
 As a good practice, use `var` when the type is obvious. When in doubt, spell it out.  
 
+From ChatGPT: 
+
+In C#, the `var` keyword is used for implicitly typing local variables. Instead of explicitly specifying the data type of a variable, you can use `var`, and the compiler infers the type based on the expression used to initialize the variable.
+
+The benefits of using `var` include:
+
+1. **Conciseness**: Using `var` can make your code more concise and readable, especially when the type is obvious from the context. This can reduce unnecessary repetition and make the code easier to understand at a glance.
+
+2. **Flexibility**: If you decide to change the type of the variable later, you only need to change the type of the expression on the right-hand side of the assignment, rather than having to update the type in multiple places throughout your code.
+
+3. **Enhanced Maintenance**: Since the type is inferred by the compiler, there's less chance of introducing bugs due to type mismatches when refactoring or modifying code.
+
+4. **Promotes Encapsulation**: Using `var` encourages developers to focus on the interface rather than the implementation details, promoting encapsulation and abstraction.
+
+However, it's important to use `var` judiciously. While it can improve readability and maintainability in many cases, it should not be used excessively, especially in cases where the type is not immediately obvious from the context. Additionally, it's essential to ensure that the type inferred by the compiler is indeed what you intended, as using `var` excessively might obscure the actual type of the variable, making the code less understandable for others.
+
 See [Implicitly Typed Local Variables](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/implicitly-typed-local-variables)
 
-#### Using target-typed new to instantiate objects
+#### Using target-typed new, `new()`, to instantiate objects
 
 Microsoft introduced target-typed `new` expressions in C# 9.0 (2020) to improve the conciseness of code. This feature allows the type of the new expression to be inferred by the compiler based on the context in which it is used, eliminating the need to explicitly specify the type if it can be clearly inferred from the assignment or declaration.
 
@@ -935,11 +956,13 @@ Microsoft introduced target-typed `new` expressions in C# 9.0 (2020) to improve 
 Here's an example to illustrate the difference:
 
 **Before C# 9.0:**
+
 ```csharp
 List<string> names = new List<string>();
 ```
 
 **With C# 9.0 using target-typed new expressions:**
+
 ```csharp
 List<string> names = new();
 ```
@@ -951,6 +974,7 @@ In the example above, `List<string>` is specified twice in the pre-C# 9.0 syntax
 Before this feature was introduced, when instantiating objects or collections, developers had to specify the type both at the declaration and at the instantiation. This was particularly verbose when dealing with complex generic types or when the type was already specified on the left-hand side of an assignment. For example, when you had a property or method return type specified, you still had to repeat the type name when using `new` to create an instance.
 
 **Example without target-typed new expressions:**
+
 ```csharp
 Dictionary<int, List<string>> map = new Dictionary<int, List<string>>();
 ```
@@ -1022,7 +1046,7 @@ Understanding the difference between value types and reference types is crucial 
 
 See [Value types and reference types](https://learn.microsoft.com/en-us/dotnet/visual-basic/programming-guide/language-features/data-types/value-types-and-reference-types)
 
-#### Default value expressions
+#### Default value expressions using the `default` operator
 
 The `default` operator in C# is used to obtain the default value of a type. The behavior of the `default` operator depends on whether the type is a reference type or a value type:
 
@@ -1311,7 +1335,7 @@ References:
 
 - [Allow new-lines in all interpolations](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-11.0/new-line-in-interpolation)
 
-#### Format strings
+#### Format strings, `{1,6:N0}`
 
 Format strings allow you to control how values are displayed, including numbers, dates, times, and custom formats. C# utilizes composite formatting, which combines a format string with an array of objects to produce a formatted result. This system is used across various methods like `String.Format`, `Console.WriteLine`, and string interpolation (introduced in C# 6 with the `$` prefix).
 
@@ -1354,7 +1378,7 @@ Reference:
 - [Standard numeric format strings](https://learn.microsoft.com/en-us/dotnet/standard/base-types/standard-numeric-format-strings)
 - [Custom numeric format strings](https://learn.microsoft.com/en-us/dotnet/standard/base-types/custom-numeric-format-strings)
 
-#### Text input and handling null cases
+#### Text input and handling null cases, `?` and `!`
 
 Here's an example of using `Console.Readline()` to capture input.  
 
@@ -1523,7 +1547,7 @@ You can then write statements that will compile only for the specified platforms
 
 See [C# preprocessor directives](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/preprocessor-directives)
 
-#### Understanding async and await
+#### Understanding `async` and `await`
 
 C# 5 (2012) introduced two C# keywords when working with the `Task` type that enable easy multi-threading. The pair of keywords is especially useful in
 
@@ -1555,11 +1579,86 @@ With .NET 6 and later, the console app project template uses the top-level progr
 
 ##### Exercise 2.1 - Test your knowledge
 
-<details><summary>1. What statement can you type in a C# file to discover the compiler and language version?</summary>
+<details><summary>1. What statement can you type in a C# file to discover the compiler and language version?</summary><br>
 
-<br>
-
-blah
+Use statement `#error version`. See [Specifying SDK and C# language versions](#specifying-sdk-and-c-language-versions).
 
 </details>
+
+<details><summary>2. What are the two types of comments in C#?</summary><br>
+
+The two types of comments are a single-line comment, `//`, and a multi-line comment, `/*` and `*/`.
+
+</details>
+
+<details><summary>3. What is the difference between a verbatim string and an interpolated string?</summary><br>
+
+Standard strings allow for escape characters, e.g. `\n` to represent a newline. Verbatim strings, which are denoted with a `@`, do not process escape characters; instead, they depict an escape character as literal text.
+
+Interpolated strings make code more user-friendly by allowing references to variables directly in the string itself, within curly braces, `{}`. Interpolated strings are denoted with a `$`.
+
+See [Verbatim string literals](#verbatim-string-literals) and [Interpolated string literals](#interpolated-string-literals).
+
+</details>
+
+<details><summary>4. Why should you be careful when using `float` and `double` values?</summary><br>
+
+`float` and `double` values store the fraction portion of the real number in binary representation rather than decimal representation. As a result, some numbers cannot be represented exactly, resulting in small rounding errors. You should never compare a `float` and `double` value for equality; instead, you should use a greater-than or less-than approach. Use the `decimal` type to compare real numbers for equality, as the decimal type stores the fraction part of the real number decimal representation rather than binary representation.
+
+See [Real number types](#real-numbers-float-double-decimal).
+
+</details>
+
+<details><summary>5. How can you determine how many bytes a type like `double` uses in memory?</summary><br>
+
+Use the `sizeof` operator.
+
+See [Integer types and the `sizeof` operator](#integer-types-and-the-sizeof-operator)
+
+</details>
+
+<details><summary>6. When should you use the `var` keyword?</summary><br>
+
+The `var` keyword is used to allow the compiler to infer type type of a variable. You should make a good habit of using the `var` keyword but only use it when the type can be easily deduced from the variable assignment.
+
+See [The `var` keyword](#the-var-keyword-and-implicitly-typed-local-variables)
+
+</details>
+
+<details><summary>7. What is the newest syntax to create an instance of a class like `XmlDocument`?</summary><br>
+
+The target-typed `new()` operator can be used to create new instances without having to explicitly list the type during assignment or declaration.
+
+See [The `new()` operator](#using-target-typed-new-new-to-instantiate-objects).
+
+</details>
+
+<details><summary>8. Why should you be careful when using the `dynamic` type?</summary><br>
+
+Operations on `dynamic` types are not checked at compile time. Therefore, there is increased risk of an error occurring during runtime for `dynamic` types.
+
+See [Dynamic types](#dynamic-types-using-the-dynamic-keyword)
+
+</details>
+
+<details><summary>9. How do you right-align a format string?</summary><br>
+
+When specifying a format, the alignment number can be used after the index number to indicate the number of characters to align. A positive number indicates left alignment. A negative number indicates right alignment.
+
+```csharp
+{index[,alignment][:formatString]}
+```
+
+See [Format strings](#format-strings-16n0)
+
+</details>
+
+<details><summary>10. What character separates arguments for a console app?</summary><br>
+
+A space character separates arguments.
+
+See [Passing arguments to a console app](#passing-arguments-to-a-console-app).
+
+</details>
+
 
