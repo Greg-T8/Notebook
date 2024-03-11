@@ -11,6 +11,8 @@
   - [Instructions](#instructions)
     - [The `movq` instruction](#the-movq-instruction)
     - [The `syscall` instruction](#the-syscall-instruction)
+  - [Registers and Simple Arithmetic](#registers-and-simple-arithmetic)
+    - [Simple Arithmetic Instructions](#simple-arithmetic-instructions)
 
 ## Getting Started
 
@@ -397,4 +399,24 @@ The transition from using software interrupts like `int 0x80` for system calls t
 
 While the transition didn't happen overnight, the early 2000s mark the period when `syscall` became the preferred mechanism for system calls in x86-64 architectures, coinciding with the broader adoption of 64-bit processors and operating systems. This transition reflects ongoing efforts to improve the efficiency and performance of system-level operations in modern computing environments.
 
+### Registers and Simple Arithmetic
 
+
+#### Simple Arithmetic Instructions
+
+This section focuses on basic arithmetic operations with nonnegative integers.
+
+- **Two-Operand Instructions**: Arithmetic instructions typically use two operands. Interestingly, the x86-64 architecture's instructions are designed so that one operand can serve both as an input and as the destination for the result. 
+
+- **Basic Arithmetic Operations**:
+  - **Addition (`addq`)**: This instruction adds the source operand to the destination operand and stores the result in the destination.
+  - **Subtraction (`subq`)**: It subtracts the source operand from the destination operand, with the result being stored in the destination.
+  - **Increment (`incq`)** and **Decrement (`decq`)**: These instructions respectively increase or decrease the value of their operand by one, showcasing a simplified form of addition and subtraction for single-unit changes.
+
+- **Multiplication and Division**:
+  - **Multiplication (`mulq`)**: The section explains that multiplication involves more complex processing, using the `%rax` register for storing the result of multiplying the source operand with the value in `%rax`.
+  - **Division (`divq`)**: Division is performed by dividing the combined value of the `%rdx` (high) and `%rax` (low) registers by the source operand, resulting in the quotient in `%rax` and the remainder in `%rdx`. These operations highlight the use of specific registers for arithmetic calculations, indicating the lower-level management of data in assembly programming.
+
+##### Practical Application
+
+An example program is provided to illustrate the application of these instructions in an actual programming scenario. This example serves to demystify the assembly process, showing how to assemble, link, and execute an assembly program that performs various arithmetic operations. Through this practical demonstration, readers can see the direct impact of the instructions on the program's behavior, reinforcing the theoretical concepts discussed.
