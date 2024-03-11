@@ -1661,4 +1661,28 @@ See [Passing arguments to a console app](#passing-arguments-to-a-console-app).
 
 </details>
 
+##### Exercise 2.2 - Test your knowledge of number types
+
+What type would you choose for the following numbers?
+
+- A person's telephone number:  `string`
+- A person's height: `decimal`
+- A person's salary: `int`
+- A book's ISBN: `string`
+- A book's price: `decimal`
+- A book's shipping weight: `float`
+- A country's population: `long`
+- The number of stars in the universe: `double`
+- The number of employees in each of the small or medium businesses in the US (up to ~50k employees per business): `long`
+
+##### Exercise 2.3 - Practice number sizes and ranges
+
+In the Chapter02 solution, create a console app project named Ch02Ex03Numbers that outputs the number of bytes in memory that each of the following number types uses and the minimum and maximum values they can have: `sbyte`, `byte`, `short`, `ushort`, `int`, `uint`, `long`, `ulong`, `Int128`, `UInt128`, `Half`, `float`, `double`, and `decimal`.
+
+The result should look like the following
+
+<img src='img/20240349-054921.png' width=500px>
+
+
+
 
