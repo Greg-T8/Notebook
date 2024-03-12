@@ -15,6 +15,8 @@
   - [Resources for learning and getting help](#resources-for-learning-and-getting-help)
 - [Technical Notes](#technical-notes)
   - [Defender XDR Role-Based Access Control (RBAC)](#defender-xdr-role-based-access-control-rbac)
+  - [Defender for Office 365 Technical Dive](#defender-for-office-365-technical-dive)
+    - [Email Submission and Review](#email-submission-and-review)
 
 ## Product Overview
 
@@ -488,5 +490,19 @@ Here are some caveats I've found during testing:
 - 
 
 See [What's new in Microsoft Defender XDR RBAC](https://learn.microsoft.com/en-us/microsoft-365/security/defender/whats-new-in-microsoft-defender-urbac?view=o365-worldwide) for the latest updates.
+
+### Defender for Office 365 Technical Dive
+
+#### Email Submission and Review
+
+Apache SpamAssassin page provides the [Generic Test for Unsolicited Bulk Email (GTUBE) page](https://spamassassin.apache.org/gtube/). This test consists of a single line of text which you can copy and send from a valid email address:
+
+```text
+XJS*C4JDBQADN1.NSBN3*2IDNEN*GTUBE-STANDARD-ANTI-UBE-TEST-EMAIL*C.34X
+```
+
+Microsoft will detect this string and assign a spam confidence level value of `6`.
+
+
 
 
