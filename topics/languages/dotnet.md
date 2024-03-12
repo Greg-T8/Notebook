@@ -110,7 +110,7 @@ In 1999, before the first release of C#, the codename was **C-like Object-Orient
 
 | C# Version | Release Date | .NET Version(s)                          | Key C# Language Features Introduced                                           | Major .NET Introductions                                   |
 |------------|--------------|------------------------------------------|-------------------------------------------------------------------------------|-------------------------------------------------------------|
-| 1.0        | 2002         | .NET Framework 1.0                       | Classes, structs, interfaces, events, properties                             | Initial release of .NET Framework                          |
+| 1.0        | 2002         | .NET Framework 1.0                       | Classes, structs, interfaces, events, properties, delegates, operators and expressions, statements, attributes                             | Initial release of .NET Framework                          |
 | 2.0        | 2005         | .NET Framework 2.0                       | Generics, partial types, anonymous methods, nullable types, iterator blocks  | Generics, partial classes, nullable types                   |
 | 3.0        | 2007         | .NET Framework 3.0                       | LINQ, lambda expressions, extension methods                                  | WPF, WCF, WF, CardSpace                                    |
 | 4.0        | 2010         | .NET Framework 4                         | Dynamic binding, named and optional arguments, generic co- and contravariance| Parallel Extensions, MEF                                    |
@@ -133,7 +133,10 @@ Things to note:
 
 
 
-See here for a complete timeline: [C# language versions and features](https://github.com/markjprice/cs12dotnet8/blob/main/docs/ch02-features.md) 
+See here for a complete timeline: 
+
+- [The history of C#](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history)[]
+- [C# language versions and features](https://github.com/markjprice/cs12dotnet8/blob/main/docs/ch02-features.md)
 
 #### About .NET support (LTS, STS, and Preview)
 
@@ -1683,6 +1686,51 @@ The result should look like the following
 
 <img src='img/20240349-054921.png' width=500px>
 
+<details><summary>My solution</summary><br>
+
+Here is the code to my solution:
+
+```csharp
+string hyphens = new string('-', 105);
+string titleformat = "{0,-10}{1,-20}{2,30}{3,45}";
+string format = "{0,-10}{1,-5}{2,45}{3,45}";
+WriteLine($"{hyphens}");
+WriteLine(titleformat, "Type", "Byte(s) of memory", "Min", "Max");
+WriteLine(hyphens);
+WriteLine(format, "sbyte", sizeof(sbyte), sbyte.MinValue, sbyte.MaxValue);
+WriteLine(format, "byte", sizeof(byte), byte.MinValue, byte.MaxValue);
+WriteLine(format, "short", sizeof(short), short.MinValue, short.MaxValue);
+WriteLine(format, "ushort", sizeof(ushort), ushort.MinValue, ushort.MaxValue);
+WriteLine(format, "int", sizeof(int), int.MinValue, int.MaxValue);
+WriteLine(format, "uint", sizeof(uint), uint.MinValue, uint.MaxValue);
+WriteLine(format, "long", sizeof(long), long.MinValue, long.MaxValue);
+WriteLine(format, "ulong", sizeof(ulong), ulong.MinValue, ulong.MaxValue);
+unsafe
+{
+    WriteLine(format, "Int128", sizeof(Int128), Int128.MinValue, Int128.MaxValue);
+    WriteLine(format, "UInt128", sizeof(UInt128), UInt128.MinValue, UInt128.MaxValue);
+    WriteLine(format, "Half", sizeof(Half), Half.MinValue, Half.MaxValue);
+}
+WriteLine(format, "float", sizeof(float), float.MinValue, float.MaxValue);
+WriteLine(format, "double", sizeof(double), double.MinValue, double.MaxValue);
+WriteLine(format, "decimal", sizeof(decimal), decimal.MinValue, decimal.MaxValue);
+```
+
+Output:
+
+<img src='img/20240308-050826.png' width=600px>
+
+</details>
+
+##### Exercise 2.4 - Explore topics
+
+Use the links on the following page to learn more details about the topics covered in this chapter:
+
+https://github.com/markjprice/cs12dotnet8/blob/main/docs/book-links.md#chapter-2---speaking-c
+
+##### Exercise 2.5 - Explore Spectre
+
+**Spectre** is a package that enhances console apps: https://spectreconsole.net
 
 
 
