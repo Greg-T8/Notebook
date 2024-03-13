@@ -108,34 +108,120 @@ Modern .NET aims to unify .NET Core with the original .NET Framework into a sing
 
 In 1999, before the first release of C#, the codename was **C-like Object-Oriented Language (COOL)**. The lead architect was Anders Hejlsberg. Anders indicates that flaws in most major programming languages (e.g. C++, Java) drove the fundamentals of the Common Language Runtime (CLR), which in turn drove the design of the C# language. "C sharp" implies that the language is an increment of C++.
 
-| C# Version | Release Date | .NET Version(s)                          | Key C# Language Features Introduced                                           | Major .NET Introductions                                   |
-|------------|--------------|------------------------------------------|-------------------------------------------------------------------------------|-------------------------------------------------------------|
-| 1.0        | 2002         | .NET Framework 1.0                       | Classes, structs, interfaces, events, properties, delegates, operators and expressions, statements, attributes                             | Initial release of .NET Framework                          |
-| 2.0        | 2005         | .NET Framework 2.0                       | Generics, partial types, anonymous methods, nullable types, iterator blocks  | Generics, partial classes, nullable types                   |
-| 3.0        | 2007         | .NET Framework 3.0                       | LINQ, lambda expressions, extension methods                                  | WPF, WCF, WF, CardSpace                                    |
-| 4.0        | 2010         | .NET Framework 4                         | Dynamic binding, named and optional arguments, generic co- and contravariance| Parallel Extensions, MEF                                    |
-| 5.0        | 2012         | .NET Framework 4.5                       | `async` and `await` keywords                                                 | Portable Class Libraries (PCL)                               |
-| 6.0        | 2015         | .NET Framework 4.6                       | Roslyn compiler, string interpolation, expression-bodied members            | Compilation and runtime performance improvements            |
-| 7.0        | 2017         | .NET Core 1.0/1.1, .NET Framework 4.6.2  | Out variables, tuples, pattern matching, local functions                     | Introduction of .NET Core, a cross-platform framework       |
-| 8.0        | 2019         | .NET Core 3.0, .NET Framework 4.8        | Nullable reference types, async streams, default interface methods          | .NET Core 3.0 supports desktop applications (WPF, Windows Forms) |
-| 9.0        | 2020         | .NET 5.0                                 | Records, init-only setters, top-level statements                             | Unified .NET SDK experience, performance improvements      |
-| 10.0       | 2021         | .NET 6.0                                 | Global using directives, file-scoped namespaces, record structs             | Hot reload, minimal APIs, LTS release                       |
-| 11.0       | 2022         | .NET 7.0                                 | List patterns, required members, raw string literals                         | Performance improvements, enhanced containers support      |
-| 12.0       | 2023         | .NET 8.0                                 | Primary constructors, collection expressions, inline arrays, optional parameters in lamda expressions, alias any type, experimental attribute, interceptors |
-| 13.0       | ?            | .NET 9.0 | | 
+| C# Version | Release Date | .NET Version(s)                         | Key C# Language Features Introduced                                                                                                                         | Major .NET Introductions                                         |
+|------------|--------------|-----------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
+| 1.0        | 2002         | .NET Framework 1.0                      | Classes, structs, interfaces, events, properties, delegates, operators and expressions, statements, attributes                                              | Initial release of .NET Framework                                |
+| 2.0        | 2005         | .NET Framework 2.0                      | Generics, partial types, anonymous methods, nullable types, iterator blocks                                                                                 | Generics, partial classes, nullable types                        |
+| 3.0        | 2007         | .NET Framework 3.0                      | LINQ, lambda expressions, extension methods                                                                                                                 | WPF, WCF, WF, CardSpace                                          |
+| 4.0        | 2010         | .NET Framework 4                        | Dynamic binding, named and optional arguments, generic co- and contravariance                                                                               | Parallel Extensions, MEF                                         |
+| 5.0        | 2012         | .NET Framework 4.5                      | `async` and `await` keywords                                                                                                                                | Portable Class Libraries (PCL)                                   |
+| 6.0        | 2015         | .NET Framework 4.6                      | Roslyn compiler, string interpolation, expression-bodied members                                                                                            | Compilation and runtime performance improvements                 |
+| 7.0        | 2017         | .NET Core 1.0/1.1, .NET Framework 4.6.2 | Out variables, tuples, pattern matching, local functions                                                                                                    | Introduction of .NET Core, a cross-platform framework            |
+| 8.0        | 2019         | .NET Core 3.0, .NET Framework 4.8       | Nullable reference types, async streams, default interface methods                                                                                          | .NET Core 3.0 supports desktop applications (WPF, Windows Forms) |
+| 9.0        | 2020         | .NET 5.0                                | Records, init-only setters, top-level statements                                                                                                            | Unified .NET SDK experience, performance improvements            |
+| 10.0       | 2021         | .NET 6.0                                | Global using directives, file-scoped namespaces, record structs                                                                                             | Hot reload, minimal APIs, LTS release                            |
+| 11.0       | 2022         | .NET 7.0                                | List patterns, required members, raw string literals                                                                                                        | Performance improvements, enhanced containers support            |
+| 12.0       | 2023         | .NET 8.0                                | Primary constructors, collection expressions, inline arrays, optional parameters in lamda expressions, alias any type, experimental attribute, interceptors |                                                                  |
+| 13.0       | ?            | .NET 9.0                                |                                                                                                                                                             |                                                                  |
 
 Things to note:
 
-- C# 5.0 is not listed; the version numbers went from 4.0 directly to 6.0.
 - The table combines .NET Framework, .NET Core, and .NET versions, reflecting the evolution from .NET Framework to .NET Core and then to .NET (5.0 and beyond), which unifies these platforms.
 - The .NET introductions listed include only major highlights. Each version introduced numerous features and improvements not listed here for brevity.
 - For the most current information, including C# and .NET versions released after April 2023, consult the official Microsoft documentation or the .NET Blog.
+
+##### C# version 1.0 (2003)
+
+Initially looked very similar to Java. Major features introduced
+
+- [Classes](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/classes) - a blueprint for creating objects that encapsulates data and behavior, facilitating code organization and reusability through inheritance and polymorphism
+  - Inheritance - allows a class to inherit the attributes and behaviors of another class, promoting code reuse and establishing an "is-a" relationship between classes
+  - Polymorphism - enables objects of different classes to be treated as objects of a common base class, allowing for method invocation based on the specific object type at runtime
+- [Structs](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/struct) - a lightweight value type that contains data members and methods, suitable for small, simple data structures
+- [Interfaces](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/interfaces) - defines a contract for classes to implement, specifying a set of methods, properties, and events without providing implementation details
+- [Events](https://learn.microsoft.com/en-us/dotnet/csharp/events-overview) - provide a mechanism for communication between objects, allowing one object to notify other objects when a specific action or condition occurs, facilitating decoupled and loosely-coupled designs
+- [Properties](https://learn.microsoft.com/en-us/dotnet/csharp/properties) - provide a way to encapsulate data within a class while controlling access to it, enabling the implementation of getter and setter methods for reading and modifying the data, respectively
+- [Delegates](https://learn.microsoft.com/en-us/dotnet/csharp/delegates-overview) - enable the creation of type-safe function pointers, allowing methods to be passed as parameters or assigned to variables, facilitating callback mechanisms and event handling
+- [Operators](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/) - allow custom-defined functionality for built-in operators such as addition, subtraction, comparison, etc., enabling the customization of behavior for user-defined types
+- [Statements](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/statements) - individual instructions that perform specific actions, such as variable assignments, method calls, control flow operations, or exception handling, enabling the execution of logic within a program
+- [Attributes](https://learn.microsoft.com/en-us/dotnet/csharp/advanced-topics/reflection-and-attributes/) - provide a way to attach metadata to code elements, such as classes, methods, or properties, enabling declarative information to be used by the runtime or other tools for configuration, validation, or documentation purposes
+
+##### C# version 2.0 (2005)
+
+Major features introduced:
+
+###### [Generics](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/generics)
+
+Generics in .NET allow for the creation of reusable code components that can work with any data type, enhancing type safety and reducing code duplication compared to before their introduction, where developers had to use non-generic collections and methods, often requiring manual casting or boxing.
+
+**Before Generics:**
+
+```csharp
+// Non-generic collection
+ArrayList list = new ArrayList();
+list.Add(1);
+list.Add("two");
+
+// Retrieving elements from the collection (requiring casting)
+int number = (int)list[0]; // This requires casting and is not type-safe
+```
+
+**After Generics:**
+
+```csharp
+// Generic collection
+List<int> list = new List<int>();
+list.Add(1);
+list.Add(2);
+
+// Retrieving elements from the collection (type-safe)
+int number = list[0]; // No casting required, type-safe
+```
+
+In the example above, before generics, developers used non-generic collections like `ArrayList`, which could hold objects of any type and required explicit casting when retrieving elements. With generics, developers can use type-safe collections like `List<T>`, which eliminate the need for casting and provide compile-time type checking.
+
+
+- [Partial Types](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/partial-classes-and-methods#partial-classes) - enable the splitting of a single class, struct, or interface definition across multiple source files, facilitating code organization, maintenance, and collaboration without sacrificing the integrity of the type's definition
+- [Anonymous Methods](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/delegate-operator) - allow the definition of inline, unnamed code blocks that can be assigned to delegate types, providing a concise way to handle simple tasks or callbacks without the need for separate method declarations
+- [Nullable Value Types](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-value-types) - allow value types, such as integers or booleans, to represent an additional state of "null," providing a way to express the absence of a value and handle scenarios where a value may be missing in a type-safe manner
+- [Iterators](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/iterators) - enable the creation of custom collection-like objects that can be iterated through using foreach loops, providing a convenient way to traverse sequences of data without the need for explicit index management
+- [Covariance and Contravariance](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/covariance-contravariance/) - allow for more flexible type conversions in generic types, with covariance enabling implicit conversion of generic types to more derived types and contravariance enabling implicit conversion to less derived types, facilitating more versatile usage of generic types in method signatures and assignments.
+- 
+
+##### C# version 3.0 (2007)
+
+Major features introduced:
+
+- [Auto-implemented properties](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/auto-implemented-properties) - provide a concise syntax for declaring properties within a class without explicitly defining the backing fields, allowing for automatic generation of getter and setter methods by the compiler
+- [Anonymous types](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/anonymous-types) - allow the creation of lightweight, nameless data structures directly within code, simplifying the declaration of temporary data compared to before their introduction, where developers had to define explicit classes or structures for such purposes
+
+###### [Query Expressions](https://learn.microsoft.com/en-us/dotnet/csharp/linq/get-started/query-expression-basics)
+
+Query expressions in .NET provide a higher-level, more readable syntax for writing LINQ queries, simplifying code compared to the verbose method-based syntax previously required for querying data. A LINQ query is a concise and expressive way to retrieve, filter, and transform data from various data sources using a unified syntax, facilitating powerful data manipulation operations within the language.
+
+**Before Query Expressions:**
+
+```csharp
+var query = numbers.Where(n => n % 2 == 0).Select(n => n * 2);
+```
+
+**After Query Expressions:**
+
+```csharp
+var query = from n in numbers
+            where n % 2 == 0
+            select n * 2;
+```
+
+In the example above, before query expressions, LINQ queries were written using method-based syntax, which can sometimes be less intuitive, especially for complex queries. Query expressions provide a more natural and SQL-like syntax, making the code easier to understand and maintain.
+
+
 
 
 
 See here for a complete timeline: 
 
-- [The history of C#](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history)[]
+- [The history of C#](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history)
 - [C# language versions and features](https://github.com/markjprice/cs12dotnet8/blob/main/docs/ch02-features.md)
 
 #### About .NET support (LTS, STS, and Preview)
@@ -875,20 +961,20 @@ You can use the `var` keyword to declare local variables with C# 3 (2007) and la
 
 The following table shows inference of local variable types:
 
-| Type   | Suffix | Inferred Type |
-|--------|--------|---------------|
-| Number without decimal | (none) | int          |
-| Number without decimal | L      | long         |
-| Number without decimal | UL     | ulong        |
-| Number without decimal | M      | decimal      |
-| Number without decimal | D      | double       |
-| Number without decimal | F      | float        |
-| Number with decimal    | (none) | double       |
-| Number with decimal    | M      | decimal      |
-| Number with decimal    | F      | float        |
-| Text                  | " "    | string       |
-| Character             | ' '    | char         |
-| Boolean               | true/false | bool     |
+| Type                   | Suffix     | Inferred Type |
+|------------------------|------------|---------------|
+| Number without decimal | (none)     | int           |
+| Number without decimal | L          | long          |
+| Number without decimal | UL         | ulong         |
+| Number without decimal | M          | decimal       |
+| Number without decimal | D          | double        |
+| Number without decimal | F          | float         |
+| Number with decimal    | (none)     | double        |
+| Number with decimal    | M          | decimal       |
+| Number with decimal    | F          | float         |
+| Text                   | " "        | string        |
+| Character              | ' '        | char          |
+| Boolean                | true/false | bool          |
 
 See the following example code:
 
