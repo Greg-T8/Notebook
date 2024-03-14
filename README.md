@@ -10,7 +10,7 @@ Use the links below to discover more about what I'm learning.
 ## Technologies
 
 - [Microsoft Defender](/topics/technologies/defender.md)
-- [Microsoft Purview](/topics/technologies/microsoft_purview/index.md)
+- [Microsoft Purview](/topics/technologies/purview.md)
 
 ## Programming Languages
 
