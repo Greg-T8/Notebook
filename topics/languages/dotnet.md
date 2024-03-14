@@ -13,6 +13,7 @@ This page is a collection of my notes on learning C# and .NET. I captured most o
   - [Getting started with .NET and Visual Studio](#getting-started-with-net-and-visual-studio)
     - [Brief overview of .NET](#brief-overview-of-net)
     - [C# and .NET Timeline](#c-and-net-timeline)
+    - [C# Detailed Feature Timeline](#c-detailed-feature-timeline)
     - [About .NET support (LTS, STS, and Preview)](#about-net-support-lts-sts-and-preview)
     - [Understanding .NET runtime and .NET SDK versions](#understanding-net-runtime-and-net-sdk-versions)
     - [Using dotnet.exe to list and install .NET runtime and SDK versions](#using-dotnetexe-to-list-and-install-net-runtime-and-sdk-versions)
@@ -130,21 +131,367 @@ Things to note:
 - The .NET introductions listed include only major highlights. Each version introduced numerous features and improvements not listed here for brevity.
 - For the most current information, including C# and .NET versions released after April 2023, consult the official Microsoft documentation or the .NET Blog.
 
+#### C# Detailed Feature Timeline
+
 ##### C# version 1.0 (2003)
 
 Initially looked very similar to Java. Major features introduced
 
 - [Classes](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/classes) - a blueprint for creating objects that encapsulates data and behavior, facilitating code organization and reusability through inheritance and polymorphism
-  - Inheritance - allows a class to inherit the attributes and behaviors of another class, promoting code reuse and establishing an "is-a" relationship between classes
-  - Polymorphism - enables objects of different classes to be treated as objects of a common base class, allowing for method invocation based on the specific object type at runtime
+  
+    <details><summary>Overview</summary><br>
+
+    Classes in .NET provide a blueprint for creating objects with encapsulated data and behavior, simplifying code organization and promoting reusability compared to before their introduction, where developers typically used procedural programming with functions and data structures.
+
+    **Before Classes:**
+
+    ```csharp
+    // Procedural programming with functions and data structures
+    public class Calculator
+    {
+        public static int Add(int a, int b)
+        {
+            return a + b;
+        }
+    }
+
+    // Usage
+    int result = Calculator.Add(3, 5); // Perform addition operation
+    ```
+
+    **After Classes:**
+
+    ```csharp
+    // Object-oriented programming with classes
+    public class Calculator
+    {
+        public int Add(int a, int b)
+        {
+            return a + b;
+        }
+    }
+
+    // Usage
+    Calculator calculator = new Calculator();
+    int result = calculator.Add(3, 5); // Perform addition operation
+    ```
+
+    In the example above, before classes, developers used procedural programming with functions like `Add`, which operate directly on data. With classes, developers can encapsulate data and behavior within objects, promoting a more structured and modular approach to programming.
+
+    Inheritance in .NET allows classes to inherit attributes and behaviors from parent classes, enabling code reuse and promoting a hierarchical structure in object-oriented programming compared to before its introduction, where code duplication was common when implementing similar functionalities across different classes.
+
+    **Before Inheritance:**
+
+    ```csharp
+    // Code duplication without inheritance
+    public class Vehicle
+    {
+        public string Make { get; set; }
+        public string Model { get; set; }
+    }
+
+    public class Car
+    {
+        public string Make { get; set; }
+        public string Model { get; set; }
+        public int Doors { get; set; }
+    }
+
+    public class Truck
+    {
+        public string Make { get; set; }
+        public string Model { get; set; }
+        public int PayloadCapacity { get; set; }
+    }
+    ```
+
+    **After Inheritance:**
+
+    ```csharp
+    // Code reuse with inheritance
+    public class Vehicle
+    {
+        public string Make { get; set; }
+        public string Model { get; set; }
+    }
+
+    public class Car : Vehicle
+    {
+        public int Doors { get; set; }
+    }
+
+    public class Truck : Vehicle
+    {
+        public int PayloadCapacity { get; set; }
+    }
+    ```
+
+    In the example above, before inheritance, code duplication was necessary when creating classes such as `Car` and `Truck`. With inheritance, common attributes and behaviors can be defined in a base class (`Vehicle`), which is then inherited by subclasses (`Car` and `Truck`), promoting code reuse and reducing redundancy.
+
+    Polymorphism in .NET enables objects of different classes to be treated as objects of a common base class, allowing for method invocation based on the specific object type at runtime, thus promoting flexibility and extensibility compared to before its introduction, where code had to be explicitly written to handle different types of objects.
+
+    **Before Polymorphism:**
+
+    ```csharp
+    // Handling different types explicitly
+    public class Shape
+    {
+        public virtual void Draw()
+        {
+            // Default implementation
+        }
+    }
+
+    public class Circle
+    {
+        public void DrawCircle()
+        {
+            // Draw circle specific logic
+        }
+    }
+
+    public class Rectangle
+    {
+        public void DrawRectangle()
+        {
+            // Draw rectangle specific logic
+        }
+    }
+
+    // Usage
+    Shape shape1 = new Circle();
+    Shape shape2 = new Rectangle();
+    // shape1.Draw(); // This won't work without polymorphism
+    // shape2.Draw(); // This won't work without polymorphism
+    ```
+
+    **After Polymorphism:**
+
+    ```csharp
+    // Polymorphic behavior
+    public class Shape
+    {
+        public virtual void Draw()
+        {
+            // Default implementation
+        }
+    }
+
+    public class Circle : Shape
+    {
+        public override void Draw()
+        {
+            // Draw circle specific logic
+        }
+    }
+
+    public class Rectangle : Shape
+    {
+        public override void Draw()
+        {
+            // Draw rectangle specific logic
+        }
+    }
+
+    // Usage
+    Shape shape1 = new Circle();
+    Shape shape2 = new Rectangle();
+    shape1.Draw(); // Draw circle
+    shape2.Draw(); // Draw rectangle
+    ```
+
+    In the example above, before polymorphism, code had to be explicitly written to handle different types of shapes. With polymorphism, a common interface (`Shape`) is defined, and subclasses (`Circle` and `Rectangle`) override the `Draw` method as needed. This allows the code to handle different types of shapes uniformly, promoting flexibility and easier maintenance.
+
+    </details>
+
 - [Structs](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/struct) - a lightweight value type that contains data members and methods, suitable for small, simple data structures
+
+    <details><summary>Overview</summary><br>
+
+    In .NET, structs are lightweight, stack-allocated data structures that represent simple types and are commonly used to encapsulate small, related pieces of data. Unlike classes, which are reference types, structs are value types, meaning they are passed by value rather than by reference.
+
+    Benefits:
+    1. Efficiency: Structs are stack-allocated and do not require heap allocation, leading to better performance, especially for small data structures.
+    2. Value semantics: Structs exhibit value semantics, meaning they are copied when passed as parameters or assigned to variables, which can simplify memory management and prevent unintended side effects.
+    3. Suitable for small, simple data: Structs are ideal for representing small, self-contained pieces of data with value semantics, such as geometric points, dates, or currency amounts.
+
+    Reasons to Use:
+    1. Small data structures: When you need to represent simple data types with a small number of fields, structs provide a lightweight and efficient alternative to classes.
+    2. Performance-sensitive scenarios: In performance-critical applications where memory allocation and usage are concerns, using structs can help improve performance by avoiding the overhead of heap allocation and garbage collection.
+    3. Value semantics: When you want to ensure that data is copied rather than shared, structs with their value semantics can provide predictable behavior and help prevent unintended side effects.
+
+    Example:
+
+    ```csharp
+    // Define a struct to represent a geometric point
+    public struct Point
+    {
+        public int X { get; set; }
+        public int Y { get; set; }
+
+        // Constructor
+        public Point(int x, int y)
+        {
+            X = x;
+            Y = y;
+        }
+
+        // Method to calculate the distance between two points
+        public double DistanceTo(Point other)
+        {
+            int deltaX = X - other.X;
+            int deltaY = Y - other.Y;
+            return Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Create instances of the Point struct
+            Point p1 = new Point(0, 0);
+            Point p2 = new Point(3, 4);
+
+            // Calculate the distance between the points
+            double distance = p1.DistanceTo(p2);
+            Console.WriteLine($"Distance between p1 and p2: {distance}");
+        }
+    }
+    ```
+
+    In this example, the `Point` struct represents a geometric point with `X` and `Y` coordinates. The `DistanceTo` method calculates the Euclidean distance between two points. The struct is used to create instances `p1` and `p2`, and the `DistanceTo` method is invoked to calculate the distance between them.
+
+    </details>
+
 - [Interfaces](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/interfaces) - defines a contract for classes to implement, specifying a set of methods, properties, and events without providing implementation details
+
+    <details><summary>Overview</summary><br>
+
+    Interfaces in .NET define a contract that classes can implement, specifying a set of methods, properties, and events without providing any implementation details. Interfaces enable polymorphism, allowing objects of different classes to be treated uniformly based on shared behavior defined by the interface.
+
+    Benefits:
+    1. Encapsulation: Interfaces allow developers to define a clear separation between a type's contract and its implementation, promoting encapsulation and abstraction.
+    2. Polymorphism: Interfaces enable polymorphic behavior, allowing objects of different classes to be treated interchangeably based on shared interface implementations, leading to more flexible and extensible code.
+    3. Code reuse: Interfaces promote code reuse by defining a common set of functionality that multiple classes can implement, facilitating modular and maintainable code architectures.
+
+    Reasons to Use:
+    1. Define contracts: When you want to define a contract that multiple classes must adhere to, interfaces provide a way to specify the required methods, properties, or events without dictating the implementation details.
+    2. Enable polymorphism: When you want to enable polymorphic behavior and treat objects of different classes uniformly based on shared behavior, interfaces serve as a common abstraction layer.
+    3. Facilitate unit testing and mocking: Interfaces make it easier to write unit tests and create mock objects by allowing dependencies to be substituted with mock implementations, promoting testability and isolating components for testing.
+
+    Example:
+    ```csharp
+    // Define an interface for a shape
+    public interface IShape
+    {
+        double Area { get; }
+        double Perimeter { get; }
+    }
+
+    // Implement the interface for a rectangle
+    public class Rectangle : IShape
+    {
+        public double Width { get; }
+        public double Height { get; }
+
+        public Rectangle(double width, double height)
+        {
+            Width = width;
+            Height = height;
+        }
+
+        public double Area => Width * Height;
+        public double Perimeter => 2 * (Width + Height);
+    }
+
+    // Implement the interface for a circle
+    public class Circle : IShape
+    {
+        public double Radius { get; }
+
+        public Circle(double radius)
+        {
+            Radius = radius;
+        }
+
+        public double Area => Math.PI * Radius * Radius;
+        public double Perimeter => 2 * Math.PI * Radius;
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Create instances of shapes
+            IShape rectangle = new Rectangle(5, 3);
+            IShape circle = new Circle(2);
+
+            // Calculate and display area and perimeter of shapes
+            Console.WriteLine($"Rectangle - Area: {rectangle.Area}, Perimeter: {rectangle.Perimeter}");
+            Console.WriteLine($"Circle - Area: {circle.Area}, Circumference: {circle.Perimeter}");
+        }
+    }
+    ```
+
+    In this example, the `IShape` interface defines a contract for shapes with properties `Area` and `Perimeter`. The `Rectangle` and `Circle` classes implement this interface, providing their own implementations for calculating area and perimeter. Objects of different classes (`Rectangle` and `Circle`) are treated uniformly as `IShape`, demonstrating polymorphic behavior enabled by interfaces.
+
+    </details>
+
+
 - [Events](https://learn.microsoft.com/en-us/dotnet/csharp/events-overview) - provide a mechanism for communication between objects, allowing one object to notify other objects when a specific action or condition occurs, facilitating decoupled and loosely-coupled designs
 - [Properties](https://learn.microsoft.com/en-us/dotnet/csharp/properties) - provide a way to encapsulate data within a class while controlling access to it, enabling the implementation of getter and setter methods for reading and modifying the data, respectively
 - [Delegates](https://learn.microsoft.com/en-us/dotnet/csharp/delegates-overview) - enable the creation of type-safe function pointers, allowing methods to be passed as parameters or assigned to variables, facilitating callback mechanisms and event handling
 - [Operators](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/) - allow custom-defined functionality for built-in operators such as addition, subtraction, comparison, etc., enabling the customization of behavior for user-defined types
 - [Statements](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/statements) - individual instructions that perform specific actions, such as variable assignments, method calls, control flow operations, or exception handling, enabling the execution of logic within a program
 - [Attributes](https://learn.microsoft.com/en-us/dotnet/csharp/advanced-topics/reflection-and-attributes/) - provide a way to attach metadata to code elements, such as classes, methods, or properties, enabling declarative information to be used by the runtime or other tools for configuration, validation, or documentation purposes
+
+
+###### Delegates
+
+Delegates in .NET allow for the creation of type-safe function pointers, streamlining event handling and callback mechanisms compared to before their introduction, where developers had to use interfaces or rely on direct method calls.
+
+In the example below, before delegates, developers had to define interfaces and implement them for defining callbacks or events. With delegates, developers can define a delegate type directly, simplifying the process of creating and invoking function pointers for callback operations.
+
+**Before Delegates:**
+
+```csharp
+// Define an interface
+public interface IOperation
+{
+    void Execute();
+}
+
+// Implement the interface
+public class Addition : IOperation
+{
+    public void Execute()
+    {
+        Console.WriteLine("Performing addition operation...");
+    }
+}
+
+// Usage
+IOperation operation = new Addition();
+operation.Execute(); // Perform the operation
+```
+
+**After Delegates:**
+
+```csharp
+// Define a delegate
+public delegate void Operation();
+
+// Usage
+Operation operation = () =>
+{
+    Console.WriteLine("Performing addition operation...");
+};
+
+operation(); // Perform the operation
+```
+
+
 
 ##### C# version 2.0 (2005)
 
