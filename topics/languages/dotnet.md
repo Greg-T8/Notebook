@@ -13,7 +13,7 @@ This page is a collection of my notes on learning C# and .NET. I captured most o
   - [Getting started with .NET and Visual Studio](#getting-started-with-net-and-visual-studio)
     - [Brief overview of .NET](#brief-overview-of-net)
     - [C# and .NET Timeline](#c-and-net-timeline)
-    - [C# Detailed Feature Timeline](#c-detailed-feature-timeline)
+    - [C# feature overview](#c-feature-overview)
     - [About .NET support (LTS, STS, and Preview)](#about-net-support-lts-sts-and-preview)
     - [Understanding .NET runtime and .NET SDK versions](#understanding-net-runtime-and-net-sdk-versions)
     - [Using dotnet.exe to list and install .NET runtime and SDK versions](#using-dotnetexe-to-list-and-install-net-runtime-and-sdk-versions)
@@ -131,7 +131,7 @@ Things to note:
 - The .NET introductions listed include only major highlights. Each version introduced numerous features and improvements not listed here for brevity.
 - For the most current information, including C# and .NET versions released after April 2023, consult the official Microsoft documentation or the .NET Blog.
 
-#### C# Detailed Feature Timeline
+#### C# feature overview
 
 ##### C# version 1.0 (2003)
 
@@ -381,6 +381,7 @@ Initially looked very similar to Java. Major features introduced
     3. Facilitate unit testing and mocking: Interfaces make it easier to write unit tests and create mock objects by allowing dependencies to be substituted with mock implementations, promoting testability and isolating components for testing.
 
     Example:
+
     ```csharp
     // Define an interface for a shape
     public interface IShape
@@ -438,58 +439,488 @@ Initially looked very similar to Java. Major features introduced
 
     </details>
 
-
 - [Events](https://learn.microsoft.com/en-us/dotnet/csharp/events-overview) - provide a mechanism for communication between objects, allowing one object to notify other objects when a specific action or condition occurs, facilitating decoupled and loosely-coupled designs
+
+    <details><summary>Overview</summary><br>
+
+    Events in .NET provide a mechanism for communication between objects, allowing one object (the publisher) to notify other objects (subscribers) when a specific action or condition occurs. Events enable loosely coupled communication and facilitate the implementation of the Observer design pattern.
+
+    Benefits:
+    1. Loose coupling: Events promote loose coupling between components by allowing publishers to communicate with subscribers without requiring direct references to each other, enhancing modularity and maintainability.
+    2. Extensibility: Events enable the implementation of the Observer pattern, allowing multiple subscribers to react to changes or actions independently, promoting extensibility and scalability.
+    3. Decoupled communication: Events facilitate decoupled communication between different parts of an application, enabling components to respond to events without being tightly coupled to each other, leading to more flexible and resilient software architectures.
+
+    Reasons to Use:
+    1. Notification mechanism: When you need a mechanism for one part of your application to notify other parts about specific actions, events provide a convenient way to implement such communication.
+    2. Decoupled architecture: When you want to design a decoupled architecture where components are loosely coupled and can interact without direct dependencies, events serve as an effective communication mechanism.
+    3. Observer pattern: When you want to implement the Observer design pattern, where multiple observers (subscribers) listen for changes in a subject (publisher) and react accordingly, events provide a natural implementation approach.
+
+    Example:
+
+    ```csharp
+    using System;
+
+    // Publisher class that defines an event
+    public class Button
+    {
+        // Define a delegate for the event handler
+        public delegate void ClickEventHandler(object sender, EventArgs e);
+
+        // Define the event
+        public event ClickEventHandler Click;
+
+        // Method to trigger the event
+        public void OnClick()
+        {
+            // Check if there are any subscribers
+            if (Click != null)
+            {
+                // Invoke the event
+                Click(this, EventArgs.Empty);
+            }
+        }
+    }
+
+    // Subscriber classes that respond to the event
+    public class Logger
+    {
+        // Event handler method
+        public void LogButtonClick(object sender, EventArgs e)
+        {
+            Console.WriteLine("Button clicked - Logging event");
+        }
+    }
+
+    public class EmailNotifier
+    {
+        // Event handler method
+        public void SendEmail(object sender, EventArgs e)
+        {
+            Console.WriteLine("Button clicked - Sending email notification");
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Create instances of publisher and subscribers
+            Button button = new Button();
+            Logger logger = new Logger();
+            EmailNotifier emailNotifier = new EmailNotifier();
+
+            // Subscribe to the event
+            button.Click += logger.LogButtonClick;
+            button.Click += emailNotifier.SendEmail;
+
+            // Simulate button click
+            button.OnClick();
+        }
+    }
+    ```
+
+    In this example, the `Button` class defines an event named `Click`, which can be subscribed to by other classes. The `Logger` and `EmailNotifier` classes act as subscribers to the `Click` event and define event handler methods (`LogButtonClick` and `SendEmail`). When the `OnClick` method of the `Button` class is called, it triggers the `Click` event, and all subscribed event handler methods are invoked, demonstrating the communication between the publisher and subscribers through events.
+
+    Delegates and events are related concepts in .NET, but they serve different purposes and have different characteristics:
+
+    1. **Delegates:**
+        - Delegates are type-safe function pointers that hold references to methods.
+        - They define the signature of the method that they can reference, including the return type and parameters.
+        - Delegates can be used to pass methods as parameters, assign methods to variables, and invoke methods indirectly.
+        - Delegates are used for callback functionality, allowing one component to invoke methods on another component without knowing the concrete implementation.
+
+    2. **Events:**
+        - Events are a higher-level abstraction built on top of delegates, providing a way for objects to notify other objects when a specific action or condition occurs.
+        - Events encapsulate the delegate instances and provide a mechanism for subscribing to and unsubscribing from the event.
+        - Events are typically used for implementing the Observer design pattern, where multiple subscribers (event handlers) can react to changes or actions independently.
+        - Events enforce a publisher-subscriber model, where the publisher (object raising the event) does not need to know about the subscribers (objects handling the event), promoting loose coupling and encapsulation.
+
+    In summary, delegates are the underlying mechanism for defining and using callback functionality, while events provide a higher-level abstraction for implementing the observer pattern and facilitating communication between objects. Events use delegates internally to manage the invocation of event handler methods.
+
+    </summary>
+
 - [Properties](https://learn.microsoft.com/en-us/dotnet/csharp/properties) - provide a way to encapsulate data within a class while controlling access to it, enabling the implementation of getter and setter methods for reading and modifying the data, respectively
+
+    <details><summary>Overview</summary><br>
+
+    Properties in .NET provide a way to encapsulate data within a class while controlling access to it, enabling the implementation of getter and setter methods for reading and modifying the data. Properties combine the functionality of fields and methods into a single unit, allowing controlled access to class members.
+
+    Benefits:
+    1. Encapsulation: Properties allow developers to encapsulate data within a class, hiding the internal representation and providing controlled access to it through getter and setter methods.
+    2. Abstraction: Properties abstract the underlying data representation, allowing classes to expose a consistent interface for interacting with data, regardless of its implementation details.
+    3. Control access: Properties enable developers to define custom logic for getting and setting data, allowing validation, computation, or other operations to be performed transparently.
+
+    Reasons to Use:
+    1. Encapsulate data: When you need to encapsulate data within a class and control access to it, properties provide a convenient way to define getter and setter methods for accessing and modifying the data.
+    2. Implement abstraction: When you want to abstract the underlying data representation and provide a consistent interface for interacting with data, properties help achieve abstraction by exposing a uniform access mechanism.
+    3. Add behavior: When you need to add additional behavior, such as validation or computation, when getting or setting data, properties allow you to define custom logic within getter and setter methods.
+
+    Example:
+
+    ```csharp
+    using System;
+
+    public class Person
+    {
+        // Private field representing the age
+        private int _age;
+
+        // Public property Age with getter and setter
+        public int Age
+        {
+            get { return _age; }
+            set
+            {
+                if (value >= 0 && value <= 120)
+                {
+                    _age = value;
+                }
+                else
+                {
+                    throw new ArgumentException("Age must be between 0 and 120.");
+                }
+            }
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Create an instance of the Person class
+            Person person = new Person();
+
+            // Set the age using the property
+            try
+            {
+                person.Age = 30;
+                Console.WriteLine($"Age: {person.Age}"); // Output: Age: 30
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            // Try setting an invalid age
+            try
+            {
+                person.Age = 150; // Throws ArgumentException
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message); // Output: Age must be between 0 and 120.
+            }
+        }
+    }
+    ```
+
+    In this example, the `Person` class encapsulates the age data using a private field `_age` and exposes it through a public property `Age`. The property `Age` provides a custom setter method that validates the input age before assigning it to the `_age` field. This demonstrates how properties can encapsulate data and control access to it, enabling validation and ensuring data integrity.
+
+    </details>
+
 - [Delegates](https://learn.microsoft.com/en-us/dotnet/csharp/delegates-overview) - enable the creation of type-safe function pointers, allowing methods to be passed as parameters or assigned to variables, facilitating callback mechanisms and event handling
-- [Operators](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/) - allow custom-defined functionality for built-in operators such as addition, subtraction, comparison, etc., enabling the customization of behavior for user-defined types
-- [Statements](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/statements) - individual instructions that perform specific actions, such as variable assignments, method calls, control flow operations, or exception handling, enabling the execution of logic within a program
-- [Attributes](https://learn.microsoft.com/en-us/dotnet/csharp/advanced-topics/reflection-and-attributes/) - provide a way to attach metadata to code elements, such as classes, methods, or properties, enabling declarative information to be used by the runtime or other tools for configuration, validation, or documentation purposes
 
+    <details><summary>Overview</summary>
 
-###### Delegates
+    Delegates in .NET allow for the creation of type-safe function pointers, enabling methods to be passed as parameters or assigned to variables. Delegates provide a flexible mechanism for implementing callback functionality and event handling.
 
-Delegates in .NET allow for the creation of type-safe function pointers, streamlining event handling and callback mechanisms compared to before their introduction, where developers had to use interfaces or rely on direct method calls.
+    Benefits:
+    1. Encapsulation of method calls: Delegates encapsulate method calls, allowing methods to be treated as objects and passed around in a type-safe manner.
+    2. Decoupling of components: Delegates promote loose coupling between components by allowing one component to invoke methods on another component without knowing the concrete implementation, enhancing modularity and maintainability.
+    3. Event handling: Delegates are commonly used to implement event handling mechanisms, enabling objects to notify other objects of changes or actions.
 
-In the example below, before delegates, developers had to define interfaces and implement them for defining callbacks or events. With delegates, developers can define a delegate type directly, simplifying the process of creating and invoking function pointers for callback operations.
+    Reasons to Use:
+    1. Callback functionality: When you need to implement callback functionality, such as executing a method asynchronously or defining event handlers, delegates provide a convenient and type-safe way to achieve this.
+    2. Extensibility: Delegates enable the implementation of the Observer pattern, allowing multiple subscribers to react to changes or actions independently, promoting extensibility and scalability.
+    3. Decoupled communication: When you want to design a decoupled architecture where components are loosely coupled and can interact without direct dependencies, delegates serve as an effective communication mechanism.
 
-**Before Delegates:**
+    Example:
 
-```csharp
-// Define an interface
-public interface IOperation
-{
-    void Execute();
-}
+    ```csharp
+    using System;
 
-// Implement the interface
-public class Addition : IOperation
-{
-    public void Execute()
+    // Define a delegate type for a method that takes an integer parameter and returns void
+    public delegate void NumberManipulationHandler(int number);
+
+    // Class with methods that match the delegate signature
+    public class NumberProcessor
+    {
+        // Method that increments a number by 10
+        public static void IncrementNumber(int number)
+        {
+            Console.WriteLine($"Incremented number: {number + 10}");
+        }
+
+        // Method that doubles a number
+        public static void DoubleNumber(int number)
+        {
+            Console.WriteLine($"Doubled number: {number * 2}");
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Create delegate instances and associate them with methods
+            NumberManipulationHandler incrementDelegate = NumberProcessor.IncrementNumber;
+            NumberManipulationHandler doubleDelegate = NumberProcessor.DoubleNumber;
+
+            // Call methods through delegates
+            incrementDelegate(5); // Output: Incremented number: 15
+            doubleDelegate(7);    // Output: Doubled number: 14
+        }
+    }
+    ```
+
+    In this example, a delegate type `NumberManipulationHandler` is defined, representing a method that takes an integer parameter and returns void. Two static methods (`IncrementNumber` and `DoubleNumber`) in the `NumberProcessor` class match this delegate signature. Delegate instances `incrementDelegate` and `doubleDelegate` are created and associated with these methods, allowing the methods to be called through the delegates. This demonstrates how delegates provide a flexible mechanism for invoking methods indirectly and decoupling method calls from their implementations.
+
+    In the example below, before delegates, developers had to define interfaces and implement them for defining callbacks or events. With delegates, developers can define a delegate type directly, simplifying the process of creating and invoking function pointers for callback operations.
+
+    **Before Delegates:**
+
+    ```csharp
+    // Define an interface
+    public interface IOperation
+    {
+        void Execute();
+    }
+
+    // Implement the interface
+    public class Addition : IOperation
+    {
+        public void Execute()
+        {
+            Console.WriteLine("Performing addition operation...");
+        }
+    }
+
+    // Usage
+    IOperation operation = new Addition();
+    operation.Execute(); // Perform the operation
+    ```
+
+    **After Delegates:**
+
+    ```csharp
+    // Define a delegate
+    public delegate void Operation();
+
+    // Usage
+    Operation operation = () =>
     {
         Console.WriteLine("Performing addition operation...");
+    };
+
+    operation(); // Perform the operation
+    ```
+
+    </details>
+
+- [Operators](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/) - allow custom-defined functionality for built-in operators such as addition, subtraction, comparison, etc., enabling the customization of behavior for user-defined types
+
+    <details><summary>Overview</summary><br>
+
+    Operators in .NET are symbols or keywords that represent built-in operations on types, such as arithmetic, logical, comparison, and assignment operations. Operators provide a concise and familiar syntax for performing common operations on data types.
+
+    Benefits:
+    1. Conciseness: Operators provide a concise syntax for performing common operations, reducing verbosity and enhancing code readability.
+    2. Efficiency: Operators are optimized for performance by the compiler and runtime, providing efficient implementations for common operations.
+    3. Familiarity: Operators follow standard conventions and syntax that developers are accustomed to from other programming languages, making it easier to write and understand code.
+
+    Reasons to Use:
+    1. Expressiveness: When you need to perform arithmetic, logical, comparison, or assignment operations on data types, operators provide a succinct and expressive way to do so.
+    2. Readability: When you want to write code that is easy to read and understand, operators help reduce clutter and improve readability by providing a clear and concise representation of operations.
+    3. Performance: When performance is a concern, operators offer efficient implementations optimized by the compiler and runtime, making them suitable for high-performance scenarios.
+
+    Example:
+
+    ```csharp
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Arithmetic operators
+            int a = 10;
+            int b = 5;
+            int sum = a + b;    // Addition
+            int difference = a - b; // Subtraction
+            int product = a * b; // Multiplication
+            int quotient = a / b; // Division
+            int remainder = a % b; // Modulus
+
+            // Comparison operators
+            bool isEqual = (a == b);    // Equal to
+            bool isNotEqual = (a != b); // Not equal to
+            bool isGreater = (a > b);   // Greater than
+            bool isLess = (a < b);      // Less than
+            bool isGreaterOrEqual = (a >= b); // Greater than or equal to
+            bool isLessOrEqual = (a <= b);    // Less than or equal to
+
+            // Logical operators
+            bool x = true;
+            bool y = false;
+            bool resultAnd = x && y;    // Logical AND
+            bool resultOr = x || y;     // Logical OR
+            bool resultNot = !x;        // Logical NOT
+
+            // Increment and decrement operators
+            int count = 0;
+            count++;    // Increment by 1
+            count--;    // Decrement by 1
+
+            // Assignment operators
+            int value = 10;
+            value += 5; // Equivalent to: value = value + 5
+            value -= 3; // Equivalent to: value = value - 3
+            value *= 2; // Equivalent to: value = value * 2
+            value /= 4; // Equivalent to: value = value / 4
+        }
     }
-}
+    ```
 
-// Usage
-IOperation operation = new Addition();
-operation.Execute(); // Perform the operation
-```
+    In this example, various operators are demonstrated, including arithmetic, comparison, logical, increment/decrement, and assignment operators. These operators provide a concise and expressive way to perform common operations on data types, enhancing code readability and efficiency.
 
-**After Delegates:**
+    </details>
 
-```csharp
-// Define a delegate
-public delegate void Operation();
+- [Statements](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/statements) - individual instructions that perform specific actions, such as variable assignments, method calls, control flow operations, or exception handling, enabling the execution of logic within a program
 
-// Usage
-Operation operation = () =>
-{
-    Console.WriteLine("Performing addition operation...");
-};
+    <details><summary>Overview</summary><br>
 
-operation(); // Perform the operation
-```
+    Statements in .NET are instructions that perform specific actions or control the flow of execution within a program. Statements can include declarations, assignments, method calls, conditionals, loops, and more, allowing developers to express the logic and behavior of their programs.
+
+    Benefits:
+    1. Expressiveness: Statements provide a way to express the logic and behavior of a program in a clear and understandable manner.
+    2. Control flow: Statements control the flow of execution within a program, enabling branching, looping, and decision-making based on conditions.
+    3. Modularity: Statements allow developers to break down complex tasks into smaller, more manageable units of code, promoting modularity and code organization.
+
+    Reasons to Use:
+    1. Defining behavior: When you need to define the behavior of your program, statements provide a way to specify the actions it should perform.
+    2. Controlling flow: When you need to control the flow of execution based on conditions or loops, statements enable branching and looping constructs to be used.
+    3. Organizing code: When you want to organize your code into logical units and express the sequence of actions it should perform, statements help structure and clarify the program's logic.
+
+    Example:
+
+    ```csharp
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Declaration statement
+            int a;
+
+            // Assignment statement
+            a = 10;
+
+            // Method call statement
+            int result = Add(5, a);
+
+            // Conditional statement (if-else)
+            if (result > 10)
+            {
+                Console.WriteLine("Result is greater than 10");
+            }
+            else
+            {
+                Console.WriteLine("Result is less than or equal to 10");
+            }
+
+            // Loop statement (for)
+            for (int i = 0; i < result; i++)
+            {
+                Console.WriteLine($"Iteration {i}");
+            }
+        }
+
+        // Method definition statement
+        static int Add(int x, int y)
+        {
+            return x + y;
+        }
+    }
+    ```
+
+    In this example, various types of statements are demonstrated, including declaration, assignment, method call, conditional (if-else), loop (for), and method definition statements. These statements collectively define the behavior and flow of execution within the program, illustrating how statements are used to express the logic and structure of .NET programs.
+
+    </details>
+
+- [Attributes](https://learn.microsoft.com/en-us/dotnet/csharp/advanced-topics/reflection-and-attributes/) - provide a way to attach metadata to code elements, such as classes, methods, or properties, enabling declarative information to be used by the runtime or other tools for configuration, validation, or documentation purposes
+
+    <details><summary>Overview</summary><br>
+
+    Attributes in .NET are annotations or metadata that provide additional information about types, members, or other elements within a program. Attributes enable declarative programming by attaching descriptive information to code elements, allowing developers to control the behavior of the runtime, compilers, and tools.
+
+    Benefits:
+    1. Metadata: Attributes add metadata to code elements, providing additional information that can be used by the runtime, compilers, and tools for various purposes.
+    2. Configuration: Attributes allow developers to configure the behavior of components, libraries, or frameworks by decorating them with specific attributes.
+    3. Code analysis and tooling: Attributes enable static analysis, code generation, and tooling support by providing information that can be queried and processed by development tools and frameworks.
+
+    Reasons to Use:
+    1. Configuration: When you need to configure the behavior of code elements, such as classes, methods, properties, or assemblies, attributes provide a convenient and declarative way to specify settings and options.
+    2. Metadata enrichment: When you want to enrich code elements with additional metadata for documentation, analysis, or tooling purposes, attributes allow you to attach descriptive information.
+    3. Framework integration: When you develop libraries, frameworks, or components that interact with .NET runtime or development tools, attributes enable seamless integration and interoperability.
+
+    Example:
+
+    ```csharp
+    using System;
+
+    // Custom attribute definition
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
+    public class MyCustomAttribute : Attribute
+    {
+        public string Description { get; }
+
+        public MyCustomAttribute(string description)
+        {
+            Description = description;
+        }
+    }
+
+    // Applying custom attribute to a class and method
+    [MyCustom("This is a sample class.")]
+    class MyClass
+    {
+        [MyCustom("This is a sample method.")]
+        public void MyMethod()
+        {
+            Console.WriteLine("Executing MyMethod...");
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Retrieving and using attributes at runtime
+            Type classType = typeof(MyClass);
+            object[] classAttributes = classType.GetCustomAttributes(typeof(MyCustomAttribute), true);
+            foreach (MyCustomAttribute attribute in classAttributes)
+            {
+                Console.WriteLine($"Class Attribute Description: {attribute.Description}");
+            }
+
+            MyClass myObject = new MyClass();
+            Type methodType = myObject.GetType();
+            var methodInfo = methodType.GetMethod("MyMethod");
+            object[] methodAttributes = methodInfo.GetCustomAttributes(typeof(MyCustomAttribute), true);
+            foreach (MyCustomAttribute attribute in methodAttributes)
+            {
+                Console.WriteLine($"Method Attribute Description: {attribute.Description}");
+            }
+
+            // Output:
+            // Class Attribute Description: This is a sample class.
+            // Method Attribute Description: This is a sample method.
+        }
+    }
+    ```
+
+    In this example, a custom attribute `MyCustomAttribute` is defined with a `Description` property. The attribute is applied to a class `MyClass` and a method `MyMethod`. At runtime, reflection is used to retrieve and inspect the attributes attached to the class and method, demonstrating how attributes can be used to enrich code elements with additional metadata.
+
+    </details>
+
+
 
 
 
