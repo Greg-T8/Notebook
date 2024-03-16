@@ -133,7 +133,7 @@ Things to note:
 
 #### C# feature overview
 
-##### C# version 1.0 (2003)
+##### [C# version 1.0 (2003)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-10-1)
 
 Initially looked very similar to Java. Major features introduced
 
@@ -920,82 +920,677 @@ Initially looked very similar to Java. Major features introduced
 
     </details>
 
-
-
-
-
-##### C# version 2.0 (2005)
+##### [C# version 2.0 (2005)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-20)
 
 Major features introduced:
 
-###### [Generics](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/generics)
+- [Generics](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/generics) - allow for the creation of reusable code components that can work with any data type, enhancing type safety and reducing code duplication compared to before their introduction, where developers had to use non-generic collections and methods, often requiring manual casting or boxing.
 
-Generics in .NET allow for the creation of reusable code components that can work with any data type, enhancing type safety and reducing code duplication compared to before their introduction, where developers had to use non-generic collections and methods, often requiring manual casting or boxing.
+    <details><summary>Overview</summary><br>
 
-**Before Generics:**
+    Generics in .NET provide a way to define classes, interfaces, methods, and delegates with placeholders for types. This allows for the creation of reusable, type-safe components that can work with any data type. Generics enable code to be written once and used with multiple types, promoting code reuse and type safety.
 
-```csharp
-// Non-generic collection
-ArrayList list = new ArrayList();
-list.Add(1);
-list.Add("two");
+    Benefits:
 
-// Retrieving elements from the collection (requiring casting)
-int number = (int)list[0]; // This requires casting and is not type-safe
-```
+    1. Reusability: Generics enable the creation of reusable components that can operate on a wide range of data types without the need for duplication or modification.
+    2. Type safety: Generics ensure type safety at compile-time by enforcing type constraints, preventing runtime errors related to type mismatches.
+    3. Performance: Generics improve performance by reducing the need for boxing and unboxing operations and minimizing the use of runtime type checks.
 
-**After Generics:**
+    Reasons to Use:
 
-```csharp
-// Generic collection
-List<int> list = new List<int>();
-list.Add(1);
-list.Add(2);
+    1. Code reuse: When you want to write code that can operate on multiple data types without duplicating or modifying it, generics provide a powerful mechanism for creating reusable components.
+    2. Type safety: When you need to ensure type safety and prevent runtime errors caused by type mismatches, generics help enforce compile-time type checks.
+    3. Performance optimization: When performance is a concern, generics offer efficient solutions by avoiding unnecessary type conversions and runtime checks.
 
-// Retrieving elements from the collection (type-safe)
-int number = list[0]; // No casting required, type-safe
-```
+    Example - Before Generics:
 
-In the example above, before generics, developers used non-generic collections like `ArrayList`, which could hold objects of any type and required explicit casting when retrieving elements. With generics, developers can use type-safe collections like `List<T>`, which eliminate the need for casting and provide compile-time type checking.
+    ```csharp
+    // Define a non-generic collection class to store integers
+    public class IntList
+    {
+        private int[] data;
+        private int size;
 
+        public IntList(int capacity)
+        {
+            data = new int[capacity];
+            size = 0;
+        }
+
+        public void Add(int item)
+        {
+            if (size == data.Length)
+            {
+                throw new InvalidOperationException("List capacity exceeded.");
+            }
+
+            data[size++] = item;
+        }
+
+        public int Get(int index)
+        {
+            if (index < 0 || index >= size)
+            {
+                throw new IndexOutOfRangeException("Index is out of range.");
+            }
+
+            return data[index];
+        }
+    }
+    ```
+
+    Example - After Generics:
+
+    ```csharp
+    // Define a generic collection class to store any type of data
+    public class GenericList<T>
+    {
+        private T[] data;
+        private int size;
+
+        public GenericList(int capacity)
+        {
+            data = new T[capacity];
+            size = 0;
+        }
+
+        public void Add(T item)
+        {
+            if (size == data.Length)
+            {
+                throw new InvalidOperationException("List capacity exceeded.");
+            }
+
+            data[size++] = item;
+        }
+
+        public T Get(int index)
+        {
+            if (index < 0 || index >= size)
+            {
+                throw new IndexOutOfRangeException("Index is out of range.");
+            }
+
+            return data[index];
+        }
+    }
+    ```
+
+    In the example before generics, a non-generic `IntList` class is defined to store integers. This class is limited to working only with integers, requiring separate implementations for other data types. With generics, the `GenericList<T>` class is defined, allowing it to store any type of data. This promotes code reuse and flexibility, as the same class can be used with different data types without modification.
+
+
+    </details>
 
 - [Partial Types](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/partial-classes-and-methods#partial-classes) - enable the splitting of a single class, struct, or interface definition across multiple source files, facilitating code organization, maintenance, and collaboration without sacrificing the integrity of the type's definition
-- [Anonymous Methods](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/delegate-operator) - allow the definition of inline, unnamed code blocks that can be assigned to delegate types, providing a concise way to handle simple tasks or callbacks without the need for separate method declarations
-- [Nullable Value Types](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-value-types) - allow value types, such as integers or booleans, to represent an additional state of "null," providing a way to express the absence of a value and handle scenarios where a value may be missing in a type-safe manner
-- [Iterators](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/iterators) - enable the creation of custom collection-like objects that can be iterated through using foreach loops, providing a convenient way to traverse sequences of data without the need for explicit index management
-- [Covariance and Contravariance](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/covariance-contravariance/) - allow for more flexible type conversions in generic types, with covariance enabling implicit conversion of generic types to more derived types and contravariance enabling implicit conversion to less derived types, facilitating more versatile usage of generic types in method signatures and assignments.
-- 
 
-##### C# version 3.0 (2007)
+    <details><summary>Overview</summary><br>
+
+    Partial types in .NET allow a single class, struct, or interface declaration to be split into multiple files, providing a way to organize and manage large codebases more effectively. Partial types enable developers to distribute the definition of a type across multiple files while ensuring that the compiler treats them as a single cohesive entity.
+
+    Benefits:
+    1. Code organization: Partial types help organize large codebases by allowing developers to split the definition of a type into smaller, more manageable parts, each residing in its own file.
+    2. Separation of concerns: Partial types support the separation of concerns by enabling different aspects of a type's implementation (e.g., methods, properties) to be defined in separate files, improving modularity and readability.
+    3. Collaboration: Partial types facilitate collaboration among multiple developers by allowing them to work on different parts of the same type simultaneously without interfering with each other's changes.
+
+    Reasons to Use:
+    1. Large codebases: When working on projects with large and complex types, partial types provide a structured approach to organizing code and improving maintainability.
+    2. Modular design: When designing classes or structures with multiple responsibilities, partial types allow developers to break them down into smaller, focused units, promoting a modular design.
+    3. Seamless integration: When integrating generated code or working with code-generation tools, partial types ensure seamless integration of manually written code with generated code, enhancing productivity and code quality.
+
+    Example - Before Partial Types:
+
+    ```csharp
+    // File1.cs
+    public class MyClass
+    {
+        public void Method1()
+        {
+            // Method implementation
+        }
+    }
+
+    // File2.cs
+    public class MyClass
+    {
+        public void Method2()
+        {
+            // Method implementation
+        }
+    }
+    ```
+
+    In the example before partial types, the class `MyClass` is split into two separate files (`File1.cs` and `File2.cs`) to define its methods. However, each class definition is independent of the other, resulting in a compilation error due to a duplicate class declaration.
+
+    Example - After Partial Types:
+
+    ```csharp
+    // File1.cs
+    public partial class MyClass
+    {
+        public void Method1()
+        {
+            // Method implementation
+        }
+    }
+
+    // File2.cs
+    public partial class MyClass
+    {
+        public void Method2()
+        {
+            // Method implementation
+        }
+    }
+
+    // Usage
+    MyClass instance = new MyClass();
+    instance.Method1();
+    instance.Method2();
+    ```
+
+    In the example after partial types, the class `MyClass` is split into two separate files (`File1.cs` and `File2.cs`), with each file containing a partial definition of the class. This allows the methods of `MyClass` to be defined separately in different files while ensuring that they are treated as part of the same class by the compiler.
+
+    </details>
+
+- [Anonymous Methods](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/delegate-operator) - allow the definition of inline, unnamed code blocks that can be assigned to delegate types, providing a concise way to handle simple tasks or callbacks without the need for separate method declarations
+
+    <details><summary>Overview</summary><br>
+
+    Anonymous methods in .NET allow developers to define inline methods without explicitly declaring a separate named method. These methods are often used as event handlers or as arguments to other methods, providing a convenient way to encapsulate functionality without the need for a separate named method.
+
+    Benefits:
+    1. Conciseness: Anonymous methods allow for the definition of inline code blocks without the overhead of declaring a separate named method, resulting in more concise and readable code.
+    2. Localized logic: Anonymous methods enable developers to define small, localized pieces of functionality inline where they are used, improving code organization and clarity.
+    3. Encapsulation: Anonymous methods encapsulate functionality within a specific context, such as event handling or callback methods, without the need to expose them as separate named methods.
+
+    Reasons to Use:
+    1. Event handling: When defining event handlers, anonymous methods provide a convenient way to define the behavior inline, avoiding the need to declare separate methods for each event handler.
+    2. Callbacks: When passing methods as arguments to other methods, such as in LINQ queries or asynchronous operations, anonymous methods allow for the definition of callback logic inline, reducing the need for additional named methods.
+    3. Simplifying code structure: When the functionality is simple and localized to a specific context, using anonymous methods avoids the overhead of declaring separate named methods, resulting in cleaner and more readable code.
+
+    Example - Before Anonymous Methods:
+
+    ```csharp
+    // Declaring a separate named method for event handling
+    public class Program
+    {
+        public static void Main()
+        {
+            Button button = new Button();
+            button.Click += Button_Click;
+        }
+
+        // Named method for event handling
+        private static void Button_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("Button clicked!");
+        }
+    }
+    ```
+
+    Example - After Anonymous Methods:
+
+    ```csharp
+    // Using anonymous method for event handling
+    public class Program
+    {
+        public static void Main()
+        {
+            Button button = new Button();
+            button.Click += delegate (object sender, EventArgs e)
+            {
+                Console.WriteLine("Button clicked!");
+            };
+        }
+    }
+    ```
+
+    In the example before anonymous methods, event handling is accomplished by declaring a separate named method (`Button_Click`) and attaching it to the button's click event. With anonymous methods, the event handling logic can be defined inline using a delegate without the need for a separate named method, resulting in more concise code.
+
+    </details>
+
+- [Nullable Value Types](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-value-types) - allow value types, such as integers or booleans, to represent an additional state of "null," providing a way to express the absence of a value and handle scenarios where a value may be missing in a type-safe manner
+
+    <details><summary>Overview</summary><br>
+
+    Nullable value types in .NET allow value types (such as `int`, `float`, `DateTime`, etc.) to represent an additional state of "null", in addition to their normal range of values. This allows variables to represent missing or undefined values, which is particularly useful when dealing with database values, user input, or when you need to differentiate between a value and the absence of a value.
+
+    Benefits:
+    1. Representing null values: Nullable value types enable value types to represent null, allowing variables to indicate that they are uninitialized, missing, or undefined.
+    2. Avoiding runtime errors: Nullable value types help prevent runtime errors such as "NullReferenceException" by explicitly allowing variables to represent the absence of a value.
+    3. Improved interoperability: Nullable value types facilitate better interoperability with database systems and other APIs that use null to represent missing values.
+
+    Reasons to Use:
+    1. Database interactions: When working with databases, nullable value types allow you to represent database columns that allow null values, ensuring compatibility between database nulls and .NET types.
+    2. User input validation: Nullable value types can be useful for representing optional fields in user input forms, allowing you to distinguish between empty inputs and intentionally unspecified values.
+    3. Domain modeling: When modeling domains where certain values may be unknown or undefined, nullable value types provide a clear and explicit way to represent these states.
+
+    Example - Before Nullable Value Types:
+
+    ```csharp
+    int nullableInt = -1; // Use a sentinel value (e.g., -1) to represent null
+    ```
+
+    Example - After Nullable Value Types:
+
+    ```csharp
+    int? nullableInt = null; // Use nullable value type syntax to explicitly represent null
+    ```
+
+    In the example before nullable value types, representing a null value typically involved using a sentinel value (e.g., -1 for integers) to indicate null, which could lead to ambiguity and errors in code interpretation. With nullable value types, you can explicitly represent null using the nullable value type syntax (`int?`), providing clarity and avoiding confusion about the meaning of the value.
+
+    </details>
+
+- [Iterators](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/iterators) - enable the creation of custom collection-like objects that can be iterated through using foreach loops, providing a convenient way to traverse sequences of data without the need for explicit index management
+
+    <details><summary>Overview</summary><br>
+
+    Iterators in .NET allow developers to create methods that return a sequence of values iteratively. Iterators simplify the implementation of algorithms that produce sequences by enabling the use of a `yield` keyword to return elements one at a time, without the need to create temporary collections or implement custom enumerators.
+
+    Benefits:
+    1. Simplicity: Iterators simplify the implementation of algorithms that generate sequences by allowing developers to express the generation logic directly within a method using the `yield` keyword.
+    2. Efficiency: Iterators provide a memory-efficient way to generate sequences by producing elements lazily, as they are requested, rather than storing the entire sequence in memory.
+    3. Readability: Iterators improve code readability by encapsulating sequence generation logic within a single method, making it easier to understand and maintain.
+
+    Reasons to Use:
+    1. Generating sequences: When you need to generate a sequence of values dynamically, iterators provide a convenient and efficient way to do so without precomputing or storing the entire sequence in memory.
+    2. Lazy evaluation: When working with large or potentially infinite sequences, iterators allow for lazy evaluation, producing elements only when they are needed, which can save memory and improve performance.
+    3. Simplifying code: When implementing algorithms that produce sequences, iterators simplify code by allowing developers to focus on the generation logic rather than managing iteration state manually.
+
+    Example - Before Iterators:
+
+    ```csharp
+    // Example of manually implementing an enumerator
+    public class CustomSequence : IEnumerable<int>
+    {
+        public IEnumerator<int> GetEnumerator()
+        {
+            return new CustomEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        private class CustomEnumerator : IEnumerator<int>
+        {
+            private int currentIndex = -1;
+
+            public int Current => currentIndex;
+
+            object IEnumerator.Current => Current;
+
+            public bool MoveNext()
+            {
+                currentIndex++;
+                return true;
+            }
+
+            public void Reset()
+            {
+                currentIndex = -1;
+            }
+
+            public void Dispose()
+            {
+                // Dispose logic
+            }
+        }
+    }
+    ```
+
+    Example - After Iterators:
+
+    ```csharp
+    // Example using iterator with yield keyword
+    public class Program
+    {
+        public static void Main()
+        {
+            foreach (var number in GenerateSequence())
+            {
+                Console.WriteLine(number);
+            }
+        }
+
+        public static IEnumerable<int> GenerateSequence()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                yield return i;
+            }
+        }
+    }
+    ```
+
+    In the example before iterators, generating a custom sequence required manually implementing the `IEnumerable` and `IEnumerator` interfaces, along with managing the iteration state within a custom enumerator class. With iterators, sequence generation is simplified using the `yield` keyword, allowing the `GenerateSequence` method to yield values one at a time, eliminating the need for a separate enumerator implementation.
+
+    </details>
+
+- [Covariance and Contravariance](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/covariance-contravariance/) - allow for more flexible type conversions in generic types, with covariance enabling implicit conversion of generic types to more derived types and contravariance enabling implicit conversion to less derived types, facilitating more versatile usage of generic types in method signatures and assignments.
+
+    <details><summary>Overview</summary><br>
+
+    Covariance and contravariance in .NET allow for more flexible type conversions when dealing with delegate types and generic interfaces. Covariance allows for a more derived type to be used where a less derived type is expected, while contravariance allows for a less derived type to be used where a more derived type is expected. This enhances type compatibility and flexibility in scenarios involving inheritance and generic types.
+
+    Benefits:
+    1. Flexibility: Covariance and contravariance provide flexibility in method signatures, allowing for more natural and intuitive use of derived types.
+    2. Type safety: Covariance and contravariance maintain type safety by ensuring that assignments and conversions are valid at compile-time, preventing runtime type errors.
+    3. Code reuse: Covariance and contravariance facilitate code reuse by enabling the reuse of existing methods and interfaces with more derived types without modifications.
+
+    Reasons to Use:
+    1. Improved abstraction: When designing interfaces or delegates that operate on types in a hierarchy, covariance and contravariance allow for more flexible usage of these types, improving abstraction and generality.
+    2. Enhanced interoperability: When interacting with libraries or frameworks that expect specific types but can accept more derived types safely, covariance and contravariance enable seamless integration without requiring unnecessary type conversions.
+    3. Simplified code: When working with collections or sequences of objects, covariance and contravariance simplify code by allowing for more flexible usage of generic types without the need for explicit casting or conversions.
+
+    Example - Before Covariance and Contravariance:
+
+    ```csharp
+    // Example without covariance and contravariance
+    public class Animal { }
+    public class Dog : Animal { }
+
+    public delegate Animal AnimalFactory();
+
+    public class Program
+    {
+        public static void Main()
+        {
+            AnimalFactory factory = CreateDog;
+            Animal animal = factory(); // Error: Cannot convert AnimalFactory to DogFactory
+        }
+
+        public static Dog CreateDog()
+        {
+            return new Dog();
+        }
+    }
+    ```
+
+    Example - After Covariance and Contravariance:
+
+    ```csharp
+    // Example using covariance
+    public class Animal { }
+    public class Dog : Animal { }
+
+    public delegate Animal AnimalFactory();
+
+    public class Program
+    {
+        public static void Main()
+        {
+            AnimalFactory factory = CreateDog;
+            Animal animal = factory(); // Covariance allows returning a more derived type
+        }
+
+        public static Dog CreateDog()
+        {
+            return new Dog();
+        }
+    }
+    ```
+
+    In the example before covariance and contravariance, the delegate `AnimalFactory` expects to return an `Animal`, so assigning it a method returning a `Dog` causes a compilation error. With covariance, the return type of the method can be a more derived type (`Dog`), allowing for a more natural and flexible usage of delegate types and interfaces.
+
+    </details>
+
+##### [C# version 3.0 (2007)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-30)
+
+C# version 3.0 came in late 2007, along with Visual Studio 2008, though most of the language features would come with .NET Framework 3.5. The features in this release established C# as a truly formidable language.
 
 Major features introduced:
 
 - [Auto-implemented properties](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/auto-implemented-properties) - provide a concise syntax for declaring properties within a class without explicitly defining the backing fields, allowing for automatic generation of getter and setter methods by the compiler
+
+    <details><summary>Overview</summary><br>
+
+    Feature: Auto-implemented Properties
+
+    Overview:
+    Auto-implemented properties in .NET allow developers to declare properties without explicitly defining the backing field. The compiler automatically generates a private backing field and standard getter and setter methods, simplifying property declaration and reducing boilerplate code.
+
+    Benefits:
+    1. Conciseness: Auto-implemented properties reduce the amount of code required to define properties by eliminating the need to manually declare backing fields and accessor methods.
+    2. Readability: Auto-implemented properties improve code readability by providing a more compact and standardized syntax for property declaration, making code easier to understand and maintain.
+    3. Encapsulation: Auto-implemented properties encapsulate access to class fields, promoting encapsulation and ensuring that class internals remain hidden from external code.
+
+    Reasons to Use:
+    1. Simplifying property declaration: When defining simple properties that only require standard getter and setter methods, auto-implemented properties provide a convenient and concise syntax.
+    2. Encouraging best practices: By promoting encapsulation and reducing the likelihood of errors in property declaration, auto-implemented properties encourage adherence to best practices in object-oriented programming.
+    3. Enhancing productivity: Auto-implemented properties reduce the amount of boilerplate code that developers need to write, allowing them to focus on more critical aspects of software development.
+
+    Example - Before Auto-implemented Properties:
+
+    ```csharp
+    public class MyClass
+    {
+        private int _myProperty;
+
+        public int MyProperty
+        {
+            get { return _myProperty; }
+            set { _myProperty = value; }
+        }
+    }
+    ```
+
+    Example - After Auto-implemented Properties:
+
+    ```csharp
+    public class MyClass
+    {
+        public int MyProperty { get; set; }
+    }
+    ```
+
+    In the example before auto-implemented properties, developers had to manually declare a private backing field (`_myProperty`) and implement standard getter and setter methods for the property `MyProperty`. With auto-implemented properties, the compiler automatically generates the backing field and accessor methods, reducing the amount of boilerplate code required and improving code readability.
+
+
+    </details>
+
 - [Anonymous types](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/anonymous-types) - allow the creation of lightweight, nameless data structures directly within code, simplifying the declaration of temporary data compared to before their introduction, where developers had to define explicit classes or structures for such purposes
 
-###### [Query Expressions](https://learn.microsoft.com/en-us/dotnet/csharp/linq/get-started/query-expression-basics)
+    <details><summary>Overview</summary><br>
 
-Query expressions in .NET provide a higher-level, more readable syntax for writing LINQ queries, simplifying code compared to the verbose method-based syntax previously required for querying data. A LINQ query is a concise and expressive way to retrieve, filter, and transform data from various data sources using a unified syntax, facilitating powerful data manipulation operations within the language.
+    Anonymous types in .NET allow developers to create objects without explicitly defining the type's structure. They provide a concise way to define and initialize objects on the fly, especially when dealing with query results or when returning data from methods.
 
-**Before Query Expressions:**
+    Benefits:
+    1. Conciseness: Anonymous types reduce the amount of code needed to define temporary objects by allowing developers to create them inline without declaring a formal class or structure.
+    2. Flexibility: Anonymous types provide flexibility in scenarios where defining formal types would be cumbersome or unnecessary, such as query projections or method return values.
+    3. Improved readability: By eliminating the need for developers to define separate types for temporary data structures, anonymous types can enhance code readability by keeping related data together in a single context.
 
-```csharp
-var query = numbers.Where(n => n % 2 == 0).Select(n => n * 2);
-```
+    Reasons to Use:
+    1. Query projections: When performing database queries or LINQ queries, anonymous types allow you to select specific fields or aggregate results without defining formal types for each query result.
+    2. Method return values: When a method needs to return multiple values that are not part of an existing class or structure, anonymous types provide a convenient way to package and return the data.
+    3. Interoperability: When interacting with APIs or frameworks that return data in a format that does not map directly to existing types, anonymous types can be used to adapt the data without introducing additional classes or structures.
 
-**After Query Expressions:**
+    Example - Before Anonymous Types:
 
-```csharp
-var query = from n in numbers
-            where n % 2 == 0
-            select n * 2;
-```
+    ```csharp
+    public class Program
+    {
+        public static void Main()
+        {
+            var person = new Person("John", 30);
+            Console.WriteLine($"Name: {person.Name}, Age: {person.Age}");
+        }
 
-In the example above, before query expressions, LINQ queries were written using method-based syntax, which can sometimes be less intuitive, especially for complex queries. Query expressions provide a more natural and SQL-like syntax, making the code easier to understand and maintain.
+        public class Person
+        {
+            public string Name { get; }
+            public int Age { get; }
 
+            public Person(string name, int age)
+            {
+                Name = name;
+                Age = age;
+            }
+        }
+    }
+    ```
 
+    Example - After Anonymous Types:
 
+    ```csharp
+    public class Program
+    {
+        public static void Main()
+        {
+            var person = new { Name = "John", Age = 30 };
+            Console.WriteLine($"Name: {person.Name}, Age: {person.Age}");
+        }
+    }
+    ```
 
+    In the example before anonymous types, a formal class `Person` is defined to represent a person with properties for name and age. With anonymous types, you can create an anonymous object inline with the desired properties, eliminating the need to define a separate class. This makes the code more concise and readable, especially for temporary or ad-hoc data structures.
+
+    </details>
+
+- [Query Expressions](https://learn.microsoft.com/en-us/dotnet/csharp/linq/get-started/query-expression-basics) - provide a higher-level, more readable syntax for writing LINQ queries, simplifying code compared to the verbose method-based syntax previously required for querying data. 
+
+    <details><summary>Overview</summary><br>
+
+    Query expressions in .NET provide a declarative syntax for querying data sources such as collections, arrays, databases, and XML. They offer a more readable and concise way to write queries compared to traditional imperative looping constructs like `foreach` or `for` loops.
+
+    Benefits:
+    1. Readability: Query expressions use a familiar SQL-like syntax, making them more readable and easier to understand, especially for developers familiar with SQL.
+    2. Expressiveness: Query expressions allow developers to express complex queries in a concise and intuitive manner, reducing the amount of boilerplate code required.
+    3. Abstraction: Query expressions abstract away the details of how the query is executed, allowing the underlying LINQ provider to optimize the query execution.
+
+    Reasons to Use:
+    1. Simplifying data manipulation: When working with collections or other data sources, query expressions provide a simpler and more expressive way to filter, project, and aggregate data.
+    2. Enhancing code readability: Query expressions make code more readable by expressing the intent of the query directly, rather than focusing on the mechanics of how to achieve it.
+    3. Improving maintainability: Query expressions encapsulate query logic in a single statement, making it easier to understand and maintain compared to manually written loop constructs.
+
+    Example - Before Query Expressions:
+
+    ```csharp
+    public class Program
+    {
+        public static void Main()
+        {
+            List<int> numbers = new List<int> { 1, 2, 3, 4, 5 };
+            List<int> evenNumbers = new List<int>();
+
+            foreach (var number in numbers)
+            {
+                if (number % 2 == 0)
+                {
+                    evenNumbers.Add(number);
+                }
+            }
+
+            foreach (var number in evenNumbers)
+            {
+                Console.WriteLine(number);
+            }
+        }
+    }
+    ```
+
+    Example - After Query Expressions:
+
+    ```csharp
+    using System.Linq;
+
+    public class Program
+    {
+        public static void Main()
+        {
+            List<int> numbers = new List<int> { 1, 2, 3, 4, 5 };
+            var evenNumbers = from number in numbers
+                            where number % 2 == 0
+                            select number;
+
+            foreach (var number in evenNumbers)
+            {
+                Console.WriteLine(number);
+            }
+        }
+    }
+    ```
+
+    In the example before query expressions, filtering even numbers from a list required manual iteration using `foreach` loops and conditional statements. With query expressions, the same operation can be accomplished using a more declarative syntax that expresses the filtering criteria directly. This makes the code more concise, readable, and expressive.
+
+    </details>
+
+- [Lambda Expressions](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/lambda-expressions) - is a concise syntax for defining anonymous functions inline, typically used for short-lived functions or when passing functions as arguments to other methods.
+
+    <details><summary>Overview</summary></br>
+
+    Lambda expressions in .NET provide a concise way to define anonymous methods or delegates inline, allowing developers to create small, self-contained pieces of code without the need for formal method declarations. They are commonly used in LINQ queries, event handling, and functional programming scenarios.
+
+    Benefits:
+    1. Conciseness: Lambda expressions reduce the amount of boilerplate code required to define small functions or delegates, resulting in cleaner and more readable code.
+    2. Readability: Lambda expressions allow developers to express the intent of a function or delegate directly inline with the calling code, improving code readability and maintainability.
+    3. Flexibility: Lambda expressions enable the creation of ad-hoc functions or delegates on the fly, providing greater flexibility in scenarios where formal method declarations are impractical or unnecessary.
+
+    Reasons to Use:
+    1. LINQ queries: Lambda expressions are commonly used in LINQ queries to define filtering, projection, and sorting criteria inline, making it easier to express complex queries.
+    2. Event handling: Lambda expressions provide a convenient way to define event handlers inline, eliminating the need for separate named methods for simple event handling scenarios.
+    3. Functional programming: Lambda expressions support functional programming paradigms by allowing the creation of higher-order functions, such as map, reduce, and filter, inline with other code.
+
+    Example - Before Lambda Expressions:
+
+    ```csharp
+    // Before lambda expressions, defining and passing delegates required explicit method declarations.
+    public class Program
+    {
+        public static void Main()
+        {
+            // Declare a delegate type
+            Func<int, int, int> add = Add;
+
+            // Pass the delegate to a method
+            int result = Calculate(5, 3, add);
+            Console.WriteLine(result);
+        }
+
+        // Define a method to be used as a delegate
+        public static int Add(int x, int y)
+        {
+            return x + y;
+        }
+
+        // Method that accepts a delegate as an argument
+        public static int Calculate(int x, int y, Func<int, int, int> operation)
+        {
+            return operation(x, y);
+        }
+    }
+    ```
+
+    Example - After Lambda Expressions:
+
+    ```csharp
+    // After lambda expressions, delegates can be defined inline without explicit method declarations.
+    public class Program
+    {
+        public static void Main()
+        {
+            // Define a lambda expression inline
+            Func<int, int, int> add = (x, y) => x + y;
+
+            // Pass the lambda expression to a method
+            int result = Calculate(5, 3, add);
+            Console.WriteLine(result);
+        }
+
+        // Method that accepts a delegate as an argument
+        public static int Calculate(int x, int y, Func<int, int, int> operation)
+        {
+            return operation(x, y);
+        }
+    }
+    ```
+
+    In the example before lambda expressions, defining and passing delegates required explicit method declarations, leading to more verbose and less readable code. With lambda expressions, delegates can be defined inline using a concise syntax, improving code readability and reducing boilerplate code.
+
+    Lambda expressions introduced the `=>` syntax, which is called the "lambda operator" or "arrow operator". It separates the input parameters from the expression or statement body of the lambda expression. The syntax `=>` indicates that the expression or statement(s) on the right side represent the body of the lambda expression.
+
+    </details>
 
 See here for a complete timeline: 
 
