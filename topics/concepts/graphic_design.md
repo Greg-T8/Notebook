@@ -1,12 +1,15 @@
 # Notes on Graphic Design
 
-Resources- [The Non-Designer's Design Book](#the-non-designers-design-book)
 - [The Non-Designer's Design Book](#the-non-designers-design-book)
   - [Chapter 1: Introduction](#chapter-1-introduction)
     - [The Joshua Tree Epiphany](#the-joshua-tree-epiphany)
     - [Chapter 1: Design Examples](#chapter-1-design-examples)
 
 ## The Non-Designer's Design Book
+
+Resource:
+
+- [The Non-Designer's Design Book](https://a.co/d/7KWNDQa)
 
 "The Non-Designer's Design Book" is written for individuals who need to design things but have no background or formal training in design. It specifically addresses those who find themselves tasked with design responsibilities, such as assistants required to design newsletters, volunteers creating information for congregations, small business owners crafting their own advertising, students aiming for better grades through better-looking papers, professionals seeking to enhance their presentations, teachers, statisticians, and many others who see the value in improving the layout and visual appeal of their materials. Robin Williams assumes that her readers don't have the time or interest to become design experts but would like to know how to make their work look better. The book is geared towards empowering readers with knowledge of basic design principles to enhance the visual quality and effectiveness of their projects .
 
@@ -45,7 +48,7 @@ Improvements:
 
 - Removed the border that was crowding the edges
 - Used a stronger typeface whose bold has a bigger impact on this page (Principle of Contrast)
-- Repeatedt he bold to point out the three steps and repeated the light face to comment on them (Principle of Repetition)
+- Repeated the bold to point out the three steps and repeated the light face to comment on them (Principle of Repetition)
 - Gave the text strong alignments (Principle of Alignment)
 - Separated the three steps so you can instantly see there are three of them, thus making it unnecessary to use the numerals (Principle of Proximity)
 
