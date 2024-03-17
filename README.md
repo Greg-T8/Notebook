@@ -22,6 +22,7 @@ Use the links below to discover more about what I'm learning.
 
 - [Unit Testing](/topics/concepts/unit_testing.md)
 - [Change Management](/topics/concepts/change_management.md)
+- [Graphic Design](/topics/concepts/graphic_design.md)
 
 ## Certifications
 
