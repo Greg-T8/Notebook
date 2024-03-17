@@ -13,7 +13,7 @@ This page is a collection of my notes on learning C# and .NET. I captured most o
   - [Getting started with .NET and Visual Studio](#getting-started-with-net-and-visual-studio)
     - [Brief overview of .NET](#brief-overview-of-net)
     - [C# and .NET Timeline](#c-and-net-timeline)
-    - [C# feature overview](#c-feature-overview)
+    - [C# Features](#c-features)
     - [About .NET support (LTS, STS, and Preview)](#about-net-support-lts-sts-and-preview)
     - [Understanding .NET runtime and .NET SDK versions](#understanding-net-runtime-and-net-sdk-versions)
     - [Using dotnet.exe to list and install .NET runtime and SDK versions](#using-dotnetexe-to-list-and-install-net-runtime-and-sdk-versions)
@@ -131,7 +131,7 @@ Things to note:
 - The .NET introductions listed include only major highlights. Each version introduced numerous features and improvements not listed here for brevity.
 - For the most current information, including C# and .NET versions released after April 2023, consult the official Microsoft documentation or the .NET Blog.
 
-#### C# feature overview
+#### C# Features
 
 ##### [C# version 1.0 (2003)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-10-1)
 
@@ -1338,7 +1338,7 @@ Major features introduced:
 
 ##### [C# version 3.0 (2007)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-30)
 
-C# version 3.0 came in late 2007, along with Visual Studio 2008, though most of the language features would come with .NET Framework 3.5. The features in this release established C# as a truly formidable language.
+C# version 3.0 came in late 2007, along with Visual Studio 2008, though most of the language features would come with .NET Framework 3.5. The features in this release established C# as a truly formidable language. The killer feature in this version is the query expression, known as Language-Integrated Query (LINQ). Other features, including expression trees, lambda expressions, and anonymous types, are the foundation upon which LINQ is constructed. These features lay the groundwork for turning C# into a hybrid Object-Oriented/Functional language.
 
 Major features introduced:
 
@@ -1589,6 +1589,525 @@ Major features introduced:
     In the example before lambda expressions, defining and passing delegates required explicit method declarations, leading to more verbose and less readable code. With lambda expressions, delegates can be defined inline using a concise syntax, improving code readability and reducing boilerplate code.
 
     Lambda expressions introduced the `=>` syntax, which is called the "lambda operator" or "arrow operator". It separates the input parameters from the expression or statement body of the lambda expression. The syntax `=>` indicates that the expression or statement(s) on the right side represent the body of the lambda expression.
+
+    </details>
+
+- [Expression trees](https://learn.microsoft.com/en-us/dotnet/csharp/advanced-topics/expression-trees/) - represent code as data structures, enabling manipulation and analysis of code at runtime, often used in scenarios like LINQ providers, dynamic query building, and ORM mapping.
+
+    <details><summary>Overview</summary><br>
+
+    Expression trees in .NET represent code as data structures, allowing developers to analyze, manipulate, and dynamically generate code at runtime. They are commonly used in scenarios like LINQ providers, dynamic query building, and ORM mapping.
+
+    Benefits:
+    1. Dynamic code generation: Expression trees enable the creation and manipulation of code at runtime, facilitating dynamic programming scenarios such as query generation or dynamic method invocation.
+    2. Analysis and optimization: Expression trees provide a structured representation of code, allowing developers to analyze and optimize code logic programmatically.
+    3. Interoperability: Expression trees are used in various .NET libraries and frameworks, enabling interoperability between different components and enhancing extensibility.
+
+    Reasons to Use:
+    1. LINQ providers: Expression trees are essential for implementing LINQ providers that translate LINQ queries into executable code, enabling query execution against different data sources.
+    2. Dynamic query building: Expression trees allow for the construction of complex queries dynamically at runtime, based on user inputs or other dynamic factors.
+    3. ORM mapping: Object-Relational Mapping (ORM) frameworks use expression trees to translate LINQ queries into database queries, providing a seamless mapping between object-oriented and relational paradigms.
+
+    Example - Before Expression Trees:
+
+    ```csharp
+    // Before expression trees, dynamic code generation and manipulation were challenging and error-prone.
+    public class Program
+    {
+        public static void Main()
+        {
+            // Example of building a dynamic method call using reflection
+            var methodInfo = typeof(Console).GetMethod("WriteLine", new Type[] { typeof(string) });
+            methodInfo.Invoke(null, new object[] { "Hello, World!" });
+        }
+    }
+    ```
+
+    Example - After Expression Trees:
+
+    ```csharp
+    using System.Linq.Expressions;
+
+    public class Program
+    {
+        public static void Main()
+        {
+            // Example of building a dynamic method call using expression trees
+            var methodCallExpression = Expression.Call(typeof(Console).GetMethod("WriteLine", new Type[] { typeof(string) }), Expression.Constant("Hello, World!"));
+            var lambda = Expression.Lambda<Action>(methodCallExpression);
+            var action = lambda.Compile();
+            action();
+        }
+    }
+    ```
+
+    In the example before expression trees, dynamic code generation and manipulation were achieved using reflection, which was verbose and error-prone. With expression trees, developers can construct and manipulate code more fluently using a structured representation, leading to more readable and maintainable code, as shown in the example after expression trees.
+
+    <br>
+
+- [Extension Methods](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods) - allow developers to add new methods to existing types without modifying the original type's source code, enhancing code readability and reusability.
+
+    <details><summary>Overview</summary><br>
+
+    Extension methods in .NET allow developers to add new methods to existing types without modifying the original type's source code. They provide a way to extend functionality without inheritance or modifying the existing type, enhancing code readability, and reusability.
+
+    Benefits:
+    1. Code organization: Extension methods help organize related functionality by grouping methods logically with the types they extend, improving code maintainability.
+    2. Readability: Extension methods provide a more fluent and intuitive syntax by allowing method calls to be chained directly on the extended type, enhancing code readability.
+    3. Reusability: Extension methods promote code reuse by allowing developers to define common utility methods that can be used across multiple projects or libraries.
+
+    Reasons to Use:
+    1. Enhancing existing types: When adding new functionality to existing types such as built-in .NET types or third-party libraries, extension methods provide a way to extend their capabilities without modifying their source code.
+    2. Fluent interfaces: Extension methods allow developers to create fluent interfaces by chaining method calls directly on objects, improving code readability and expressiveness.
+    3. Cross-cutting concerns: Extension methods can be used to encapsulate cross-cutting concerns such as logging, validation, or formatting, providing a centralized place to manage such functionality.
+
+    Example - Before Extension Methods:
+
+    ```csharp
+    // Before extension methods, adding new functionality to existing types required inheritance or modification of the original type's source code.
+    public class Program
+    {
+        public static void Main()
+        {
+            string input = "Hello, World!";
+            string reversed = StringHelper.Reverse(input); // Calling a static helper method
+            Console.WriteLine(reversed);
+        }
+    }
+
+    public static class StringHelper
+    {
+        public static string Reverse(string input)
+        {
+            char[] charArray = input.ToCharArray();
+            Array.Reverse(charArray);
+            return new string(charArray);
+        }
+    }
+    ```
+
+    Example - After Extension Methods:
+
+    ```csharp
+    // After extension methods, new functionality can be added to existing types directly without modifying their source code.
+    public class Program
+    {
+        public static void Main()
+        {
+            string input = "Hello, World!";
+            string reversed = input.Reverse(); // Calling an extension method directly on the string
+            Console.WriteLine(reversed);
+        }
+    }
+
+    public static class StringExtensions
+    {
+        public static string Reverse(this string input)
+        {
+            char[] charArray = input.ToCharArray();
+            Array.Reverse(charArray);
+            return new string(charArray);
+        }
+    }
+    ```
+
+    In the example before extension methods, adding new functionality to the `string` type required the creation of a static helper class with static methods. With extension methods, new functionality can be added directly to the `string` type using a more intuitive syntax, as shown in the example after extension methods.
+
+    </details>
+
+- [Implicitly-typed local variables](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/declarations#implicitly-typed-local-variables) - allow developers to declare variables without explicitly specifying their types, with the compiler inferring the type based on the assigned value, enhancing code readability and flexibility.
+
+    <details><summary>Overview</summary><br>
+
+    Implicitly-typed local variables in .NET allow developers to declare variables without explicitly specifying their types, with the compiler inferring the type based on the assigned value. They enhance code readability and flexibility by reducing verbosity and making code more concise.
+
+    Benefits:
+    1. Conciseness: Implicitly-typed variables reduce verbosity by eliminating the need to explicitly declare the type, resulting in more concise code.
+    2. Flexibility: Implicit typing allows developers to focus on the value assigned to the variable rather than the specific type, enhancing flexibility and reducing the chance of type-related errors.
+    3. Readability: By reducing unnecessary type declarations, implicitly-typed variables can improve code readability, especially in complex or long-winded expressions.
+
+    Reasons to Use:
+    1. Enhancing code clarity: Implicitly-typed variables can improve code clarity by allowing developers to focus on the intent of the code rather than the specific types involved.
+    2. Reducing redundancy: In scenarios where the type of a variable is obvious from its initialization, using implicit typing eliminates redundant type declarations, leading to cleaner code.
+    3. Simplifying refactoring: Implicitly-typed variables can simplify refactoring efforts by minimizing the need to change variable types when the underlying value remains the same.
+
+    Example - Before Implicitly-typed Local Variables:
+
+    ```csharp
+    // Before implicitly-typed local variables, explicit type declarations were required for each variable.
+    public class Program
+    {
+        public static void Main()
+        {
+            // Explicitly declaring variable types
+            string message = "Hello, World!";
+            int count = 42;
+            List<string> names = new List<string>();
+            
+            // Usage of the variables
+            Console.WriteLine(message);
+            Console.WriteLine(count);
+            names.Add("Alice");
+            names.Add("Bob");
+            // ...
+        }
+    }
+    ```
+
+    Example - After Implicitly-typed Local Variables:
+
+    ```csharp
+    // After implicitly-typed local variables, types are inferred by the compiler based on the assigned values.
+    public class Program
+    {
+        public static void Main()
+        {
+            // Implicitly-typed local variables
+            var message = "Hello, World!";
+            var count = 42;
+            var names = new List<string>();
+            
+            // Usage of the variables
+            Console.WriteLine(message);
+            Console.WriteLine(count);
+            names.Add("Alice");
+            names.Add("Bob");
+            // ...
+        }
+    }
+    ```
+
+    In the example before implicitly-typed local variables, explicit type declarations were required for each variable, which could lead to redundant code and reduced readability. With implicitly-typed local variables, the compiler infers the types based on the assigned values, resulting in cleaner and more concise code, as shown in the example after implicitly-typed local variables.
+
+    </details>
+
+- [Partial methods](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/partial-method) - Allow developers to define method signatures in one part of a class or struct without implementing them, providing a way to extend the behavior of generated code in separate files while avoiding compilation errors if not implemented.
+
+    <details><summary>Overview</summary><br>
+
+    Partial methods in .NET allow developers to define method signatures in one part of a class or struct without implementing them, providing a way to extend the behavior of generated code in separate files while avoiding compilation errors if not implemented.
+
+    Benefits:
+    1. Code organization: Partial methods help organize code by separating method declarations from their implementations, especially in scenarios where code is automatically generated or partially defined.
+    2. Flexibility: Partial methods provide a mechanism for extending the behavior of generated code or auto-generated event handlers without modifying the original source files.
+    3. Performance: Partial methods improve performance by allowing the compiler to optimize code generation, as methods without implementations are not compiled into the final assembly if not used.
+
+    Reasons to Use:
+    1. Code generation: Partial methods are commonly used in code generation scenarios, such as designer-generated code or auto-generated event handlers, where developers need to extend or customize the behavior.
+    2. Event handling: Partial methods can be used to define event handlers with default behavior in one part of a class, allowing developers to customize the behavior in another part without altering the original event declaration.
+    3. Separation of concerns: Partial methods promote separation of concerns by allowing developers to separate method declarations from their implementations, enhancing code maintainability and readability.
+
+    example - before partial methods:
+
+    ```csharp
+    // before partial methods, developers had to manually define event handlers in separate files or modify the generated code directly.
+    // file: myclass.generated.cs
+    public partial class myclass
+    {
+        public event eventhandler myevent;
+
+        public void raiseevent()
+        {
+            myevent?.invoke(this, eventargs.empty);
+        }
+    }
+
+    // file: myclass.customized.cs
+    public partial class myclass
+    {
+        // developers had to manually define event handlers in separate files or modify the generated code directly.
+        private void onmyevent(object sender, eventargs e)
+        {
+            // custom event handling logic
+        }
+    }
+    ```
+
+    example - after partial methods:
+
+    ```csharp
+    // after partial methods, developers can define event handlers as partial methods without implementing them.
+    // file: myclass.generated.cs
+    public partial class myclass
+    {
+        public event eventhandler myevent;
+
+        public void raiseevent()
+        {
+            myevent?.invoke(this, eventargs.empty);
+        }
+
+        partial void onmyevent(object sender, eventargs e); // declaration only
+    }
+
+    // file: myclass.customized.cs
+    public partial class myclass
+    {
+        partial void onmyevent(object sender, eventargs e)
+        {
+            // custom event handling logic
+        }
+    }
+    ```
+
+    in the example before partial methods, developers had to manually define event handlers in separate files or modify the generated code directly, leading to potential issues with code organization and maintenance. with partial methods, developers can declare method signatures in one part of the class and provide implementations in another part, improving code organization and maintainability, as shown in the example after partial methods.
+
+    </details>
+
+- [Object and Collection Initializers](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/object-and-collection-initializers) - allow developers to initialize objects and collections directly at the point of declaration, simplifying code and improving readability.
+
+    <details open><summary>Overview</summary><br>
+
+    Object and collection initializers in .NET allow developers to initialize objects and collections directly at the point of declaration, simplifying code and improving readability.
+
+    Benefits:
+    1. Conciseness: Object and collection initializers reduce the amount of code needed to initialize objects and collections, resulting in cleaner and more concise code.
+    2. Readability: Initializers improve code readability by clearly expressing object and collection initialization at the point of declaration, making the code easier to understand.
+    3. Flexibility: Initializers provide a convenient way to set properties or add elements to collections with a compact syntax, enhancing code flexibility and expressiveness.
+
+    Reasons to Use:
+    1. Simplifying object creation: Object initializers allow developers to set properties of an object immediately after instantiation, simplifying object creation and initialization.
+    2. Initializing collections: Collection initializers enable the initialization of collections with initial values directly within the declaration, reducing the need for separate initialization statements.
+    3. Improving code readability: Initializers enhance code readability by clearly expressing initialization logic inline with the object or collection declaration.
+
+    Example - Before Object and Collection Initializers:
+
+    ```csharp
+    // Before object and collection initializers, separate initialization statements were required.
+    public class Program
+    {
+        public static void Main()
+        {
+            // Initialization of objects and collections before the feature was introduced
+            var person = new Person();
+            person.Name = "Alice";
+            person.Age = 30;
+
+            var numbers = new List<int>();
+            numbers.Add(1);
+            numbers.Add(2);
+            numbers.Add(3);
+        }
+    }
+    ```
+
+    Example - After Object and Collection Initializers:
+
+    ```csharp
+    // After object and collection initializers, initialization can be done directly at the point of declaration.
+    public class Program
+    {
+        public static void Main()
+        {
+            // Initialization using object and collection initializers
+            var person = new Person { Name = "Alice", Age = 30 };
+
+            var numbers = new List<int> { 1, 2, 3 };
+        }
+    }
+    ```
+
+    In the example before object and collection initializers, separate initialization statements were required to set properties of objects and add elements to collections. With object and collection initializers, initialization can be done directly at the point of declaration, resulting in cleaner and more readable code, as shown in the example after object and collection initializers.
+
+    </details>
+
+##### [C# version 4.0 (2010)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-40)
+
+- [Dynamic binding; `Dynamic` keyword](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/reference-types#the-dynamic-type) - allows for late binding of types and members at runtime, enabling interoperability with dynamically-typed languages and facilitating scenarios where the type of objects is determined at runtime.
+
+    <details open><summary>Overview</summary><br>
+
+    Dynamic binding in .NET allows for late binding of types and members at runtime, enabling interoperability with dynamically-typed languages and facilitating scenarios where the type of objects is determined at runtime.
+
+    Benefits:
+    1. Interoperability: Dynamic binding enhances interoperability with dynamic languages such as Python or JavaScript, allowing seamless integration with .NET code.
+    2. Flexibility: Dynamic binding provides flexibility in scenarios where the types of objects are determined at runtime, enabling dynamic code execution and interaction with objects whose structure is unknown at compile time.
+    3. Reduced boilerplate code: Dynamic binding reduces the need for explicit type declarations and casts, resulting in cleaner and more concise code.
+
+    Reasons to Use:
+    1. Integration with dynamic languages: Dynamic binding enables .NET code to interact with components written in dynamically-typed languages, facilitating cross-language communication and interoperability.
+    2. Late binding scenarios: Dynamic binding is useful in scenarios where the type of objects is determined at runtime, such as deserialization, scripting engines, or reflection-based scenarios.
+    3. Simplifying COM interop: Dynamic binding simplifies COM interop by allowing .NET code to interact with COM objects without the need for explicit type declarations or complex interop code.
+
+    Example - Before Dynamic Binding:
+
+    ```csharp
+    // Before dynamic binding, explicit type declarations or casting were required for late-bound scenarios.
+    public class Program
+    {
+        public static void Main()
+        {
+            // Late-bound scenario without dynamic binding
+            object obj = GetDynamicObject();
+            Type type = obj.GetType();
+            MethodInfo methodInfo = type.GetMethod("MethodName");
+            object result = methodInfo.Invoke(obj, null);
+        }
+
+        public static object GetDynamicObject()
+        {
+            return new MyDynamicObject();
+        }
+    }
+
+    public class MyDynamicObject
+    {
+        public void MethodName()
+        {
+            Console.WriteLine("Method called.");
+        }
+    }
+    ```
+
+    Example - After Dynamic Binding:
+
+    ```csharp
+    // After dynamic binding, dynamic types can be used for late-bound scenarios, simplifying code.
+    public class Program
+    {
+        public static void Main()
+        {
+            // Late-bound scenario using dynamic binding
+            dynamic obj = GetDynamicObject();
+            obj.MethodName();
+        }
+
+        public static object GetDynamicObject()
+        {
+            return new MyDynamicObject();
+        }
+    }
+
+    public class MyDynamicObject
+    {
+        public void MethodName()
+        {
+            Console.WriteLine("Method called.");
+        }
+    }
+    ```
+
+    In the example before dynamic binding, explicit type declarations or casting were required for late-bound scenarios, leading to verbose and error-prone code. With dynamic binding, dynamic types can be used for late-bound scenarios, simplifying code and enhancing flexibility, as shown in the example after dynamic binding.
+
+    </details>
+
+- [Named and Optional Arguments](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/named-and-optional-arguments) - allow developers to specify argument values by parameter name and define default values for parameters, enhancing method call flexibility and readability.
+
+    <details open><summary>Summary</summary><br>
+
+    Named and optional arguments in .NET allow developers to specify argument values by parameter name and define default values for parameters, enhancing method call flexibility and readability.
+
+    Benefits:
+    1. Flexibility: Named and optional arguments provide flexibility in method calls by allowing parameters to be specified by name, which can improve code clarity and maintainability.
+    2. Readability: Named and optional arguments enhance code readability by making method calls more self-explanatory and reducing the need for documentation on parameter usage.
+    3. Default parameter values: Optional arguments enable developers to define default values for parameters, reducing the need for overloaded methods and simplifying method signatures.
+
+    Reasons to Use:
+    1. Method call clarity: Named arguments improve the clarity of method calls, especially for methods with many parameters or parameters of the same type, by explicitly specifying which argument corresponds to which parameter.
+    2. Flexibility in API design: Optional arguments allow developers to design APIs with default parameter values, providing flexibility to callers while maintaining backward compatibility with existing code.
+    3. Code maintenance: Named and optional arguments make code easier to maintain by reducing the need for method overloads or changes to existing method signatures when adding new parameters.
+
+    Example - Before Named and Optional Arguments:
+
+    ```csharp
+    // Before named and optional arguments, method calls required passing all arguments in the correct order.
+    public class Program
+    {
+        public static void Main()
+        {
+            // Method call before named and optional arguments
+            var result = Calculate(10, 5, true);
+        }
+
+        // Method without named and optional arguments
+        public static int Calculate(int operand1, int operand2, bool add)
+        {
+            if (add)
+                return operand1 + operand2;
+            else
+                return operand1 - operand2;
+        }
+    }
+    ```
+
+    Example - After Named and Optional Arguments:
+
+    ```csharp
+    // After named and optional arguments, method calls can specify parameters by name and use default parameter values.
+    public class Program
+    {
+        public static void Main()
+        {
+            // Method call using named and optional arguments
+            var result = Calculate(operand2: 5, operand1: 10, add: true);
+        }
+
+        // Method with named and optional arguments
+        public static int Calculate(int operand1, int operand2, bool add = true)
+        {
+            if (add)
+                return operand1 + operand2;
+            else
+                return operand1 - operand2;
+        }
+    }
+    ```
+
+    In the example before named and optional arguments, method calls required passing all arguments in the correct order, which could lead to confusion and errors, especially with methods having many parameters. With named and optional arguments, method calls become more self-explanatory and flexible, as shown in the example after named and optional arguments.
+
+    </details>
+
+- [Covariance and contravariance in generics](https://learn.microsoft.com/en-us/dotnet/standard/generics/covariance-and-contravariance) - allow for more flexible assignment compatibility between generic types, permitting inheritance relationships to be preserved for interfaces and delegate types with generic parameters
+
+    <details open><summary>Overview</summary><br>
+
+    Covariance and contravariance in generics in .NET allow for more flexible assignment compatibility between generic types, permitting inheritance relationships to be preserved for interfaces and delegate types with generic parameters.
+
+    Benefits:
+    1. Flexibility: Covariance and contravariance enable developers to write more flexible and reusable code by allowing the assignment of more derived types to less derived types in generic type parameters.
+    2. Preserved inheritance: Covariance and contravariance preserve inheritance relationships for generic types, ensuring that interfaces and delegates with generic parameters behave intuitively and consistently.
+    3. Reduced casting: Covariance and contravariance reduce the need for explicit casting, leading to cleaner and more readable code.
+
+    Reasons to Use:
+    1. Interface and delegate flexibility: Covariance allows interfaces and delegates to be more flexible in accepting types that are more derived than the ones originally specified, improving code reuse and design.
+    2. Code maintenance: Covariance and contravariance help maintain code by allowing developers to write generic types and methods that are more adaptable to future changes in type hierarchies.
+    3. Improved readability: Covariance and contravariance make code more expressive and self-documenting by eliminating the need for explicit casts and reducing boilerplate code.
+
+    Example - Before Covariance and Contravariance in Generics:
+
+    ```csharp
+    // Before covariance and contravariance, generic types couldn't preserve inheritance relationships, leading to limited flexibility.
+    public class Program
+    {
+        public static void Main()
+        {
+            // Assigning a list of derived types to a list of base types
+            List<Animal> animals = new List<Cat>(); // Compile-time error: Cannot convert List<Cat> to List<Animal>
+        }
+    }
+
+    public class Animal {}
+    public class Cat : Animal {}
+    ```
+
+    Example - After Covariance and Contravariance in Generics:
+
+    ```csharp
+    // After covariance and contravariance, generic types preserve inheritance relationships, allowing for more flexible assignments.
+    public class Program
+    {
+        public static void Main()
+        {
+            // Assigning a list of derived types to a list of base types using covariance
+            IEnumerable<Animal> animals = new List<Cat>(); // Works due to covariance
+        }
+    }
+
+    public class Animal {}
+    public class Cat : Animal {}
+    ```
+
+    In the example before covariance and contravariance, assigning a list of derived types to a list of base types resulted in a compile-time error due to the lack of inheritance preservation in generic types. With covariance and contravariance, the assignment becomes valid, allowing for more flexible and intuitive code, as shown in the example after covariance and contravariance in generics.
 
     </details>
 
