@@ -1856,7 +1856,7 @@ Major features introduced:
 
 - [Object and Collection Initializers](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/object-and-collection-initializers) - allow developers to initialize objects and collections directly at the point of declaration, simplifying code and improving readability.
 
-    <details open><summary>Overview</summary><br>
+    <details><summary>Overview</summary><br>
 
     Object and collection initializers in .NET allow developers to initialize objects and collections directly at the point of declaration, simplifying code and improving readability.
 
@@ -1913,9 +1913,15 @@ Major features introduced:
 
 ##### [C# version 4.0 (2010)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-40)
 
+Released with Visual Studio 2010.
+
+Embedded interop types eased the deployment pain of creating COM interop assemblies for your application. Generic covariance and contravariance gave more power to generics, but they're a bit academic and probably most appreciated by framework and library authors. Named and optional parameters let you eliminate many method overloads and provide convenience. None of these features are paradigm altering.
+
+The major feature introduced was the `dynamic` keyword, which gives you the ability to override the compiler on compile-time typing. With the dynamic keyword you can create constructs similar to dynamically-typed languages like JavaScript. For example, you can create a `dynamic x = "a string"` and then add 6 to it, leaving the runtime to sort out what should happen next.
+
 - [Dynamic binding; `Dynamic` keyword](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/reference-types#the-dynamic-type) - allows for late binding of types and members at runtime, enabling interoperability with dynamically-typed languages and facilitating scenarios where the type of objects is determined at runtime.
 
-    <details open><summary>Overview</summary><br>
+    <details><summary>Overview</summary><br>
 
     Dynamic binding in .NET allows for late binding of types and members at runtime, enabling interoperability with dynamically-typed languages and facilitating scenarios where the type of objects is determined at runtime.
 
@@ -1993,7 +1999,7 @@ Major features introduced:
 
 - [Named and Optional Arguments](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/named-and-optional-arguments) - allow developers to specify argument values by parameter name and define default values for parameters, enhancing method call flexibility and readability.
 
-    <details open><summary>Summary</summary><br>
+    <details><summary>Overview</summary><br>
 
     Named and optional arguments in .NET allow developers to specify argument values by parameter name and define default values for parameters, enhancing method call flexibility and readability.
 
@@ -2059,7 +2065,7 @@ Major features introduced:
 
 - [Covariance and contravariance in generics](https://learn.microsoft.com/en-us/dotnet/standard/generics/covariance-and-contravariance) - allow for more flexible assignment compatibility between generic types, permitting inheritance relationships to be preserved for interfaces and delegate types with generic parameters
 
-    <details open><summary>Overview</summary><br>
+    <details><summary>Overview</summary><br>
 
     Covariance and contravariance in generics in .NET allow for more flexible assignment compatibility between generic types, permitting inheritance relationships to be preserved for interfaces and delegate types with generic parameters.
 
@@ -2110,6 +2116,362 @@ Major features introduced:
     In the example before covariance and contravariance, assigning a list of derived types to a list of base types resulted in a compile-time error due to the lack of inheritance preservation in generic types. With covariance and contravariance, the assignment becomes valid, allowing for more flexible and intuitive code, as shown in the example after covariance and contravariance in generics.
 
     </details>
+
+- [Embedded interop types](https://learn.microsoft.com/en-us/dotnet/framework/interop/type-equivalence-and-embedded-interop-types) - allow for seamless interoperability with COM objects by embedding the interop types directly into the assembly, reducing dependencies and simplifying deployment.
+
+    <details><summary>Overview</summary><br>
+
+    Embedded interop types in .NET allow for seamless interoperability with COM objects by embedding the interop types directly into the assembly, reducing dependencies and simplifying deployment.
+
+    Benefits:
+    1. Reduced dependencies: Embedded interop types eliminate the need for separate interop assemblies, reducing dependencies and simplifying deployment.
+    2. Improved versioning: Embedding interop types ensures that the correct version of the interop types is always used, eliminating versioning conflicts and runtime errors.
+    3. Enhanced performance: Embedding interop types can improve performance by eliminating runtime marshaling overhead associated with traditional COM interop.
+
+    Reasons to Use:
+    1. Simplified deployment: Embedded interop types simplify deployment by reducing the number of dependencies and ensuring that all necessary types are included in the assembly.
+    2. Improved versioning control: Embedding interop types ensures that the correct version of interop types is used, reducing compatibility issues and runtime errors.
+    3. Enhanced performance: By eliminating runtime marshaling overhead, embedded interop types can improve application performance, especially in scenarios with frequent interop calls.
+
+    Example - Before Embedded Interop Types:
+
+    ```csharp
+    // Before embedded interop types, developers had to reference separate interop assemblies and deploy them with the application.
+    public class Program
+    {
+        public static void Main()
+        {
+            // Before embedded interop types, referencing and using COM objects required separate interop assemblies.
+            MSExcel.Application excelApp = new MSExcel.Application();
+            excelApp.Visible = true;
+        }
+    }
+    ```
+
+    Example - After Embedded Interop Types:
+
+    ```csharp
+    // After embedded interop types, interop types are embedded directly into the assembly, simplifying deployment and reducing dependencies.
+    public class Program
+    {
+        public static void Main()
+        {
+            // After embedded interop types, referencing and using COM objects is simplified, with interop types embedded directly into the assembly.
+            Application excelApp = new Application();
+            excelApp.Visible = true;
+        }
+    }
+    ```
+
+    In the example before embedded interop types, referencing and using COM objects required separate interop assemblies to be referenced and deployed with the application, leading to increased complexity and dependencies. With embedded interop types, interop types are embedded directly into the assembly, simplifying deployment and reducing dependencies, as shown in the example after embedded interop types.
+
+    </details>
+
+##### [C# version 5.0 (2012)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-50)
+
+Released with Visual Studio 2012. Nearly all of the effort went into the `async` and `await` model for asynchronous programming. This changed the game for C# by baking asynchrony into the language as a first-class participant.
+
+The caller info attribute lets you easily retrieve information about the context in which you're running without resorting to a ton of boilerplate reflection code. It has many uses in diagnostics and logging tasks.
+
+- [Asynchronous members, `async`/`await` keywords](https://learn.microsoft.com/en-us/dotnet/csharp/asynchronous-programming/) - enable the definition of methods that can perform asynchronous operations, allowing for non-blocking execution and improved responsiveness in applications.
+
+    <details><summary>Overview</summary><br>
+
+    Asynchronous members in .NET enable the definition of methods that can perform asynchronous operations, allowing for non-blocking execution and improved responsiveness in applications.
+
+    Benefits:
+    1. Improved responsiveness: Asynchronous members enable applications to remain responsive while performing long-running I/O-bound or CPU-bound operations, enhancing user experience.
+    2. Scalability: Asynchronous programming allows applications to handle more concurrent requests by releasing threads back to the thread pool during waiting periods, improving scalability.
+    3. Simplified code: Asynchronous programming using async/await keywords simplifies asynchronous code development by making it more readable and maintainable.
+
+    Reasons to Use:
+    1. Long-running operations: Asynchronous members are useful for executing long-running operations such as network requests, disk I/O, or CPU-intensive tasks without blocking the main thread.
+    2. UI responsiveness: Asynchronous programming improves the responsiveness of UI applications by allowing tasks to run asynchronously in the background while the UI remains responsive to user input.
+    3. Scalable server applications: Asynchronous programming is essential for scalable server applications that need to handle a large number of concurrent requests efficiently.
+
+    Example - Before Asynchronous Members:
+
+    ```csharp
+    // Before asynchronous members, long-running operations were typically performed synchronously, blocking the calling thread.
+    public class Program
+    {
+        public static void Main()
+        {
+            // Before asynchronous members, long-running operations were performed synchronously, blocking the main thread.
+            var result = PerformLongRunningOperation();
+            Console.WriteLine(result);
+        }
+
+        public static int PerformLongRunningOperation()
+        {
+            // Simulating a long-running CPU-bound operation
+            Thread.Sleep(5000);
+            return 42;
+        }
+    }
+    ```
+
+    Example - After Asynchronous Members:
+
+    ```csharp
+    // After asynchronous members, long-running operations can be performed asynchronously, allowing the main thread to remain responsive.
+    public class Program
+    {
+        public static async Task Main()
+        {
+            // After asynchronous members, long-running operations can be performed asynchronously using async/await keywords.
+            var result = await PerformLongRunningOperationAsync();
+            Console.WriteLine(result);
+        }
+
+        public static async Task<int> PerformLongRunningOperationAsync()
+        {
+            // Simulating a long-running CPU-bound operation asynchronously
+            await Task.Delay(5000);
+            return 42;
+        }
+    }
+    ```
+
+    In the example before asynchronous members, long-running operations were typically performed synchronously, blocking the calling thread and potentially leading to unresponsive applications. With asynchronous members, operations can be performed asynchronously, allowing the main thread to remain responsive, as shown in the example after asynchronous members.
+
+    </details>
+
+- [Caller info attributes](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/attributes/caller-information) - allow methods to obtain information about the caller at runtime, such as the file path, line number, and member name, facilitating logging, debugging, and error handling.
+
+    <details><summary>Overview</summary><br>
+
+    Caller info attributes in .NET allow methods to obtain information about the caller at runtime, such as the file path, line number, and member name, facilitating logging, debugging, and error handling.
+
+    See [Code Project: Caller Info Attributes in C# 5.0](https://www.codeproject.com/Tips/606379/Caller-Info-Attributes-in-Csharp-5-0).
+
+    Benefits:
+    1. Enhanced logging and debugging: Caller info attributes provide contextual information about the caller, improving logging and debugging capabilities by including details like the file path, line number, and member name.
+    2. Reduced boilerplate code: Caller info attributes reduce the need for developers to manually pass caller information to methods, simplifying code and improving maintainability.
+    3. Error handling: Caller info attributes can aid in error handling by providing additional context about where a method was called from, helping to diagnose and troubleshoot issues.
+
+    Reasons to Use:
+    1. Logging: Caller info attributes are useful for logging frameworks, allowing log messages to include contextual information about the caller, such as the file path and line number.
+    2. Debugging: Caller info attributes aid in debugging by providing additional context when tracing method calls, helping developers identify the source of errors more easily.
+    3. Error handling: Caller info attributes can be used in error handling scenarios to capture information about the caller, assisting in diagnosing and resolving errors.
+
+    Example - Before Caller Info Attributes:
+
+    ```csharp
+    // Before caller info attributes, methods had to explicitly pass caller information as parameters.
+    public class Program
+    {
+        public static void Main()
+        {
+            // Before caller info attributes, caller information had to be passed manually.
+            Log("Message", "Program", "Main", 10);
+        }
+
+        public static void Log(string message, string filePath, string memberName, int lineNumber)
+        {
+            // Logging logic using manually passed caller information
+            Console.WriteLine($"{filePath}:{lineNumber} - {memberName}: {message}");
+        }
+    }
+    ```
+
+    Example - After Caller Info Attributes:
+
+    ```csharp
+    // After caller info attributes, methods can obtain caller information automatically using attributes.
+    public class Program
+    {
+        public static void Main()
+        {
+            // After caller info attributes, caller information is obtained automatically.
+            Log("Message");
+        }
+
+        public static void Log(string message, [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0)
+        {
+            // Logging logic using caller info attributes
+            Console.WriteLine($"{filePath}:{lineNumber} - {memberName}: {message}");
+        }
+    }
+    ```
+
+    In the example before caller info attributes, methods had to explicitly pass caller information as parameters, leading to increased complexity and boilerplate code. With caller info attributes, methods can obtain caller information automatically, simplifying logging, debugging, and error handling, as shown in the example after caller info attributes.
+
+    </details>
+
+##### [C# version 6.0 (2015)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-60)
+
+- [Static imports](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/using-directive) - allow developers to import static members of types directly into the current code file, simplifying access to commonly used methods or constants without qualifying them with the type name.
+
+    <details><summary>Overview</summary><br>
+
+    Static imports in .NET allow developers to import static members of types directly into the current code file, simplifying access to commonly used methods or constants without qualifying them with the type name.
+
+    Benefits:
+    1. Improved readability: Static imports enhance code readability by reducing verbosity, eliminating the need to qualify static members with their type names.
+    2. Increased productivity: Static imports save developers time by enabling faster access to frequently used static members, improving productivity and reducing typing effort.
+    3. Simplified code maintenance: Static imports facilitate code maintenance by providing a centralized location for managing imports, making it easier to update or remove imported members.
+
+    Reasons to Use:
+    1. Enhanced code readability: Static imports make code more concise and readable by eliminating repetitive type names when accessing static members.
+    2. Convenient access to constants and utility methods: Static imports provide convenient access to constants and utility methods without the need to qualify them with their type names.
+    3. Improved code maintainability: Static imports simplify code maintenance by reducing the risk of errors caused by incorrect type qualifications and enabling easier management of imported members.
+
+    Example - Before Static Imports:
+
+    ```csharp
+    // Before static imports, developers had to qualify static members with their type names.
+    using System;
+
+    public class Program
+    {
+        public static void Main()
+        {
+            // Before static imports, accessing static members required qualifying them with their type names.
+            Console.WriteLine(Math.PI);
+        }
+    }
+    ```
+
+    Example - After Static Imports:
+
+    ```csharp
+    // After static imports, static members can be accessed directly without qualifying them with their type names.
+    using static System.Math;
+
+    public class Program
+    {
+        public static void Main()
+        {
+            // After static imports, accessing static members is simplified.
+            Console.WriteLine(PI);
+        }
+    }
+    ```
+
+    In the example before static imports, accessing static members required qualifying them with their type names, leading to verbosity and reduced readability. With static imports, developers can access static members directly without qualification, simplifying code and improving readability, as shown in the example after static imports.
+
+    </details>
+
+- [Exception filters, `when` keyword](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/when) - allow for conditional handling of exceptions within catch blocks, providing more granular control over which exceptions are handled based on specified conditions
+
+    <details><summary>Overview</summary><br>
+
+    Exception filters in .NET allow for conditional handling of exceptions within catch blocks, providing more granular control over which exceptions are handled based on specified conditions.
+
+    Benefits:
+    1. Granular exception handling: Exception filters enable developers to handle exceptions based on specific conditions, allowing for more precise error handling and recovery strategies.
+    2. Improved code clarity: Exception filters improve code readability by separating exception handling logic from the main catch block, making error handling intentions clearer.
+    3. Preventing unnecessary exception handling: Exception filters help prevent unnecessary handling of exceptions that don't match specified conditions, reducing the risk of masking or mishandling critical errors.
+
+    Reasons to Use:
+    1. Conditional error handling: Exception filters are useful when different exception handling logic is required based on specific conditions, allowing developers to tailor error recovery strategies accordingly.
+    2. Error triage: Exception filters aid in triaging exceptions by allowing developers to prioritize and handle critical errors differently from less severe ones.
+    3. Enhanced code maintainability: Exception filters promote cleaner and more maintainable code by separating exception handling logic from the main catch block, making it easier to understand and modify error handling strategies.
+
+    Example - Before Exception Filters:
+
+    ```csharp
+    // Before exception filters, conditional exception handling required additional if statements inside catch blocks.
+    public class Program
+    {
+        public static void Main()
+        {
+            try
+            {
+                // Code that may throw an exception
+            }
+            catch (Exception ex)
+            {
+                if (ex is InvalidOperationException && ex.Message.Contains("specific condition"))
+                {
+                    // Handle the exception based on the specific condition
+                }
+                else
+                {
+                    // Handle other exceptions
+                }
+            }
+        }
+    }
+    ```
+
+    Example - After Exception Filters:
+
+    ```csharp
+    // After exception filters, conditional exception handling is simplified and more expressive.
+    public class Program
+    {
+        public static void Main()
+        {
+            try
+            {
+                // Code that may throw an exception
+            }
+            catch (InvalidOperationException ex) when (ex.Message.Contains("specific condition"))
+            {
+                // Handle the exception based on the specific condition
+            }
+            catch (Exception ex)
+            {
+                // Handle other exceptions
+            }
+        }
+    }
+    ```
+
+    In the example before exception filters, conditional exception handling required additional if statements inside catch blocks, leading to cluttered and less readable code. With exception filters, conditional exception handling is simplified and more expressive, as shown in the example after exception filters. This improves code readability and maintainability while allowing for more precise error handling.
+
+    </details>
+
+- [Auto property initializers](https://learn.microsoft.com/en-us/dotnet/csharp/properties) - allow developers to specify default values for properties directly within their declaration, simplifying initialization and reducing boilerplate code.
+
+    <details><summary>Overview</summary><br>
+
+    Auto-property initializers in .NET allow developers to specify default values for properties directly within their declaration, simplifying initialization and reducing boilerplate code.
+
+    Benefits:
+    1. Simplified initialization: Auto-property initializers eliminate the need for constructors or field initializers to set default property values, streamlining object initialization.
+    2. Readability: Auto-property initializers improve code readability by centralizing property initialization within the property declaration, making it easier to understand default values.
+    3. Reduced boilerplate code: By removing the need for explicit default value assignment in constructors or field initializers, auto-property initializers reduce boilerplate code and make code more concise.
+
+    Reasons to Use:
+    1. Default property values: Auto-property initializers are useful for specifying default values for properties, improving code clarity and reducing the need for additional initialization logic.
+    2. Code simplicity: Auto-property initializers simplify object initialization by allowing default values to be specified directly within the property declaration, reducing the number of initialization steps required.
+    3. Maintenance: By centralizing default value assignment within property declarations, auto-property initializers make it easier to update or modify default values without impacting constructor or initialization logic.
+
+    Example - Before Auto-Property Initializers:
+
+    ```csharp
+    // Before auto-property initializers, default property values were often assigned in constructors or field initializers.
+    public class Person
+    {
+        public string Name { get; set; }
+
+        public Person()
+        {
+            // Setting default property value in the constructor
+            Name = "John Doe";
+        }
+    }
+    ```
+
+    Example - After Auto-Property Initializers:
+
+    ```csharp
+    // After auto-property initializers, default property values can be specified directly within the property declaration.
+    public class Person
+    {
+        // Auto-property initializer specifying default value
+        public string Name { get; set; } = "John Doe";
+    }
+    ```
+
+    In the example before auto-property initializers, default property values were typically assigned in constructors or field initializers, leading to additional initialization code. With auto-property initializers, default values can be specified directly within the property declaration, simplifying initialization and reducing boilerplate code, as shown in the example after auto-property initializers.
+
+    </details>
+
+
 
 See here for a complete timeline: 
 
