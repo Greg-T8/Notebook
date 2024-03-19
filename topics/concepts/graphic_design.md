@@ -7,9 +7,9 @@
   - [Chapter 2: Proximity](#chapter-2-proximity)
     - [Proximity Principle](#proximity-principle)
     - [Implementation](#implementation)
-  - [Impact on Design](#impact-on-design)
-  - [Examples](#examples)
-  - [Summary](#summary)
+    - [Impact on Design](#impact-on-design)
+    - [Examples](#examples)
+    - [Summary](#summary)
 
 ## The Non-Designer's Design Book
 
@@ -77,12 +77,12 @@ Chapter 2 addresses the fundamental design principle that elements related to ea
 - **Separation of Unrelated Items**: Items or groups of information that are not related should not be placed in close proximity. This visual separation provides instant clues to the organization of the page.
 - **Effective Use of Space**: By grouping items into closer proximity and adjusting space between unrelated items, the layout becomes more organized, navigable, and visually appealing.
 
-### Impact on Design
+#### Impact on Design
 
 - **Enhanced Clarity and Organization**: Applying the proximity principle can significantly improve the clarity and organization of a design, making it easier for the audience to understand and engage with the content.
 - **Reduction of Clutter**: It helps in reducing clutter by eliminating unnecessary elements and focusing on grouping related items, which simplifies the design and enhances readability.
 
-### Examples
+#### Examples
 
 - The chapter illustrates the concept with examples such as business cards and flyers, demonstrating how grouping related elements together and separating unrelated ones can drastically improve the design's effectiveness. These examples show before-and-after scenarios where applying the proximity principle clarifies the design and makes it more visually appealing.
 
@@ -173,9 +173,37 @@ Exercise:  Find at least eight small differences that help to make the second ex
 
 </details>
 
+Original:
+
+<img src='img/20240344-034443.png' width=300px>
+
+Questions:
+
+- Can you look and easily tell how many readings are in the series?
+
+Improved:
+
+<img src='img/20240345-034542.png' width=300px>
+
+<img src='img/20240352-035253.png' width=250px>
+
+Notice:
+
+- How the spacing between each reading is the same, indicating that each group is related
+- Even the small block of text at the bottom is too small to read, you still know what it is; you instantly know it's not another event
+
+List at least 5 changes that improve this picture:
+
+<details><summary>Answer</summary><br>
+
+1. The main text is smaller
+2. Title is larger, which can be done when the rest of the text is organized and smaller
+3. The information is organized consistently sot he reader can find it
+4. Headings are bold using the Principle of Contrast
+5. A strong alignment is provided using Principle of Alignment
+
+</details>
 
 
-
-
-### Summary
+#### Summary
 The proximity principle is crucial in design for creating logical, organized, and visually appealing layouts. By effectively grouping related elements and separating unrelated ones, designers can significantly improve the clarity and effectiveness of their designs. This principle, along with alignment, repetition, and contrast, forms the foundation of good design practices .
