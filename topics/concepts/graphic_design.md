@@ -204,6 +204,56 @@ List at least 5 changes that improve this picture:
 
 </details>
 
+In the picture below, on the left-hand side, you assume all flowers have something in common.  In the picture on the right, the last three flowers have something different, without being conscious of it, because they are physically separated from the rest of the list.
+
+<img src='img/20240317-031719.png' width=400px>
+
+Original:
+
+<img src='img/20240322-032215.png' width=200px>
+
+Improved:
+
+<img src='img/20240322-032254.png' width=200px>
+
+<img src='img/20240323-032357.png' width=100px>
+
+The author suggests that you visually separate more consciously and thus with more strength. 
+
+**IMPORTANT**: It is critical that you learn how to use the _paragraph space before and after_ settings in your software.
+
+Original:
+
+<img src='img/20240327-032702.png' width=500px>
+
+Improved:
+
+<img src='img/20240327-032755.png' width=500px>
+
+Improvements:
+
+- Changed corners from rounded to just barely dull, giving the piece a stronger, cleaner look
+- Enlarged the name to fill the space better
+- Made some of the text a pale shade of dark teal so it would compete less with the rest of the elements
+
+List at least three other small differences that help make the second example communicate more clearly:
+
+<details><summary>Answer</summary><br>
+
+1. Title is larger
+2. Corners are not so rounded
+3. Text is aligned
+4. Abbreviations are spelled out
+5. Bullets are used instead of commas
+6. Some text is gray so it interrupts the visual less
+7. The moon escapes out the top
+
+</details>
+
+You're probably already using the Principle of Proximity at your work, but you may not be pushing it as far as you could to make it truly effective. Really look at the elements and see which items _should_ be grouped together.
+
+
+
 
 #### Summary
 The proximity principle is crucial in design for creating logical, organized, and visually appealing layouts. By effectively grouping related elements and separating unrelated ones, designers can significantly improve the clarity and effectiveness of their designs. This principle, along with alignment, repetition, and contrast, forms the foundation of good design practices .
