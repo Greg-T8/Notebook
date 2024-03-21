@@ -2301,6 +2301,10 @@ The caller info attribute lets you easily retrieve information about the context
 
 ##### [C# version 6.0 (2015)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-60)
 
+Released with Visual Studio 2015, included many smaller features that made programming more productive. In this version, C# started to eliminate language boilerplate to make code more terse and readable.
+
+With this version, Microsoft also released the Roslyn compiler, which meant the compiler is written in C# and is open source.
+
 - [Static imports](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/using-directive) - allow developers to import static members of types directly into the current code file, simplifying access to commonly used methods or constants without qualifying them with the type name.
 
     <details><summary>Overview</summary><br>
@@ -2470,6 +2474,255 @@ The caller info attribute lets you easily retrieve information about the context
     In the example before auto-property initializers, default property values were typically assigned in constructors or field initializers, leading to additional initialization code. With auto-property initializers, default values can be specified directly within the property declaration, simplifying initialization and reducing boilerplate code, as shown in the example after auto-property initializers.
 
     </details>
+
+- [Expression bodied members](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/lambda-operator#expression-body-definition) - allow concise syntax for defining methods, properties, or indexers using lambda-like expressions, enhancing code readability and reducing verbosity.
+
+    <details><summary>Overview</summary><br>
+
+    Feature: Expression-Bodied Members
+
+    Overview:
+    Expression-bodied members in .NET allow concise syntax for defining methods, properties, or indexers using lambda-like expressions, enhancing code readability and reducing verbosity.
+
+    Benefits:
+    1. Conciseness: Expression-bodied members provide a more compact syntax for defining members, reducing the amount of boilerplate code and making the codebase more concise.
+    2. Readability: By using lambda-like expressions, expression-bodied members improve code readability by expressing the intent of the member more clearly and succinctly.
+    3. Improved productivity: With shorter syntax, developers can write and understand code faster, leading to increased productivity during development and maintenance.
+
+    Reasons to Use:
+    1. Concise member definition: Expression-bodied members are useful when defining simple methods, properties, or indexers, as they offer a shorter and more expressive syntax.
+    2. Improved code clarity: Expression-bodied members help to convey the purpose of the member more clearly by eliminating unnecessary curly braces and return statements.
+    3. Enhanced maintainability: Using expression-bodied members can improve code maintainability by reducing visual noise and making it easier to identify and understand the purpose of each member.
+
+    Example - Before Expression-Bodied Members:
+
+    ```csharp
+    // Before expression-bodied members, defining simple methods or properties required explicit method bodies or property accessors.
+    public class Person
+    {
+        private string firstName;
+        private string lastName;
+
+        // Method definition before expression-bodied members
+        public string GetFullName()
+        {
+            return $"{firstName} {lastName}";
+        }
+
+        // Property definition before expression-bodied members
+        public string FullName
+        {
+            get { return $"{firstName} {lastName}"; }
+        }
+    }
+    ```
+
+    Example - After Expression-Bodied Members:
+
+    ```csharp
+    // After expression-bodied members, defining simple methods or properties is more concise and expressive.
+    public class Person
+    {
+        private string firstName;
+        private string lastName;
+
+        // Method definition using expression-bodied syntax
+        public string GetFullName() => $"{firstName} {lastName}";
+
+        // Property definition using expression-bodied syntax
+        public string FullName => $"{firstName} {lastName}";
+    }
+    ```
+
+    In the example before expression-bodied members, defining simple methods or properties required explicit method bodies or property accessors, leading to more verbose code. With expression-bodied members, the syntax is more concise and expressive, as shown in the example after expression-bodied members. This leads to improved code readability and maintainability.
+
+    </details>
+
+- [Null propagator, `?.` operator](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/member-access-operators#null-conditional-operators--and-) - represented by the "?." operator, allows for safe navigation of properties or methods on potentially null objects, preventing null reference exceptions.
+
+    <details><summary>Overview</summary><br>
+
+    Feature: Null Propagation Operator
+
+    Overview:
+    The null propagation operator (?.) in .NET allows for safe navigation of properties or methods on potentially null objects, preventing null reference exceptions.
+
+    Benefits:
+    1. Null safety: The null propagation operator helps prevent null reference exceptions by automatically checking if an object is null before accessing its properties or methods.
+    2. Simplified code: Using the null propagation operator reduces the need for explicit null checks and conditional statements, leading to cleaner and more concise code.
+    3. Improved readability: By handling null checks inline, the null propagation operator enhances code readability by expressing intent more clearly and reducing nesting levels.
+
+    Reasons to Use:
+    1. Null safety: The null propagation operator is valuable when dealing with objects that may be null, allowing for safe access to their members without risk of causing null reference exceptions.
+    2. Concise code: The null propagation operator streamlines code by eliminating the need for verbose null checks and conditional statements, making the codebase more maintainable.
+    3. Enhanced productivity: Using the null propagation operator can improve developer productivity by simplifying error-prone null-checking logic and reducing the likelihood of bugs related to null references.
+
+    Example - Before Null Propagation Operator:
+
+    ```csharp
+    // Before the null propagation operator, explicit null checks were required to avoid null reference exceptions.
+    public class Program
+    {
+        public static void Main()
+        {
+            Person person = null;
+            
+            // Before the null propagation operator, explicit null checks were needed to avoid null reference exceptions.
+            string name = (person != null) ? person.Name : null;
+        }
+    }
+
+    public class Person
+    {
+        public string Name { get; set; }
+    }
+    ```
+
+    Example - After Null Propagation Operator:
+
+    ```csharp
+    // After the null propagation operator, null checks are performed inline, making the code more concise and readable.
+    public class Program
+    {
+        public static void Main()
+        {
+            Person person = null;
+            
+            // After the null propagation operator, null checks are performed inline, preventing null reference exceptions.
+            string name = person?.Name;
+        }
+    }
+
+    public class Person
+    {
+        public string Name { get; set; }
+    }
+    ```
+
+    In the example before the null propagation operator, explicit null checks were required to avoid null reference exceptions when accessing members of potentially null objects. With the null propagation operator, null checks are performed inline, reducing the need for verbose null-checking logic and improving code readability, as shown in the example after the null propagation operator.
+
+    </details>
+
+- [String interpolation](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/tokens/interpolated) - allows for easy embedding of expressions and variables within string literals, simplifying string formatting and enhancing readability.
+
+    <details><summary>Overview</summary><br>
+
+    Feature: String Interpolation
+
+    Overview:
+    String interpolation in .NET allows for easy embedding of expressions and variables within string literals, simplifying string formatting and enhancing readability.
+
+    Benefits:
+    1. Readability: String interpolation improves code readability by providing a more concise and natural way to include variables and expressions within strings.
+    2. Simplified syntax: Using string interpolation eliminates the need for string concatenation or placeholder-based formatting, resulting in cleaner and more maintainable code.
+    3. Error reduction: String interpolation reduces the risk of formatting errors and mismatched placeholders by directly embedding expressions and variables within the string.
+
+    Reasons to Use:
+    1. Improved readability: String interpolation is useful when constructing complex strings that involve concatenating multiple variables or expressions, making the code easier to understand.
+    2. Concise syntax: String interpolation provides a more concise and intuitive syntax compared to traditional string formatting methods, reducing code verbosity and enhancing developer productivity.
+    3. Enhanced maintainability: By eliminating the need for explicit formatting placeholders, string interpolation simplifies code maintenance and modification.
+
+    Example - Before String Interpolation:
+
+    ```csharp
+    // Before string interpolation, string formatting was often achieved using composite formatting with String.Format.
+    public class Program
+    {
+        public static void Main()
+        {
+            string name = "Alice";
+            int age = 30;
+            
+            // Before string interpolation, String.Format was used for string formatting.
+            string message = String.Format("Hello, {0}! You are {1} years old.", name, age);
+            Console.WriteLine(message);
+        }
+    }
+    ```
+
+    Example - After String Interpolation:
+
+    ```csharp
+    // After string interpolation, variables and expressions can be directly embedded within string literals, improving readability.
+    public class Program
+    {
+        public static void Main()
+        {
+            string name = "Alice";
+            int age = 30;
+            
+            // After string interpolation, variables and expressions are embedded within the string using curly braces and prefixed with $.
+            string message = $"Hello, {name}! You are {age} years old.";
+            Console.WriteLine(message);
+        }
+    }
+    ```
+
+    In the example before string interpolation, string formatting was achieved using composite formatting with `String.Format`, resulting in more verbose code. With string interpolation, variables and expressions can be directly embedded within string literals using curly braces and the `$` prefix, simplifying string formatting and enhancing readability, as shown in the example after string interpolation.
+
+    </details>
+
+- [`nameof` operator](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/nameof) - provides a way to obtain the name of a variable, type, or member as a string, improving code maintainability by reducing the risk of hardcoded strings.
+
+    <details><summary>Overview</summary><br>
+
+    Feature: nameof Operator
+
+    Overview:
+    The nameof operator in .NET allows developers to obtain the name of a variable, type, or member as a string, enhancing code maintainability and reducing the risk of errors related to hardcoded strings.
+
+    Benefits:
+    1. Improved code safety: Nameof operator provides a compile-time check for the existence of variables, types, or members, reducing the risk of errors due to typos or renamings.
+    2. Enhanced code maintainability: Using nameof simplifies code refactoring by automatically updating string references when variables, types, or members are renamed.
+    3. Readability: Nameof enhances code readability by explicitly indicating the names of referenced elements, aiding in code understanding and maintenance.
+
+    Reasons to Use:
+    1. Avoid hardcoded strings: Nameof is useful for referencing variable, type, or member names without resorting to hardcoded strings, ensuring consistency and reducing errors.
+    2. Facilitate refactoring: Nameof simplifies the process of renaming variables, types, or members, as string references are automatically updated to reflect the changes.
+    3. Enhance code clarity: By explicitly specifying the names of referenced elements, Nameof improves code readability and understanding for developers.
+
+    Example - Before nameof Operator:
+
+    ```csharp
+    // Before the nameof operator, developers often used hardcoded strings to reference variable, type, or member names.
+    public class Program
+    {
+        public static void Main()
+        {
+            string firstName = "John";
+            string lastName = "Doe";
+            
+            // Before the nameof operator, hardcoded strings were used to reference variable names.
+            Console.WriteLine("Full name: " + firstName + " " + lastName);
+        }
+    }
+    ```
+
+    Example - After nameof Operator:
+
+    ```csharp
+    // After the nameof operator, developers can obtain the name of a variable as a string without hardcoding it.
+    public class Program
+    {
+        public static void Main()
+        {
+            string firstName = "John";
+            string lastName = "Doe";
+            
+            // After the nameof operator, the name of the variable can be obtained using nameof.
+            Console.WriteLine("Full name: " + nameof(firstName) + " " + nameof(lastName));
+        }
+    }
+    ```
+
+    In the example before the nameof operator, developers often used hardcoded strings to reference variable names, which could lead to errors during refactoring. With the nameof operator, the names of variables can be obtained as strings without hardcoding them, improving code maintainability and reducing the risk of errors, as shown in the example after using nameof.
+
+    </details>
+
+##### [C# version 7.0 (2017)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-70)
+
+
+
 
 
 
