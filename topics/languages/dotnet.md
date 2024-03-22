@@ -2721,8 +2721,264 @@ With this version, Microsoft also released the Roslyn compiler, which meant the 
 
 ##### [C# version 7.0 (2017)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-70)
 
+- [Out variables](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/out) - allow for variable declaration and assignment within method calls, simplifying code and improving readability by reducing the need for separate variable declarations.
 
+    <details><summary>Overview</summary><br>
 
+    The "out variables" feature in C# allows for variable declaration and assignment within method calls that have parameters marked with the `out` keyword. This feature simplifies code by reducing verbosity and enhances readability.
+
+    **Benefits:**
+    1. **Simplified Code:** Out variables streamline code by combining variable declaration and assignment into a single step, reducing verbosity and making the code more concise.
+    2. **Improved Readability:** By declaring variables directly within method calls, out variables make it clear what the variables represent, enhancing code comprehension.
+    3. **Reduced Boilerplate:** Using out variables eliminates the need for separate variable declarations, reducing clutter and making the code more compact and maintainable.
+
+    **Practical Use Cases:**
+    1. **Method Calls with Multiple Return Values:** Out variables are useful when calling methods that return multiple values, as they allow for immediate assignment of the returned values to variables.
+    2. **Avoiding Temporary Variables:** Out variables eliminate the need for temporary variables to store return values before assigning them to other variables, reducing clutter in the code.
+
+    **Example:**
+
+    ```csharp
+    public class Program
+    {
+        public static void Main()
+        {
+            // Declare and assign the out variable within the method call.
+            SomeMethod(out int result);
+            
+            // Use the out variable.
+            Console.WriteLine("Result: " + result);
+        }
+        
+        // Method with out parameter
+        public static void SomeMethod(out int result)
+        {
+            // Assign a value to the out parameter.
+            result = 42;
+        }
+    }
+    ```
+
+    In this example, the `out` variable `result` is declared and assigned within the `SomeMethod` call. This simplifies the code by eliminating the need for a separate variable declaration before the method call. After the method call, the `result` variable can be used directly, improving code readability.
+
+    </details>
+
+- [Tuples and deconstruction](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/value-tuples) - allow for the grouping of multiple values into a single object and provide a convenient way to extract these values individually.
+
+    <details><summary>Overview</summary><br>
+
+    Tuples and deconstruction in C# allow for the grouping of multiple values into a single object and provide a convenient way to extract these values individually.
+
+    Benefits:
+    1. **Grouping of Values:** Tuples allow multiple values to be grouped together into a single object, simplifying the representation of related data.
+    2. **Convenience:** Deconstruction provides a convenient way to extract individual values from tuples, improving code readability and reducing the need for temporary variables.
+    3. **Flexibility:** Tuples and deconstruction offer flexibility in returning multiple values from methods and iterating over collections of heterogeneous data.
+
+    Practical Use Cases:
+    1. **Returning Multiple Values:** Tuples are useful for returning multiple values from methods without needing to define custom data structures.
+    2. **Working with Heterogeneous Data:** Tuples enable the grouping of data elements of different types, providing a structured representation for diverse data sets.
+    3. **Pattern Matching:** Deconstruction can be used in pattern matching scenarios to efficiently extract values from tuples and perform further processing.
+
+    Example - Before Tuples and Deconstruction:
+
+    ```csharp
+    // Before tuples and deconstruction, returning multiple values required defining custom data structures or using out parameters.
+    public class Program
+    {
+        public static void Main()
+        {
+            // Method returning multiple values.
+            (int, string) values = GetValues();
+            
+            // Accessing individual values.
+            int intValue = values.Item1;
+            string stringValue = values.Item2;
+            
+            // Using the extracted values.
+            Console.WriteLine($"Integer value: {intValue}, String value: {stringValue}");
+        }
+        
+        // Method returning multiple values.
+        public static (int, string) GetValues()
+        {
+            return (42, "Hello");
+        }
+    }
+    ```
+
+    Example - After Tuples and Deconstruction:
+
+    ```csharp
+    // After tuples and deconstruction, returning multiple values and extracting them is more straightforward.
+    public class Program
+    {
+        public static void Main()
+        {
+            // Method returning multiple values.
+            (int intValue, string stringValue) = GetValues();
+            
+            // Using the extracted values.
+            Console.WriteLine($"Integer value: {intValue}, String value: {stringValue}");
+        }
+        
+        // Method returning multiple values.
+        public static (int, string) GetValues()
+        {
+            return (42, "Hello");
+        }
+    }
+    ```
+
+    In the example before tuples and deconstruction, returning multiple values required defining custom data structures or using out parameters, leading to more verbose code. With tuples and deconstruction, returning multiple values and extracting them is more straightforward and requires less boilerplate code, as shown in the example after their introduction.
+
+    </details>
+
+- [Pattern Matching](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/functional/pattern-matching) - is a feature that allows developers to efficiently match the shape and properties of data structures, enabling concise and expressive code for conditional branching and data manipulation.
+
+    <details><summary>Overview</summary><br>
+
+    Pattern matching in C# allows developers to efficiently match the shape and properties of data structures, enabling concise and expressive code for conditional branching and data manipulation.
+
+    Benefits:
+    1. **Concise Code:** Pattern matching enables developers to write more concise and readable code for conditional logic and data manipulation.
+    2. **Improved Expressiveness:** Pattern matching allows for more expressive code by providing a natural way to handle complex data structures and conditions.
+    3. **Increased Safety:** Pattern matching helps catch logical errors at compile-time by ensuring exhaustive handling of all possible cases.
+
+    Practical Use Cases:
+    1. **Switch Statements:** Pattern matching enhances switch statements by allowing for more complex and flexible matching conditions, including type patterns, property patterns, and positional patterns.
+    2. **Type Testing and Casting:** Pattern matching simplifies type testing and casting operations by providing a more concise syntax compared to traditional casting methods.
+    3. **Deconstruction:** Pattern matching enables the deconstruction of objects into their constituent parts, making it easier to extract and work with data.
+
+    Example - Before Pattern Matching:
+
+    ```csharp
+    // Before pattern matching, conditional logic and type testing were often handled using if statements and explicit type checks.
+    public class Program
+    {
+        public static void Main()
+        {
+            object obj = "Hello";
+            
+            if (obj is string)
+            {
+                string text = (string)obj;
+                Console.WriteLine("Length of text: " + text.Length);
+            }
+            else if (obj is int)
+            {
+                int number = (int)obj;
+                Console.WriteLine("Squared number: " + number * number);
+            }
+            else
+            {
+                Console.WriteLine("Unknown type");
+            }
+        }
+    }
+    ```
+
+    Example - After Pattern Matching:
+
+    ```csharp
+    // After pattern matching, conditional logic and type testing are more concise and expressive.
+    public class Program
+    {
+        public static void Main()
+        {
+            object obj = "Hello";
+            
+            switch (obj)
+            {
+                case string text:
+                    Console.WriteLine("Length of text: " + text.Length);
+                    break;
+                case int number:
+                    Console.WriteLine("Squared number: " + number * number);
+                    break;
+                default:
+                    Console.WriteLine("Unknown type");
+                    break;
+            }
+        }
+    }
+    ```
+
+    In the example before pattern matching, conditional logic and type testing were handled using if statements and explicit type checks, leading to more verbose code. With pattern matching, conditional logic becomes more concise and expressive, as shown in the example after its introduction. Pattern matching allows for more natural handling of complex conditions and data structures, resulting in more readable and maintainable code.
+
+    </details>
+
+- [Local functions](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/local-functions) - allow the declaration of functions within the body of another function, providing encapsulation and improved code organization within the scope of the containing method.
+
+    <details><summary>Overview</summary><br>
+
+    Local functions in C# allow the declaration of functions within the body of another function, providing encapsulation and improved code organization within the scope of the containing method.
+
+    Benefits:
+    1. **Encapsulation:** Local functions encapsulate functionality within the scope of the containing method, preventing access from outside and reducing namespace pollution.
+    2. **Improved Readability:** Local functions improve code readability by keeping related logic together and making it easier to understand the flow of the containing method.
+    3. **Code Reusability:** Local functions can be reused within the containing method, reducing code duplication and promoting modular design.
+
+    Practical Use Cases:
+    1. **Helper Functions:** Local functions are useful for defining helper functions that are specific to a particular method and are not intended for use outside that method.
+    2. **Complex Logic:** Local functions can encapsulate complex logic that enhances the readability of the containing method, especially when the logic is only relevant within that context.
+    3. **Callback Functions:** Local functions can serve as callback functions or event handlers within the scope of the containing method.
+
+    Example - Before Local Functions:
+
+    ```csharp
+    // Before local functions, helper functions were defined outside the containing method, leading to increased namespace pollution and decreased encapsulation.
+    public class Program
+    {
+        public static void Main()
+        {
+            int result = Calculate(10, 20);
+            Console.WriteLine("Result: " + result);
+        }
+        
+        // Helper function defined outside the containing method.
+        private static int Add(int a, int b)
+        {
+            return a + b;
+        }
+        
+        // Method using the helper function.
+        private static int Calculate(int x, int y)
+        {
+            return Add(x, y);
+        }
+    }
+    ```
+
+    Example - After Local Functions:
+
+    ```csharp
+    // After local functions, helper functions can be defined within the containing method, improving encapsulation and code organization.
+    public class Program
+    {
+        public static void Main()
+        {
+            int result = Calculate(10, 20);
+            Console.WriteLine("Result: " + result);
+        }
+        
+        // Method using a local function.
+        private static int Calculate(int x, int y)
+        {
+            // Local function defined within the containing method.
+            int Add(int a, int b)
+            {
+                return a + b;
+            }
+            
+            // Call the local function.
+            return Add(x, y);
+        }
+    }
+    ```
+
+    In the example before local functions, helper functions were defined outside the containing method, leading to increased namespace pollution and decreased encapsulation. With local functions, helper functions can be defined within the containing method, improving encapsulation and code organization, as shown in the example after their introduction. Local functions provide a more natural way to encapsulate logic that is specific to a particular method, enhancing code readability and maintainability.
+
+    </details>
 
 
 
