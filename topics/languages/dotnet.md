@@ -2721,6 +2721,10 @@ With this version, Microsoft also released the Roslyn compiler, which meant the 
 
 ##### [C# version 7.0 (2017)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-70)
 
+Released with Visual Studio 2017. All of the features in this release offer developers the opportunity to write cleaner code. Highlights are condensing the declaration of variables to use with the `out` keyword and by allowing multiple return values via tuple. 
+
+.NET Core now targets any operating system.
+
 - [Out variables](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/out) - allow for variable declaration and assignment within method calls, simplifying code and improving readability by reducing the need for separate variable declarations.
 
     <details><summary>Overview</summary><br>
@@ -2977,6 +2981,310 @@ With this version, Microsoft also released the Roslyn compiler, which meant the 
     ```
 
     In the example before local functions, helper functions were defined outside the containing method, leading to increased namespace pollution and decreased encapsulation. With local functions, helper functions can be defined within the containing method, improving encapsulation and code organization, as shown in the example after their introduction. Local functions provide a more natural way to encapsulate logic that is specific to a particular method, enhancing code readability and maintainability.
+
+    </details>
+
+- [Expanded Expression-bodied Members](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/expression-bodied-members) - allow properties, methods, and other member types to be defined using a concise syntax similar to lambda expressions, streamlining their declaration.
+
+    <details><summary>Overview</summary><br>
+
+    Overview of Expanded Expression-Bodied Members in C#
+
+    Expanded expression-bodied members in C# are part of the enhancements introduced in C# 6 and further expanded in later versions, such as C# 7. This feature allows the definition of members in a class, such as methods, properties, constructors, and more, using a concise, lambda-like syntax. This syntactic sugar enables developers to write cleaner, more readable code, especially when the member implementation is straightforward or consists of a single expression.
+
+    Benefits:
+    1. **Readability**: The syntax reduces boilerplate code, making it easier to understand at a glance what a member does.
+    2. **Maintainability**: Less code means there's less to maintain and fewer places for bugs to hide.
+    3. **Consistency**: Offers a uniform way to define simple members throughout your codebase, enhancing consistency.
+
+    Practical Use Cases:
+    1. **Single-Expression Methods and Properties**: Ideal for properties or methods that simply return a value or perform a single operation.
+    2. **Lambda-Like Constructors and Finalizers**: Useful for constructors or finalizers that only need to execute a single statement or expression.
+    3. **Simple Event Handlers or Delegates**: Streamlines the declaration of event handlers or delegates that do not require complex logic.
+
+    Example Before Expanded Expression-Bodied Members
+
+    Before C# 6, defining a simple property or method required more verbose syntax, even for straightforward implementations. 
+
+    ```csharp
+    public class Person
+    {
+        private string name;
+
+        public string GetName()
+        {
+            return name;
+        }
+
+        public void SetName(string value)
+        {
+            name = value;
+        }
+    }
+    ```
+
+    Example After Expanded Expression-Bodied Members
+
+    With expanded expression-bodied members, the same functionality can be implemented more succinctly:
+
+    ```csharp
+    public class Person
+    {
+        private string name;
+
+        public string Name
+        {
+            get => name;
+            set => name = value;
+        }
+
+        // C# 7.0 introduces expression-bodied constructors and finalizers
+        public Person(string name) => this.name = name;
+    }
+    ```
+
+    This example demonstrates how the feature can make the code more concise without sacrificing clarity or functionality. As C# has evolved, expanded expression-bodied members have been embraced for their ability to make C# code more elegant and expressive, especially in scenarios where the implementation logic of members is simple.
+
+    </details>
+
+- [Ref locals](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/declarations#reference-variables) - allow local variables to reference storage locations of other variables, enabling direct manipulation of the value at that location.
+
+    <details><summary>Overview</summary><br>
+
+    Ref locals in C# provide a way to declare local variables that act as references to other variables rather than standalone storage spaces. This feature is beneficial because it enables efficient in-place updates to variables and can be crucial for performance-critical applications, like high-performance computing or systems with large data structures, where copying large amounts of data is undesirable.
+
+    Before the introduction of ref locals, if you wanted to work with a reference to a position within an array or a resource-intensive data structure, you would typically have to pass around array indexes or wrap the data structure access within a method, which could lead to more complex code and potentially decreased performance due to the repeated method calls or index calculations.
+
+    For instance, consider a method for processing a matrix:
+
+    ```csharp
+    public void ProcessMatrix(int[,] matrix)
+    {
+        for (int i = 0; i < matrix.GetLength(0); i++)
+        {
+            for (int j = 0; j < matrix.GetLength(1); j++)
+            {
+                // Process and update the matrix value
+                matrix[i, j] = ComputeValue(i, j);
+            }
+        }
+    }
+    ```
+
+    In this code, `matrix[i, j]` is not a reference to the matrix element; it's a property access that involves an index calculation each time it is accessed.
+
+    With ref locals, you can simplify and optimize such scenarios. For example, you can directly refer to an element in a multi-dimensional array or complex data structure and work with it as if it were a local variable.
+
+    ```csharp
+    public void ProcessMatrix(int[,] matrix)
+    {
+        for (int i = 0; i < matrix.GetLength(0); i++)
+        {
+            for (int j = 0; j < matrix.GetLength(1); j++)
+            {
+                ref int matrixRef = ref matrix[i, j]; // matrixRef is a reference to matrix[i, j]
+                // Directly update the matrix value via the reference
+                matrixRef = ComputeValue(i, j);
+            }
+        }
+    }
+    ```
+
+    In this updated example, `matrixRef` is a ref local that holds a reference to the storage location of the matrix element, allowing for direct and efficient updates. This approach can be more performant since there is no need for repeated indexing into the array. Ref locals provide a way to handle data with more granularity and control, optimizing resource usage and performance where needed.
+
+    </details>
+
+- [Ref returns](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/jump-statements#ref-returns) - allow methods to return a reference to a variable, rather than a copy, permitting direct access and modification of the variable located in the method's scope.
+
+    <details><summary>Overview</summary><br>
+
+    Ref returns in C# are a feature that enhances efficiency by allowing methods to return a reference to a variable instead of the variable's value. This can be particularly beneficial in scenarios where the manipulation of large data structures or arrays is necessary, as it avoids the overhead of copying data. Before this feature, if you needed to access and modify an element in a large data structure, you would typically have to return the element's value and then assign the modified value back to the data structure, which could be both verbose and inefficient.
+
+    Practical use cases for ref returns include operations on large data structures, performance-critical code where avoiding unnecessary copying is crucial, or when working with a shared resource that multiple parts of an application need to access and modify directly.
+
+    Previously, you might have a method to retrieve an element from an array like this:
+
+    ```csharp
+    public int GetElement(int[] array, int index)
+    {
+        return array[index];
+    }
+
+    // Usage
+    int[] data = { 1, 2, 3 };
+    int value = GetElement(data, 1);
+    data[1] = value + 10; // Modify and write back to the array
+    ```
+
+    After the introduction of ref returns, the same operation becomes more efficient as it allows the method to return a reference to the element directly, enabling in-place modification:
+
+    ```csharp
+    public ref int GetElementRef(ref int[] array, int index)
+    {
+        return ref array[index]; // return a reference to the array element
+    }
+
+    // Usage
+    int[] data = { 1, 2, 3 };
+    ref int refValue = ref GetElementRef(ref data, 1);
+    refValue += 10; // Directly modify the array element
+    ```
+
+    With ref returns, the `GetElementRef` method directly returns a reference to the desired element in the array, which can then be modified in place without the need for an additional step to write the value back to the array. This not only simplifies the code but also improves performance by eliminating the need to copy values unnecessarily.
+
+    </details>
+
+- [Discards](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/functional/discards) - are placeholder variables that are intentionally unused in the code, typically represented with an underscore (_), allowing for ignored return values, parameters, or out variables for cleaner syntax and readability.
+
+    <details><summary>Overview</summary><br>
+
+    Discards in C# are a feature introduced to improve code readability and maintenance by providing a way to explicitly ignore values you do not need without having to define unnecessary variables. This is particularly beneficial when dealing with tuples, deconstructing objects, or when you're required to use out parameters that you have no interest in. 
+
+    Practical use cases for discards include ignoring tuple elements, out parameters, or pattern matching variables when their values are not needed for the subsequent logic. This prevents the accumulation of unused variables in the code, which can lead to confusion or clutter.
+
+    Before discards, if a method returned a tuple or required out parameters, you had to handle every item even if you didn't need all of them:
+
+    ```csharp
+    (var result, var _) = SomeMethodThatReturnsTuple();
+    int.TryParse("123", out int number);
+    // Ignore number if not needed
+    ```
+
+    The underscore (_) was often used informally to indicate that a variable was not used, but it was still allocated and could be accidentally used in the code later on.
+
+    After the introduction of discards, you can officially use the underscore to ignore the unwanted values, and the compiler understands that those are to be discarded:
+
+    ```csharp
+    (var result, _) = SomeMethodThatReturnsTuple(); // discard the second value
+    int.TryParse("123", out _); // discard the out parameter value
+    ```
+
+    With discards, the ignored elements are not allocated and cannot be used later in the code, ensuring they are truly discarded, which simplifies the code and makes the programmer's intention clear. This feature is a small but significant enhancement for writing cleaner C# code.
+
+    </details>
+
+- Binary literals and digit separators - are syntactic features that allow for clearer representation of binary number values in code by prefixing with '0b' and using underscores to separate groups of digits for improved readability.
+
+    <details><summary>Overview</summary><br>
+
+    Binary literals and digit separators are features in C# that enhance the clarity and readability of numeric literals within the code. Binary literals allow developers to define numbers in binary format directly, which is beneficial when dealing with low-level operations, such as bit masking, where visualizing the bit pattern is important. The digit separator, represented by an underscore (_), can be used within numeric literals to group digits in a visually coherent way, making large numbers more understandable at a glance.
+
+    Practical use cases for these features include defining constants in binary for bit manipulation, setting flags, or when working with binary protocols, where being able to see the binary form directly in the code is clearer than using hexadecimal or decimal equivalents.
+
+    Before the introduction of binary literals and digit separators, binary values often had to be represented in less intuitive base 10 or base 16 formats, and large numbers were harder to read:
+
+    ```csharp
+    int value = 255; // Decimal representation
+    int mask = 34952; // What bits does this represent?
+    ```
+
+    After these features were introduced, the same values can be represented more clearly:
+
+    ```csharp
+    int value = 0b1111_1111; // Binary literal with digit separators
+    int mask = 0b1000_1001_1100_1000; // Clearer visualization of the bits
+    ```
+
+    With binary literals, there's no need to mentally convert from other bases to binary, and digit separators allow for easy grouping of bits, such as bytes or nibbles, which are common groupings in binary numbers. This makes the code not only more readable but also less prone to errors in interpreting numeric values.
+
+    </details>
+
+- [Throw expressions](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/exception-handling-statements#the-throw-expression) - enable the throwing of exceptions within expression-bodied members and other expression contexts, allowing for more concise and inline error checking.
+
+    <details><summary>Overview</summary><br>
+
+    Throw expressions in C# allow for the inclusion of throwing exceptions directly within expressions, enhancing the language's ability to handle errors inline with code logic, thereby promoting more concise and readable code. This feature is beneficial because it reduces the need for additional if-statements or ternary operators that were previously required to throw exceptions in certain contexts, streamlining error-checking processes.
+
+    Practical use cases for throw expressions are found in scenarios where you need to conditionally throw an exception in the middle of an expression, such as during assignment, within a lambda expression, or as part of a null-coalescing operation.
+
+    Before throw expressions were available, you might write something like this:
+
+    ```csharp
+    public string GetName(Person person)
+    {
+        if (person == null)
+        {
+            throw new ArgumentNullException(nameof(person));
+        }
+        return person.Name;
+    }
+    ```
+
+    With the introduction of throw expressions, you can now simplify this pattern by incorporating the throw directly within an expression, as follows:
+
+    ```csharp
+    public string GetName(Person person)
+    {
+        return person?.Name ?? throw new ArgumentNullException(nameof(person));
+    }
+    ```
+
+    In this example, if `person` is null, the null-coalescing operator `??` will directly trigger the throw of an `ArgumentNullException`. This use of throw expressions makes the code more succinct and expressive, placing the error handling directly in line with the return statement, thereby making the code's intent clearer and reducing the overall amount of boilerplate code required for such checks.
+
+    </details>
+
+The following features were released in C# 7.1. 
+
+- [Language version selection configuration element](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/configure-language-version) - allows developers to specify the version of the C# language syntax the compiler should use, enabling control over which language features are available within a project to ensure compatibility and stability.
+
+    <details><summary>Overview</summary><br>
+
+    The language version selection configuration element in C# is a compiler setting that enables developers to specify which version of the C# language their project should use. This feature is beneficial because it allows for precise control over the language features available to the project, helping to manage compatibility with different runtime environments and ensuring that the codebase remains stable even as new language versions are released.
+
+    Practical use cases include maintaining legacy applications that might not be compatible with newer language features, or when a project needs to target a runtime that does not support the latest C# language features. It's also useful in educational settings where instructors may want to limit the features available to students to match course materials.
+
+    Before this feature was introduced, projects would automatically use the latest language version supported by the compiler, which could lead to issues if new language features were introduced that were not compatible with the target runtime environment or if the project depended on behavior specific to an older version of the language.
+
+    With the introduction of the language version selection configuration element, you can explicitly set the language version in the project file:
+
+    ```xml
+    <PropertyGroup>
+    <LangVersion>7.3</LangVersion>
+    </PropertyGroup>
+    ```
+
+    In this example, setting `LangVersion` to `7.3` restricts the compiler to use language features available up to C# 7.3, regardless of the compiler's default language version. This ensures that developers can use new features and syntax introduced in specific versions of C# while avoiding incompatibilities or unintended behavior changes that might arise from automatically adopting the latest language version. This feature provides a balance between innovation and stability, allowing teams to adopt new language features at their own pace.
+
+    </details>
+
+- [`async` Main() method](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/program-structure/main-command-line) - allows the Main entry point of a console application to be defined with the async modifier, enabling asynchronous operations directly within the Main method.
+
+    <details><summary>Overview</summary><br>
+
+    The async main method feature in C# introduces the ability for the Main method, which serves as the entry point of a console application, to be asynchronous by allowing it to be defined with the `async` modifier. This enhancement is particularly beneficial for modern applications that perform I/O-bound operations, such as accessing files, databases, or web services, right from the start, enabling these operations to be handled asynchronously to improve responsiveness and efficiency.
+
+    Practical use cases for the async main method include any console application that needs to perform initial asynchronous operations such as fetching data from a web API, performing asynchronous file I/O, or awaiting other async methods before proceeding with synchronous execution.
+
+    Before the introduction of the async main method, developers had to work around the lack of direct support for asynchronous operations in the Main method. This often involved calling the `.GetAwaiter().GetResult()` method on asynchronous operations, which could lead to less efficient handling of I/O operations and potential deadlocks:
+
+    ```csharp
+    static void Main(string[] args)
+    {
+        InitializeAsync().GetAwaiter().GetResult();
+    }
+
+    static async Task InitializeAsync()
+    {
+        // Perform async initialization tasks
+    }
+    ```
+
+    With the introduction of the async main method, the same operations can be simplified and made more efficient by directly awaiting asynchronous tasks in the Main method:
+
+    ```csharp
+    static async Task Main(string[] args)
+    {
+        await InitializeAsync();
+        // Further async or synchronous code can follow
+    }
+
+    static async Task InitializeAsync()
+    {
+        // Perform async initialization tasks
+    }
+    ```
+
+    This feature simplifies the code structure for initiating asynchronous operations at the start of an application and leverages the full power of the C# language's asynchronous programming model right from the application's entry point, eliminating the need for workarounds and enhancing code readability and maintainability.
 
     </details>
 
