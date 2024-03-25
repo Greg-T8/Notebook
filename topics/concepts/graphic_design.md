@@ -10,7 +10,9 @@
     - [Proximity: Impact on Design](#proximity-impact-on-design)
     - [Proximity: What to Avoid](#proximity-what-to-avoid)
     - [Proximity: Design Examples](#proximity-design-examples)
-    - [Summary](#summary)
+  - [Chapter 3: Alignment](#chapter-3-alignment)
+  - [Alignment: Key Takeaways](#alignment-key-takeaways)
+  - [Alignment: Examples](#alignment-examples)
 
 ## The Non-Designer's Design Book
 
@@ -133,7 +135,7 @@ Improvements:
 
 </details>
 
-<details><summary>Resume: Areas of Expertise</summary><br>
+<details><summary>resume: Areas of Expertise</summary><br>
 
 Original:
 
@@ -182,7 +184,7 @@ Original:
 Notice:
 
 - The post card is visually boring&mdash;nothing pulls your eyes in to the body, except perhaps the two hearts
-- It takes a moment to find the critical inforamtion
+- It takes a moment to find the critical information
 
 Improvement:
 
@@ -373,6 +375,86 @@ Improvements:
 
 </details>
 
+### Chapter 3: Alignment
 
-#### Summary
-The proximity principle is crucial in design for creating logical, organized, and visually appealing layouts. By effectively grouping related elements and separating unrelated ones, designers can significantly improve the clarity and effectiveness of their designs. This principle, along with alignment, repetition, and contrast, forms the foundation of good design practices .
+Alignment is about ensuring that every element on a page has a visual connection with another, aiming for a clean, organized appearance rather than a "slightly messy kitchen" effect. The principle dictates that nothing should be arbitrarily placed on the page; every item should have purpose and connection, enhancing the cohesive feel of the design.
+
+Alignment is more than just an aesthetic choice; it serves to unify and organize the page, making the design more sophisticated and the information more accessible. By aligning elements, designers create invisible lines that connect disparate parts of a page, guiding the reader's eye in a logical flow from one element to another, even if they are not physically close. This principle is crucial not just for the aesthetic coherence of individual pages, but for multi-page documents as well, ensuring that every part of a publication feels like a piece of a whole.
+
+> The Principle of Alignment states:  **Nothing should be placed on the page arbitrarily. Every item should have a visual connection with something else on the page.**
+
+> A lack of alignment creates discomfort; it appears to be unorganized; we don't know how to be effective.
+
+### Alignment: Key Takeaways
+
+Chapter 3 of "The Non-Designer's Design Book" focuses on the principle of alignment, highlighting its critical role in creating visually appealing and coherent designs. Here are the key takeaways:
+
+1. **Purpose of Alignment**: Alignment is not about placing elements on the page arbitrarily but creating a visual connection between them. This principle is essential for organizing the page, enhancing its aesthetic appeal, and improving readability.
+
+2. **Creating Order**: Proper alignment brings order to a layout, making it appear organized and professional. Every element on the page should have a visual connection with another, ensuring that the design feels cohesive and intentional.
+
+3. **Guiding the Viewer**: Alignment helps guide the viewer's eye across the page, facilitating a logical flow from one element to the next. This invisible guiding line enhances the user's experience by making information easily accessible and understandable.
+
+4. **Types of Alignment**: The chapter discusses the importance of choosing a consistent alignment pattern (left, right, centered, or justified) and sticking to it throughout the design to maintain coherence and unity.
+
+    A centered alignment is the most common alignment that beginners use&mdash;it's very safe and feels comfortable. However, most designs that have a sophisticated look are not centered. As a beginner you need to break away from defaulting to centered alignment.
+
+5. **Avoiding Misalignment**: Misalignment or arbitrary placement of elements can lead to a cluttered, disorganized appearance, making it difficult for the viewer to navigate the information. Proper alignment eliminates confusion and clutter.
+
+6. **Enhancing Visual Appeal**: Strong alignment not only organizes information effectively but also contributes to the overall visual appeal of the design. It creates a sophisticated look that attracts the viewer's attention.
+
+7. **Application Across Multiple Pages**: For multi-page documents, alignment is crucial for maintaining a consistent look and feel across all pages, reinforcing the unity of the entire document.
+
+8. **Invisible Connections**: Even when elements are not physically close, alignment can create invisible connections between them, suggesting a relationship and continuity that enhances the design's coherence.
+
+### Alignment: Examples
+
+<details open><summary>Business Card</summary><br>
+
+Original:
+
+<img src='img/20240332-033202.png' width=250px>
+
+Note:
+
+- Nothing is aligned
+- There are elements with three different alignments: flush left, flush right, and centered
+- The two groups of text in the upper corners are not aligned along the same baseline, nor at the left and right edges, nor with the groups at the bottom corners
+
+Get in the habit of drawing lines between the elements to determine where connections are lacking:
+
+<img src='img/20240337-033731.png' width=250px>
+
+Improved:
+
+<img src='img/20240338-033818.png' width=250px>
+
+Note:
+
+- Moved all elements to the right and gave them one alignment
+- The text items have a common boundary
+- Information is instantly more organized
+- Grouping the related elements into closer proximity is also critical
+
+<img src='img/20240341-034121.png' width=250px>
+
+Note:
+
+- Centered alignment appears a bit weak
+- If text is aligned on the left or right, the invisible line that connects the text is much stronger because it has a hard vertical edge to follow
+
+<img src='img/20240343-034315.png' width=250px>
+
+Note:
+
+- The edges are "soft"; you don't really see the strength of the line
+
+<img src='img/20240347-034724.png' width=250px>
+
+Note:
+
+- The strength of this edge is what gives strength to the layout. There is a strong invisible line connecting the edges of these groups of text
+
+
+
+</details>
