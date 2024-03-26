@@ -2719,7 +2719,7 @@ With this version, Microsoft also released the Roslyn compiler, which meant the 
 
     </details>
 
-##### [C# version 7.0 (2017)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-70)
+##### [C# version 7.0 (March 2017)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-70)
 
 Released with Visual Studio 2017. All of the features in this release offer developers the opportunity to write cleaner code. Highlights are condensing the declaration of variables to use with the `out` keyword and by allowing multiple return values via tuple. 
 
@@ -3223,7 +3223,7 @@ Released with Visual Studio 2017. All of the features in this release offer deve
 
     </details>
 
-The following features were released in C# 7.1. 
+##### [C# version 7.1 (November 2017)](https://devblogs.microsoft.com/dotnet/welcome-to-c-7-1/)
 
 - [Language version selection configuration element](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/configure-language-version) - allows developers to specify the version of the C# language syntax the compiler should use, enabling control over which language features are available within a project to ensure compatibility and stability.
 
@@ -3288,7 +3288,121 @@ The following features were released in C# 7.1.
 
     </details>
 
+- [Default literal expressions](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/default#default-literal) - allow the specification of the default value for a type without explicitly naming the type, inferred by the compiler from the context.
 
+    <details><summary>Overview</summary><br>
+
+    Default literal expressions in C# are a feature that significantly improves code readability and conciseness by enabling developers to specify the default value for a type without having to explicitly name the type. Introduced in C# 7.1, this feature allows the compiler to infer the type from the context, which simplifies the code by reducing redundancy.
+
+    The key benefit of using default literal expressions is the reduction of boilerplate code. This is particularly advantageous in scenarios like generic programming, where the exact type might not be known, or when initializing variables to their default values. It helps in making the code easier to understand and maintain by focusing more on what the code is intended to do rather than on the explicit types involved.
+
+    In practical terms, default literal expressions find use in various situations such as in generic programming, where they allow for cleaner code without the need for specifying explicit types. They are also handy in initializing variables, in methods that take generic parameters, and in conditional operations where a default value needs to be provided.
+
+    Before the introduction of this feature, setting a variable to its default value required the explicit mention of its type alongside the `default` keyword. For example, initializing an integer or a custom type variable to its default value would look something like this:
+
+    ```csharp
+    int defaultValueInt = default(int);
+    MyCustomType defaultValueCustom = default(MyCustomType);
+    ```
+
+    However, with default literal expressions, the syntax becomes more streamlined, as the compiler can infer the type. The same code can now be written more succinctly as follows:
+
+    ```csharp
+    int defaultValueInt = default;
+    MyCustomType defaultValueCustom = default;
+    ```
+
+    This change not only makes the code cleaner and more readable but also reduces the chance of making errors in complex or generic codebases by eliminating the need for explicit type specification where the context is clear.
+
+    </details>
+
+- [Inferred tuple elements](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/value-tuples#tuple-field-names) - allow for the omission of element names in a tuple when they can be automatically deduced from the names of the variables used as tuple values.
+
+    <details><summary>Overview</summary><br>
+
+    Inferred tuple elements in C# streamline the syntax for creating tuples by allowing the compiler to automatically deduce the names of tuple elements based on the variable names used as their values. This feature, introduced in C# 7.1, enhances code readability and conciseness, especially in scenarios involving the direct assignment of variables to tuple elements.
+
+    The benefit of this feature is significant in terms of code clarity and reduction of redundancy. It eliminates the need for explicitly naming tuple elements when their names would simply mirror the variable names from which they're assigned, making the code easier to write and understand at a glance.
+
+    Practical use cases for inferred tuple elements include simplifying the return values of functions, deconstructing tuples, and passing multiple values with clear semantics without defining a formal class or structure. This feature is particularly useful in data transformation, multi-value return scenarios, and when working with complex data structures that benefit from tuple's lightweight syntax and semantics.
+
+    Before the introduction of inferred tuple elements, when assigning variables to a tuple, you had to explicitly name the elements, even if the names were going to be the same as the variables being assigned. For example:
+
+    ```csharp
+    var name = "John";
+    var age = 30;
+    var person = (Name: name, Age: age);
+    ```
+
+    After the introduction of inferred tuple elements, the compiler can infer the names of the tuple's elements based on the names of the variables used in its creation, thus simplifying the syntax:
+
+    ```csharp
+    var name = "John";
+    var age = 30;
+    var person = (name, age); // The compiler infers the element names are 'name' and 'age'
+    ```
+
+    This evolution in the language reduces the boilerplate code and focuses on enhancing developer productivity and code readability by making tuples even more convenient and straightforward to use.
+
+    </details>
+
+- [Pattern matching on generic type parameters](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/functional/pattern-matching#type-tests) - allows for the type-checking of generic parameters against certain patterns within generic methods or classes, enabling more type-safe operations and reducing the need for casting or type checking.
+
+    <details><summary>Overview</summary><br>
+
+    Pattern matching on generic type parameters is a powerful feature in C# that extends the capabilities of pattern matching to work with generic type parameters. This allows developers to perform type checking and type conversion on generic parameters more seamlessly within generic methods or classes, enhancing the type safety and flexibility of the code.
+
+    The main benefit of this feature is its ability to significantly reduce the verbosity and complexity of code that involves conditional logic based on the types of generic parameters. It eliminates the need for extensive if-else or switch statements that check types, as well as reduces the reliance on type casting, which can be error-prone and detract from code readability.
+
+    Practical use cases include designing highly generic and reusable libraries, frameworks, or components where operations might differ based on the type of the parameters involved. It's particularly useful in scenarios like serialization/deserialization, implementing visitor patterns, or creating multi-purpose utilities that behave differently depending on the type of their input.
+
+    Before the introduction of pattern matching on generic type parameters, developers would often rely on if-else or switch statements combined with the `is` keyword or methods like `GetType()` for type checking, followed by explicit casting to access type-specific properties or methods:
+
+    ```csharp
+    public void Process<T>(T input)
+    {
+        if (input is int intValue)
+        {
+            Console.WriteLine("Processing integer: " + intValue);
+        }
+        else if (input is string stringValue)
+        {
+            Console.WriteLine("Processing string: " + stringValue);
+        }
+        // Additional type checks and casts as needed
+    }
+    ```
+
+    With the introduction of pattern matching on generic type parameters, the same functionality can be achieved more succinctly and with greater type safety, as the compiler can now enforce type constraints more effectively:
+
+    ```csharp
+    public void Process<T>(T input)
+    {
+        switch (input)
+        {
+            case int intValue:
+                Console.WriteLine("Processing integer: " + intValue);
+                break;
+            case string stringValue:
+                Console.WriteLine("Processing string: " + stringValue);
+                break;
+            // Other patterns as needed
+        }
+    }
+    ```
+
+    This feature simplifies the code, making it easier to understand and maintain, while also improving performance by reducing the need for explicit casting and type checking operations.
+
+    </details>
+
+##### [C# version 7.2 (May 2018)](https://devblogs.microsoft.com/dotnet/welcome-to-c-7-2-and-span/)
+
+There are two main themes to this release:
+
+1. Provide features that enable safe code to be as performant as unsafe code
+2. Provide incremental improvements to existing features, plus new compiler options
+
+-  
 
 See here for a complete timeline: 
 
