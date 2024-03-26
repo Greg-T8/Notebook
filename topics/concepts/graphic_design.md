@@ -11,8 +11,8 @@
     - [Proximity: What to Avoid](#proximity-what-to-avoid)
     - [Proximity: Design Examples](#proximity-design-examples)
   - [Chapter 3: Alignment](#chapter-3-alignment)
-  - [Alignment: Key Takeaways](#alignment-key-takeaways)
-  - [Alignment: Examples](#alignment-examples)
+    - [Alignment: Key Takeaways](#alignment-key-takeaways)
+    - [Alignment: Examples](#alignment-examples)
 
 ## The Non-Designer's Design Book
 
@@ -385,7 +385,7 @@ Alignment is more than just an aesthetic choice; it serves to unify and organize
 
 > A lack of alignment creates discomfort; it appears to be unorganized; we don't know how to be effective.
 
-### Alignment: Key Takeaways
+#### Alignment: Key Takeaways
 
 Chapter 3 of "The Non-Designer's Design Book" focuses on the principle of alignment, highlighting its critical role in creating visually appealing and coherent designs. Here are the key takeaways:
 
@@ -407,9 +407,9 @@ Chapter 3 of "The Non-Designer's Design Book" focuses on the principle of alignm
 
 8. **Invisible Connections**: Even when elements are not physically close, alignment can create invisible connections between them, suggesting a relationship and continuity that enhances the design's coherence.
 
-### Alignment: Examples
+#### Alignment: Examples
 
-<details open><summary>Business Card</summary><br>
+<details><summary>Business Card</summary><br>
 
 Original:
 
@@ -455,6 +455,86 @@ Note:
 
 - The strength of this edge is what gives strength to the layout. There is a strong invisible line connecting the edges of these groups of text
 
+</details>
 
+<details><summary>Report Cover</summary><br>
+
+Original:
+
+<img src='img/20240330-033056.png' width=350px>
+
+Improved:
+
+<img src='img/20240332-033253.png' width=350px>
+
+Note:
+
+- Strong left alignment gives report cover a more sophisticated look
+- Author's name is far from the title, but that invisible line connects the two text blocks
 
 </details>
+
+<details><summary>Designer Eye</summary><br>
+
+Original:
+
+<img src='img/20240335-033546.png' width=350px>
+
+Improved:
+
+<img src='img/20240336-033639.png' width=350px>
+
+Note:
+
+- Flush-left alignment makes the page a little more sophisticated
+- Limiting the dotted line to the left opens the page and emphasizes the alignment
+
+Improved:
+
+<img src='img/20240338-033817.png' width=350px>
+
+Note:
+
+- Text is flush right, but placed on the left side
+- The letter you type will have a strong flush left to align with the flush right of this layout
+
+Improved:
+
+<img src='img/20240339-033943.png' width=350px>
+
+Note:
+
+- Author doesn't suggest to never center anything; just be conscious of the effect a centered alignment has.
+
+</details>
+
+<details><summary>Pie Day</summary><br>
+
+Original:
+
+<img src='img/20240342-034226.png' width=350px>
+
+- Centered. Really stable and maybe dull, but with a cute font
+
+Improved:
+
+<img src='img/20240343-034338.png' width=350px>
+
+- If you're going to center text, then at least make it obvious that it is centered!
+
+<img src='img/20240345-034524.png' width=350px>
+
+- Experiment with uncentering the block of centered text.
+
+<img src='img/20240346-034635.png' width=350px>
+
+- If you're going to center text, experiment with making it more dramatic in some way
+- Sometimes you can center the type but set the block of type itself off center
+- Or set the type high on the page to create more tension
+- Or set a very casual, fun typeface in a very formal, centered arrangement
+- Just don't set Times 12-point with double Returns!
+
+</details>
+
+
+
