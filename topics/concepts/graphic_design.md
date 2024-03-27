@@ -401,6 +401,8 @@ Chapter 3 of "The Non-Designer's Design Book" focuses on the principle of alignm
 
 5. **Avoiding Misalignment**: Misalignment or arbitrary placement of elements can lead to a cluttered, disorganized appearance, making it difficult for the viewer to navigate the information. Proper alignment eliminates confusion and clutter.
 
+    For beginners, stick to one text alignment on a page&mdash;all text is either flush left, flush right, or centered.
+
 6. **Enhancing Visual Appeal**: Strong alignment not only organizes information effectively but also contributes to the overall visual appeal of the design. It creates a sophisticated look that attracts the viewer's attention.
 
 7. **Application Across Multiple Pages**: For multi-page documents, alignment is crucial for maintaining a consistent look and feel across all pages, reinforcing the unity of the entire document.
@@ -533,6 +535,45 @@ Improved:
 - Or set the type high on the page to create more tension
 - Or set a very casual, fun typeface in a very formal, centered arrangement
 - Just don't set Times 12-point with double Returns!
+
+</details>
+
+<details><summary>O ye gods!</summary><br>
+
+<img src='img/20240321-032115.png' width=250px>
+
+- This layout gives "centered" a bad name: boring typeface, type that is too large, crowded text, double Returns, claustrophobic border
+
+<img src='img/20240323-032337.png' width=250px>
+
+- A centered alignment needs extra care to work
+- This layout uses classic typeface sized fairly small
+- More space betwen the lines
+- Lots of white space around the text, no border
+
+<img src='img/20240326-032615.png' width=250px>
+
+- Emphasize a tall, slender centered layout with a tall, slender piece of paper
+
+<img src='img/20240328-032801.png' width=250px>
+
+- Emphasize a wide, centered layout with a wide spread
+
+</details>
+
+<details><summary>One Night in Winnemucca</summary><br>
+
+<img src='img/20240339-033937.png' width=250px>
+
+- Avoid using elements were there is no common alignment
+- The title and byline are flush left, but the description is centered
+- There is no common alignment between these two elements of text
+
+<img src='img/20240341-034131.png' width=250px>
+
+- These two elements still have two different alignments (top top is flush left and the bottom is flush right)
+- The edge of the descriptive text below aligns with the right edge of thin rule and text above, connecting the elements with an invisible line
+- Train your eyes to notice the invisible line
 
 </details>
 
