@@ -3402,7 +3402,150 @@ There are two main themes to this release:
 1. Provide features that enable safe code to be as performant as unsafe code
 2. Provide incremental improvements to existing features, plus new compiler options
 
--  
+- [Non-trailing named arguments](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/named-and-optional-arguments) - allow you to specify arguments by their names instead of purely by their position in the method signature, even before positional arguments, provided every argument thereafter is also named.
+
+    <details><summary>Overview</summary><br>
+
+    Non-trailing named arguments in C# allow for more readable and maintainable code by letting developers specify arguments by their names out of the usual order, without the need to follow positional arguments strictly. This is particularly useful in calls to methods with many parameters, where readability can suffer if arguments are passed purely by position, especially when some parameters are optional and have default values. Before this feature, if you wanted to specify an argument towards the end of a parameter list, you often had to include values for all preceding optional parameters, cluttering the call with unnecessary default values. With the introduction of non-trailing named arguments, you can clearly state which parameter you are setting, improving the code's readability and making it easier to understand at a glance what each argument represents.
+
+    For example, previously, you might call a method like this, needing to include default values for parameters you didn't wish to specify:
+
+    ```csharp
+    SendEmail("example@example.com", "Subject", "Body", false);  // Assuming false is the default for ccAdmin
+    ```
+
+    Now, with non-trailing named arguments, you can specify only the parameters you need, improving clarity:
+
+    ```csharp
+    SendEmail("example@example.com", subject: "Subject", body: "Body", ccAdmin: true);
+    ```
+
+    This feature thus enables skipping over optional parameters that aren't needed for a particular call, directly enhancing code clarity and reducing potential errors from misordered arguments.
+
+    </details>
+
+- [`private protected` access modifier](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/access-modifiers) - specifies that a member is accessible within its declaring assembly through the containing class or types derived from the containing class.
+
+    <details><summary>Overview</summary><br>
+
+    The `private protected` access modifier introduced in C# 7.2 is a nuanced addition to the language's accessibility level spectrum, designed to provide a more granular control over access to class members. This feature combines the benefits of both `private` and `protected` accessibilities, allowing a member to be accessible only within its declaring assembly, and only by derived classes. This specificity is particularly useful in large projects and libraries where internal implementation details need to be shared across subclasses without exposing them to the public API.
+
+    Before the introduction of `private protected`, developers had to choose between `private`, which was too restrictive as it allowed access only within the same class, and `protected`, which permitted access in derived classes but also exposed members to any subclass outside of the assembly. This often led to a compromise between encapsulation and flexibility, as there was no way to limit the visibility strictly to derived classes within the same assembly.
+
+    For example, consider a scenario in a library development where you have a base class that provides certain functionality, and you wish to allow only specific subclasses within the same assembly to override or access some of its internals. Prior to C# 7.2, you might have marked these members as `protected`, knowing that they could be accessed or overridden by any subclass, potentially even those in consumer code outside your assembly. This was not ideal for maintaining control over how your library's internals were used and extended.
+
+    With the `private protected` access modifier, you can now refine the access level. Here's a simplified example to illustrate the difference:
+
+    Before `private protected`:
+    ```csharp
+    // In a library
+    public class BaseClass
+    {
+        protected int ImportantInternalDetail;
+    }
+
+    // In consumer code, potentially in another assembly
+    public class DerivedClass : BaseClass
+    {
+        public void DoSomething()
+        {
+            ImportantInternalDetail = 42; // This was possible and potentially problematic
+        }
+    }
+    ```
+
+    After `private protected` was introduced:
+    ```csharp
+    // In the same library
+    public class BaseClass
+    {
+        private protected int ImportantInternalDetail;
+    }
+
+    // Attempting the same access in a derived class outside the assembly will now result in an error
+    public class DerivedClass : BaseClass
+    {
+        public void DoSomething()
+        {
+            ImportantInternalDetail = 42; // This will now raise a compilation error
+        }
+    }
+    ```
+
+    In this updated example, `ImportantInternalDetail` is safeguarded against unintended access from subclasses outside the assembly, ensuring that only those classes that are explicitly designed to interact with the base class within the same assembly can do so. This enhancement in access control helps maintain encapsulation and integrity of the base class's internal workings, a crucial aspect in large and complex software development environments.
+
+    </details>
+
+- Initializers on `stackalloc` arrays - allow developers to directly assign values to arrays allocated on the stack, enhancing their initialization syntax for more concise and readable code.
+
+    <details><summary>Overview</summary><br>
+
+    The introduction of initializers on `stackalloc` arrays in C# 7.2 marked a significant improvement in the way developers work with stack-allocated arrays. Prior to this feature, when using `stackalloc` to allocate memory for an array on the stack, initializing the array elements required manual assignment for each element. This process was not only tedious but also prone to errors, especially with larger arrays or when initializing arrays with complex patterns.
+
+    The primary benefit of initializers on `stackalloc` arrays is the enhancement of code clarity and conciseness. Developers can now use a familiar syntax similar to array initializers on heap-allocated arrays, making the code more readable and maintainable. This feature is particularly useful in performance-critical applications where stack allocation is preferred due to its speed and the fact that it avoids garbage collection overhead. Examples include low-level systems programming, game development, and high-performance computing where managing memory efficiently is crucial.
+
+    Before the introduction of this feature, initializing a stack-allocated array would look something like this:
+
+    ```csharp
+    unsafe {
+        int* numbers = stackalloc int[3];
+        numbers[0] = 1;
+        numbers[1] = 2;
+        numbers[2] = 3;
+    }
+    ```
+
+    Each element of the array had to be individually assigned, which could become cumbersome with more elements or complex initialization patterns.
+
+    With the introduction of initializers on `stackalloc` arrays in C# 7.2, the same operation can be accomplished more succinctly:
+
+    ```csharp
+    unsafe {
+        int* numbers = stackalloc int[3] { 1, 2, 3 };
+    }
+    ```
+
+    This new syntax allows for the direct assignment of values at the point of allocation, using curly braces `{}` to enclose the initial values. This not only reduces the amount of code required but also aligns the syntax more closely with the initialization of arrays on the heap, making it easier for developers to write and understand code that involves stack-allocated arrays. The addition of this feature thus represents a small but meaningful enhancement to the C# language, making it more powerful and expressive for low-level programming tasks.
+
+    </details>
+
+- Use `fixed` statements with any type that supports a pattern - allows developers to pin instances of any type, not just arrays or strings, in memory during the execution of unsafe code, provided those types conform to a specific pattern.
+
+    <details><summary>Overview</summary><br>
+
+    In C# 7.2, the enhancement to the `fixed` statement expands its usability beyond the traditional array or string types to any type that implements a pattern satisfying the requirements for pinning. This feature benefits developers by offering more flexibility in managing memory directly, particularly in scenarios involving interoperability with unmanaged code, where it's crucial to prevent the garbage collector from relocating objects in memory. The primary use cases include high-performance applications, such as graphics processing or native interop scenarios, where deterministic memory layouts are necessary. By allowing more types to be fixed in memory, developers can write safer, more expressive, and efficient code when working with unmanaged resources.
+
+    Prior to this feature, the `fixed` statement in C# was limited to pinning arrays and string instances in memory, which restricted its use in scenarios involving custom types or structs that encapsulate unmanaged resources. Developers often had to resort to workarounds, such as copying data into an array or using unsafe code blocks with pointers to achieve the desired memory control, leading to less intuitive and potentially error-prone implementations.
+
+    ```csharp
+    unsafe {
+        int[] numbers = new int[] { 1, 2, 3 };
+        fixed (int* p = numbers) {
+            // Use the pointer p to access the elements in the array.
+        }
+    }
+    ```
+
+    With C# 7.2, the `fixed` statement can be applied to any custom type that exposes a suitable `GetPinnableReference` method, signaling to the compiler how to obtain a stable reference to the data within the object. This method must return a ref to a field, array element, or a pointer type, effectively allowing the object's data to be pinned in memory during the execution of unsafe code blocks. This enhancement simplifies working directly with memory in a type-safe manner, reducing the need for boilerplate code and improving performance by minimizing unnecessary data copies.
+
+    ```csharp
+    public struct CustomBuffer {
+        private byte[] buffer;
+        public ref byte GetPinnableReference() => ref buffer[0];
+    }
+
+    unsafe {
+        CustomBuffer customBuffer = new CustomBuffer();
+        fixed (byte* p = customBuffer) {
+            // Use the pointer p to access the elements in the buffer.
+        }
+    }
+    ```
+
+    This example demonstrates how a custom type, `CustomBuffer`, can be used with the `fixed` statement by providing a `GetPinnableReference` method, thereby enabling direct, efficient, and safe manipulation of memory in scenarios that were previously more cumbersome or not possible.
+
+    </details>
+
 
 See here for a complete timeline: 
 
