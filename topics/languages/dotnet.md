@@ -3223,7 +3223,7 @@ Released with Visual Studio 2017. All of the features in this release offer deve
 
     </details>
 
-##### [C# version 7.1 (November 2017)](https://devblogs.microsoft.com/dotnet/welcome-to-c-7-1/)
+##### [C# version 7.1 (August 2017)](https://devblogs.microsoft.com/dotnet/welcome-to-c-7-1/)
 
 - [Language version selection configuration element](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/configure-language-version) - allows developers to specify the version of the C# language syntax the compiler should use, enabling control over which language features are available within a project to ensure compatibility and stability.
 
@@ -3395,12 +3395,9 @@ Released with Visual Studio 2017. All of the features in this release offer deve
 
     </details>
 
-##### [C# version 7.2 (May 2018)](https://devblogs.microsoft.com/dotnet/welcome-to-c-7-2-and-span/)
+##### [C# version 7.2 (August 2017)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-72)
 
-There are two main themes to this release:
-
-1. Provide features that enable safe code to be as performant as unsafe code
-2. Provide incremental improvements to existing features, plus new compiler options
+Added a number of small language features. See [Welcome to C# 7.2 and Span](https://devblogs.microsoft.com/dotnet/welcome-to-c-7-2-and-span/).
 
 - [Non-trailing named arguments](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/named-and-optional-arguments) - allow you to specify arguments by their names instead of purely by their position in the method signature, even before positional arguments, provided every argument thereafter is also named.
 
@@ -3546,6 +3543,212 @@ There are two main themes to this release:
 
     </details>
 
+- Declare `readonly struct` types - define value types that do not allow modification of their data after construction, ensuring immutability and thread safety.
+
+    <details><summary>Overview</summary><br>
+
+    The readonly struct feature in C# allows the definition of immutable value types, ensuring that the data contained within the struct cannot be modified after the object has been constructed. This feature enhances the language by providing a clear and enforceable method for creating immutable types, which are particularly beneficial in multi-threaded and concurrent programming scenarios where immutability can lead to easier reasoning about code behavior and thread safety. By marking a struct as readonly, developers signal that the intent for the use of these structs is for them to be immutable, which can optimize performance by reducing the need for defensive copies when these structs are accessed in a read-only context.
+
+    Before the introduction of readonly structs, achieving immutability in value types required developers to exercise discipline by not exposing any public fields or properties that allow modification of the internal state of the struct. This approach relied heavily on the developer's discipline and careful code reviews to ensure that structs remained immutable, without any language-enforced mechanism to guarantee immutability.
+
+    With the introduction of readonly structs, developers can now explicitly declare a struct as readonly, which enforces immutability at the language level. For example, consider a Point struct representing a point in a two-dimensional space:
+
+    ```csharp
+    // Before readonly structs
+    struct Point
+    {
+        public double X { get; }
+        public double Y { get; }
+
+        public Point(double x, double y)
+        {
+            X = x;
+            Y = y;
+        }
+    }
+    ```
+
+    In the above example, immutability is implied through read-only properties, but it doesn't prevent modifications through methods or other means within the struct itself. After the introduction of readonly structs, the same Point struct can be declared more robustly as:
+
+    ```csharp
+    // After readonly structs
+    readonly struct Point
+    {
+        public double X { get; }
+        public double Y { get; }
+
+        public Point(double x, double y)
+        {
+            X = x;
+            Y = y;
+        }
+    }
+    ```
+
+    By declaring the struct as `readonly`, it becomes clear and enforceable that the Point struct is immutable, and the compiler will enforce that no member methods can modify the state, providing both performance optimizations and a clearer contract of immutability.
+
+    </details>
+
+- The `in` modifier on parameters - used on method parameters to pass a value type by reference, allowing for performance optimizations without granting the method the ability to modify the argument's value.
+
+    <details><summary>Overview</summary><br>
+
+    The `in` modifier in C# is a parameter modifier that allows arguments to be passed by reference to methods, without permitting modification of the argument value, aiming to enhance performance for large value types. This feature is especially useful in scenarios where passing large structures or value types by value (the default mechanism) can lead to significant performance overhead due to copying. The `in` modifier addresses this by passing a reference instead, thus eliminating the need for copying while ensuring that the original data remains unaltered, making it particularly beneficial in high-performance computing, numerical computations, and systems programming where large value types are common.
+
+    Before the introduction of the `in` modifier, developers often relied on the `ref` keyword to pass large value types by reference to avoid the performance penalty of copying. However, the `ref` keyword does not inherently prevent the called method from modifying the argument value, leaving the immutability of the passed structure up to the implementation discipline and potentially leading to unintended side effects.
+
+    With the introduction of the `in` modifier, the syntax becomes more expressive and safe when passing value types that should not be modified. For example, consider a method that calculates the distance between two points represented by a `Point` struct:
+
+    ```csharp
+    // Before the `in` modifier
+    double CalculateDistance(Point point1, Point point2)
+    {
+        // Calculation using point1 and point2
+    }
+
+    // After the `in` modifier
+    double CalculateDistance(in Point point1, in Point point2)
+    {
+        // Calculation using point1 and point2, with guaranteed immutability
+    }
+    ```
+
+    In the latter case, using the `in` modifier guarantees that `CalculateDistance` cannot modify the `point1` and `point2` arguments, ensuring their immutability within the method, providing both a performance optimization by avoiding unnecessary data copies and enhancing code safety and clarity by clearly indicating the intent not to modify the input parameters.
+
+    </details>
+
+- The `ref readonly` modifier on method returns - allows a method to return a reference to a value without permitting the caller to modify that value, combining performance benefits of passing by reference with safety of immutability.
+
+    <details><summary>Overview</summary><br>
+
+    The `ref readonly` modifier on method returns in C# allows methods to return a reference to a value type in a read-only manner, ensuring that the caller cannot modify the returned value while still benefiting from the performance improvements of passing by reference. This feature is particularly advantageous in scenarios involving large value types, where returning by value (copying) can incur significant performance costs. By using `ref readonly`, developers can efficiently return a large structure or value type from a method without the overhead of copying and without sacrificing immutability. This is crucial in high-performance applications, such as graphics processing, scientific calculations, or any situation where large datasets are manipulated, but integrity of the data needs to be maintained.
+
+    Before the introduction of `ref readonly`, returning large structures from methods typically involved either making a full copy of the structure, impacting performance, or returning a reference using the `ref` modifier, which did not inherently protect the returned data from modification. Both approaches had their drawbacks, either in performance or in safety.
+
+    With the introduction of `ref readonly`, developers can now return a large value type from a method efficiently while also ensuring that the caller cannot modify the returned value. For example:
+
+    ```csharp
+    // Before `ref readonly`
+    Point GetOrigin()
+    {
+        return new Point(0, 0); // Returns a copy of Point
+    }
+
+    // After `ref readonly`
+    ref readonly Point GetOrigin()
+    {
+        return ref origin; // Returns a read-only reference to 'origin', no copying, no modifications allowed
+    }
+    ```
+
+    In this example, the `GetOrigin` method after the introduction of `ref readonly` can return a reference to an existing `Point` instance without copying it, and the `ref readonly` modifier guarantees that the returned reference cannot be used to modify the original instance. This approach optimizes performance by avoiding unnecessary copying and enhances safety by enforcing immutability of the returned reference, providing a clearer and more efficient way to handle large value types in C#.
+
+    </details>
+
+- Declare `ref struct` types - are stack-allocated structures that enforce restrictions to ensure they are only used in stack-based, scoped scenarios, enhancing performance and safety for high-speed, temporary data storage.
+
+    <details><summary>Overview</summary><br>
+
+    `Ref struct` types in C# are specialized value types designed for stack allocation, providing a way to ensure that certain data structures are confined to the stack, thereby preventing them from being accidentally captured by lambdas or assigned to variables not allocated on the stack. This feature is particularly beneficial for high-performance scenarios where it is critical to avoid the overhead associated with heap allocation and garbage collection. Practical use cases include scenarios where temporary, high-speed computations are needed, such as in graphics rendering or processing large datasets in scientific applications, where minimizing memory allocation overhead is crucial.
+
+    Before the introduction of `ref struct` types, achieving similar performance optimizations required careful management of value types and manual avoidance of heap allocations, often resorting to unsafe code to keep certain structures on the stack. This approach lacked the safety and clarity provided by the `ref struct` feature and was more prone to errors due to the manual management of memory allocation and the potential for accidental heap allocations.
+
+    With the introduction of `ref struct` types, C# provides a language-level feature that automatically enforces the stack allocation of these types, significantly reducing the risk of inadvertently causing heap allocations. For example:
+
+    ```csharp
+    // Before `ref struct`
+    // Developers had to manually ensure data was managed efficiently, often using unsafe code blocks for performance-critical sections.
+
+    // After `ref struct` introduction
+    ref struct StackOnlyStruct
+    {
+        public int X;
+        public int Y;
+        // This struct is constrained to the stack, ensuring quick access and deallocation, and cannot be captured by lambda expressions or assigned to heap-allocated variables.
+    }
+    ```
+
+    In this example, `StackOnlyStruct` is guaranteed to be allocated on the stack, where access is faster, and it is automatically deallocated when it goes out of scope, avoiding garbage collection overhead. The `ref struct` feature thus offers a powerful tool for developers to gain more control over memory allocation and performance, especially in scenarios requiring rapid execution and temporary data storage, all while maintaining the safety and robustness of managed code.
+
+    </details>
+
+##### [C# version 7.3 (May 2018)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-73) 
+
+Two themes to this release: (1) enable safe code to be as performant as unsafe code and (2) incremental improvements to existing features. See [A (Belated) Welcome to C# 7.3](https://devblogs.microsoft.com/dotnet/a-belated-welcome-to-c-7-3/).
+
+Performance of safe code
+
+- Access fixed fields without pinning - allows for direct manipulation of memory within managed objects without the need to explicitly pin the object in memory, simplifying unsafe code blocks that interact with unmanaged code by reducing boilerplate and enhancing performance.
+
+    <details><summary>Overview</summary><br>
+
+    Accessing fixed fields without pinning in C# allows developers to work with fixed-size buffers within managed objects directly, bypassing the need for the GC (Garbage Collector) to pin objects in memory, which simplifies interactions with unmanaged code and can improve performance by reducing overhead. This feature is beneficial in scenarios involving interoperability with unmanaged code, such as when calling native APIs or performing operations on raw memory buffers, where it's crucial to have deterministic control over the memory layout and performance is a priority. Before this feature, working with unmanaged memory in C# typically required explicitly pinning objects in memory using the `fixed` statement to prevent the GC from moving them, which added complexity and verbosity to the code.
+
+    Prior to the introduction of this capability, developers needed to use the `fixed` statement to pin an object's location in memory before accessing its fields, ensuring that the garbage collector would not move it while being used in unmanaged code. This approach often resulted in more verbose and complicated code, especially in performance-critical paths where such interactions were frequent.
+
+    With the introduction of the ability to access fixed fields without pinning, developers can now declare fixed-size buffers in a struct without requiring the `fixed` statement to pin an object each time it's accessed. For example:
+
+    ```csharp
+    // Before: Accessing unmanaged memory required pinning
+    unsafe struct BeforeExample
+    {
+        public fixed byte Buffer[128];
+        public void AccessBuffer()
+        {
+            fixed (byte* p = Buffer)
+            {
+                // Use the buffer
+            }
+        }
+    }
+
+    // After: Directly access fixed fields without pinning
+    unsafe struct AfterExample
+    {
+        public fixed byte Buffer[128]; // No need to pin in method to access
+    }
+    ```
+
+    This enhancement streamlines the process of working with unmanaged memory by allowing safer, more direct access to fixed-size buffers without the boilerplate code previously required. It significantly benefits applications that need high performance and direct memory access, such as graphics processing, file I/O operations, and interoperability with native libraries, making code both cleaner and faster.
+
+    </details>
+
+- Reassign `ref` local variables - allows the modification of the reference held by a ref local variable to point to different instances during its lifetime, enhancing flexibility and control in handling references to objects or values.
+
+    <details><summary>Overview</summary><br>
+
+    Reassigning `ref` local variables in C# enables the redirection of a reference variable to another instance, thereby offering enhanced flexibility and control over the manipulation of references within the scope of a method. This feature is particularly beneficial in scenarios that require efficient handling of large value types or the need to manipulate the references of such types dynamically, such as in high-performance computing, graphics processing, and complex data structure manipulation, where minimizing memory overhead and maximizing execution speed are critical. Prior to this enhancement, once a `ref` local variable was initialized to refer to a specific instance, it could not be reassigned to reference another instance, which limited the flexibility in handling references to structures or arrays in a performant manner.
+
+    Before the introduction of reassignable `ref` local variables, developers had to either use additional local variables or restructure their code to achieve similar outcomes, often leading to increased complexity and potential performance implications. This limitation made certain patterns, especially those involving the efficient manipulation of large structures or arrays by reference, more cumbersome to implement.
+
+    With the introduction of this feature, it is now possible to write more concise and efficient code by reassigning `ref` local variables. For example:
+
+    ```csharp
+    // Before: Workaround using additional local variables
+    int x = 1, y = 2;
+    ref int refToLocal = ref x;
+    // To switch the reference, you had to declare another ref variable or lose the reference to x.
+    int temp = 3;
+    refToLocal = ref temp; // Not directly supported, so workarounds were necessary
+
+    // After: Direct reassignment of ref local variables
+    int x = 1, y = 2;
+    ref int refToLocal = ref x;
+    // Easily switch the reference to another variable
+    refToLocal = ref y; // Directly supported, enhancing flexibility and reducing complexity
+    ```
+
+    This advancement simplifies code, reduces the need for workarounds, and improves performance by allowing direct and efficient manipulation of references to value types, making sophisticated data handling patterns more accessible and performant in C#.
+
+    </details>
+
+Enhancements to existing features
+
+
+
+
+
+</details>
 
 See here for a complete timeline: 
 
