@@ -109,7 +109,7 @@ The chapter illustrates the concept with examples such as business cards and fly
 
 The examples in this chapter are intentionally simple to make the point clear.
 
-<details><summary>Business Card</summary><br>
+<details><summary>Business Card - lack of proximity</summary><br>
 
 Original:
 
@@ -135,7 +135,7 @@ Improvements:
 
 </details>
 
-<details><summary>resume: Areas of Expertise</summary><br>
+<details><summary>Resume: Areas of Expertise - clarify relationships</summary><br>
 
 Original:
 
@@ -155,7 +155,7 @@ Improvements:
 
 </details>
 
-<details><summary>Travel Tips</summary><br>
+<details><summary>Travel Tips - clarify relationships</summary><br>
 
 Original:
 
@@ -175,7 +175,7 @@ Improvement:
 
 </details>
 
-<details><summary>Sally's Psychic Services</summary><br>
+<details><summary>Sally's Psychic Services - group related items</summary><br>
 
 Original:
 
@@ -212,7 +212,7 @@ Exercise:  Find at least eight small differences that help to make the second ex
 
 </details>
 
-<details><summary>First Friday Club</summary><br>
+<details><summary>First Friday Club - group related items</summary><br>
 
 Original:
 
@@ -251,7 +251,7 @@ In the picture below, on the left-hand side, you assume all flowers have somethi
 
 </details>
 
-<details><summary>General List</summary><br>
+<details><summary>General List - use spacing</summary><br>
 
 Original:
 
@@ -269,7 +269,7 @@ The author suggests that you visually separate more consciously and thus with mo
 
 </details>
 
-<details><summary>Moonstone Dreamcatchers</summary><br>
+<details><summary>Moonstone Dreamcatchers - group related items</summary><br>
 
 Original:
 
@@ -303,7 +303,7 @@ You're probably already using the Principle of Proximity at your work, but you m
 
 </details>
 
-<details><summary>Shakespeare Flyer</summary><br>
+<details><summary>Shakespeare Flyer - trapped whitespace</summary><br>
 
 Original:
 
@@ -338,7 +338,7 @@ Find five other small differences that help make this example communicate more c
 
 </details>
 
-<details><summary>Gertrude's Piano Bar</summary><br>
+<details><summary>Gertrude's Piano Bar - group related items</summary><br>
 
 Original:
 
@@ -411,7 +411,7 @@ Chapter 3 of "The Non-Designer's Design Book" focuses on the principle of alignm
 
 #### Alignment: Examples
 
-<details><summary>Business Card</summary><br>
+<details><summary>Business Card - use the invisible lines</summary><br>
 
 Original:
 
@@ -459,7 +459,7 @@ Note:
 
 </details>
 
-<details><summary>Report Cover</summary><br>
+<details><summary>Report Cover - transition from centered alignment</summary><br>
 
 Original:
 
@@ -476,7 +476,7 @@ Note:
 
 </details>
 
-<details><summary>Designer Eye</summary><br>
+<details><summary>Designer Eye - transition from centered alignment</summary><br>
 
 Original:
 
@@ -510,7 +510,7 @@ Note:
 
 </details>
 
-<details><summary>Pie Day</summary><br>
+<details><summary>Pie Day - dull centered text</summary><br>
 
 Original:
 
@@ -538,7 +538,7 @@ Improved:
 
 </details>
 
-<details><summary>O ye gods!</summary><br>
+<details><summary>O ye gods! - bad use of centered text</summary><br>
 
 <img src='img/20240321-032115.png' width=250px>
 
@@ -561,7 +561,7 @@ Improved:
 
 </details>
 
-<details><summary>One Night in Winnemucca</summary><br>
+<details><summary>One Night in Winnemucca - no common alignment</summary><br>
 
 <img src='img/20240339-033937.png' width=250px>
 
@@ -576,6 +576,49 @@ Improved:
 - Train your eyes to notice the invisible line
 
 </details>
+
+<details><summary>Tri-State Wellness Center - arbitrary placement </summary><br>
+
+<img src='img/20240311-031157.png' width=400px>
+
+- Nothing should be placed on the page arbitrarily
+- Lack of alignment is the biggest cause of unappealing documents; our eyes like to see order
+- For all vertical and horizontal alignments in this piece, all units are centered but they are not aligned with any other centered units
+
+For any well-designed piece, you'll be able to draw lines to the aligned objects, even if the overall presentation of material is a wild collection of odd things and has lots of energy
+
+<img src='img/20240317-031721.png' width=400px>
+
+- Simply lining things up makes a big difference
+- Not one item is on the page arbitrarily&mdash;every item has some visual connection with another item on the page
+- Notice how the change in phone number positioning frees up previously-trapped whitespace
+- The blue bar is added from the Principle of Repetition
+- Draw shapes around the whitespace between the before and after pictures and notice how the whitespace is more organized
+
+</details>
+
+<details><summary>The Undiscovered Country - centered headlines problem</summary><br>
+
+
+</details>
+
+<img src='img/20240327-032719.png' width=300px>
+
+- Many designers fail to use a subtle lack of alignment, such as centered headlines and subheads over indented paragraphs
+- Headlines are centered, text is flush left, and thus the right text is "ragged"
+- Paragraph indents are typewriter wide
+- Never center headlines over flush left body copy or text that has an indent because if the text does not have clear left and right edges, you cannot tell that the headline is actually centered; it looks random.
+
+<img src='img/20240330-033034.png' width=300px>
+
+- Find a strong line and stick to it&mdash;if the text is flush left, set the heads and subheads flush left
+- First paragraphs are traditionally not indented. The purpose of indenting a paragraph is to tell you there is a new paragraph, but you already know the first paragraph is a new paragraph
+- The professional typographic indent is one **em**, which is about two spaces, not five. An **em** is about the point size of your type
+- The columns in the picture are wide enough for the type to be justified (aligned on both sides ) without big gaps between the words
+- If there are photographs or illustrations, align them with an edge and/or baseline
+- Strong alignment is often the key to a professional look. Check every element to make sure it has a visual connection to something else on the page
+
+<img src='img/20240351-035115.png' width=400px>
 
 
 
