@@ -13,6 +13,13 @@
     - [The `EXIT_SUCCESS` macro](#the-exit_success-macro)
     - [Checking function return values](#checking-function-return-values)
     - [Formatted output](#formatted-output)
+  - [Portability](#portability)
+- [Objects, Functions, and Types](#objects-functions-and-types)
+  - [Objects, Functions, Types, and Pointers](#objects-functions-types-and-pointers)
+  - [Declaring Variables](#declaring-variables)
+    - [Declaring Multiple Variables](#declaring-multiple-variables)
+    - [Swapping Values (First Attempt) - Understanding call by value](#swapping-values-first-attempt---understanding-call-by-value)
+    - [Swapping Values (Second Attempt)](#swapping-values-second-attempt)
 
 ## Introduction to C
 
@@ -276,4 +283,196 @@ See:
 - [Table of output conversions](https://www.gnu.org/software/libc/manual/html_node/Table-of-Output-Conversions.html)
 - [Formatted output functions](https://www.gnu.org/software/libc/manual/html_node/Formatted-Output-Functions.html)
 
+### Portability
 
+Programs written for C are considered _strictly conforming_ if they use only those features of the language and library specified in the standard. These programs are considered to be maximally portable. However, in the real world, no C program is strictly conforming. Instead, the C language allows you to write _conforming programs_ that may depend on nonportable language and library features.
+
+Annex J of the C standard defines five kinds of portability issues:
+
+- **Implementation-Defined Behavior** - refers to aspects of the language specification that are left for compiler implementations to decide, leading to variations in program behavior across different platforms or compilers.
+
+    An example is the size of basic data types such as `int`. The C standard specifies that an `int` must be at least 16 bits, but it leaves the exact size to be determined by the implementation. Therefore, the size of an `int` can vary between different compilers and platforms (e.g., it might be 16 bits on one platform and 32 bits on another), affecting the range of values it can represent and, consequently, the behavior of programs that rely on specific size assumptions.
+
+- **Unspecified Behavior** - occurs when the language standard does not define the exact behavior or order of execution for certain operations, allowing compilers to choose the behavior without needing to document their choice, potentially leading to inconsistent program behavior across different compilers.
+
+    An example is the order of evaluation of function arguments. According to the C standard, when a function is called, the order in which the arguments to the function are evaluated is not specified. This means that in a function call like `f(x(), y())`, whether `x()` or `y()` is evaluated first is up to the compiler, leading to potentially different behaviors if `x()` and `y()` have side effects that affect each other.
+
+- **Undefined Behavior** - refers to any program operation that the language standard does not explicitly define, allowing compilers to handle such situations in any manner, often leading to unpredictable and potentially harmful program behavior.
+
+    An example of undefined behavior in C is accessing memory beyond the bounds of an array, such as attempting to read or write to `array[10]` when `array` is only defined with a size of 10 elements (`int array[10];`). This can lead to data corruption, crashes, or other unpredictable program behavior since the program is accessing memory it does not own.
+
+    Compilers have the latitude to (1) ignore undefined behavior completely, giving unpredictable results, (2) behave in a documented manner characteristic of the environment (with or without issuing a diagnostic), and (3) terminate a translation or execution (with issuing diagnostic).
+
+- **Local-Specific Behavior and Common Extensions** - refer to functionality or features that vary by locale (such as character encoding or date formats) or are widely used but not standardized across implementations, potentially leading to inconsistencies when porting code between different environments or compilers.
+
+    An example of locale-specific behavior is how the `printf` function handles formatting and displaying characters in different locales, such as using commas versus periods for decimal separators in floating-point numbers. A common extension example is the GNU C Compiler (GCC) `__attribute__` syntax, which provides additional functionality such as specifying function attributes for optimization, but is not part of the standard C language and may not be supported by other compilers, affecting portability.
+
+## Objects, Functions, and Types
+
+One of the first things the author teaches in this chapter is one of the last things the author learned:
+
+> Every type in C is either an _object_ type or a _function_ type.
+
+### Objects, Functions, Types, and Pointers
+
+An _object_ is storage in which you can represent values. A variable is an example of an object. Variables have a declared type that tells you the kind of object its value represents. For example, an object with type `int` contains an integer value.
+
+The type is important because the collection of bits that represents one type of object will likely have a different value if interpreted as a different type of object. For example, the number 1 is represented in IEEE 754 by the bit pattern `0x3f800000`. But if you were to interpret this same bit pattern as an integer, you'd get the value 1,065,353,216 instead of 1.  
+
+_Functions_ are not objects but do have types. A function type is characterized by both its return type as well as the number and types of its parameters.
+
+The C language also has _pointers_, which can be though of as an address&mdash;a location in memory where an object or function is stored. A pointer type is derived from a function or object type called the _referenced type_. A pointer type derived from the referenced type `T` is called a pointer to `T`.  
+
+If you have a variable of type `T` (where `T` can be any data type, like `int`, `float`, `char`, etc.), a "pointer to `T`" is a pointer that is specifically designed to store the address of a variable of type `T`. This is indicated in C by using the `*` operator. For instance, if `T` is `int`, then a pointer to `T` is declared as `int *`. This pointer can store the address of an `int` variable.
+
+Because objects and functions are different things, object pointers and function pointers are also different things, and should not be used interchangeably. 
+
+### Declaring Variables
+
+When you declare a variable, you assign it a type and provide it a name, or _identifier_, by which to reference the variable.
+
+The following program declares two integer objects with initial values. The program also declares, but doesn't define, a `swap` function to swap those values.
+
+```c
+#include <stdio.h>
+
+void swap(int, int); // defined later
+
+int main(void)
+{
+    int a = 21;
+    int b = 17;
+
+    swap(a, b);
+    printf("main: a = %d, b = %d\n", a, b);
+    return 0;
+}
+```
+
+#### Declaring Multiple Variables
+
+You can declare multiple variables in a single declaration, but doing so can get confusing if the variables are pointers or arrays, or the variables are different types. 
+
+The following declarations are valid:
+
+```c
+char *src, c;
+int x, y[5];
+int m[12], n[15][3], o[21];
+```
+
+The first line declares two variables, `src` and `c`, which have different types. The `src` variable has a type of `char *` and `c` has a type of `char`.
+
+The second line declares two variables, `x` and `y`, with different types. The variable `x` has a type `int`, and `y` is an array of five elements of type `int`.
+
+The third line declares three arrays&mdash;`m`, `n`, and `o`&mdash;with different dimensions and numbers of elements.  
+
+The declarations are easier to understand if each is on its own line:
+
+```c
+char *src;      // src has a type of char *
+char c;         // c has a type of char
+int x;          // x has a type int
+int y[5];       // y is an array of 5 elements of type int
+int m[12];      // m is an array of 12 elements of type int
+int n[15][3];   // n is an array of 15 arrays of 3 elements of type int
+int o[21];      // o is an array of 21 elements of type int
+```
+
+#### Swapping Values (First Attempt) - Understanding call by value
+
+Each object has a storage duration that determines its _lifetime_, which is the time during program execution for which the object exists, has storage, has a constant address, and retains its last-stored value.
+
+Local variables, such as `a` and `b` in the code from the main function above have _automatic storage duration_, meaning they exist until execution leaves the block in which they're defined.  
+
+The `swap` function from the initial code block above defines two parameters, `a` and `b`, that you pass as arguments. Parameters are objects declared as part of the function declaration that acquire a value on entry to the function. Arguments are comma-separated expressions you include in the function call expression. 
+
+```c
+#include <stdio.h>
+
+void swap(int, int);
+
+int main(void)
+{
+    int a = 21;
+    int b = 17;
+
+    swap(a, b);
+    printf("main: a = %d, b = %d\n", a, b);
+    return 0;
+}
+
+void swap(int a, int b) {
+
+    int t = a;
+    a = b;
+    b = t;
+    printf("swap: a = %d, b = %d\n", a, b);
+}
+```
+
+Running this program yields the following output:
+
+<img src='img/20240301-170110.png' width=150px>
+
+Thing to note here is that C is a _call-by-value_ language, which means that when you provide an argument to a function, the value of that argument is copied into a distinct variable for use within the function.
+
+When the values of the parameters in the function are changed, the values in the caller are unaffected because they are distinct objects. Consequently, the variables `a` and `b` in `main()` retain their original values during the call to `printf`.   
+
+#### Swapping Values (Second Attempt)
+
+You can use pointers to rewrite the `swap` function.
+
+```c
+#include <stdio.h>
+
+void swap(int *pa, int *pb)     // pa -> a: 21, pb -> b: 17
+{
+    int t = *pa;                // t = 21
+    *pa = *pb;                  // pa -> a: 17, pb -> b: 17
+    *pb = t;                    // pa -> a: 17, pb -> b: 21
+    return;
+}
+
+int main(void)
+{
+    int a = 21;                 // a: 21
+    int b = 17;                 // b: 17
+
+    swap(&a, &b);
+    printf("main: a = %d, b = %d\n", a, b);     // a: 17, b: 21
+    return 0;
+}
+```
+
+The indirection operator, `*`, is used to both declare pointers and dereference them. 
+
+When used in the function declaration, `*` acts part of a pointer declarator indicating that the parameter is a pointer to an object or function of a specific type. The `swap` function specifies two parameters, `pa` and `pb` and declares them as type pointers to `int`.
+
+When using the unary `*` operator in expressions within the function, the unary `*` operator dereferences the pointer to the object. 
+
+Consider the following assignment:
+
+```c
+pa = pb;
+```
+
+This replaces the value of the pointer `pa`, a location, with the value of the pointer `pb`, another location.
+
+Now consider this assignment:
+
+```c
+*pa = *pb
+```
+
+This dereferences the pointer `ab`, reads the referenced value, dereferences the pointer `pa`, and then overwrites the value at the location referenced by `pa` with the value referenced by `pb`.
+
+When you call the `swap` function in `main`, you must also place an ampersand `&` character before each variable name:
+
+```c
+swap(&a, &b);
+```
+
+The unary `&` is the _address-of_ operator, which generates a pointer to its operand. The introduction of `&` is necessary because the `swap` function now accepts pointers to objects of type `int` as parameters instead of simply values of type `int`.
+
+The values passed to the `swap` function are still copied, but the copied values now represent addresses instead of integers. This approach simulates a _call by reference_ by generating object addresses, passing those by value, and then dereferencing the copied addresses to access the original objects.
