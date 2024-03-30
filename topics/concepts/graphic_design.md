@@ -109,7 +109,7 @@ The chapter illustrates the concept with examples such as business cards and fly
 
 The examples in this chapter are intentionally simple to make the point clear.
 
-<details><summary>Business Card - lack of proximity</summary><br>
+<details><summary>Business Card - Lack of proximity</summary><br>
 
 Original:
 
@@ -135,7 +135,7 @@ Improvements:
 
 </details>
 
-<details><summary>Resume: Areas of Expertise - clarify relationships</summary><br>
+<details><summary>Resume: Areas of Expertise - Clarify relationships</summary><br>
 
 Original:
 
@@ -155,7 +155,7 @@ Improvements:
 
 </details>
 
-<details><summary>Travel Tips - clarify relationships</summary><br>
+<details><summary>Travel Tips - Clarify relationships</summary><br>
 
 Original:
 
@@ -175,7 +175,7 @@ Improvement:
 
 </details>
 
-<details><summary>Sally's Psychic Services - group related items</summary><br>
+<details><summary>Sally's Psychic Services - Group related items</summary><br>
 
 Original:
 
@@ -212,7 +212,7 @@ Exercise:  Find at least eight small differences that help to make the second ex
 
 </details>
 
-<details><summary>First Friday Club - group related items</summary><br>
+<details><summary>First Friday Club - Group related items</summary><br>
 
 Original:
 
@@ -251,7 +251,7 @@ In the picture below, on the left-hand side, you assume all flowers have somethi
 
 </details>
 
-<details><summary>General List - use spacing</summary><br>
+<details><summary>General List - Use spacing</summary><br>
 
 Original:
 
@@ -269,7 +269,7 @@ The author suggests that you visually separate more consciously and thus with mo
 
 </details>
 
-<details><summary>Moonstone Dreamcatchers - group related items</summary><br>
+<details><summary>Moonstone Dreamcatchers - Group related items</summary><br>
 
 Original:
 
@@ -303,7 +303,7 @@ You're probably already using the Principle of Proximity at your work, but you m
 
 </details>
 
-<details><summary>Shakespeare Flyer - trapped whitespace</summary><br>
+<details><summary>Shakespeare Flyer - Trapped whitespace</summary><br>
 
 Original:
 
@@ -338,7 +338,7 @@ Find five other small differences that help make this example communicate more c
 
 </details>
 
-<details><summary>Gertrude's Piano Bar - group related items</summary><br>
+<details><summary>Gertrude's Piano Bar - Group related items</summary><br>
 
 Original:
 
@@ -411,7 +411,7 @@ Chapter 3 of "The Non-Designer's Design Book" focuses on the principle of alignm
 
 #### Alignment: Examples
 
-<details><summary>Business Card - use the invisible lines</summary><br>
+<details><summary>Business Card - Use the invisible lines</summary><br>
 
 Original:
 
@@ -459,7 +459,7 @@ Note:
 
 </details>
 
-<details><summary>Report Cover - transition from centered alignment</summary><br>
+<details><summary>Report Cover - Transition from centered alignment</summary><br>
 
 Original:
 
@@ -476,7 +476,7 @@ Note:
 
 </details>
 
-<details><summary>Designer Eye - transition from centered alignment</summary><br>
+<details><summary>Designer Eye - Transition from centered alignment</summary><br>
 
 Original:
 
@@ -510,7 +510,7 @@ Note:
 
 </details>
 
-<details><summary>Pie Day - dull centered text</summary><br>
+<details><summary>Pie Day - Dull centered text</summary><br>
 
 Original:
 
@@ -538,7 +538,7 @@ Improved:
 
 </details>
 
-<details><summary>O ye gods! - bad use of centered text</summary><br>
+<details><summary>O ye gods! - Bad use of centered text</summary><br>
 
 <img src='img/20240321-032115.png' width=250px>
 
@@ -561,7 +561,7 @@ Improved:
 
 </details>
 
-<details><summary>One Night in Winnemucca - no common alignment</summary><br>
+<details><summary>One Night in Winnemucca - No common alignment</summary><br>
 
 <img src='img/20240339-033937.png' width=250px>
 
@@ -577,7 +577,7 @@ Improved:
 
 </details>
 
-<details><summary>Tri-State Wellness Center - arbitrary placement </summary><br>
+<details><summary>Tri-State Wellness Center - Arbitrary placement </summary><br>
 
 <img src='img/20240311-031157.png' width=400px>
 
@@ -597,10 +597,9 @@ For any well-designed piece, you'll be able to draw lines to the aligned objects
 
 </details>
 
-<details><summary>The Undiscovered Country - centered headlines problem</summary><br>
+<details><summary>The Undiscovered Country - Centered headlines problem</summary><br>
 
 
-</details>
 
 <img src='img/20240327-032719.png' width=300px>
 
@@ -611,6 +610,15 @@ For any well-designed piece, you'll be able to draw lines to the aligned objects
 
 <img src='img/20240330-033034.png' width=300px>
 
+Improvements:
+
+- Removed the border from the graphic
+- Enlarged the graphic to fill the space better, aligning the left and right edges in this freefrom case
+- Justified the type, only because the columns are wide enough for that size of type to prevent big gaps between words
+- Changed the indent to an em space (e.g. 12-point type would take a 12-point indent about two spaces)
+
+Notes: 
+
 - Find a strong line and stick to it&mdash;if the text is flush left, set the heads and subheads flush left
 - First paragraphs are traditionally not indented. The purpose of indenting a paragraph is to tell you there is a new paragraph, but you already know the first paragraph is a new paragraph
 - The professional typographic indent is one **em**, which is about two spaces, not five. An **em** is about the point size of your type
@@ -618,7 +626,72 @@ For any well-designed piece, you'll be able to draw lines to the aligned objects
 - If there are photographs or illustrations, align them with an edge and/or baseline
 - Strong alignment is often the key to a professional look. Check every element to make sure it has a visual connection to something else on the page
 
+</details>
+
+<details><summary>iRead Shakespeare - Too many vertical alignments</summary><br>
+
 <img src='img/20240351-035115.png' width=400px>
 
+- Immediate visual impression is a little sloppy. Draw vertical lines to see clearly how many different alignments there are.
+- Check for: 
+
+  - illustrations that hang out over the edge just a bit
+  - captions that are centered under photos
+  - headlines that are not aligned with the text
+  - rules (lines) that don't align with anything 
+  - a combination of centered text and flush left text
+
+<img src='img/20240304-040421.png' width=400px>
+
+- Draw lines along the strong alignments, both vertical and horizontal
+
+Improvements:
+
+- Set the headings in the same font as the title (Principle of Repetition). Also used the same color.
+- Removed the indent int he first paragraphs after the headings
+- Made the paragraph indents an em space in width (width of the point size of the type)
+- Used the tabs and leaders to make sure the table of contents align instead of using a row of periods
+- Enlarged the readers graphic and shaded it back to gray so it wouldn't compete with the headline
+- Aligned the readers graphic with the top and bottom of the headline, plus the left column edge. Points and circles always extend a bit beyond the alignment edge as a response to the visual trick of appearing smaller
+
+</details>
+
+<details><summary>6 Steps to Pie as Art - Trapped whitespace</summary><br>
+
+<img src='img/20240312-041210.png' width=400px>
+
+- Find a strong line and use it!
+- If you have a graphic with a strong flush side, align the side of the text along the straight edge of the graphic
+- There is a nice, strong, invisible line along the left edge of the type, and there is a nice strong line along the left edge of the image
+- However, between the text and the image is trapped whitespace, which is in an awkward shape. When whitespace is trapped, it pushes the two elements apart.
+
+<img src='img/20240315-041552.png' width=400px>
+
+- Now the strong line on the left side of the text and the strong line on the right side of the image are next to each other, making each other stronger. The white space is now floating free off the right edge
+- Start looking for this type of mistake, where a project has a strong line that is weakened by abutting it to a ragged edge
+- If your alignments are strong, you can break through them consciously and it will look intentional. The trick is you cannot be timid about breaking the alignment&mdash;either do it all the way or don't do it.  Don't be a wimp!
+
+Other improvements
+
+- Moved the text closer to the numbers (Principle of Proximity)
+- Changed "6" in the title to "Six" to prevent conflict with the numerals
+- Enlarged the title a bit
+
+</details>
+
+<details><summary>Le Petit Jambon - Breaking the rules on purpose</summary><br>
+
+<Enter text here>
+
+<img src='img/20240325-042535.png' width=400px>
+
+Thoughts:
+
+- Illustration is angled and breaking into the text block. This works fine if the rest of the piece has clean alignments and the oddball element _appears to be intentional_. 
+- It's possible to break free of alignment, **if you do it consciously**.
+- Remember this rule about breaking rules:  **You must know what the rule is before you can break it**
+- When the rules are broken on purpose, they have a stronger and more important impact
+
+</details>
 
 
