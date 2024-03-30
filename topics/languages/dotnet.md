@@ -133,7 +133,11 @@ Things to note:
 
 #### C# Features
 
+See [Visual Studio previous versions documentation](https://learn.microsoft.com/en-us/previous-versions/visualstudio/).
+
 ##### [C# version 1.0 (2003)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-10-1)
+
+See [Visual Studio 2003 Retired Technical Documentation](https://www.microsoft.com/en-us/download/details.aspx?id=55979).
 
 Initially looked very similar to Java. Major features introduced
 
@@ -922,6 +926,8 @@ Initially looked very similar to Java. Major features introduced
 
 ##### [C# version 2.0 (2005)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-20)
 
+See [Visual Studio 2005 Retired documentation](https://www.microsoft.com/en-us/download/details.aspx?id=55984).
+
 Major features introduced:
 
 - [Generics](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/generics) - allow for the creation of reusable code components that can work with any data type, enhancing type safety and reducing code duplication compared to before their introduction, where developers had to use non-generic collections and methods, often requiring manual casting or boxing.
@@ -1339,6 +1345,8 @@ Major features introduced:
 ##### [C# version 3.0 (2007)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-30)
 
 C# version 3.0 came in late 2007, along with Visual Studio 2008, though most of the language features would come with .NET Framework 3.5. The features in this release established C# as a truly formidable language. The killer feature in this version is the query expression, known as Language-Integrated Query (LINQ). Other features, including expression trees, lambda expressions, and anonymous types, are the foundation upon which LINQ is constructed. These features lay the groundwork for turning C# into a hybrid Object-Oriented/Functional language.
+
+See [What's New in the Original Release Version of Visual C# 2008](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-2008/bb383815(v=vs.90)#whats-new-in-the-original-release-version-of-visual-c-2008).
 
 Major features introduced:
 
@@ -1913,7 +1921,7 @@ Major features introduced:
 
 ##### [C# version 4.0 (2010)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-40)
 
-Released with Visual Studio 2010.
+Released with Visual Studio 2010. See [What's New in Visual C# 2010](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-2010/bb383815(v=vs.100)).
 
 Embedded interop types eased the deployment pain of creating COM interop assemblies for your application. Generic covariance and contravariance gave more power to generics, but they're a bit academic and probably most appreciated by framework and library authors. Named and optional parameters let you eliminate many method overloads and provide convenience. None of these features are paradigm altering.
 
@@ -2169,6 +2177,8 @@ The major feature introduced was the `dynamic` keyword, which gives you the abil
 
 ##### [C# version 5.0 (2012)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-50)
 
+See [What's New in Visual C# in Visual Studio 2012](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-2012/hh156499(v=vs.110)).
+
 Released with Visual Studio 2012. Nearly all of the effort went into the `async` and `await` model for asynchronous programming. This changed the game for C# by baking asynchrony into the language as a first-class participant.
 
 The caller info attribute lets you easily retrieve information about the context in which you're running without resorting to a ton of boilerplate reflection code. It has many uses in diagnostics and logging tasks.
@@ -2300,6 +2310,8 @@ The caller info attribute lets you easily retrieve information about the context
     </details>
 
 ##### [C# version 6.0 (2015)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-60)
+
+See [Visual Studio 2015 Release Notes](https://learn.microsoft.com/en-us/visualstudio/releasenotes/vs2015-rtm-vs#csharpvb).
 
 Released with Visual Studio 2015, included many smaller features that made programming more productive. In this version, C# started to eliminate language boilerplate to make code more terse and readable.
 
@@ -2721,6 +2733,12 @@ With this version, Microsoft also released the Roslyn compiler, which meant the 
 
 ##### [C# version 7.0 (March 2017)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-70)
 
+See:
+
+- [What's New in C# 7.0](https://devblogs.microsoft.com/dotnet/whats-new-in-csharp-7-0/)
+- [New Features in C# 7.0](https://devblogs.microsoft.com/dotnet/new-features-in-c-7-0/)
+
+
 Released with Visual Studio 2017. All of the features in this release offer developers the opportunity to write cleaner code. Highlights are condensing the declaration of variables to use with the `out` keyword and by allowing multiple return values via tuple. 
 
 .NET Core now targets any operating system.
@@ -2737,8 +2755,8 @@ Released with Visual Studio 2017. All of the features in this release offer deve
     3. **Reduced Boilerplate:** Using out variables eliminates the need for separate variable declarations, reducing clutter and making the code more compact and maintainable.
 
     **Practical Use Cases:**
-    1. **Method Calls with Multiple Return Values:** Out variables are useful when calling methods that return multiple values, as they allow for immediate assignment of the returned values to variables.
-    2. **Avoiding Temporary Variables:** Out variables eliminate the need for temporary variables to store return values before assigning them to other variables, reducing clutter in the code.
+    4. **Method Calls with Multiple Return Values:** Out variables are useful when calling methods that return multiple values, as they allow for immediate assignment of the returned values to variables.
+    5. **Avoiding Temporary Variables:** Out variables eliminate the need for temporary variables to store return values before assigning them to other variables, reducing clutter in the code.
 
     **Example:**
 
@@ -3674,7 +3692,12 @@ Added a number of small language features. See [Welcome to C# 7.2 and Span](http
 
 ##### [C# version 7.3 (May 2018)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-73) 
 
-Two themes to this release: (1) enable safe code to be as performant as unsafe code and (2) incremental improvements to existing features. See [A (Belated) Welcome to C# 7.3](https://devblogs.microsoft.com/dotnet/a-belated-welcome-to-c-7-3/).
+Two themes to this release: (1) enable safe code to be as performant as unsafe code and (2) incremental improvements to existing features. 
+
+See:
+
+- [A (Belated) Welcome to C# 7.3](https://devblogs.microsoft.com/dotnet/a-belated-welcome-to-c-7-3/).
+- [Visual Studio 2017 15.7 Release Notes](https://learn.microsoft.com/en-us/visualstudio/releasenotes/vs2017-relnotes-v15.7#csharp)
 
 Performance of safe code
 
@@ -3744,11 +3767,58 @@ Performance of safe code
 
 Enhancements to existing features
 
+- [Support for `==` and `!=` on tuple types](https://github.com/dotnet/csharplang/blob/main/proposals/csharp-7.3/tuple-equality.md) - allows for the comparison of the individual elements within two tuples, checking for equality or inequality respectively
 
+    <details><summary>Overview</summary><br>
 
+    Testing `==` and `!=` with tuple types in C# enables direct comparison of the values within two tuples, streamlining equality checks between them. This feature simplifies the process of comparing complex data structures by allowing developers to compare tuple elements directly, rather than needing to compare each element individually. Its introduction into C# significantly enhances code readability and reduces the amount of boilerplate code required for comparing each element of tuples manually. Before this feature, developers had to decompose tuples and compare each element individually, a process that was both error-prone and verbose. For instance, comparing two tuples `(a, b)` and `(x, y)` required separate equality checks for `a == x` and `b == y` to determine overall tuple equality. After the feature's introduction, the same comparison can be succinctly performed using `(a, b) == (x, y)`, directly comparing the tuples in a single, concise statement. This advancement provides a more intuitive and less error-prone approach to handling complex data comparisons in C#.
 
+    </details>
 
-</details>
+- [Attributes on backing fields](https://github.com/dotnet/csharplang/blob/main/proposals/csharp-7.3/auto-prop-field-attrs.md) - allows developers to apply attributes directly to the automatically generated backing field of a property, enhancing control and customization over serialization, data validation, and other behaviors without manual field declaration.
+
+    <details><summary>Overview</summary><br>
+
+    Attaching attributes to the backing field of auto-implemented properties in C# enables developers to directly apply metadata to the compiler-generated backing fields behind properties, offering a streamlined approach to control serialization, ORM mappings, and validation with minimal boilerplate code. This feature addresses the limitation of not being able to directly decorate the hidden backing fields of properties with attributes, which are often required for frameworks that use reflection to inspect attributes at runtime, such as Entity Framework for database mappings or data annotations for validation. Before this feature was introduced, if a developer wanted to attach an attribute like `[NonSerialized]` to a property's backing field, they would have to manually implement the backing field and the property, a process that could clutter the code with boilerplate. For example:
+
+    ```csharp
+    private [NonSerialized] int _value; // Before the feature
+    public int Value {
+        get { return _value; }
+        set { _value = value; }
+    }
+    ```
+
+    With the introduction of this feature, the same outcome can be achieved with significantly less code and without sacrificing the clarity and conciseness of auto-implemented properties. Now, developers can simply declare an auto-implemented property and use the `field:` target to apply attributes to its backing field directly:
+
+    ```csharp
+    public int Value { get; set; } [field: NonSerialized]
+    ```
+
+    This approach not only makes the code cleaner and more readable but also maintains the encapsulation benefits of auto-implemented properties, thereby enhancing code maintainability and reducing the likelihood of errors that could arise from manual property implementation.
+
+    </details>
+
+- Method resolution when arguments differ by `in` - involves the compiler selecting the most appropriate method to invoke based on whether the parameters are passed by value or by in, enhancing the efficiency and safety of method calls involving large structs or readonly data.
+
+    <details><summary>Overview</summary><br>
+
+    Method resolution when arguments differ by `in` in C# allows the compiler to choose between overloaded methods based on whether parameters are passed by value or by reference using the `in` modifier, optimizing performance and memory usage, especially with large structs. This feature is particularly beneficial for scenarios where it's important to avoid the overhead of copying large structs in method calls, thus improving the application's efficiency without compromising data safety or immutability. Before this feature, developers often had to manually manage method overloads or resort to using ref or out parameters, which could lead to less efficient memory usage or unintended side effects. For example, without `in`, a method taking a large struct as a parameter would either have to copy the entire struct or use a `ref` parameter, potentially allowing the method to modify the caller's variable:
+
+    ```csharp
+    void ProcessLargeStruct(LargeStruct data) { /* Processing */ }
+    ```
+
+    After the introduction of the `in` keyword, developers can define methods that take large structs as parameters more efficiently, with the guarantee that the data will not be modified, and without the overhead of copying the struct for the call:
+
+    ```csharp
+    void ProcessLargeStruct(in LargeStruct data) { /* More efficient processing */ }
+    ```
+
+    This change allows for more expressive and efficient code, particularly in performance-critical applications dealing with large data structures.
+
+    </details>
+
 
 See here for a complete timeline: 
 
