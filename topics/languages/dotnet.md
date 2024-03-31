@@ -140,6 +140,8 @@ The following resources provide documentation on C# language features:
 
 ##### [C# version 1.0 (2003)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-10-1)
 
+<details><summary>Overview</summary><br>
+
 Reference: [Visual Studio 2003 Retired Technical Documentation](https://www.microsoft.com/en-us/download/details.aspx?id=55979). 
 
 Initially looked very similar to Java Major features introduced below.
@@ -927,7 +929,11 @@ Initially looked very similar to Java Major features introduced below.
 
     </details>
 
+</details>
+
 ##### [C# version 2.0 (2005)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-20)
+
+<details><summary>Overview</summary><br>
 
 Reference: [Visual Studio 2005 Retired documentation](https://www.microsoft.com/en-us/download/details.aspx?id=55984). 
 
@@ -1345,7 +1351,11 @@ Major features introduced:
 
     </details>
 
+</details>
+
 ##### [C# version 3.0 (2007)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-30)
+
+<details><summary>Overview</summary><br>
 
 Reference: [What's New in the Original Release Version of Visual C# 2008](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-2008/bb383815(v=vs.90)#whats-new-in-the-original-release-version-of-visual-c-2008).
 
@@ -1922,7 +1932,11 @@ Major features introduced:
 
     </details>
 
+</details>
+
 ##### [C# version 4.0 (2010)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-40)
+
+<details><summary>Overview</summary><br>
 
 Reference: [What's New in Visual C# 2010](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-2010/bb383815(v=vs.100)).
 
@@ -2178,7 +2192,11 @@ The major feature introduced was the `dynamic` keyword, which gives you the abil
 
     </details>
 
+</details>
+
 ##### [C# version 5.0 (2012)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-50)
+
+<details><summary>Overview</summary><br>
 
 Reference: [What's New in Visual C# in Visual Studio 2012](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-2012/hh156499(v=vs.110)).
 
@@ -2312,7 +2330,11 @@ The caller info attribute lets you easily retrieve information about the context
 
     </details>
 
+</details>
+
 ##### [C# version 6.0 (2015)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-60)
+
+<details><summary>Overview</summary><br>
 
 Reference: [Visual Studio 2015 Release Notes](https://learn.microsoft.com/en-us/visualstudio/releasenotes/vs2015-rtm-vs#csharpvb).
 
@@ -2734,7 +2756,11 @@ With this version, Microsoft also released the Roslyn compiler, which meant the 
 
     </details>
 
+</details>
+
 ##### [C# version 7.0 (March 2017)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-70)
+
+<details><summary>Overview</summary><br>
 
 Reference:
 
@@ -3244,7 +3270,11 @@ Released with Visual Studio 2017. All of the features in this release offer deve
 
     </details>
 
+</details>
+
 ##### [C# version 7.1 (August 2017)](https://devblogs.microsoft.com/dotnet/welcome-to-c-7-1/)
+
+<details><summary>Overview</summary><br>
 
 Microsoft started point releases with C# 7.1, which lasted until 7.3. Version 7.1 added the _language version selection_ configuration element.
 
@@ -3426,7 +3456,11 @@ Features introduced:
 
     </details>
 
+</details>
+
 ##### [C# version 7.2 (August 2017)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-72)
+
+<details><summary>Overview</summary><br>
 
 Reference:
 
@@ -3640,6 +3674,8 @@ Added a number of small language features, most that cater to memory optimizatio
     In this example, `StackOnlyStruct` is guaranteed to be allocated on the stack, where access is faster, and it is automatically deallocated when it goes out of scope, avoiding garbage collection overhead. The `ref struct` feature thus offers a powerful tool for developers to gain more control over memory allocation and performance, especially in scenarios requiring rapid execution and temporary data storage, all while maintaining the safety and robustness of managed code.
 
     </details>
+
+</details>
 
 ##### [C# version 7.3 (May 2018)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-73) 
 
