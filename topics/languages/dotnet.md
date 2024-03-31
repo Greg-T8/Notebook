@@ -133,14 +133,17 @@ Things to note:
 
 #### C# Features
 
-See [Visual Studio previous versions documentation](https://learn.microsoft.com/en-us/previous-versions/visualstudio/).
+The following resources provide documentation on C# language features:
+
+- [GitHub - Roslyn Language Feature Status (versions 7.1+)](https://github.com/dotnet/roslyn/blob/main/docs/Language%20Feature%20Status.md)
+- [Visual Studio previous versions documentation](https://learn.microsoft.com/en-us/previous-versions/visualstudio/).
 
 ##### [C# version 1.0 (2003)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-10-1)
 
-See [Visual Studio 2003 Retired Technical Documentation](https://www.microsoft.com/en-us/download/details.aspx?id=55979).
+Reference: [Visual Studio 2003 Retired Technical Documentation](https://www.microsoft.com/en-us/download/details.aspx?id=55979). 
 
-Initially looked very similar to Java. Major features introduced
-
+Initially looked very similar to Java Major features introduced below.
+ 
 - [Classes](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/classes) - a blueprint for creating objects that encapsulates data and behavior, facilitating code organization and reusability through inheritance and polymorphism
   
     <details><summary>Overview</summary><br>
@@ -926,7 +929,7 @@ Initially looked very similar to Java. Major features introduced
 
 ##### [C# version 2.0 (2005)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-20)
 
-See [Visual Studio 2005 Retired documentation](https://www.microsoft.com/en-us/download/details.aspx?id=55984).
+Reference: [Visual Studio 2005 Retired documentation](https://www.microsoft.com/en-us/download/details.aspx?id=55984). 
 
 Major features introduced:
 
@@ -1344,9 +1347,9 @@ Major features introduced:
 
 ##### [C# version 3.0 (2007)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-30)
 
-C# version 3.0 came in late 2007, along with Visual Studio 2008, though most of the language features would come with .NET Framework 3.5. The features in this release established C# as a truly formidable language. The killer feature in this version is the query expression, known as Language-Integrated Query (LINQ). Other features, including expression trees, lambda expressions, and anonymous types, are the foundation upon which LINQ is constructed. These features lay the groundwork for turning C# into a hybrid Object-Oriented/Functional language.
+Reference: [What's New in the Original Release Version of Visual C# 2008](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-2008/bb383815(v=vs.90)#whats-new-in-the-original-release-version-of-visual-c-2008).
 
-See [What's New in the Original Release Version of Visual C# 2008](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-2008/bb383815(v=vs.90)#whats-new-in-the-original-release-version-of-visual-c-2008).
+C# version 3.0 came in late 2007, along with Visual Studio 2008, though most of the language features would come with .NET Framework 3.5. The features in this release established C# as a truly formidable language. The killer feature in this version is the query expression, known as Language-Integrated Query (LINQ). Other features, including expression trees, lambda expressions, and anonymous types, are the foundation upon which LINQ is constructed. These features lay the groundwork for turning C# into a hybrid Object-Oriented/Functional language.
 
 Major features introduced:
 
@@ -1921,7 +1924,7 @@ Major features introduced:
 
 ##### [C# version 4.0 (2010)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-40)
 
-Released with Visual Studio 2010. See [What's New in Visual C# 2010](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-2010/bb383815(v=vs.100)).
+Reference: [What's New in Visual C# 2010](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-2010/bb383815(v=vs.100)).
 
 Embedded interop types eased the deployment pain of creating COM interop assemblies for your application. Generic covariance and contravariance gave more power to generics, but they're a bit academic and probably most appreciated by framework and library authors. Named and optional parameters let you eliminate many method overloads and provide convenience. None of these features are paradigm altering.
 
@@ -2177,7 +2180,7 @@ The major feature introduced was the `dynamic` keyword, which gives you the abil
 
 ##### [C# version 5.0 (2012)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-50)
 
-See [What's New in Visual C# in Visual Studio 2012](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-2012/hh156499(v=vs.110)).
+Reference: [What's New in Visual C# in Visual Studio 2012](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-2012/hh156499(v=vs.110)).
 
 Released with Visual Studio 2012. Nearly all of the effort went into the `async` and `await` model for asynchronous programming. This changed the game for C# by baking asynchrony into the language as a first-class participant.
 
@@ -2311,7 +2314,7 @@ The caller info attribute lets you easily retrieve information about the context
 
 ##### [C# version 6.0 (2015)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-60)
 
-See [Visual Studio 2015 Release Notes](https://learn.microsoft.com/en-us/visualstudio/releasenotes/vs2015-rtm-vs#csharpvb).
+Reference: [Visual Studio 2015 Release Notes](https://learn.microsoft.com/en-us/visualstudio/releasenotes/vs2015-rtm-vs#csharpvb).
 
 Released with Visual Studio 2015, included many smaller features that made programming more productive. In this version, C# started to eliminate language boilerplate to make code more terse and readable.
 
@@ -2733,13 +2736,13 @@ With this version, Microsoft also released the Roslyn compiler, which meant the 
 
 ##### [C# version 7.0 (March 2017)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-70)
 
-See:
+Reference:
 
 - [What's New in C# 7.0](https://devblogs.microsoft.com/dotnet/whats-new-in-csharp-7-0/)
 - [New Features in C# 7.0](https://devblogs.microsoft.com/dotnet/new-features-in-c-7-0/)
+- [Visual Studio 2017 15.0 Release Notes](https://learn.microsoft.com/en-us/visualstudio/releasenotes/vs2017-relnotes-v15.0#-c-and-visual-basic)
 
-
-Released with Visual Studio 2017. All of the features in this release offer developers the opportunity to write cleaner code. Highlights are condensing the declaration of variables to use with the `out` keyword and by allowing multiple return values via tuple. 
+Released with Visual Studio 2017. All of the features in this release offer developers the opportunity to write cleaner code. Highlights are condensing the declaration of variables to use with the `out` keyword and by allowing multiple return values via tuple.
 
 .NET Core now targets any operating system.
 
@@ -3243,6 +3246,16 @@ Released with Visual Studio 2017. All of the features in this release offer deve
 
 ##### [C# version 7.1 (August 2017)](https://devblogs.microsoft.com/dotnet/welcome-to-c-7-1/)
 
+Microsoft started point releases with C# 7.1, which lasted until 7.3. Version 7.1 added the _language version selection_ configuration element.
+
+Reference:
+
+- [Welcome to C# 7.1](https://devblogs.microsoft.com/dotnet/welcome-to-c-7-1/)
+- [GitHub Roslyn - C# 7.1 Language Feature Status](https://github.com/dotnet/roslyn/blob/main/docs/Language%20Feature%20Status.md#c-71)
+- [Visual Studio 2017 15.3 Release Notes](https://learn.microsoft.com/en-us/visualstudio/releasenotes/vs2017-relnotes-v15.3#cs71).
+
+Features introduced: 
+
 - [Language version selection configuration element](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/configure-language-version) - allows developers to specify the version of the C# language syntax the compiler should use, enabling control over which language features are available within a project to ensure compatibility and stability.
 
     <details><summary>Overview</summary><br>
@@ -3415,9 +3428,15 @@ Released with Visual Studio 2017. All of the features in this release offer deve
 
 ##### [C# version 7.2 (August 2017)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-72)
 
-Added a number of small language features. See [Welcome to C# 7.2 and Span](https://devblogs.microsoft.com/dotnet/welcome-to-c-7-2-and-span/).
+Reference:
 
-- [Non-trailing named arguments](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/named-and-optional-arguments) - allow you to specify arguments by their names instead of purely by their position in the method signature, even before positional arguments, provided every argument thereafter is also named.
+- [Welcome to C# 7.2 and Span](https://devblogs.microsoft.com/dotnet/welcome-to-c-7-2-and-span/)
+- [GitHub Roslyn - C# 7.2](https://github.com/dotnet/roslyn/blob/main/docs/Language%20Feature%20Status.md#c-72)
+- [Visual Studio 2017 15.5 Release Notes](https://learn.microsoft.com/en-us/visualstudio/releasenotes/vs2017-relnotes-v15.5#compiler)
+
+Added a number of small language features, most that cater to memory optimization and performance. 
+
+- [Non-trailing named arguments](https://github.com/dotnet/csharplang/blob/main/proposals/csharp-7.2/non-trailing-named-arguments.md) - allow you to specify arguments by their names instead of purely by their position in the method signature, even before positional arguments, provided every argument thereafter is also named.
 
     <details><summary>Overview</summary><br>
 
@@ -3439,7 +3458,7 @@ Added a number of small language features. See [Welcome to C# 7.2 and Span](http
 
     </details>
 
-- [`private protected` access modifier](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/access-modifiers) - specifies that a member is accessible within its declaring assembly through the containing class or types derived from the containing class.
+- [`private protected` access modifier](https://github.com/dotnet/csharplang/blob/main/proposals/csharp-7.2/private-protected.md) - specifies that a member is accessible within its declaring assembly through the containing class or types derived from the containing class.
 
     <details><summary>Overview</summary><br>
 
@@ -3491,75 +3510,7 @@ Added a number of small language features. See [Welcome to C# 7.2 and Span](http
 
     </details>
 
-- Initializers on `stackalloc` arrays - allow developers to directly assign values to arrays allocated on the stack, enhancing their initialization syntax for more concise and readable code.
 
-    <details><summary>Overview</summary><br>
-
-    The introduction of initializers on `stackalloc` arrays in C# 7.2 marked a significant improvement in the way developers work with stack-allocated arrays. Prior to this feature, when using `stackalloc` to allocate memory for an array on the stack, initializing the array elements required manual assignment for each element. This process was not only tedious but also prone to errors, especially with larger arrays or when initializing arrays with complex patterns.
-
-    The primary benefit of initializers on `stackalloc` arrays is the enhancement of code clarity and conciseness. Developers can now use a familiar syntax similar to array initializers on heap-allocated arrays, making the code more readable and maintainable. This feature is particularly useful in performance-critical applications where stack allocation is preferred due to its speed and the fact that it avoids garbage collection overhead. Examples include low-level systems programming, game development, and high-performance computing where managing memory efficiently is crucial.
-
-    Before the introduction of this feature, initializing a stack-allocated array would look something like this:
-
-    ```csharp
-    unsafe {
-        int* numbers = stackalloc int[3];
-        numbers[0] = 1;
-        numbers[1] = 2;
-        numbers[2] = 3;
-    }
-    ```
-
-    Each element of the array had to be individually assigned, which could become cumbersome with more elements or complex initialization patterns.
-
-    With the introduction of initializers on `stackalloc` arrays in C# 7.2, the same operation can be accomplished more succinctly:
-
-    ```csharp
-    unsafe {
-        int* numbers = stackalloc int[3] { 1, 2, 3 };
-    }
-    ```
-
-    This new syntax allows for the direct assignment of values at the point of allocation, using curly braces `{}` to enclose the initial values. This not only reduces the amount of code required but also aligns the syntax more closely with the initialization of arrays on the heap, making it easier for developers to write and understand code that involves stack-allocated arrays. The addition of this feature thus represents a small but meaningful enhancement to the C# language, making it more powerful and expressive for low-level programming tasks.
-
-    </details>
-
-- Use `fixed` statements with any type that supports a pattern - allows developers to pin instances of any type, not just arrays or strings, in memory during the execution of unsafe code, provided those types conform to a specific pattern.
-
-    <details><summary>Overview</summary><br>
-
-    In C# 7.2, the enhancement to the `fixed` statement expands its usability beyond the traditional array or string types to any type that implements a pattern satisfying the requirements for pinning. This feature benefits developers by offering more flexibility in managing memory directly, particularly in scenarios involving interoperability with unmanaged code, where it's crucial to prevent the garbage collector from relocating objects in memory. The primary use cases include high-performance applications, such as graphics processing or native interop scenarios, where deterministic memory layouts are necessary. By allowing more types to be fixed in memory, developers can write safer, more expressive, and efficient code when working with unmanaged resources.
-
-    Prior to this feature, the `fixed` statement in C# was limited to pinning arrays and string instances in memory, which restricted its use in scenarios involving custom types or structs that encapsulate unmanaged resources. Developers often had to resort to workarounds, such as copying data into an array or using unsafe code blocks with pointers to achieve the desired memory control, leading to less intuitive and potentially error-prone implementations.
-
-    ```csharp
-    unsafe {
-        int[] numbers = new int[] { 1, 2, 3 };
-        fixed (int* p = numbers) {
-            // Use the pointer p to access the elements in the array.
-        }
-    }
-    ```
-
-    With C# 7.2, the `fixed` statement can be applied to any custom type that exposes a suitable `GetPinnableReference` method, signaling to the compiler how to obtain a stable reference to the data within the object. This method must return a ref to a field, array element, or a pointer type, effectively allowing the object's data to be pinned in memory during the execution of unsafe code blocks. This enhancement simplifies working directly with memory in a type-safe manner, reducing the need for boilerplate code and improving performance by minimizing unnecessary data copies.
-
-    ```csharp
-    public struct CustomBuffer {
-        private byte[] buffer;
-        public ref byte GetPinnableReference() => ref buffer[0];
-    }
-
-    unsafe {
-        CustomBuffer customBuffer = new CustomBuffer();
-        fixed (byte* p = customBuffer) {
-            // Use the pointer p to access the elements in the buffer.
-        }
-    }
-    ```
-
-    This example demonstrates how a custom type, `CustomBuffer`, can be used with the `fixed` statement by providing a `GetPinnableReference` method, thereby enabling direct, efficient, and safe manipulation of memory in scenarios that were previously more cumbersome or not possible.
-
-    </details>
 
 - Declare `readonly struct` types - define value types that do not allow modification of their data after construction, ensuring immutability and thread safety.
 
@@ -3694,12 +3645,46 @@ Added a number of small language features. See [Welcome to C# 7.2 and Span](http
 
 Two themes to this release: (1) enable safe code to be as performant as unsafe code and (2) incremental improvements to existing features. 
 
-See:
+Reference:
 
 - [A (Belated) Welcome to C# 7.3](https://devblogs.microsoft.com/dotnet/a-belated-welcome-to-c-7-3/).
 - [Visual Studio 2017 15.7 Release Notes](https://learn.microsoft.com/en-us/visualstudio/releasenotes/vs2017-relnotes-v15.7#csharp)
+- [GitHub Roslyn - C# 7.3 Language Feature Status](https://github.com/dotnet/roslyn/blob/main/docs/Language%20Feature%20Status.md#c-73)
 
 Performance of safe code
+
+- Initializers on `stackalloc` arrays - allow developers to directly assign values to arrays allocated on the stack, enhancing their initialization syntax for more concise and readable code.
+
+    <details><summary>Overview</summary><br>
+
+    The introduction of initializers on `stackalloc` arrays in C# 7.2 marked a significant improvement in the way developers work with stack-allocated arrays. Prior to this feature, when using `stackalloc` to allocate memory for an array on the stack, initializing the array elements required manual assignment for each element. This process was not only tedious but also prone to errors, especially with larger arrays or when initializing arrays with complex patterns.
+
+    The primary benefit of initializers on `stackalloc` arrays is the enhancement of code clarity and conciseness. Developers can now use a familiar syntax similar to array initializers on heap-allocated arrays, making the code more readable and maintainable. This feature is particularly useful in performance-critical applications where stack allocation is preferred due to its speed and the fact that it avoids garbage collection overhead. Examples include low-level systems programming, game development, and high-performance computing where managing memory efficiently is crucial.
+
+    Before the introduction of this feature, initializing a stack-allocated array would look something like this:
+
+    ```csharp
+    unsafe {
+        int* numbers = stackalloc int[3];
+        numbers[0] = 1;
+        numbers[1] = 2;
+        numbers[2] = 3;
+    }
+    ```
+
+    Each element of the array had to be individually assigned, which could become cumbersome with more elements or complex initialization patterns.
+
+    With the introduction of initializers on `stackalloc` arrays in C# 7.2, the same operation can be accomplished more succinctly:
+
+    ```csharp
+    unsafe {
+        int* numbers = stackalloc int[3] { 1, 2, 3 };
+    }
+    ```
+
+    This new syntax allows for the direct assignment of values at the point of allocation, using curly braces `{}` to enclose the initial values. This not only reduces the amount of code required but also aligns the syntax more closely with the initialization of arrays on the heap, making it easier for developers to write and understand code that involves stack-allocated arrays. The addition of this feature thus represents a small but meaningful enhancement to the C# language, making it more powerful and expressive for low-level programming tasks.
+
+    </details>
 
 - Access fixed fields without pinning - allows for direct manipulation of memory within managed objects without the need to explicitly pin the object in memory, simplifying unsafe code blocks that interact with unmanaged code by reducing boilerplate and enhancing performance.
 
@@ -3765,6 +3750,43 @@ Performance of safe code
 
     </details>
 
+- Use `fixed` statements with any type that supports a pattern - allows developers to pin instances of any type, not just arrays or strings, in memory during the execution of unsafe code, provided those types conform to a specific pattern.
+
+    <details><summary>Overview</summary><br>
+
+    In C# 7.2, the enhancement to the `fixed` statement expands its usability beyond the traditional array or string types to any type that implements a pattern satisfying the requirements for pinning. This feature benefits developers by offering more flexibility in managing memory directly, particularly in scenarios involving interoperability with unmanaged code, where it's crucial to prevent the garbage collector from relocating objects in memory. The primary use cases include high-performance applications, such as graphics processing or native interop scenarios, where deterministic memory layouts are necessary. By allowing more types to be fixed in memory, developers can write safer, more expressive, and efficient code when working with unmanaged resources.
+
+    Prior to this feature, the `fixed` statement in C# was limited to pinning arrays and string instances in memory, which restricted its use in scenarios involving custom types or structs that encapsulate unmanaged resources. Developers often had to resort to workarounds, such as copying data into an array or using unsafe code blocks with pointers to achieve the desired memory control, leading to less intuitive and potentially error-prone implementations.
+
+    ```csharp
+    unsafe {
+        int[] numbers = new int[] { 1, 2, 3 };
+        fixed (int* p = numbers) {
+            // Use the pointer p to access the elements in the array.
+        }
+    }
+    ```
+
+    With C# 7.2, the `fixed` statement can be applied to any custom type that exposes a suitable `GetPinnableReference` method, signaling to the compiler how to obtain a stable reference to the data within the object. This method must return a ref to a field, array element, or a pointer type, effectively allowing the object's data to be pinned in memory during the execution of unsafe code blocks. This enhancement simplifies working directly with memory in a type-safe manner, reducing the need for boilerplate code and improving performance by minimizing unnecessary data copies.
+
+    ```csharp
+    public struct CustomBuffer {
+        private byte[] buffer;
+        public ref byte GetPinnableReference() => ref buffer[0];
+    }
+
+    unsafe {
+        CustomBuffer customBuffer = new CustomBuffer();
+        fixed (byte* p = customBuffer) {
+            // Use the pointer p to access the elements in the buffer.
+        }
+    }
+    ```
+
+    This example demonstrates how a custom type, `CustomBuffer`, can be used with the `fixed` statement by providing a `GetPinnableReference` method, thereby enabling direct, efficient, and safe manipulation of memory in scenarios that were previously more cumbersome or not possible.
+
+    </details>
+
 Enhancements to existing features
 
 - [Support for `==` and `!=` on tuple types](https://github.com/dotnet/csharplang/blob/main/proposals/csharp-7.3/tuple-equality.md) - allows for the comparison of the individual elements within two tuples, checking for equality or inequality respectively
@@ -3799,7 +3821,7 @@ Enhancements to existing features
 
     </details>
 
-    - Method resolution when arguments differ by `in` - involves the compiler selecting the most appropriate method to invoke based on whether the parameters are passed by value or by in, enhancing the efficiency and safety of method calls involving large structs or readonly data.
+- Method resolution when arguments differ by `in` - involves the compiler selecting the most appropriate method to invoke based on whether the parameters are passed by value or by in, enhancing the efficiency and safety of method calls involving large structs or readonly data.
 
     <details><summary>Overview</summary><br>
 

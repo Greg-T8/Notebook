@@ -11,6 +11,9 @@
     - [Proximity: What to Avoid](#proximity-what-to-avoid)
     - [Proximity: Design Examples](#proximity-design-examples)
   - [Chapter 3: Alignment](#chapter-3-alignment)
+    - [Alignment: Purpose](#alignment-purpose)
+    - [Alignment: How to get it](#alignment-how-to-get-it)
+    - [Alignment: What to avoid](#alignment-what-to-avoid)
     - [Alignment: Key Takeaways](#alignment-key-takeaways)
     - [Alignment: Examples](#alignment-examples)
 
@@ -385,6 +388,22 @@ Alignment is more than just an aesthetic choice; it serves to unify and organize
 
 > A lack of alignment creates discomfort; it appears to be unorganized; we don't know how to be effective.
 
+#### Alignment: Purpose
+
+The basic purpose of alignment is to **unify and organize** the page.
+
+Unity is an important concept in design. To make all the elements on the page appear to be unified, connected, and interrelated, there needs to be some visual tie between the separate elements. Alignment helps achieve this.
+
+It is often a strong alignment (combined with the appropriate typeface) that creates a sophisticated look, a formal look, a fun look, or a serious look.
+
+#### Alignment: How to get it
+
+Be conscious of where you place elements. Always find something else on the page to align with, even if the two objects are physically far away from each other.  Look out for trapped whitespace.
+
+#### Alignment: What to avoid
+
+Avoid using more than one text alignment on the page. Don't center some text and right-align other text. Break away from centered alignment unless you are consciously trying to create a more formal, sedate presentation. Choose a centered alignment consciously, not by default.
+
 #### Alignment: Key Takeaways
 
 Chapter 3 of "The Non-Designer's Design Book" focuses on the principle of alignment, highlighting its critical role in creating visually appealing and coherent designs. Here are the key takeaways:
@@ -693,5 +712,54 @@ Thoughts:
 - When the rules are broken on purpose, they have a stronger and more important impact
 
 </details>
+
+<details><summary>Doggy's Best Friend - Avoid multiple alignments</summary><br>
+
+<img src='img/20240356-035600.png' width=300px>
+
+- Information on this card is using Principle of Proximity, but it still looks amateurish. 
+- Reason is because it has three different alignments, centered, flush left, and flush right
+- There's additional clipart in the corners
+
+<img src='img/20240359-035921.png' width=300px>
+
+- This improved version uses one alignment
+- Whitespace is now more organized
+
+</details>
+
+<details><summary>Fredrick Space Design - Ideas for improvement</summary><br>
+
+<img src='img/20240301-040119.png' width=400px>
+
+Ideas for improvement:
+
+- Enlarge heading a bit so that it aligns with the photo
+- Group the subhead into closer proximity
+- Maintain strong alignment on the bottom, which puts the web address on its own line, which helps clarify the information
+- Put caps in the web address so you can read it more easily
+- Reduce the second logo in the bottom half a bit so it stops competing with the one above
+
+</details>
+
+<details><summary>Happy Saddles Riding Company - Ideas for improvement</summary><br>
+
+<img src='img/20240311-041139.png' width=400px>
+
+Thoughts:
+
+- Is every element necessary?
+- Is each element in the proper hierachy?
+
+Ideas for improvement:
+
+- Is "Est 2003" really worth all the space it gets?
+- Is a separate line for horseback riding really necessary?
+- Put initial caps in that long web address to make it easier to read
+- Can you shorten the line about information?
+- Can you avoid the two blocks of black that cause your eye to bounce back and forth between them?
+
+</details>
+
 
 
