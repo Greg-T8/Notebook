@@ -16,6 +16,8 @@
     - [Alignment: What to avoid](#alignment-what-to-avoid)
     - [Alignment: Key Takeaways](#alignment-key-takeaways)
     - [Alignment: Examples](#alignment-examples)
+  - [Chapter 4: Repetition](#chapter-4-repetition)
+    - [Repetition: Examples](#repetition-examples)
 
 ## The Non-Designer's Design Book
 
@@ -760,6 +762,100 @@ Ideas for improvement:
 - Can you avoid the two blocks of black that cause your eye to bounce back and forth between them?
 
 </details>
+
+### Chapter 4: Repetition
+
+The Principle of Repetition states: **Repeat some aspect of the design throughout the entire piece.**
+
+Repetition can be thought of as _consistency_. As you look through a brocure, it is repetition of their elements, their consistency, that makes each of those sixteen pages appear to belong to the same brochure.
+
+However, repetition goes beyond consistency&mdash;it is a conscious effort to unify all parts of a design.
+
+>Repetition helps organize the information; it helps guide the reader through pages; it helps unify disparate parts of the design.
+
+#### Repetition: Examples
+
+<details><summary>Business Card - Repetition unifies the piece</summary><br>
+
+<img src='img/20240459-025900.png' width=400px>
+
+When you get to the end of the information, does your eye just wander off the card?
+
+<img src='img/20240400-030019.png' width=400px>
+
+Now when you get to the end, where does your eye go? If you find your eye bounces between the bold elements, that's repetition doing its job&mdash;it ties a piece together; it provides unity.
+
+</details>
+
+<details><summary>The Elizabethan Humours - Make repetitive elements stronger</summary><br>
+
+<img src='img/20240404-030403.png' width=400px>
+
+- Headlines and subheads are a good place to start when you need to create repetitive elements
+
+<img src='img/20240404-030454.png' width=400px>
+
+- Take that consistent element and make it stronger
+
+</details>
+
+<details><summary>Repetitive Elements in Multi-page Publications</summary><br>
+
+<img src='img/20240408-030824.png' width=500px>
+
+- Repetition is a major factor in the unity of multi-page publications
+- The text has a "bottoming out" point (aligning across the bottom), but not all text must align here **if there is a consistent, repetitive starting point at the top of the page.**
+- Some publications might choose to repetitively bottom out (or line up across the bottom&mdash;possibly with a ragged top, like a city skyline) rather than "hang from a clothesline" (align across the top).
+- Use one or the other technique consistently, though.
+
+<img src='img/20240413-031303.png' width=500px>
+
+- If you have a strong, consistent publication, you can throw in surprise elements; save those surprises for items you want to call special attention to.
+
+</details>
+
+<details><summary>Business Package - Use repetition across all pieces</summary><br>
+
+<img src='img/20240416-031653.png' width=400px>
+
+- Use repetition between all pieces in a business package
+
+</details>
+
+<details><summary>The Mad Hatter - Types of repetition</summary><br>
+
+<img src='img/20240421-032105.png' width=300px>
+
+Repetitions:
+
+- Bold typeface
+- Light typeface
+- Square bullets
+- Indents
+- Spacing
+- Alignments
+
+</details>
+
+<details><summary>Pie Just Wants to be Shared - Use of similarly-repeated objects</summary><br>
+
+<Enter text here>
+
+</details>
+
+<img src='img/20240426-032635.png' width=400px>
+
+- Sometimes the repeated items are not exactly the same objects, but objects so closely related that their connection is very clear
+- Repeated items:
+  - The headline font in the names of the workshops
+  - The serif font in the subhead and the footer
+  - The serif font as italic in each workshop
+  - The two colors
+  - The spacing between workshops
+  - The dotted rule
+  - The spacing between the dotted rules and the type
+  - Avoid amateur centered with font choice, spacing, appropriate clipart, no border
+- From the Principle of Alignment, note the intentional use of centered alignment across all elements
 
 
 
