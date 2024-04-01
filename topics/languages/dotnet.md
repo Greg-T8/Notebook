@@ -3457,7 +3457,7 @@ Features introduced:
 
 </details>
 
-##### [C# version 7.2 (August 2017)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-72)
+##### [C# version 7.2 (November 2017)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-72)
 
 <details><summary>Overview</summary><br>
 
