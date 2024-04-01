@@ -13,7 +13,6 @@ This page is a collection of my notes on learning C# and .NET. I captured most o
   - [Getting started with .NET and Visual Studio](#getting-started-with-net-and-visual-studio)
     - [Brief overview of .NET](#brief-overview-of-net)
     - [C# and .NET Timeline](#c-and-net-timeline)
-    - [C# Features](#c-features)
     - [About .NET support (LTS, STS, and Preview)](#about-net-support-lts-sts-and-preview)
     - [Understanding .NET runtime and .NET SDK versions](#understanding-net-runtime-and-net-sdk-versions)
     - [Using dotnet.exe to list and install .NET runtime and SDK versions](#using-dotnetexe-to-list-and-install-net-runtime-and-sdk-versions)
@@ -107,7 +106,9 @@ Modern .NET aims to unify .NET Core with the original .NET Framework into a sing
 
 #### C# and .NET Timeline
 
-In 1999, before the first release of C#, the codename was **C-like Object-Oriented Language (COOL)**. The lead architect was Anders Hejlsberg. Anders indicates that flaws in most major programming languages (e.g. C++, Java) drove the fundamentals of the Common Language Runtime (CLR), which in turn drove the design of the C# language. "C sharp" implies that the language is an increment of C++.
+In 1999, before the first release of C#, the codename was **C-like Object-Oriented Language (COOL)**. The lead architect was Anders Hejlsberg. Anders indicates that flaws in most major programming languages (e.g. C++, Java) drove the fundamentals of the Common Language Runtime (CLR), which in turn drove the design of the C# language. 
+
+"C sharp" implies that the language is an increment of C++. This convention plays on musical notation and programming language evolution. In music, a sharp (#) indicates that the note is to be raised by a semitone. Applying this concept to the progression of programming languages, C# suggests an enhancement or a higher version of C++. C++ itself is a play on the increment operator in C.
 
 | C# Version | Release Date | .NET Version(s)                         | Key C# Language Features Introduced                                                                                                                         | Major .NET Introductions                                         |
 |------------|--------------|-----------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
@@ -130,8 +131,6 @@ Things to note:
 - The table combines .NET Framework, .NET Core, and .NET versions, reflecting the evolution from .NET Framework to .NET Core and then to .NET (5.0 and beyond), which unifies these platforms.
 - The .NET introductions listed include only major highlights. Each version introduced numerous features and improvements not listed here for brevity.
 - For the most current information, including C# and .NET versions released after April 2023, consult the official Microsoft documentation or the .NET Blog.
-
-#### C# Features
 
 The following resources provide documentation on C# language features:
 
@@ -3679,6 +3678,8 @@ Added a number of small language features, most that cater to memory optimizatio
 
 ##### [C# version 7.3 (May 2018)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-73) 
 
+<details><summary>Overview</summary><br>
+
 Two themes to this release: (1) enable safe code to be as performant as unsafe code and (2) incremental improvements to existing features. 
 
 Reference:
@@ -3877,11 +3878,337 @@ Enhancements to existing features
 
     </details>
 
+</details>
+
+##### [C# version 8 (September 2019)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-80)
+
+Reference:
+
+- [GitHub Roslyn: C# 8.0 Language Feature Status](https://github.com/dotnet/roslyn/blob/main/docs/Language%20Feature%20Status.md#c-80)
+- [Visual Studio 2019 C# Release Notes](https://learn.microsoft.com/en-us/visualstudio/releases/2019/release-notes-v16.0#c)
+- [Do more with patterns in C# 8.0](https://devblogs.microsoft.com/dotnet/do-more-with-patterns-in-c-8-0/)
+
+This is the first major release that specifically targets .NET Core.
+
+New features and enhancements:
+
+- [`readonly` instance members](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/struct#readonly-instance-members) - allow you to mark instance methods, properties, and events as immutable, ensuring they do not modify the state of the object.
+
+    <details><summary>Overview</summary><br>
+
+    Readonly instance members in C# are a feature that allow instance methods, properties, and events to be marked as immutable, ensuring they do not modify the object's state. This feature was introduced to enhance the language's ability to work with immutable objects. By allowing specific instance members to be marked as readonly, developers can ensure that these members do not modify the object's state, providing a clear indication of immutability at the instance level rather than just at the time of object construction. This is particularly beneficial for designing thread-safe applications and working within functional programming paradigms where immutability is a key concern. It helps in preventing accidental modifications to the object's state once it has been constructed, promoting safer and more predictable code.
+
+    Before the introduction of readonly instance members, achieving immutability in C# was typically done by marking all fields as readonly and ensuring that methods and properties do not modify those fields. However, this approach didn't explicitly enforce immutability at the member level, leaving room for inadvertent state changes through methods or properties.
+
+    ```csharp
+    public class BeforeReadonlyInstanceMembers
+    {
+        private readonly int _value;
+
+        public BeforeReadonlyInstanceMembers(int value)
+        {
+            _value = value;
+        }
+
+        // Although the field is readonly, there's no way to enforce that methods don't change state indirectly.
+        public int CalculateValue()
+        {
+            // Imagine complex calculations and state changes here
+            return _value;
+        }
+    }
+    ```
+
+    With the introduction of readonly instance members, the same class can explicitly mark methods that do not modify the state, thus enforcing immutability more robustly.
+
+    ```csharp
+    public class AfterReadonlyInstanceMembers
+    {
+        private readonly int _value;
+
+        public AfterReadonlyInstanceMembers(int value)
+        {
+            _value = value;
+        }
+
+        // Explicitly marked as readonly, indicating it doesn't modify the object's state.
+        public readonly int CalculateValue()
+        {
+            // Calculation that doesn't modify the state
+            return _value;
+        }
+    }
+    ```
+
+    In this new approach, the `readonly` modifier on the `CalculateValue` method explicitly signals that the method does not modify the object's state, offering clearer intent and safer code by leveraging the C# compiler's checks for immutability.
+
+    </details>
+
+- [Default interface methods](https://github.com/dotnet/csharplang/blob/main/proposals/csharp-8.0/default-interface-methods.md) - allow interfaces to define implementations for members, enabling new methods to be added to interfaces without breaking existing implementations.
+
+    <details><summary>Overview</summary><br>
+
+    Default interface methods in C# are a feature that enables interfaces to provide a default implementation for methods, allowing new methods to be added to interfaces without breaking the existing implementations of those interfaces. This feature, introduced in C# 8.0, addresses a longstanding limitation in C# where once an interface was published, adding new members to it would break all existing implementations. The primary benefit of default interface methods is the ability to evolve interfaces over time without impacting existing consumers. This is particularly useful in scenarios where an interface is widely implemented across different assemblies or projects, and adding a new member would otherwise require changes to all implementing classes. It facilitates versioning and enhances the flexibility of interface design, making it easier to extend APIs without breaking existing code.
+
+    Before the introduction of default interface methods, extending an interface with new functionality typically involved creating a new interface that inherited from the original one or adding the new methods to existing implementations directly, both of which could be cumbersome and lead to code duplication.
+
+    ```csharp
+    // Before default interface methods
+    public interface IMyInterface
+    {
+        void OldMethod();
+    }
+
+    public class ImplementingClass : IMyInterface
+    {
+        public void OldMethod()
+        {
+            // Implementation
+        }
+        // Adding a new method to the interface would require modifying this class and all other implementations.
+    }
+    ```
+
+    With the introduction of default interface methods, interfaces can now include method implementations, making it possible to add new methods without affecting existing implementations.
+
+    ```csharp
+    // After default interface methods
+    public interface IMyInterface
+    {
+        void OldMethod();
+        
+        // New method with default implementation
+        void NewMethod() => Console.WriteLine("Default implementation");
+    }
+
+    public class ImplementingClass : IMyInterface
+    {
+        public void OldMethod()
+        {
+            // Existing implementation remains unchanged
+        }
+        // It is not required to implement NewMethod, thanks to its default implementation.
+    }
+    ```
+
+    This approach simplifies the process of evolving interfaces and ensures that classes implementing these interfaces can continue to function without changes, while still having the option to override the default implementations if needed.
+
+    </details>
+
+- [Pattern matching enhancements](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/patterns) - introduced more expressive ways to test and switch on types, including switch expressions, property patterns, tuple patterns, and positional patterns, significantly improving code clarity and reducing boilerplate
+
+    <details><summary>Overview</summary><br>
+
+    Pattern matching enhancements in C# 8 include several new features such as switch expressions, property patterns, tuple patterns, and positional patterns, which collectively provide a more powerful and expressive way to perform data comparisons and control flow based on the structure and properties of objects. These enhancements build upon the initial pattern matching capabilities introduced in C# 7, aiming to reduce boilerplate code, improve readability, and make it easier to express complex conditional logic in a more concise manner. The benefits are most apparent in scenarios involving complex decision logic based on object types or their properties, such as parsing data, UI rendering logic, or implementing complex business rules.
+
+    Before C# 8, pattern matching was more limited and often required more verbose syntax to achieve similar outcomes. For example, to perform different actions based on an object's type, developers typically used a series of `if` statements or a `switch` statement with type patterns.
+
+    ```csharp
+    object input = // Some input
+    if (input is int i)
+    {
+        Console.WriteLine($"Integer: {i}");
+    }
+    else if (input is string s)
+    {
+        Console.WriteLine($"String: {s}");
+    }
+    // More type checks and casting as needed
+    ```
+
+    With the enhancements introduced in C# 8, the same logic can be implemented more succinctly and readably using switch expressions and property patterns, among other features. This allows for matching not just on types, but also on values, properties, and more complex conditions.
+
+    ```csharp
+    object input = // Some input
+    var result = input switch
+    {
+        int i => $"Integer: {i}",
+        string s => $"String: {s}",
+        // Patterns can deconstruct objects, match on properties, etc.
+        _ => "Unknown type"
+    };
+    Console.WriteLine(result);
+    ```
+
+    These enhancements significantly simplify the code needed to express conditional logic based on the type and properties of objects. Developers can now write more maintainable and clear code, especially when dealing with complex conditions and types, reducing the likelihood of errors and improving the overall development experience.
+
+    </details>
+
+- [Using declarations](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/using) - simplify the management of resources by automatically disposing of them at the end of the scope, thereby reducing boilerplate code and improving readability.
+
+    <details><summary>Overview</summary><br>
+
+    Using declarations in C# 8 offer a streamlined syntax for resource management, automatically disposing of unmanaged resources at the end of their enclosing scope, thereby enhancing code readability and reducing boilerplate. This feature is an evolution of the `using` statement, intended to simplify the handling of disposable objects, such as file streams, database connections, and other resources that require explicit release. The benefit of using declarations is most apparent in scenarios where multiple disposable resources are used within a limited scope, making the code cleaner and less error-prone by ensuring resources are automatically cleaned up. 
+
+    Before C# 8, managing disposable resources typically involved wrapping them in a `using` statement, which could lead to deeply nested code if multiple resources were being managed, making the code harder to read and maintain.
+
+    ```csharp
+    using (var resource1 = new DisposableResource())
+    {
+        using (var resource2 = new AnotherDisposableResource())
+        {
+            // Use resource1 and resource2
+        }
+    }
+    ```
+
+    With the introduction of using declarations in C# 8, the same resource management can be achieved with less nesting and more clarity, automatically disposing of resources when the scope in which they are declared is exited.
+
+    ```csharp
+    using var resource1 = new DisposableResource();
+    using var resource2 = new AnotherDisposableResource();
+    // Use resource1 and resource2
+    // Both resources are disposed here at the end of the scope automatically.
+    ```
+
+    This new feature significantly improves the management of disposable resources, making the code more concise and readable by eliminating the need for additional braces and reducing the nesting level. It ensures that resources are properly disposed of, reducing the risk of memory leaks or resource contention issues, especially in complex applications where resource management is critical.
+
+    </details>
+
+- [Static local functions](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/local-functions#see-also) - are functions declared within a method's scope that cannot access the method's variables unless passed as parameters, enhancing performance by avoiding captures of local variables.
+
+    <details><summary>Overview</summary><br>
+
+    Static local functions in C# 8 allow for the declaration of functions within the scope of a method, with the key characteristic that they do not capture any variables from the enclosing method's scope unless explicitly passed as parameters. This feature serves as an enhancement to the language by providing a way to declare helper functions within methods without the overhead associated with capturing local variables, which can lead to improved performance in certain scenarios. The primary benefits of static local functions include reducing memory allocations associated with closures and clarifying the developer's intent regarding variable capture, thereby preventing unintentional captures that could lead to bugs or excessive memory usage.
+
+    Before the introduction of static local functions, local functions in C# would capture the local variables of the enclosing method if those variables were referenced, potentially leading to unintended side effects or inefficient memory usage due to closure captures.
+
+    ```csharp
+    void OuterMethod()
+    {
+        int outerVariable = 10;
+        void LocalFunction()
+        {
+            // This local function captures outerVariable, potentially leading to inefficiencies.
+            Console.WriteLine($"Captured variable: {outerVariable}");
+        }
+        LocalFunction();
+    }
+    ```
+
+    With C# 8's introduction of static local functions, the same functionality can be achieved more efficiently by explicitly passing any necessary variables as parameters, thus avoiding unintended captures and improving performance.
+
+    ```csharp
+    void OuterMethod()
+    {
+        int outerVariable = 10;
+        static void LocalFunction(int capturedVariable)
+        {
+            // Now explicitly requires variables to be passed as parameters, no longer capturing them.
+            Console.WriteLine($"Captured variable: {capturedVariable}");
+        }
+        LocalFunction(outerVariable); // Pass the variable explicitly
+    }
+    ```
+
+    This approach makes the code more predictable and performant by ensuring that local functions only use the variables that are explicitly passed to them, eliminating the overhead associated with automatic variable capture. It also enhances code clarity by making the data flow between the outer method and the local function explicit, facilitating easier debugging and maintenance.
+
+    </details>
+
+- [Disposable `ref` structs](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/ref-struct) - provide a mechanism for struct types to efficiently manage resources by implementing the IDisposable interface, enabling stack-allocated instances to be properly cleaned up.
+
+    <details><summary>Overview</summary><br>
+
+    Disposable ref structs in C# 8 extend the language's capability to manage resources more efficiently by allowing ref structs to implement the `IDisposable` interface, facilitating resource cleanup for stack-allocated instances. This feature addresses the need for better resource management in high-performance scenarios where ref structs are used for their ability to operate without heap allocation, thus minimizing garbage collection pressure. The introduction of disposable ref structs is particularly beneficial in scenarios involving the handling of unmanaged resources, such as file handles or database connections, in a high-performance, low-overhead manner. Before this feature, managing the lifecycle of such resources in a ref struct was cumbersome and error-prone, often requiring manual invocation of cleanup methods outside the struct.
+
+    Prior to C# 8, developers relied on convention and external mechanisms to ensure resources associated with ref structs were properly released, which could lead to resource leaks if not carefully managed.
+
+    ```csharp
+    ref struct NonDisposableRefStruct
+    {
+        IntPtr unmanagedResource;
+
+        public NonDisposableRefStruct(IntPtr resource)
+        {
+            unmanagedResource = resource;
+        }
+
+        // Resource cleanup method that must be manually called
+        public void CleanUp()
+        {
+            // Release unmanaged resource
+        }
+    }
+    ```
+
+    With the introduction of disposable ref structs in C# 8, ref structs can now implement `IDisposable`, allowing for automatic resource management using the `using` statement, which ensures that resources are properly disposed of when the struct goes out of scope.
+
+    ```csharp
+    ref struct DisposableRefStruct : IDisposable
+    {
+        IntPtr unmanagedResource;
+
+        public DisposableRefStruct(IntPtr resource)
+        {
+            unmanagedResource = resource;
+        }
+
+        // IDisposable implementation
+        public void Dispose()
+        {
+            // Automatic cleanup of unmanaged resource
+        }
+    }
+
+    // Usage
+    using (var resource = new DisposableRefStruct(unmanagedResource))
+    {
+        // Work with resource
+    }
+    // Resource is automatically cleaned up here
+    ```
+
+    This enhancement simplifies the management of unmanaged resources in high-performance scenarios, ensuring resources are automatically and safely released, thus reducing the risk of memory leaks and promoting cleaner, more maintainable code.
+
+    </details>
+
+- [Nullable reference types](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-reference-types) - introduce syntax to explicitly declare when a reference type is expected to allow or disallow null, aiming to minimize the risk of null reference exceptions by providing compile-time nullability checks.
+
+    <details><summary>Overview</summary><br>
+
+    Nullable reference types in C# provide a way to explicitly declare whether a reference type (e.g., class) is expected to be nullable or non-nullable, significantly reducing the risk of null reference exceptions by introducing compile-time checks for nullability. This feature, introduced in C# 8.0, marks a significant shift in how developers can handle null values, aiming to make the code safer and more predictable by making the intentions regarding nullability explicit. The primary benefit of nullable reference types is the reduction of null reference exceptions, one of the most common bugs in C# applications. It enables developers to express whether a variable is expected to handle null values, thus allowing the compiler to enforce correct use of such variables according to their declared nullability. This feature is especially useful in large codebases and APIs where ensuring null safety can significantly improve code quality and reduce runtime errors.
+
+    Before the introduction of nullable reference types, C# treated all reference types as nullable, allowing them to hold null values without any explicit indication in the type system. This made it easy to inadvertently pass null to a method or property that wasn't designed to handle it, leading to null reference exceptions at runtime.
+
+    ```csharp
+    public class Person
+    {
+        public string Name { get; set; }
+        // Without nullable reference types, there's no indication that Name could be null.
+    }
+
+    Person person = GetPerson();
+    Console.WriteLine(person.Name.Length); // Risk of NullReferenceException if GetPerson() returns null for Name.
+    ```
+
+    With nullable reference types enabled, developers can now clearly indicate whether a reference is expected to be null or not, enabling the compiler to enforce proper handling of null values.
+
+    ```csharp
+    #nullable enable
+    public class Person
+    {
+        public string Name { get; set; } // Non-nullable by default; compile-time warning if not initialized
+        public string? OptionalNickname { get; set; } // Nullable, can explicitly be null
+    }
+
+    Person person = GetPerson();
+    if (person.Name != null) // Compiler enforces check or initialization before access
+    {
+        Console.WriteLine(person.Name.Length); // Safe to access Name
+    }
+    Console.WriteLine(person.OptionalNickname?.Length); // Safe access pattern for nullable reference
+    ```
+
+    This enhancement encourages more deliberate handling of null values, prompting developers to explicitly deal with nullability, thereby making the codebase more robust by preventing common runtime exceptions associated with null references.
+
+    </details>
+
+
 
 See here for a complete timeline: 
 
 - [The history of C#](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history)
-- [C# language versions and features](https://github.com/markjprice/cs12dotnet8/blob/main/docs/ch02-features.md)
+- [C# language versions and features](https://github.com/markjprice/cs12dotnet8/blob/main/docs/ch02-features.md) - .
 
 #### About .NET support (LTS, STS, and Preview)
 
