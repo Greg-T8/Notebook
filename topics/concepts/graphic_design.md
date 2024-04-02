@@ -773,6 +773,8 @@ However, repetition goes beyond consistency&mdash;it is a conscious effort to un
 
 >Repetition helps organize the information; it helps guide the reader through pages; it helps unify disparate parts of the design.
 
+>The repetitive element does not have to be a graphic or clipart; it can be spacing, rules, fonts, alignments, or anything that you consciously repeat.
+
 #### Repetition: Examples
 
 <details><summary>Business Card - Repetition unifies the piece</summary><br>
@@ -839,10 +841,6 @@ Repetitions:
 
 <details><summary>Pie Just Wants to be Shared - Use of similarly-repeated objects</summary><br>
 
-<Enter text here>
-
-</details>
-
 <img src='img/20240426-032635.png' width=400px>
 
 - Sometimes the repeated items are not exactly the same objects, but objects so closely related that their connection is very clear
@@ -857,5 +855,80 @@ Repetitions:
   - Avoid amateur centered with font choice, spacing, appropriate clipart, no border
 - From the Principle of Alignment, note the intentional use of centered alignment across all elements
 
+</details>
 
+<details><summary>Staff Meeting Reminder - Using a variety of repetitive elements</summary><br>
+
+<img src='img/20240411-031127.png' width=400px>
+
+Often you can add repetitive elements that apparently have nothing to do with the purpose of your page.
+Ideas
+
+- Throw in a few petroglyph characters on a survey form
+- Add some strange-looking birds to a report
+- Set several particularly beautiful characters in your font in various large sizes, in gray or light second color, and at various angles throughout the publication
+
+Just make sure it looks intentional and not random
+
+<img src='img/20240415-031501.png' width=300px>
+
+Overlapping a design element or pulling it outside of the borders serves to (1) unify two or more pieces, or (2) unify a foreground and a background, or (3) to unify separate publications that have a common theme.
+
+<img src='img/20240417-031730.png' width=300px>
+
+Repetition makes items look like they belong together, even if the elements are not exactly the same. 
+
+Once you establish a couple of key repetitive items, you can vary those items and still create a consistent look.
+
+There are at least seven repetitive elements in these pictures:
+
+- The color of the green type
+- The font for the green type
+- The color of the white type
+- The font and shadow for the white type
+- The color of the shapes
+- The overlap of various elements
+- The style of the images
+
+</details>
+
+<details><summary>Yountville Seniors Radio - Look for what can be repeated</summary><br>
+
+<img src='img/20240426-032647.png' width=500px>
+
+The dashed letters inspired the dashed concentric ovals hinting at a sound wave.
+
+Once you start noticing what can be repeated, you'll enjoy developing so many options.
+
+Repetitive elements:
+
+- Two fonts
+- Small caps
+- Color of background in color of text
+- Second color of blue (the complement of orange)
+- Copy text is aligned horizontally with the title of the text
+
+</details>
+
+<details><summary>Umbrellas & Charcoal - Look for what can be repeated</summary><br>
+
+<img src='img/20240433-033359.png' width=400px>
+
+The repetitive element does not have to be a graphic or clipart; it can be spacing, rules, fonts, alignments, or anything that you consciously repeat.
+
+Repetitive elements:
+
+- Dark maroon color
+- Green color in bubbles
+- Strong alignment of box with strong alignment of text
+
+</details>
+
+<details><summary>A Hundred Years of Science</summary><br>
+
+<Enter text here>
+
+</details>
+
+<img src='img/20240438-033848.png' width=400px>
 
