@@ -12,7 +12,7 @@ This page is a collection of my notes on learning C# and .NET. I captured most o
 - [Introduction](#introduction)
   - [Getting started with .NET and Visual Studio](#getting-started-with-net-and-visual-studio)
     - [Brief overview of .NET](#brief-overview-of-net)
-    - [C# and .NET Timeline](#c-and-net-timeline)
+    - [C# Timeline and Features](#c-timeline-and-features)
     - [About .NET support (LTS, STS, and Preview)](#about-net-support-lts-sts-and-preview)
     - [Understanding .NET runtime and .NET SDK versions](#understanding-net-runtime-and-net-sdk-versions)
     - [Using dotnet.exe to list and install .NET runtime and SDK versions](#using-dotnetexe-to-list-and-install-net-runtime-and-sdk-versions)
@@ -104,7 +104,7 @@ Modern .NET aims to unify .NET Core with the original .NET Framework into a sing
 
 .NET MAUI (Multi-platform App UI) is an evolution of Xamarin.Forms and aims to simplify the development of cross-platform applications for mobile and desktop from a single codebase.
 
-#### C# and .NET Timeline
+#### C# Timeline and Features
 
 In 1999, before the first release of C#, the codename was **C-like Object-Oriented Language (COOL)**. The lead architect was Anders Hejlsberg. Anders indicates that flaws in most major programming languages (e.g. C++, Java) drove the fundamentals of the Common Language Runtime (CLR), which in turn drove the design of the C# language. 
 
@@ -118,8 +118,8 @@ In 1999, before the first release of C#, the codename was **C-like Object-Orient
 | 4.0        | 2010         | .NET Framework 4                        | Dynamic binding, named and optional arguments, generic co- and contravariance                                                                               | Parallel Extensions, MEF                                         |
 | 5.0        | 2012         | .NET Framework 4.5                      | `async` and `await` keywords                                                                                                                                | Portable Class Libraries (PCL)                                   |
 | 6.0        | 2015         | .NET Framework 4.6                      | Roslyn compiler, string interpolation, expression-bodied members                                                                                            | Compilation and runtime performance improvements                 |
-| 7.0        | 2017         | .NET Core 1.0/1.1, .NET Framework 4.6.2 | Out variables, tuples, pattern matching, local functions                                                                                                    | Introduction of .NET Core, a cross-platform framework            |
-| 8.0        | 2019         | .NET Core 3.0, .NET Framework 4.8       | Nullable reference types, async streams, default interface methods                                                                                          | .NET Core 3.0 supports desktop applications (WPF, Windows Forms) |
+| 7.0        | 2017         | .NET Core 1.0/1.1, <br>.NET Framework 4.6.2 | Out variables, tuples, pattern matching, local functions                                                                                                    | Introduction of .NET Core, a cross-platform framework            |
+| 8.0        | 2019         | .NET Core 3.0    | Nullable reference types, async streams, default interface methods                                                                                          | .NET Core 3.0 supports desktop applications (WPF, Windows Forms) |
 | 9.0        | 2020         | .NET 5.0                                | Records, init-only setters, top-level statements                                                                                                            | Unified .NET SDK experience, performance improvements            |
 | 10.0       | 2021         | .NET 6.0                                | Global using directives, file-scoped namespaces, record structs                                                                                             | Hot reload, minimal APIs, LTS release                            |
 | 11.0       | 2022         | .NET 7.0                                | List patterns, required members, raw string literals                                                                                                        | Performance improvements, enhanced containers support            |
@@ -3882,13 +3882,18 @@ Enhancements to existing features
 
 ##### [C# version 8 (September 2019)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-80)
 
+<details><summary>Overview</summary><br>
+
 Reference:
 
 - [GitHub Roslyn: C# 8.0 Language Feature Status](https://github.com/dotnet/roslyn/blob/main/docs/Language%20Feature%20Status.md#c-80)
 - [Visual Studio 2019 C# Release Notes](https://learn.microsoft.com/en-us/visualstudio/releases/2019/release-notes-v16.0#c)
 - [Do more with patterns in C# 8.0](https://devblogs.microsoft.com/dotnet/do-more-with-patterns-in-c-8-0/)
+- [Building C# 8.0](https://devblogs.microsoft.com/dotnet/building-c-8-0/)
 
-This is the first major release that specifically targets .NET Core.
+Supported Frameworks: [.NET Core 3.0](https://learn.microsoft.com/en-us/dotnet/core/whats-new/dotnet-core-3-0).
+
+This is the first major release that specifically targets .NET Core. .NET Framework 4.8, which was released around the same time, is not supported for C# 8.
 
 New features and enhancements:
 
@@ -3995,7 +4000,7 @@ New features and enhancements:
 
     </details>
 
-- [Pattern matching enhancements](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/patterns) - introduced more expressive ways to test and switch on types, including switch expressions, property patterns, tuple patterns, and positional patterns, significantly improving code clarity and reducing boilerplate
+- [Pattern matching enhancements using `=>`](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/patterns) - introduced more expressive ways to test and switch on types, including switch expressions, property patterns, tuple patterns, and positional patterns, significantly improving code clarity and reducing boilerplate
 
     <details><summary>Overview</summary><br>
 
@@ -4034,7 +4039,7 @@ New features and enhancements:
 
     </details>
 
-- [Using declarations](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/using) - simplify the management of resources by automatically disposing of them at the end of the scope, thereby reducing boilerplate code and improving readability.
+- [`using` declarations](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/using) - simplify the management of resources by automatically disposing of them at the end of the scope, thereby reducing boilerplate code and improving readability.
 
     <details><summary>Overview</summary><br>
 
@@ -4162,7 +4167,7 @@ New features and enhancements:
 
     </details>
 
-- [Nullable reference types](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-reference-types) - introduce syntax to explicitly declare when a reference type is expected to allow or disallow null, aiming to minimize the risk of null reference exceptions by providing compile-time nullability checks.
+- [Nullable reference types using `?`](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-reference-types) - introduces syntax to explicitly declare when a reference type is expected to allow or disallow null, aiming to minimize the risk of null reference exceptions by providing compile-time nullability checks.
 
     <details><summary>Overview</summary><br>
 
@@ -4203,7 +4208,202 @@ New features and enhancements:
 
     </details>
 
+- [Asynchronous streams using `await foreach`](https://github.com/dotnet/csharplang/blob/main/proposals/csharp-8.0/async-streams.md) - provide a way to work with sequences of data asynchronously using IAsyncEnumerable<T> and await foreach to efficiently process streams of data as they become available, without blocking the executing thread.
 
+    <details><summary>Overview</summary><br>
+
+    Asynchronous streams in C# 8 introduce a way to asynchronously process sequences of data, enhancing efficiency and responsiveness in applications dealing with streaming data. This feature utilizes the `IAsyncEnumerable<T>` interface and the `await foreach` statement, allowing developers to asynchronously iterate over streams of data as they become available, which is particularly useful in scenarios where data is produced or consumed at unpredictable times, such as real-time data feeds, file reads, or API calls. The benefit of asynchronous streams lies in their ability to improve application performance and responsiveness, especially in I/O-bound or network-bound scenarios, by not blocking the calling thread while waiting for the data to become available.
+
+    Before the introduction of asynchronous streams, handling streaming data asynchronously required complex implementations, such as manually managing tasks and continuations. Developers had to write cumbersome and less readable code to achieve similar outcomes, which often led to increased complexity and potential for errors.
+
+    ```csharp
+    // Before C# 8: Manually managing asynchronous operations with Task and continuation
+    public async Task<IEnumerable<string>> ReadLinesAsync(string filePath)
+    {
+        var lines = new List<string>();
+        using (var reader = File.OpenText(filePath))
+        {
+            string line;
+            while ((line = await reader.ReadLineAsync()) != null)
+            {
+                lines.Add(line);
+            }
+        }
+        return lines;
+    }
+    ```
+
+    With the advent of C# 8, asynchronous streams simplify the syntax and make the code more intuitive through the use of `IAsyncEnumerable<T>` and `await foreach`, thus directly supporting the asynchronous iteration of elements.
+
+    ```csharp
+    // After C# 8: Using asynchronous streams with IAsyncEnumerable<T> and await foreach
+    public async IAsyncEnumerable<string> ReadLinesAsync(string filePath)
+    {
+        using var reader = File.OpenText(filePath);
+        string line;
+        while ((line = await reader.ReadLineAsync()) != null)
+        {
+            yield return line;
+        }
+    }
+    // Consuming the asynchronous stream
+    await foreach (var line in ReadLinesAsync("example.txt"))
+    {
+        Console.WriteLine(line);
+    }
+    ```
+
+    This code showcases how asynchronous streams can be both produced and consumed in a more straightforward and maintainable way, significantly enhancing code clarity and reducing the potential for error, thereby exemplifying the practical and ergonomic advances introduced with C# 8's asynchronous streams.
+
+    </details>
+
+- [Indices `^` and ranges `..`](https://github.com/dotnet/csharplang/blob/main/proposals/csharp-8.0/ranges.md) - introduce new syntax for accessing elements from the end of a collection and for slicing collections, making it more convenient and readable to work with arrays and other sequential data.
+
+    <details><summary>Overview</summary><br>
+
+    Indices and ranges, introduced in C# 8, provide a concise syntax for accessing elements at the end of a sequence and for slicing sequences, respectively. This feature enhances code readability and simplifies the manipulation of arrays and other sequential collections by introducing the `^` operator for indexing from the end of a sequence and the `..` operator for defining ranges within a sequence. The main benefits include reduced boilerplate code and increased clarity when dealing with subsets of data, making operations like accessing the last element or slicing arrays more intuitive. Practical use cases include scenarios where elements at specific positions need to be retrieved or when operations on sub-sections of data are common, such as processing log files, manipulating data buffers, or handling user input efficiently.
+
+    Before C# 8, accessing elements from the end of an array or creating a sub-array required calculating the index based on the length of the array, which was verbose and error-prone:
+
+    ```csharp
+    string[] names = { "John", "Jane", "Jill", "Jack" };
+    // Accessing the last element
+    string lastName = names[names.Length - 1];
+    // Creating a sub-array
+    string[] subNames = new string[2];
+    Array.Copy(names, 1, subNames, 0, 2);
+    ```
+
+    With C# 8, the same operations become more succinct and intuitive using indices and ranges:
+
+    ```csharp
+    string[] names = { "John", "Jane", "Jill", "Jack" };
+    // Accessing the last element using the ^ operator
+    string lastName = names[^1];
+    // Creating a sub-array using the .. range operator
+    string[] subNames = names[1..3];
+    ```
+
+    This demonstrates how indices and ranges simplify common tasks involving array manipulation, reducing the likelihood of errors and improving code clarity, thereby significantly enhancing the developer's productivity and code maintainability in operations involving sequences.
+
+    </details>
+
+- [Null-coalescing assignment, `??=`](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/assignment-operator#null-coalescing-assignment) - simplifies the assignment of values to variables by automatically assigning a value only if the variable is currently null, reducing the need for explicit null checks and assignments.
+
+    <details><summary>Overview</summary><br>
+
+    The null-coalescing assignment operator in C# 8, denoted by `??=`, streamlines the process of assigning a value to a variable only if that variable is null, thereby enhancing code conciseness and readability. This operator offers a succinct alternative to more verbose conditional checks and assignments that were necessary when ensuring a variable is not left unset or null. Its primary benefit is reducing boilerplate code associated with null checks, making the codebase cleaner and easier to understand. Practical use cases for this feature include initializing objects, setting default values for variables, and assigning fallback values when dealing with potentially null objects, which are common scenarios in database operations, UI programming, and handling optional configuration settings.
+
+    Before the introduction of the null-coalescing assignment operator, assigning a value to a variable only if it was null required an explicit null check:
+
+    ```csharp
+    List<int> numbers = null;
+    // Traditional approach before null-coalescing assignment
+    if (numbers == null)
+    {
+        numbers = new List<int>();
+    }
+    ```
+
+    With the introduction of the null-coalescing assignment operator in C# 8, the same operation can be performed more succinctly and with greater clarity:
+
+    ```csharp
+    List<int> numbers = null;
+    // Using null-coalescing assignment
+    numbers ??= new List<int>();
+    ```
+
+    This code demonstrates how the null-coalescing assignment operator simplifies conditional assignments, reducing the need for explicit null checks and making the code more intuitive and maintainable, especially in scenarios where default initialization is a common requirement.
+
+    </details>
+
+- [Unmanaged constructed types using `where`](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/where-generic-type-constraint) - allow for the use of generic type parameters in unmanaged types, expanding the possibilities for interop scenarios by permitting more complex types to be used with high-performance code paths, such as those involving pointers and stackalloc.
+
+    <details><summary>Overview</summary><br>
+
+    Unmanaged constructed types in C# 8 mark a significant enhancement for interoperability with low-level code by allowing generics to be used in contexts that require unmanaged types, which were previously limited to non-generic, primitive types. This feature extends the capability of working directly with memory in safe contexts, facilitating high-performance operations by enabling more complex data structures (like generic structs) to be used with pointers and memory allocation techniques such as `stackalloc`. The key benefit of this enhancement is the ability to write more generic and reusable high-performance code that can interact efficiently with unmanaged APIs or perform memory manipulation without sacrificing the type safety and productivity benefits of generics. Practical use cases include developing high-performance applications that require direct memory access, such as graphics programming, game development, and interoperability with native code where complex data structures need to be passed between managed and unmanaged code efficiently.
+
+    Before this feature was introduced, developers were limited to using predefined, non-generic structures or explicitly enumerating all possible types when working with unmanaged code, resulting in more boilerplate and less flexible code:
+
+    ```csharp
+    // Before C# 8: Need to define explicit struct layouts for each type
+    struct Point
+    {
+        public int X;
+        public int Y;
+    }
+    ```
+
+    With the introduction of unmanaged constructed types in C# 8, developers can now define and use generic structs in unmanaged contexts, leveraging the power of generics for memory-efficient and type-safe code:
+
+    ```csharp
+    // After C# 8: Using generic structs in unmanaged contexts
+    struct Point<T> where T : unmanaged
+    {
+        public T X;
+        public T Y;
+    }
+    ```
+
+    This evolution allows for more sophisticated data structures to be defined and used in high-performance scenarios, significantly reducing code duplication and increasing the flexibility and power of C# for system-level programming.
+
+    </details>
+
+- [`stackalloc` in nested expressions](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/stackalloc) - allows for the allocation of memory on the stack within expressions, broadening its usability by enabling more complex and concise inline memory operations.
+
+    <details><summary>Overview</summary><br>
+
+    The feature of `stackalloc` in nested expressions, introduced in C# 8, significantly enhances memory allocation by allowing developers to allocate memory on the stack within more complex expressions, thereby providing a powerful tool for high-performance scenarios where avoiding heap allocation is crucial. This capability is especially beneficial in performance-critical applications, such as games, high-frequency trading systems, and real-time processing applications, where minimizing garbage collection pressure and maximizing execution speed are paramount. By enabling `stackalloc` in nested expressions, C# 8 allows for more expressive, concise code patterns, improving readability and maintainability without sacrificing performance.
+
+    Before this feature, using `stackalloc` required more verbose and less flexible code structures, typically necessitating separate statements for allocation and usage, which could lead to cluttered and harder-to-read code:
+
+    ```csharp
+    // Before C# 8: Separate allocation and usage
+    Span<int> numbers;
+    unsafe {
+        int* temp = stackalloc int[10];
+        numbers = new Span<int>(temp, 10);
+        // Usage of numbers
+    }
+    ```
+
+    With the introduction of `stackalloc` in nested expressions in C# 8, developers can now allocate memory on the stack within an expression, making the code more streamlined and integrated:
+
+    ```csharp
+    // After C# 8: Using stackalloc in nested expressions
+    Span<int> numbers = stackalloc int[10];
+    // Direct usage of numbers in a more concise way
+    ```
+
+    This code example illustrates the evolution towards more concise and efficient memory management practices in C#. By integrating `stackalloc` into nested expressions, C# 8 enhances the language's capabilities for low-level programming, enabling developers to write cleaner, more efficient code for high-performance computing tasks.
+
+    </details>
+
+- [Enhancement of interpolated verbatim strings, `@$` or `$@`](https://github.com/dotnet/csharplang/issues/1630) - simplifies the syntax for combining verbatim and interpolated strings, making it easier to create strings that span multiple lines or include special characters alongside embedded expressions.
+
+    <details><summary>Overview</summary><br>
+
+    The enhancement of interpolated verbatim strings in C# 8 simplifies the creation of strings that incorporate both literal text, including newlines and escape characters, and interpolated expressions, by refining the syntax to be more intuitive and less cumbersome. This feature enhances code clarity and maintainability, particularly in scenarios involving the generation of complex text content, such as SQL queries, file paths, and multi-line messages, where readability and ease of editing are crucial. The benefit of this enhancement is significant in terms of developer productivity and code readability, allowing for the seamless integration of complex strings and expressions without the syntactical overhead previously required.
+
+    Before this enhancement, developers had to carefully manage the placement of the `$` and `@` symbols when combining interpolated and verbatim strings, often leading to confusion and syntax errors:
+
+    ```csharp
+    // Before C# 8: More cumbersome syntax for interpolated verbatim strings
+    string path = $@"C:\Users\{userName}\Documents";
+    ```
+
+    With the enhancement in C# 8, the order of `$` and `@` symbols is now interchangeable, providing greater flexibility and consistency in the code:
+
+    ```csharp
+    // After C# 8: Simplified syntax for interpolated verbatim strings
+    string path = @$"C:\Users\{userName}\Documents";
+    ```
+
+    This improvement significantly streamlines the use of complex strings within C# code, reducing potential errors and improving the developer experience by allowing for a more natural and intuitive syntax when working with strings that need to span multiple lines or include special characters alongside dynamic expressions.
+
+    </details>
+
+</details>
 
 See here for a complete timeline: 
 
