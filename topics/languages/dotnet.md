@@ -110,24 +110,25 @@ In 1999, before the first release of C#, the codename was **C-like Object-Orient
 
 "C sharp" implies that the language is an increment of C++. This convention plays on musical notation and programming language evolution. In music, a sharp (#) indicates that the note is to be raised by a semitone. Applying this concept to the progression of programming languages, C# suggests an enhancement or a higher version of C++. C++ itself is a play on the increment operator in C.
 
-| C# Version | Release Date | .NET Version(s)                         | Key C# Language Features Introduced                                                                                                                         | Major .NET Introductions                                         |
-|------------|--------------|-----------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
-| 1.0        | 2002         | .NET Framework 1.0                      | Classes, structs, interfaces, events, properties, delegates, operators and expressions, statements, attributes                                              | Initial release of .NET Framework                                |
-| 2.0        | 2005         | .NET Framework 2.0                      | Generics, partial types, anonymous methods, nullable types, iterator blocks                                                                                 | Generics, partial classes, nullable types                        |
-| 3.0        | 2007         | .NET Framework 3.0                      | LINQ, lambda expressions, extension methods                                                                                                                 | WPF, WCF, WF, CardSpace                                          |
-| 4.0        | 2010         | .NET Framework 4                        | Dynamic binding, named and optional arguments, generic co- and contravariance                                                                               | Parallel Extensions, MEF                                         |
-| 5.0        | 2012         | .NET Framework 4.5                      | `async` and `await` keywords                                                                                                                                | Portable Class Libraries (PCL)                                   |
-| 6.0        | 2015         | .NET Framework 4.6                      | Roslyn compiler, string interpolation, expression-bodied members                                                                                            | Compilation and runtime performance improvements                 |
-| 7.0        | 2017         | .NET Core 1.0/1.1, <br>.NET Framework 4.6.2 | Out variables, tuples, pattern matching, local functions                                                                                                    | Introduction of .NET Core, a cross-platform framework            |
-| 8.0        | 2019         | .NET Core 3.0    | Nullable reference types, async streams, default interface methods                                                                                          | .NET Core 3.0 supports desktop applications (WPF, Windows Forms) |
-| 9.0        | 2020         | .NET 5.0                                | Records, init-only setters, top-level statements                                                                                                            | Unified .NET SDK experience, performance improvements            |
-| 10.0       | 2021         | .NET 6.0                                | Global using directives, file-scoped namespaces, record structs                                                                                             | Hot reload, minimal APIs, LTS release                            |
-| 11.0       | 2022         | .NET 7.0                                | List patterns, required members, raw string literals                                                                                                        | Performance improvements, enhanced containers support            |
-| 12.0       | 2023         | .NET 8.0                                | Primary constructors, collection expressions, inline arrays, optional parameters in lamda expressions, alias any type, experimental attribute, interceptors |                                                                  |
-| 13.0       | ?            | .NET 9.0                                |                                                                                                                                                             |                                                                  |
+| C# Version | Release Date | .NET Version(s)                                            | Key C# Language Features Introduced                                                                                                                         | Major .NET Introductions                                         |
+|------------|--------------|------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
+| 1.0        | 2002         | .NET Framework 1.0                                         | Classes, structs, interfaces, events, properties, delegates, operators and expressions, statements, attributes                                              | Initial release of .NET Framework                                |
+| 2.0        | 2005         | .NET Framework 2.0                                         | Generics, partial types, anonymous methods, nullable types, iterator blocks                                                                                 | Generics, partial classes, nullable types                        |
+| 3.0        | 2007         | .NET Framework 3.0, 3.5                                    | LINQ, lambda expressions, extension methods                                                                                                                 | WPF, WCF, WF, CardSpace                                          |
+| 4.0        | 2010         | .NET Framework 4                                           | Dynamic binding, named and optional arguments, generic co- and contravariance                                                                               | Parallel Extensions, MEF                                         |
+| 5.0        | 2012         | .NET Framework 4.5                                         | `async` and `await` keywords                                                                                                                                | Portable Class Libraries (PCL)                                   |
+| 6.0        | 2015         | .NET Framework 4.6, 4.6.1<br> .NET Core 1.0                | Roslyn compiler, string interpolation, expression-bodied members                                                                                            | Compilation and runtime performance improvements                 |
+| 7.0        | 2017         | .NET Core 1.1, 2.0, 2.1 <br>.NET Framework 4.6.2, 4.7, 4.8 | Out variables, tuples, pattern matching, local functions                                                                                                    | Introduction of .NET Core, a cross-platform framework            |
+| 8.0        | 2019         | .NET Core 2.2, 3.0                                         | Nullable reference types, async streams, default interface methods                                                                                          | .NET Core 3.0 supports desktop applications (WPF, Windows Forms) |
+| 9.0        | 2020         | .NET 5.0                                                   | Records, init-only setters, top-level statements                                                                                                            | Unified .NET SDK experience, performance improvements            |
+| 10.0       | 2021         | .NET 6.0                                                   | Global using directives, file-scoped namespaces, record structs                                                                                             | Hot reload, minimal APIs, LTS release                            |
+| 11.0       | 2022         | .NET 7.0                                                   | List patterns, required members, raw string literals                                                                                                        | Performance improvements, enhanced containers support            |
+| 12.0       | 2023         | .NET 8.0                                                   | Primary constructors, collection expressions, inline arrays, optional parameters in lamda expressions, alias any type, experimental attribute, interceptors |                                                                  |
+| 13.0       | ?            | .NET 9.0                                                   |                                                                                                                                                             |                                                                  |
 
 Things to note:
 
+- C# and .NET have separate development lifecycles; .NET encompasses more than just C# and includes F# and Visual Basic.
 - The table combines .NET Framework, .NET Core, and .NET versions, reflecting the evolution from .NET Framework to .NET Core and then to .NET (5.0 and beyond), which unifies these platforms.
 - The .NET introductions listed include only major highlights. Each version introduced numerous features and improvements not listed here for brevity.
 - For the most current information, including C# and .NET versions released after April 2023, consult the official Microsoft documentation or the .NET Blog.
@@ -142,6 +143,8 @@ The following resources provide documentation on C# language features:
 <details><summary>Overview</summary><br>
 
 Reference: [Visual Studio 2003 Retired Technical Documentation](https://www.microsoft.com/en-us/download/details.aspx?id=55979). 
+
+Associated .NET Version:  .NET Framework 1.0
 
 Initially looked very similar to Java Major features introduced below.
  
@@ -936,6 +939,8 @@ Initially looked very similar to Java Major features introduced below.
 
 Reference: [Visual Studio 2005 Retired documentation](https://www.microsoft.com/en-us/download/details.aspx?id=55984). 
 
+Associated .NET version: .NET Framework 2.0
+
 Major features introduced:
 
 - [Generics](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/generics) - allow for the creation of reusable code components that can work with any data type, enhancing type safety and reducing code duplication compared to before their introduction, where developers had to use non-generic collections and methods, often requiring manual casting or boxing.
@@ -1357,6 +1362,11 @@ Major features introduced:
 <details><summary>Overview</summary><br>
 
 Reference: [What's New in the Original Release Version of Visual C# 2008](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-2008/bb383815(v=vs.90)#whats-new-in-the-original-release-version-of-visual-c-2008).
+
+Associated .NET Versions: 
+
+- .NET Framework 3.0
+- .NET Framework 3.5
 
 C# version 3.0 came in late 2007, along with Visual Studio 2008, though most of the language features would come with .NET Framework 3.5. The features in this release established C# as a truly formidable language. The killer feature in this version is the query expression, known as Language-Integrated Query (LINQ). Other features, including expression trees, lambda expressions, and anonymous types, are the foundation upon which LINQ is constructed. These features lay the groundwork for turning C# into a hybrid Object-Oriented/Functional language.
 
@@ -1939,6 +1949,8 @@ Major features introduced:
 
 Reference: [What's New in Visual C# 2010](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-2010/bb383815(v=vs.100)).
 
+Associated .NET version: .NET Framework 4.0
+
 Embedded interop types eased the deployment pain of creating COM interop assemblies for your application. Generic covariance and contravariance gave more power to generics, but they're a bit academic and probably most appreciated by framework and library authors. Named and optional parameters let you eliminate many method overloads and provide convenience. None of these features are paradigm altering.
 
 The major feature introduced was the `dynamic` keyword, which gives you the ability to override the compiler on compile-time typing. With the dynamic keyword you can create constructs similar to dynamically-typed languages like JavaScript. For example, you can create a `dynamic x = "a string"` and then add 6 to it, leaving the runtime to sort out what should happen next.
@@ -2199,6 +2211,8 @@ The major feature introduced was the `dynamic` keyword, which gives you the abil
 
 Reference: [What's New in Visual C# in Visual Studio 2012](https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-2012/hh156499(v=vs.110)).
 
+Associated .NET version:  .NET Framework 4.5
+
 Released with Visual Studio 2012. Nearly all of the effort went into the `async` and `await` model for asynchronous programming. This changed the game for C# by baking asynchrony into the language as a first-class participant.
 
 The caller info attribute lets you easily retrieve information about the context in which you're running without resorting to a ton of boilerplate reflection code. It has many uses in diagnostics and logging tasks.
@@ -2336,6 +2350,11 @@ The caller info attribute lets you easily retrieve information about the context
 <details><summary>Overview</summary><br>
 
 Reference: [Visual Studio 2015 Release Notes](https://learn.microsoft.com/en-us/visualstudio/releasenotes/vs2015-rtm-vs#csharpvb).
+
+Associated .NET versions:
+
+- .NET Framework 4.6, 4.6.1
+- .NET Core 1.0
 
 Released with Visual Studio 2015, included many smaller features that made programming more productive. In this version, C# started to eliminate language boilerplate to make code more terse and readable.
 
@@ -2766,6 +2785,11 @@ Reference:
 - [What's New in C# 7.0](https://devblogs.microsoft.com/dotnet/whats-new-in-csharp-7-0/)
 - [New Features in C# 7.0](https://devblogs.microsoft.com/dotnet/new-features-in-c-7-0/)
 - [Visual Studio 2017 15.0 Release Notes](https://learn.microsoft.com/en-us/visualstudio/releasenotes/vs2017-relnotes-v15.0#-c-and-visual-basic)
+
+Associated .NET versions:
+
+- .NET Framework 4.6.2
+- .NET Core 1.1
 
 Released with Visual Studio 2017. All of the features in this release offer developers the opportunity to write cleaner code. Highlights are condensing the declaration of variables to use with the `out` keyword and by allowing multiple return values via tuple.
 
@@ -3283,6 +3307,11 @@ Reference:
 - [GitHub Roslyn - C# 7.1 Language Feature Status](https://github.com/dotnet/roslyn/blob/main/docs/Language%20Feature%20Status.md#c-71)
 - [Visual Studio 2017 15.3 Release Notes](https://learn.microsoft.com/en-us/visualstudio/releasenotes/vs2017-relnotes-v15.3#cs71).
 
+Associated .NET versions: 
+
+- .NET Core 2.0
+- .NET Framework 4.7
+
 Features introduced: 
 
 - [Language version selection configuration element](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/configure-language-version) - allows developers to specify the version of the C# language syntax the compiler should use, enabling control over which language features are available within a project to ensure compatibility and stability.
@@ -3466,6 +3495,11 @@ Reference:
 - [Welcome to C# 7.2 and Span](https://devblogs.microsoft.com/dotnet/welcome-to-c-7-2-and-span/)
 - [GitHub Roslyn - C# 7.2](https://github.com/dotnet/roslyn/blob/main/docs/Language%20Feature%20Status.md#c-72)
 - [Visual Studio 2017 15.5 Release Notes](https://learn.microsoft.com/en-us/visualstudio/releasenotes/vs2017-relnotes-v15.5#compiler)
+
+Associated .NET versions:
+
+- .NET Core 2.0
+- .NET Framework 4.7.1
 
 Added a number of small language features, most that cater to memory optimization and performance. 
 
@@ -3688,6 +3722,11 @@ Reference:
 - [Visual Studio 2017 15.7 Release Notes](https://learn.microsoft.com/en-us/visualstudio/releasenotes/vs2017-relnotes-v15.7#csharp)
 - [GitHub Roslyn - C# 7.3 Language Feature Status](https://github.com/dotnet/roslyn/blob/main/docs/Language%20Feature%20Status.md#c-73)
 
+Associated .NET versions:
+
+- .NET Core 2.1
+- .NET Framework 4.7.2, .NET Framework 4.8
+
 Performance of safe code
 
 - Initializers on `stackalloc` arrays - allow developers to directly assign values to arrays allocated on the stack, enhancing their initialization syntax for more concise and readable code.
@@ -3891,7 +3930,10 @@ Reference:
 - [Do more with patterns in C# 8.0](https://devblogs.microsoft.com/dotnet/do-more-with-patterns-in-c-8-0/)
 - [Building C# 8.0](https://devblogs.microsoft.com/dotnet/building-c-8-0/)
 
-Supported Frameworks: [.NET Core 3.0](https://learn.microsoft.com/en-us/dotnet/core/whats-new/dotnet-core-3-0).
+Associated .NET Versions:
+
+- .NET Core 2.2
+- [.NET Core 3.0](https://learn.microsoft.com/en-us/dotnet/core/whats-new/dotnet-core-3-0).
 
 This is the first major release that specifically targets .NET Core. .NET Framework 4.8, which was released around the same time, is not supported for C# 8.
 
@@ -4404,6 +4446,12 @@ New features and enhancements:
     </details>
 
 </details>
+
+##### [C# version 9 (November 2020)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-9)
+
+
+
+
 
 See here for a complete timeline: 
 
