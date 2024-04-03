@@ -17,6 +17,8 @@
     - [Alignment: Key Takeaways](#alignment-key-takeaways)
     - [Alignment: Examples](#alignment-examples)
   - [Chapter 4: Repetition](#chapter-4-repetition)
+    - [Repetition: How to Get It](#repetition-how-to-get-it)
+    - [Repetition: What to Avoid](#repetition-what-to-avoid)
     - [Repetition: Examples](#repetition-examples)
 
 ## The Non-Designer's Design Book
@@ -767,6 +769,8 @@ Ideas for improvement:
 
 The Principle of Repetition states: **Repeat some aspect of the design throughout the entire piece.**
 
+The purpose of repetition is to **unify** and to **add visual interest**. Don't underestimate the power of visual interest of a page&mdash;if a piece looks interesting, it is more likely to be read.
+
 Repetition can be thought of as _consistency_. As you look through a brocure, it is repetition of their elements, their consistency, that makes each of those sixteen pages appear to belong to the same brochure.
 
 However, repetition goes beyond consistency&mdash;it is a conscious effort to unify all parts of a design.
@@ -774,6 +778,19 @@ However, repetition goes beyond consistency&mdash;it is a conscious effort to un
 >Repetition helps organize the information; it helps guide the reader through pages; it helps unify disparate parts of the design.
 
 >The repetitive element does not have to be a graphic or clipart; it can be spacing, rules, fonts, alignments, or anything that you consciously repeat.
+
+Repetition is useful on one-page pieces, and is critical in multi-page documents.
+
+#### Repetition: How to Get It
+
+Repetition is about consistency, but push the existing consistencies a little further:
+
+- At first, simply find _existing_ repetitions and strengthen them.
+- As you get used to the idea, start to _create_ repetitions to enhance the design and clarity of the information
+
+#### Repetition: What to Avoid
+
+Avoid repeating an element so much that it becomes annoying.
 
 #### Repetition: Examples
 
@@ -924,11 +941,76 @@ Repetitive elements:
 
 </details>
 
-<details><summary>A Hundred Years of Science</summary><br>
+<details><summary>A Hundred Years of Science - Decide what you want to focus on</summary><br>
 
-<Enter text here>
+<img src='img/20240438-033848.png' width=400px>
+
+This is very typical: Times New Roman, centered, typewriter quotation marks
+
+Information is separated into logical groups, but you can see the centered alignment is weak
+
+There is an attempt to fill the corners.
+
+<img src='img/20240420-032045.png' width=400px>
+
+Decide what you want to focus on.
+
+This version has a focus for the speaker.
+
+Regarding the Principle of Repetition, what are the repeated elements?
+
+- Italicized serif type on the focused parts
+
+The Principle of Alignment has been applied, and this add also uses the Principle of Contrast
+
+<img src='img/20240424-032433.png' width=400px>
+
+This version has a focus on the topic.
+
+Notice the black bar is repeated in a thinner version on the bottom. A repetitive element that pulls things together can be that simple.
 
 </details>
 
-<img src='img/20240438-033848.png' width=400px>
+<details><summary>Designer Eye - Using prior-repeated elements</summary><br>
+
+<img src='img/20240426-032653.png' width=400px>
+
+Sometimes the suggestion of a repeated element can get the same results as if you used the whole thing. Try including a portion of the element, or use it in a different way. If an image is familiar to a reader from your other material, all it takes is a piece of it to help the reader make a connection.
+
+What is another repetition here?
+
+- Font colors
+- Symbol as a separator
+- Serif type for copy text and subhead
+
+</details>
+
+<details><summary>The Screenwriting Conference - Using prior-repeated elements</summary><br>
+
+<img src='img/20240433-033324.png' width=400px>
+
+The typewriter has been used on all of the Screenwriting Conference's promotional material. 
+
+You don't have the use the entire image at this point; you can use a portion of the recurring image.
+
+This type of repetition gives your reader the feeling that someone is in charge because repetition is obviously a thoughtful design decision.
+
+</details>
+
+<details><summary>Annual Martini Tasting - Repetition doesn't mean repeating exactly the same thing</summary><br>
+
+<img src='img/20240438-033859.png' width=400px>
+
+Repetition doesn't mean you have to repeat exactly the same thing. 
+
+Here, the headlines are all different colors, bu they use the same font.
+
+The illustrations are all different styles, but all rather funky and 'fifties.
+
+Just make sure to have enough repetitive elements so the differences are clear, not a jumbled mess. 
+
+In this example, the recipes all follow the same format and there are strong alignments. While there is an underlying structure, you can be more flexible with the elements.
+
+</details>
+
 
