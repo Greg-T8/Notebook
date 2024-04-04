@@ -119,7 +119,7 @@ In 1999, before the first release of C#, the codename was **C-like Object-Orient
 | 5.0        | 2012         | .NET Framework 4.5                                         | `async` and `await` keywords                                                                                                                                | Portable Class Libraries (PCL)                                   |
 | 6.0        | 2015         | .NET Framework 4.6, 4.6.1<br> .NET Core 1.0                | Roslyn compiler, string interpolation, expression-bodied members                                                                                            | Compilation and runtime performance improvements                 |
 | 7.0        | 2017         | .NET Core 1.1, 2.0, 2.1 <br>.NET Framework 4.6.2, 4.7, 4.8 | Out variables, tuples, pattern matching, local functions                                                                                                    | Introduction of .NET Core, a cross-platform framework            |
-| 8.0        | 2019         | .NET Core 2.2, 3.0                                         | Nullable reference types, async streams, default interface methods                                                                                          | .NET Core 3.0 supports desktop applications (WPF, Windows Forms) |
+| 8.0        | 2019         | .NET Core 2.2, 3.0, 3.1                                        | Nullable reference types, async streams, default interface methods                                                                                          | .NET Core 3.0 supports desktop applications (WPF, Windows Forms) |
 | 9.0        | 2020         | .NET 5.0                                                   | Records, init-only setters, top-level statements                                                                                                            | Unified .NET SDK experience, performance improvements            |
 | 10.0       | 2021         | .NET 6.0                                                   | Global using directives, file-scoped namespaces, record structs                                                                                             | Hot reload, minimal APIs, LTS release                            |
 | 11.0       | 2022         | .NET 7.0                                                   | List patterns, required members, raw string literals                                                                                                        | Performance improvements, enhanced containers support            |
@@ -4449,7 +4449,223 @@ New features and enhancements:
 
 ##### [C# version 9 (November 2020)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-9)
 
+Reference:
 
+- [Welcome to C# 9.0](https://devblogs.microsoft.com/dotnet/welcome-to-c-9-0/)
+- [GitHub Roslyn: C# 9 Language Features](https://github.com/dotnet/roslyn/blob/main/docs/Language%20Feature%20Status.md#c-9)
+  
+Associated .NET version: .NET 5
+
+Microsoft moved away from using "Core" in this version. 
+
+Themes for this version:
+
+- Remove ceremony
+- Separate data from algorithms
+- Provide more patterns in more places
+
+Features:
+
+- [Top-Level Statements](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/program-structure/top-level-statements) - allow you to write code that runs on application startup without the need for a boilerplate Main method, simplifying the code structure for small programs.
+
+    <details><summary>Overview</summary><br>
+
+    Top-level statements in C# 9 simplify the entry point of applications by eliminating the need for a boilerplate `Main` method, allowing for cleaner and more concise code, particularly beneficial for small projects or scripts. This feature streamlines the development process by reducing the amount of boilerplate code required to get a simple program running, making it especially useful for beginners, for writing quick prototypes, or for small utilities where the overhead of creating a full class structure is unnecessary. Traditionally, even the simplest C# application required a `Main` method encapsulated within a class, as demonstrated below:
+
+    ```csharp
+    using System;
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Hello, World!");
+        }
+    }
+    ```
+
+    With the introduction of top-level statements in C# 9, the same outcome can be achieved with significantly less code, as shown in this example:
+
+    ```csharp
+    using System;
+
+    Console.WriteLine("Hello, World!");
+    ```
+
+    This advancement not only makes the code more readable and less intimidating for newcomers but also streamlines the process of learning C# by focusing on the actual programming concepts rather than the ceremony required to set up a simple program.
+
+    </details>
+
+- [Records](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/record) -  a reference type that provides a succinct syntax to declare immutable data models, enabling value-based equality comparison out of the box.
+
+    <details><summary>Overview</summary><br>
+
+    Records in C# 9 offer a streamlined way to define immutable reference types that support value-based equality, simplifying the creation of data models where immutability is a key concern. This feature is particularly beneficial in scenarios requiring data to be unchangeable after its initial creation, such as in functional programming patterns, concurrent applications where immutability offers thread safety, or when defining data transfer objects (DTOs) that merely carry data without intended side effects. Before the introduction of records, achieving value-based equality and immutability required manually overriding `Equals`, `GetHashCode`, and implementing `IEquatable<T>` along with making all properties readonly, as shown below:
+
+    ```csharp
+    public class Person
+    {
+        public string FirstName { get; }
+        public string LastName { get; }
+
+        public Person(string firstName, string lastName)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+        }
+
+        protected bool Equals(Person other)
+        {
+            return FirstName == other.FirstName && LastName == other.LastName;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Person) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(FirstName, LastName);
+        }
+    }
+    ```
+
+    With C# 9 records, the same functionality can be achieved with much less boilerplate code, enhancing readability and maintainability, as demonstrated below:
+
+    ```csharp
+    public record Person(string FirstName, string LastName);
+    ```
+
+    This concise syntax automatically provides a copy constructor, with-expressions support, and value-based implementations of `Equals`, `GetHashCode`, and `ToString`, making records an ideal choice for defining lightweight, immutable data carriers in a C# application.
+
+    </details>
+
+- [`init` keyword](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/init) - allows properties to be made immutable after object construction, enabling read-only properties to be set during initialization.
+
+    <details><summary>Overview</summary><br>
+
+    The `init` keyword in C# 9 enables properties to be immutable after an object's construction, facilitating the creation of immutable objects while allowing property values to be set during object initialization. This feature enhances the safety and predictability of code by ensuring that object states cannot be modified after creation, which is particularly beneficial in multi-threaded environments where mutable state can lead to bugs. It also supports the development of more robust domain models by clearly communicating intent and enforcing immutability without sacrificing the convenience of object initializers. Before the introduction of the `init` keyword, achieving immutability required properties to be set via the constructor only, potentially leading to cumbersome constructor signatures for objects with many properties, as illustrated below:
+
+    ```csharp
+    public class Person
+    {
+        public string FirstName { get; private set; }
+        public string LastName { get; private set; }
+
+        public Person(string firstName, string lastName)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+        }
+    }
+    ```
+
+    With the introduction of the `init` keyword, the same level of immutability can be achieved with more concise syntax and the added flexibility of object initializers, as shown in this example:
+
+    ```csharp
+    public class Person
+    {
+        public string FirstName { get; init; }
+        public string LastName { get; init; }
+    }
+
+    // Usage
+    var person = new Person { FirstName = "Jane", LastName = "Doe" };
+    ```
+
+    This approach simplifies the definition of immutable types by allowing properties to be easily set at the time of object creation but ensures they remain read-only thereafter, streamlining the creation of safe and consistent application models.
+
+    </details>
+
+- [Pattern-matching enhancements: Relational patterns](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/patterns#relational-patterns) - introduce improved syntax for comparing values in pattern matching expressions, allowing for more expressive and concise conditions directly within switch statements or expressions.
+
+    <details><summary>Overview</summary><br>
+
+    Relational pattern-matching enhancements in C# 9 refine and expand the language's capabilities for pattern matching by introducing concise syntax for relational comparisons (such as <, >, <=, >=) directly in patterns, facilitating more readable and expressive conditionals. This feature significantly benefits scenarios requiring complex decision logic or the evaluation of ranges within switch expressions and statements, making code more intuitive and less prone to errors. Prior to this enhancement, performing relational comparisons often required multiple if-else statements or switch cases with explicit value checking, as demonstrated below:
+
+    ```csharp
+    public static string ClassifyTemperature(int temperature)
+    {
+        if (temperature >= 0 && temperature < 15)
+        {
+            return "Cold";
+        }
+        else if (temperature >= 15 && temperature < 25)
+        {
+            return "Mild";
+        }
+        else
+        {
+            return "Warm";
+        }
+    }
+    ```
+
+    With the introduction of relational pattern-matching enhancements in C# 9, the same logic can be implemented more succinctly and readably using a switch expression, as shown in this example:
+
+    ```csharp
+    public static string ClassifyTemperature(int temperature) =>
+        temperature switch
+        {
+            < 0 => "Freezing",
+            >= 0 and < 15 => "Cold",
+            >= 15 and < 25 => "Mild",
+            >= 25 => "Warm",
+        };
+    ```
+
+    This streamlined approach not only reduces boilerplate code but also enhances the clarity of conditions that involve ranges or comparative checks, making complex logic easier to write, understand, and maintain.
+
+    </details>
+
+- [Pattern-matching enhancements: Logical patterns](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/patterns#logical-patterns) - add support for logical operators `and`, `or`, and `not` within patterns, enabling more complex and expressive conditionals in pattern matching.
+
+    <details><summary>Overview</summary><br>
+
+    Logical pattern-matching enhancements in C# 9 introduce the use of logical operators `and`, `or`, and `not` within pattern matching expressions, significantly broadening the language's expressive power in defining complex conditions with greater clarity and conciseness. These enhancements are particularly advantageous in scenarios requiring nuanced decision logic within pattern matching, such as filtering data or branching program flow based on multiple criteria, improving both code readability and maintainability. Prior to these enhancements, implementing complex pattern-based logic often involved nested if-else statements or multiple pattern checks, which could make the code harder to read and maintain, as illustrated below:
+
+    ```csharp
+    public static string GetSeason(DateTime date)
+    {
+        if (date.Month >= 3 && date.Month <= 5)
+        {
+            return "Spring";
+        }
+        else if (date.Month >= 6 && date.Month <= 8)
+        {
+            return "Summer";
+        }
+        else if (date.Month >= 9 && date.Month <= 11)
+        {
+            return "Autumn";
+        }
+        else
+        {
+            return "Winter";
+        }
+    }
+    ```
+
+    With C# 9's logical pattern-matching enhancements, the same logic can be expressed more succinctly and intuitively using switch expressions combined with logical patterns, as demonstrated below:
+
+    ```csharp
+    public static string GetSeason(DateTime date) =>
+        date.Month switch
+        {
+            >= 3 and <= 5 => "Spring",
+            >= 6 and <= 8 => "Summer",
+            >= 9 and <= 11 => "Autumn",
+            12 or 1 or 2 => "Winter",
+        };
+    ```
+
+    This example showcases the streamlined approach for handling complex conditions, where logical operators within patterns allow for the concise expression of combined criteria, making the code easier to understand and maintain while also enhancing its ability to accurately model sophisticated logic with pattern matching.
+
+    </details>
 
 
 
