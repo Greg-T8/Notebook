@@ -20,6 +20,8 @@
     - [Repetition: How to Get It](#repetition-how-to-get-it)
     - [Repetition: What to Avoid](#repetition-what-to-avoid)
     - [Repetition: Examples](#repetition-examples)
+  - [Chapter 5: Contrast](#chapter-5-contrast)
+    - [Contrast: Examples](#contrast-examples)
 
 ## The Non-Designer's Design Book
 
@@ -1012,5 +1014,83 @@ Just make sure to have enough repetitive elements so the differences are clear, 
 In this example, the recipes all follow the same format and there are strong alignments. While there is an underlying structure, you can be more flexible with the elements.
 
 </details>
+
+### Chapter 5: Contrast
+
+The Principle of Contrast states: **Contrast various elements of the piece to draw a reader's eye into the page.**
+
+Contrast not only serves to draw in the eye, but you can use it to organize information, clarify the hierarchy, guide a reader around the page, and provide a focus.
+
+
+Options for using contrast:
+
+- Contrast large type with small type
+- A graceful oldstyle font with a bold sans serif font
+- A thin line with a thick line
+- A cool color with a warm color
+- A smooth texture with a rough texture
+- A horizontal element (such as a long line of text) with a vertical element (such as a tall, narrow column of text)
+- Widely spaced lines with closely packed lines
+- A small graphic with a large graphic
+
+For contrast to be effective, it must be strong. Don't be a wimp.
+
+If two elements are soft of different, but not really, then you don't have _contrast_, you have _conflict_. You cannot contrast 12-point type with 14-point type. You cannot contrast a half-point rule with a one-point rule. You cannot contrast dark brown with black.
+
+#### Contrast: Examples
+
+<details><summary>Another Newsletter! - Using contrast in title, heads, and subheads</summary><br>
+
+<img src='img/20240430-033047.png' width=400px>
+
+The newsletter is nice and neat, but there's nothing that attracts your eyes to it. If eyes are not attracted to a piece, few will read it.
+
+<img src='img/20240431-033154.png' width=400px>
+
+The source of contrast is obvious. A stronger, bolder typeface is used in the headlines and subheads.
+
+Because the title is now in caps/lowercase, we can use a larger and bolder type size, which also helps reinforce the contrast.
+
+Because the headlines are so strong now, a dark band can be added across the type of the title, again repeating the dark color and reinforcing contrast.
+
+</details>
+
+<details><summary>Resume</summary><br>
+
+<img src='img/20240437-033716.png' width=500px>
+
+The information is all there, but the resume doesn't grab any attention.
+
+Notice these problems:
+
+- Job titles are not clearly defined; they blend in with the body of the text
+- The sections themselves are not clearly defined
+- There are two alignments on the page: centered and flush left
+- The amounts of space between the separate accomplishments are the same as the amount of space betwen sections
+- The setup is iconsistent&mdash;sometimes the dates are at the beginning, sometimes at the end. Remember, consistency creates repetition.
+
+<img src='img/20240443-034342.png' width=500px>
+
+The page is more attractive when contrast is used. The purpose and organization of the document are much clearer.
+
+Your resume is someone's initial impression of you, so make it strong.
+
+These problems are easily corrected:
+
+One alignment: Flush left. Using one alignment doesn't mean that everything is aligned along the **same edge** &mdash;it simply means everything is using the **same alignment** (all flush left or all flush right or all centered). Both the flush left lines above are very strong and reinforce each other (**alignment** and **repetition**).
+
+The heads are strong&mdash;you instantly know what this document is and what the key points are (**contrast**).
+
+Segments are separated by more space than are the individual lines of text (**contrast** of spatial relationships; **proximity**).
+
+Degree and job titles are in bold (a **repetition** of the headline font)&mdash;the strong **contrast** lets you skim the important points.
+
+The easiest way to provide contrast is with typefaces, but don't forget about rules (drawn lines), colors, spacing between elements, textures, and so on.
+
+</details>
+
+
+
+
 
 
