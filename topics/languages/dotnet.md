@@ -133,9 +133,11 @@ Things to note:
 - The .NET introductions listed include only major highlights. Each version introduced numerous features and improvements not listed here for brevity.
 - For the most current information, including C# and .NET versions released after April 2023, consult the official Microsoft documentation or the .NET Blog.
 
-The following resources provide documentation on C# language features:
+The following resources provide documentation and references on C# language features:
 
 - [GitHub - Roslyn Language Feature Status (versions 7.1+)](https://github.com/dotnet/roslyn/blob/main/docs/Language%20Feature%20Status.md)
+- [The history of C#](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history)
+- [C# Book: Language versions and features](https://github.com/markjprice/cs12dotnet8/blob/main/docs/ch02-features.md)
 - [Visual Studio previous versions documentation](https://learn.microsoft.com/en-us/previous-versions/visualstudio/).
 
 ##### [C# version 1.0 (2003)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-10-1)
@@ -4449,6 +4451,8 @@ New features and enhancements:
 
 ##### [C# version 9 (November 2020)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-9)
 
+<details><summary>Overview</summary><br>
+
 Reference:
 
 - [Welcome to C# 9.0](https://devblogs.microsoft.com/dotnet/welcome-to-c-9-0/)
@@ -4667,12 +4671,357 @@ Features:
 
     </details>
 
+- [Target-typed `new` expressions](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-9.0/target-typed-new) - allow for the instantiation of objects without explicitly specifying the type when the compiler can infer it from the context.
 
+    <details><summary>Overview</summary><br>
 
-See here for a complete timeline: 
+    Target-typed new expressions in C# 9 enable the instantiation of objects without explicitly specifying the type when it can be inferred by the compiler. This feature simplifies code by reducing redundancy, especially in scenarios where the type is already evident from the context, such as variable declarations, return statements, and method arguments. The main benefit is cleaner and more concise code, making it easier to read and maintain. It is particularly useful in applications with complex types or when working with collections and generic types where the type notation can be verbose.
 
-- [The history of C#](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history)
-- [C# language versions and features](https://github.com/markjprice/cs12dotnet8/blob/main/docs/ch02-features.md) - .
+    Before the introduction of this feature, explicitly specifying the type of the object was necessary when creating a new instance, as shown in the following example:
+
+    ```csharp
+    List<string> names = new List<string>();
+    ```
+
+    With the introduction of target-typed new expressions in C# 9, the same code can be written more succinctly, as the type is inferred from the declaration:
+
+    ```csharp
+    List<string> names = new();
+    ```
+
+    This change reduces the amount of boilerplate code and makes the codebase easier to refactor, as changes to the variable's type only need to be made in the declaration.
+
+    </details>
+
+- [Static anonymous functions](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-9.0/static-anonymous-functions) - are anonymous methods or lambda expressions marked with the static keyword, indicating that they do not capture any variables from the enclosing scope, leading to potentially lower memory usage and improved performance.
+
+    <details><summary>Overview</summary><br>
+
+    Static anonymous functions in C# 9 are anonymous functions marked with the `static` keyword, which do not capture any variables from the enclosing scope. This feature enhances performance and reduces memory allocations by preventing the accidental capturing of variables from the surrounding context, which is particularly beneficial in high-performance applications or those that heavily rely on lambda expressions and callbacks. It clarifies the developer's intent that the function should not access external state, making code more predictable and easier to understand.
+
+    Before C# 9, anonymous functions or lambda expressions could inadvertently capture local variables or instance members, potentially leading to unintended side effects or extra overhead due to heap allocations for closures:
+
+    ```csharp
+    Func<int, int> addOne = n => n + 1;
+    ```
+
+    In this pre-C# 9 code, even though `addOne` does not capture any external state, it's not explicitly indicated, leaving room for potential captures if the code is modified.
+
+    With C# 9, the introduction of static anonymous functions allows for explicit declaration, ensuring no external state is captured:
+
+    ```csharp
+    Func<int, int> addOne = static n => n + 1;
+    ```
+
+    This post-C# 9 code makes it clear that `addOne` does not capture any external variables, helping to prevent unintended captures and improve the performance characteristics of the function, especially in scenarios where lambda expressions are frequently created or called.
+
+    </details>
+
+- [Target-typed conditional expressions](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-9.0/target-typed-conditional-expression) - allow the conditional (ternary) operator to infer the type from the context, eliminating the need for explicit type casting or matching operand types when the return type is clear from the usage.
+
+    <details><summary>Overview</summary><br>
+
+    Target-typed conditional expressions in C# 9 enhance the conditional (ternary) operator by allowing its result type to be determined by the context in which it is used, rather than requiring the types of the two expressions to match explicitly. This feature simplifies code by enabling more flexible and concise conditional assignments and returns, particularly useful in scenarios where the expressions involved return different but compatible types. Before C# 9, developers often had to explicitly cast at least one operand of the ternary operator to match the desired target type, especially in generic or polymorphic scenarios, which could lead to verbose and less readable code.
+
+    For example, before the introduction of this feature, casting was necessary when the types did not match exactly, even if they were compatible:
+
+    ```csharp
+    object result = condition ? (object)"string" : new object();
+    ```
+
+    With the advent of target-typed conditional expressions in C# 9, the compiler can infer the type based on the usage context, eliminating the need for such explicit casting:
+
+    ```csharp
+    object result = condition ? "string" : new object();
+    ```
+
+    This post-C# 9 approach not only makes the code cleaner and more straightforward but also reduces the potential for errors by minimizing the need for explicit type conversions, thereby improving code maintainability and readability in situations involving conditional logic.
+
+    </details>
+
+- [Covariant return types](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-9.0/covariant-returns) - enable overriding methods in derived classes to return types that are more derived than those specified by the corresponding methods in the base class, facilitating more specific type usage and polymorphism.
+
+    <details><summary>Overview</summary><br>
+
+    Covariant return types in C# 9 allow methods in derived classes to return types that are more specific than the type returned by the same method in the base class. This feature enhances object-oriented design by allowing for more precise type information to be returned from methods, improving the readability and safety of the code. It is particularly beneficial in scenarios involving class hierarchies, such as when implementing factory methods or deep cloning operations, where returning the most derived type from an overridden method can make the API easier to use and understand.
+
+    Before this feature, methods overridden in derived classes had to return the exact same type as declared in the base class. For example, if a base class method returned a type `Animal`, then all overridden methods in derived classes also had to return `Animal`, even if they were actually instantiating a `Dog` or `Cat`.
+
+    ```csharp
+    public class Animal {
+        public virtual Animal GetAnimal() {
+            return new Animal();
+        }
+    }
+
+    public class Dog : Animal {
+        public override Animal GetAnimal() {
+            return new Dog();
+        }
+    }
+    ```
+
+    With the introduction of covariant return types in C# 9, the same method in a derived class can return a more specific type, such as `Dog` or `Cat`, enhancing the type safety and usability of the method:
+
+    ```csharp
+    public class Animal {
+        public virtual Animal GetAnimal() {
+            return new Animal();
+        }
+    }
+
+    public class Dog : Animal {
+        public override Dog GetAnimal() {
+            return new Dog();
+        }
+    }
+    ```
+
+    This change allows for a more natural and intuitive use of class hierarchies, reducing the need for casting and increasing the overall type safety of the application.
+
+    </details>
+
+- [Extension `GetEnumerator` support for `foreach` loops](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-9.0/extension-getenumerator) - allows developers to iterate over types that do not inherently implement `IEnumerable or IEnumerable<T>`, by providing an extension method that implements `GetEnumerator`, enhancing flexibility and usability of foreach loops.
+
+    <details><summary>Overview</summary><br>
+
+    The extension `GetEnumerator` support for `foreach` loops in C# 9 enables iterating over objects using `foreach` by defining an extension method for `GetEnumerator`, even if the object's type does not directly implement `IEnumerable` or `IEnumerable<T>`. This feature significantly expands the usability of `foreach` loops by allowing custom iteration logic on types that weren't originally designed with `IEnumerable` support in mind, such as integrating with older codebases or third-party libraries where modifying the original types is not possible. Prior to this feature, to iterate over such objects with a `foreach` loop, developers had to either wrap the objects in a collection that implements `IEnumerable`, or implement the `IEnumerable` interface directly in the object's class, which might not always be feasible.
+
+    For example, before C# 9, if you had a custom class and you wanted to make it enumerable in a `foreach` loop without modifying the class itself, your options were limited and often involved creating additional wrapper classes or methods:
+
+    ```csharp
+    // Pre-C# 9, without direct support for extension GetEnumerator.
+    public class MyCustomCollection {
+        private int[] items = { 1, 2, 3 };
+        // Assume no GetEnumerator method is implemented.
+    }
+
+    // Iterating would require additional mechanisms.
+    ```
+
+    With the introduction of extension `GetEnumerator` support in C# 9, developers can now simply define an extension method that provides `GetEnumerator`, allowing the `foreach` loop to be used directly with instances of the class:
+
+    ```csharp
+    public static class MyCustomCollectionExtensions {
+        public static IEnumerator<int> GetEnumerator(this MyCustomCollection collection) {
+            // Assume logic here to yield return items from the collection.
+            yield return 1; // Simplified for example purposes.
+        }
+    }
+
+    // Now, MyCustomCollection can be directly used in a foreach loop.
+    MyCustomCollection collection = new MyCustomCollection();
+    foreach (var item in collection) {
+        // Process item
+    }
+    ```
+
+    This change makes `foreach` loops more versatile and simplifies code by removing the need for intermediate collections or modifications to original classes, improving code readability and maintainability.
+
+    </details>
+
+- [Lambda discard paramters](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-9.0/lambda-discard-parameters) - allow the use of underscores (_) to specify unused lambda parameters, simplifying syntax and improving readability when those parameters are not needed in the lambda body.
+
+    <details><summary>Overview</summary><br>
+
+    Lambda discard parameters in C# 9 introduce the ability to use underscores (`_`) as placeholders for lambda parameters that are not used within the lambda expression, enhancing code clarity and succinctness. This feature is particularly beneficial in scenarios where a lambda expression is required by a method signature or a delegate but one or more of the parameters are not needed for the operation being performed. The use of discard parameters helps to avoid naming unused variables, thereby reducing the cognitive load on developers and making the intent of the code clearer.
+
+    Before this feature, developers had to explicitly name all lambda parameters, even if they were not used, which could lead to cluttered code or the use of meaningless variable names:
+
+    ```csharp
+    EventHandler handler = (sender, args) => Console.WriteLine("Event triggered");
+    ```
+
+    In this pre-C# 9 example, `sender` and `args` are named but not used, which is not ideal for code readability.
+
+    With the introduction of lambda discard parameters in C# 9, the same code can be written more succinctly by replacing unused parameters with underscores:
+
+    ```csharp
+    EventHandler handler = (_, _) => Console.WriteLine("Event triggered");
+    ```
+
+    This post-C# 9 approach clearly indicates that the parameters are intentionally unused, making the lambda expression cleaner and focusing the reader's attention on the code's actual behavior. It's a small but meaningful enhancement that improves the expressiveness and cleanliness of C# code, especially in event handling and LINQ queries where unused parameters are common.
+
+    </details>
+
+- [Attributes on local functions](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-9.0/local-function-attributes) - allow developers to apply attributes to local function declarations, enhancing their usability and enabling more granular control over aspects like security, interoperability, and diagnostics.
+
+    <details><summary>Overview</summary><br>
+
+    Attributes on local functions in C# 9 enable the application of attributes to the declarations of local functions within a method, offering developers enhanced control and additional metadata capabilities at a more granular level within methods. This feature broadens the scope of attributes, which were previously applicable only to classes, methods, and properties at a broader scope, allowing for more detailed code annotation and behavior specification directly within local functions. Such granularity is beneficial for specifying behavior related to security, performance optimization, and interoperability, as well as for guiding static analysis tools with more precise information about the code's intended behavior.
+
+    Prior to C# 9, attributes could not be directly applied to local functions, limiting the developer's ability to convey specific instructions or metadata about the function's behavior or intended use within its local scope:
+
+    ```csharp
+    public void MyMethod() {
+        // Assume a scenario where you might want to mark this as obsolete or conditional.
+        void LocalFunction() {
+            Console.WriteLine("Inside Local Function");
+        }
+        
+        LocalFunction();
+    }
+    ```
+
+    With the introduction of this feature in C# 9, developers can now directly annotate local functions with attributes, offering clearer intent and control over the function's characteristics:
+
+    ```csharp
+    public void MyMethod() {
+        [Obsolete("This function will be removed in future versions.")]
+        void LocalFunction() {
+            Console.WriteLine("Inside Local Function");
+        }
+        
+        LocalFunction();
+    }
+    ```
+
+    This enhancement makes it possible to apply a wide range of attributes to local functions, such as `[Obsolete]`, `[Conditional]`, and custom attributes, thereby extending the expressiveness and robustness of C# code by allowing more detailed specifications and controls at the local function level.
+
+    </details>
+
+- [Native-sized integers](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-9.0/native-integers) - introduce new data types, `nint` and `nuint`, representing integers that are sized according to the native integer size of the platform, allowing for more seamless interaction with platform-specific code and APIs.
+
+    <details><summary>Overview</summary><br>
+
+    Native-sized integers in C# 9, introduced through the `nint` and `nuint` types, are designed to represent integers whose size matches the native integer size of the platform (32-bit on x86 and 64-bit on x64). This feature significantly enhances interoperability with platform-specific APIs and pointer arithmetic by providing a more natural and efficient way to handle operations that require integers of the platform's native size. The benefit of using native-sized integers includes seamless and performant integration with unmanaged code, such as operating system APIs or native libraries, which often require integers of a specific size that matches the architecture of the system. Before C# 9, developers had to use `IntPtr` and `UIntPtr` for similar purposes, which was less intuitive and more cumbersome, especially for arithmetic operations.
+
+    Before the introduction of `nint` and `nuint`, interfacing with native code might look something like this:
+
+    ```csharp
+    IntPtr size = new IntPtr(10);
+    IntPtr newSize = IntPtr.Add(size, new IntPtr(1)); // Clunky arithmetic
+    ```
+
+    With the introduction of native-sized integers in C# 9, the same code can be expressed more naturally, improving readability and ease of use:
+
+    ```csharp
+    nint size = 10;
+    nint newSize = size + 1; // Direct arithmetic operations
+    ```
+
+    This new feature thus simplifies the codebase, reducing the boilerplate code required for interacting with unmanaged code and making the intentions clearer. Native-sized integers are especially useful in performance-critical applications where direct operations on integers of the platform's native size can avoid unnecessary overhead and complexity.
+
+    </details>
+
+- [Function pointers](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-9.0/function-pointers) - provide a way to directly invoke unmanaged functions using a syntax similar to function pointers in C and C++, offering high-performance, low-level call capabilities especially useful in interoperable and systems-level programming.
+
+    <details><summary>Overview</summary><br>
+
+    Function pointers in C# 9 introduce a safe and performant way to represent pointers to methods within the managed environment of C#, akin to function pointers in C and C++. This feature is particularly beneficial for interoperability scenarios and performance-critical applications where direct invocations of unmanaged code are required, offering a more type-safe and readable alternative to using `IntPtr` or P/Invoke for calling unmanaged functions. Function pointers provide a low-level mechanism for invoking functions, allowing developers to write high-performance code with minimal overhead, ideal for system-level programming, working with native APIs, and developing high-speed computation routines in areas like graphics processing and numerical analysis.
+
+    Before C# 9, interacting with unmanaged code typically required the use of P/Invoke or `Marshal.GetDelegateForFunctionPointer`, which could be cumbersome and less efficient for certain high-performance scenarios:
+
+    ```csharp
+    [DllImport("SomeLibrary.dll")]
+    private static extern int SomeFunction(int a, int b);
+    ```
+
+    With the introduction of function pointers in C# 9, developers can now declare and use pointers to functions directly, providing a more direct and efficient method for invoking unmanaged code:
+
+    ```csharp
+    using System;
+    delegate*<int, int, int> pFunction = &SomeFunction;
+    int result = pFunction(1, 2); // Call unmanaged function directly
+
+    static int SomeFunction(int a, int b) => a + b;
+    ```
+
+    This code demonstrates how function pointers can be used to point to a method that matches the specified signature, allowing for direct, efficient calls. This feature opens up new possibilities for high-performance and low-level programming in C#, enabling more direct interaction with the underlying hardware or native libraries while maintaining the safety and productivity benefits of C#.
+
+    </details>
+
+- [Suppress emitting `localsinit` flag](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-9.0/skip-localsinit) - allows developers to opt out of the automatic initialization of local variables to their default values, potentially improving performance in scenarios where such initialization is unnecessary.
+
+    <details><summary>Overview</summary><br>
+
+    The feature to suppress emitting the `localsinit` flag in C# 9 provides developers with the capability to disable the automatic initialization of local variables to their default values at the beginning of method execution. This enhancement is particularly beneficial for performance-critical applications where the overhead of initializing locals to default values is unnecessary and can be safely omitted, such as in tight loops or high-frequency methods where every bit of performance optimization is crucial. Before the introduction of this feature, the C# compiler would automatically emit the `localsinit` flag for all methods, ensuring that all local variables were zero-initialized, which could introduce a non-trivial performance cost in certain scenarios, even if those variables were immediately assigned a value.
+
+    Before C# 9, there was no direct way to control the emission of the `localsinit` flag, so developers had to rely on the compiler's default behavior:
+
+    ```csharp
+    // Example method where locals are automatically initialized
+    void ExampleMethod() {
+        int a; // Automatically initialized to 0
+        a = 10;
+    }
+    ```
+
+    With the introduction of the ability to suppress the `localsinit` flag in C# 9, developers can now apply an attribute to a method or module to opt-out of this automatic initialization, providing finer control over the generated IL code:
+
+    ```csharp
+    using System.Runtime.CompilerServices;
+
+    [SkipLocalsInit]
+    void ExampleMethod() {
+        int a; // Not automatically initialized, undefined if used before assignment
+        a = 10;
+    }
+    ```
+
+    This post-C# 9 code example demonstrates how the application of the `[SkipLocalsInit]` attribute can be used to suppress the emission of the `localsinit` flag, allowing uninitialized local variables. This feature is a powerful tool for optimizing performance but should be used with caution, as it requires the developer to ensure that all variables are explicitly initialized before use to avoid undefined behavior.
+
+    </details>
+
+- [Module initializers](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-9.0/module-initializers) - are special methods marked with the [ModuleInitializer] attribute that are automatically executed when a module (essentially, an assembly) is loaded, providing a way to run initialization code before any other code in the module is accessed.
+
+    <details><summary>Overview</summary><br>
+
+    Module initializers in C# 9 are designated by the `[ModuleInitializer]` attribute and provide a mechanism for executing initialization code at the point of module (or assembly) load, before any type or member within the module is accessed. This feature is particularly beneficial for setting up application-wide state or performing necessary startup configuration without relying on static constructors of individual types, which may not execute in a predictable order or timing. Practical use cases include configuring logging frameworks, setting up dependency injection containers, or initializing application-wide settings that need to be in place before the application starts executing business logic.
+
+    Before the introduction of module initializers, developers often resorted to static constructors or explicit initialization methods that needed to be called at the start of the application, which could lead to issues with forgetting to call these methods or encountering order-of-initialization bugs:
+
+    ```csharp
+    public class Initializer {
+        static Initializer() {
+            // Initialization logic here
+        }
+    }
+    ```
+
+    With the introduction of module initializers in C# 9, developers can now annotate a method with the `[ModuleInitializer]` attribute to ensure it runs once per module load, providing a more reliable and centralized way to perform initialization:
+
+    ```csharp
+    using System.Runtime.CompilerServices;
+
+    class Program {
+        [ModuleInitializer]
+        public static void Initialize() {
+            // Initialization logic that runs once per module load
+        }
+    }
+    ```
+
+    This post-C# 9 approach offers a cleaner, more explicit mechanism for initialization logic, ensuring that essential setup code is executed in a timely and predictable manner, thus improving the reliability and maintainability of applications.
+
+    </details>
+
+- [New features for partial methods](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-9.0/extending-partial-methods) - include the ability to have return types, out parameters, and accessibility modifiers, expanding their usability in splitting implementation across multiple files.
+
+    <details><summary>Overview</summary><br>
+
+    New features for partial methods in C# 9 enhance their flexibility and practicality by allowing return types, out parameters, and specifying accessibility modifiers, which were previously not possible. This expansion significantly broadens the scope of partial methods, making them more useful for complex scenarios, such as code generation and modular development, where a class or struct might be split across multiple files for organization or auto-generated code purposes. The key benefits include more versatile method signatures and the ability to encapsulate more complex behavior within partial methods, facilitating cleaner code separation and enhancing maintainability and readability.
+
+    Before C# 9, partial methods were limited in that they could not have out parameters, return values, and were implicitly private, which constrained their use cases:
+
+    ```csharp
+    partial void OnSomethingHappened(); // No return type or out parameters allowed
+    ```
+
+    With the enhancements introduced in C# 9, partial methods can now be more expressive and functional, accommodating a broader range of programming needs:
+
+    ```csharp
+    partial void OnSomethingHappened(out bool result); // Out parameters are now allowed
+
+    partial int CalculateSomething(); // Return types and accessibility modifiers are now supported
+    ```
+
+    These improvements allow developers to use partial methods in more scenarios, such as when a method needs to return a value or when more complex interactions are required within the split parts of a class or struct. The ability to include out parameters and return types, coupled with the flexibility to specify accessibility, means that partial methods can now play a more significant role in the design and implementation of software, especially in scenarios involving generated code.
+
+    </details>
+
+</details>
+
 
 #### About .NET support (LTS, STS, and Preview)
 
