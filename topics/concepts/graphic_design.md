@@ -1055,7 +1055,7 @@ Because the headlines are so strong now, a dark band can be added across the typ
 
 </details>
 
-<details><summary>Resume</summary><br>
+<details><summary>Resume - Using contrast to improve</summary><br>
 
 <img src='img/20240437-033716.png' width=500px>
 
@@ -1086,6 +1086,28 @@ Segments are separated by more space than are the individual lines of text (**co
 Degree and job titles are in bold (a **repetition** of the headline font)&mdash;the strong **contrast** lets you skim the important points.
 
 The easiest way to provide contrast is with typefaces, but don't forget about rules (drawn lines), colors, spacing between elements, textures, and so on.
+
+</details>
+
+<details><summary>The Rules of Life - Making effective use of rules</summary><br>
+
+<img src='img/20240446-034648.png' width=300px>
+
+If you use a hairline rule between columns, use a strong 2- or 4-point rule when you need another&mdash;don't use a half-point rule and a one-point rule on the same page.
+
+If you use a second color for accent, make the colors contrast&mdash;dark brown or dark blue doesen't contrast effectively with black text.
+
+In the picture above, there is a bit of contrast between the typefaces and between the rules, but the contrast is wimpy&mdash;are the rules supposed to be two different thicknesses? Or is it a mistake?
+
+<img src='img/20240453-035356.png' width=300px>
+
+Now the contrast between the typefaces makes the piece more dynamic and eye-catching.
+
+With a stronger contrast between the thicknesses of the rules, there's no risk of someone thinking it's a mistake.
+
+<img src='img/20240455-035539.png' width=300px>
+
+Here, the thick rule is behind the white type. With contrast, the entire table is stronger and more sophisticated; it communicates more clearly.
 
 </details>
 
