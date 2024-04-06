@@ -5,13 +5,9 @@
     - [The Joshua Tree Epiphany](#the-joshua-tree-epiphany)
     - [Introduction: Good Design Examples](#introduction-good-design-examples)
   - [Chapter 2: Proximity](#chapter-2-proximity)
-    - [The Proximity Principle](#the-proximity-principle)
-    - [Proximity: Implementation](#proximity-implementation)
-    - [Proximity: Impact on Design](#proximity-impact-on-design)
     - [Proximity: What to Avoid](#proximity-what-to-avoid)
     - [Proximity: Design Examples](#proximity-design-examples)
   - [Chapter 3: Alignment](#chapter-3-alignment)
-    - [Alignment: Purpose](#alignment-purpose)
     - [Alignment: How to get it](#alignment-how-to-get-it)
     - [Alignment: What to avoid](#alignment-what-to-avoid)
     - [Alignment: Key Takeaways](#alignment-key-takeaways)
@@ -86,23 +82,9 @@ Chapter 2 addresses the fundamental design principle that elements related to ea
 
 > Learn how to use your software so that you can make exactly the amount of space you need before and after each element; build that information into your style sheets
 
-Here's an overview:
+The basic purpose  of the proximity principle is to **organize**; it aims to simplify the layout by visually connecting related elements, making it easier for the viewer to understand the structure and content at a glance.
 
-#### The Proximity Principle
-
-- **Basic Idea**: Group related items together to create one visual unit, enhancing organization and communication. Be conscious of where your eye is going. This not only reduces clutter but also makes the information more accessible to the reader.
-- **Purpose**: The basic purpose  of the proximity principle is to **organize**; it aims to simplify the layout by visually connecting related elements, making it easier for the viewer to understand the structure and content at a glance.
-
-#### Proximity: Implementation
-
-- **Physical Closeness**: The principle suggests moving physically related items closer to each other, so they are perceived as a single cohesive group rather than a collection of unrelated bits.
-- **Separation of Unrelated Items**: Items or groups of information that are not related should not be placed in close proximity. This visual separation provides instant clues to the organization of the page.
-- **Effective Use of Space**: By grouping items into closer proximity and adjusting space between unrelated items, the layout becomes more organized, navigable, and visually appealing.
-
-#### Proximity: Impact on Design
-
-- **Enhanced Clarity and Organization**: Applying the proximity principle can significantly improve the clarity and organization of a design, making it easier for the audience to understand and engage with the content.
-- **Reduction of Clutter**: It helps in reducing clutter by eliminating unnecessary elements and focusing on grouping related items, which simplifies the design and enhances readability.
+Group related items together to create one visual unit, enhancing organization and communication. Be conscious of where your eye is going. This not only reduces clutter but also makes the information more accessible to the reader.
 
 #### Proximity: What to Avoid
 
@@ -393,8 +375,6 @@ Alignment is more than just an aesthetic choice; it serves to unify and organize
 > The Principle of Alignment states:  **Nothing should be placed on the page arbitrarily. Every item should have a visual connection with something else on the page.**
 
 > A lack of alignment creates discomfort; it appears to be unorganized; we don't know how to be effective.
-
-#### Alignment: Purpose
 
 The basic purpose of alignment is to **unify and organize** the page.
 
@@ -1055,7 +1035,7 @@ Because the headlines are so strong now, a dark band can be added across the typ
 
 </details>
 
-<details><summary>Resume - Using contrast to improve</summary><br>
+<details><summary>Resume - Using contrast to improve a resume</summary><br>
 
 <img src='img/20240437-033716.png' width=500px>
 
@@ -1089,7 +1069,7 @@ The easiest way to provide contrast is with typefaces, but don't forget about ru
 
 </details>
 
-<details><summary>The Rules of Life - Making effective use of rules</summary><br>
+<details><summary>The Rules of Life - Making effective use of horizontal rules</summary><br>
 
 <img src='img/20240446-034648.png' width=300px>
 
@@ -1111,8 +1091,85 @@ Here, the thick rule is behind the white type. With contrast, the entire table i
 
 </details>
 
+<details><summary>Postcard - Use contrast in direction</summary><br>
 
+<img src='img/20240430-053004.png' width=500px>
 
+If you use tall, narrow columns, perhaps use a strong headline to create a contrasting horizontal direction across the page.
 
+Here, there is contrast between the typefaces and a contrast between the long, horizontal title and the tall, narrow, vertical columns.
 
+The narrow columns are a repetitive element as well as an example of contrast.
+
+</details>
+
+<details><summary>Detox your body flyer - Using contrast in pieces with a lot of text</summary><br>
+
+<img src='img/20240435-053503.png' width=400px>
+
+Problem:
+
+- The lines are too long to read comfortably
+- There is little to draw the reader's eye into the text
+
+Where to begin?
+
+Design the headline so that it will catch someone's eye. Then create some contrast in the text so that their eyes will be pulled to certain parts of the page as they skim through it. Enhance this with alignment and use proximity.
+
+- When you have lots of text, experiment using more than one column
+- Pull out key phrases to set in bold so the visual contrasts attract the eye and lead the reader through the information
+- Start with an introductory bit of information so the reader understands the purpose for the flyer; it's less of a commitment to read little pieces, so you can seduce the reader's eye into the piece by providing an introductory path
+
+<img src='img/20240440-054037.png' width=400px>
+
+Notice all the other principles come into play: proximity, alignment, and repetition.
+
+Added some ornaments for visual interest and to provide an earthy feeling.
+
+</details>
+
+<details><summary>Hugs Pie Shop - Using contrast in elements of repetition</summary><br>
+
+<img src='img/20240447-054705.png' width=400px>
+
+Issues:
+
+- Using all caps and centered text to fill space
+- There's no contrast on the page, except for the pie
+- Information is not organized into logical units
+- Various alignments
+- No repetitive elements
+- Lack of contrast
+
+<img src='img/20240450-055012.png' width=400px>
+
+To fix:
+
+1. Group things into logical proximity
+2. Use an alignment
+3. Find or create repetitive elements
+4. Add contrast
+
+Addressing the issues:
+
+- Let go of Times New Roman and Arial/Helvetica. Just eliminate them from your font choices!  Let go of Sand as well.
+- Let go of centered alignment. 
+- Find the most interesting item on the page, and **emphasize** it!
+- Keep the most important things together so a reader doesn't lose **focus**
+- Group the information into logical groups. Use **space** to set items apart or to connect them, not boxes
+- Find elements you can **repeat** (including elements of contrast)
+- Most importantly, add **contrast**
+
+Differences in these adds:
+
+- Changed the border to a thinner line (a half point)
+- Changed all caps to caps and lowercase
+- Deleted unnecessary information such as "telephone" and the zip code and area code since this is a local ad in a local paper, allowing it to be set larger.
+- Enlarged the pie and let it float, after using Photoshop to make the background transparent
+- Arranged the types of pies to fit the piece better
+- Aligned most of the copy on the left; some elements align on the right
+- Repeated the shop's favorite phrase on a curved line
+- Moved the phrase "a pie gallery" into the headline because the shop does have a gallery of pies as art
+
+</details>
 
