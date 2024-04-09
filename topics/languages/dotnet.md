@@ -5022,6 +5022,227 @@ Features:
 
 </details>
 
+##### [C# Version 10 (November 2021)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-10)
+
+Reference:
+
+- [What's new in C# 10](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-10)
+- [Welcome to C# 10](https://devblogs.microsoft.com/dotnet/welcome-to-csharp-10/)
+- [Announcing .NET 6](https://devblogs.microsoft.com/dotnet/announcing-net-6/)
+- [GitHub Roslyn: C# 10 Language Features](https://github.com/dotnet/roslyn/blob/main/docs/Language%20Feature%20Status.md#c-100)
+
+Associated .NET version: .NET 6
+
+C# continues work on the themes from C# 9: removing ceremony, separating data from algorithms, and improved performance in .NET Runtime.
+
+C# 10 also marks more of a shift to a yearly cadence for .NET releases, but not every feature can be completed in a yearly timeframe, so C# introduces "preview" features.
+
+Features:
+
+- [`record struct`](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/record) - provide a value-type equivalent of record classes, offering simple syntax for creating immutable and equatable struct types.
+
+    <details><summary>Overview</summary><br>
+
+    Record structs in C# 10 are a significant addition to the language, providing an easy way to define immutable value types that automatically support value-based equality comparisons and other useful features.
+
+    Introduced in C# 10, `record structs` extend the concept of records, previously available only to classes, to structures (structs). This feature brings the simplicity and immutability of record types to value types, offering developers a concise syntax to define structs that are immutable by default and possess with-expressions, value-based equality, and deconstruction capabilities. These capabilities make `record structs` particularly beneficial for defining data-centric models where immutability is desired, such as in concurrent programming or when creating complex data structures that should not change once they are created. They simplify the process of working with data, ensuring thread safety and predictability in code that manipulates these data structures.
+
+    Before the introduction of `record structs`, achieving immutability and value-based equality required manual implementation. For instance, defining a struct to represent a 2D point with immutability and value-based equality checks would look something like this:
+
+    ```csharp
+    public struct Point
+    {
+        public readonly int X;
+        public readonly int Y;
+
+        public Point(int x, int y)
+        {
+            X = x;
+            Y = y;
+        }
+
+        public override bool Equals(object obj) =>
+            obj is Point other && X == other.X && Y == other.Y;
+
+        public override int GetHashCode() => HashCode.Combine(X, Y);
+    }
+    ```
+
+    With the introduction of `record structs`, the same outcome can be achieved with significantly less boilerplate code, making the definition both simpler and clearer:
+
+    ```csharp
+    public record struct Point(int X, int Y);
+    ```
+
+    This new syntax automatically provides a constructor, properties, and implementations for methods like `Equals()`, `GetHashCode()`, and `ToString()`, as well as supporting `with` expressions for non-destructive mutation, which are particularly useful for working with immutable data structures. This shift not only reduces the amount of code needed to define such data types but also improves readability and maintainability, making `record structs` an invaluable feature for developers working with immutable data models in C#.
+
+    </details>
+
+- [Interpolated string handler](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/tokens/interpolated#compilation-of-interpolated-strings) - allows for more efficient and customizable string interpolation by providing a way to control the process of interpolating strings at compile time, reducing allocations and improving performance.
+
+    <details><summary>Overview</summary><br>
+
+    The interpolated string handler in C# 10 is a performance-enhancing feature that allows developers to customize string interpolation, offering more efficient string processing and memory usage.
+
+    This feature introduces a new pattern for how interpolated strings are handled at compile time, offering significant performance improvements, especially in scenarios where string interpolation is used heavily. Before this feature, interpolated strings were always compiled into a call to `string.Format`, which involved parsing the format string at runtime, allocating a new string for the result, and potentially causing performance issues in high-performance or high-throughput applications. For instance, logging a debug message with an interpolated string would always allocate the resulting string, even if the debug level was set in a way that the message would not actually be logged.
+
+    ```csharp
+    Logger.Debug($"User {userId} logged in at {DateTime.UtcNow}");
+    ```
+
+    With the introduction of interpolated string handlers, C# 10 allows developers to define custom handlers that can process interpolated strings in a more efficient way, using a pattern recognized by the C# compiler. The compiler transforms the interpolated string into a series of calls to append methods on the handler, passing literals and interpolation expressions as separate arguments, which can significantly reduce allocations and improve performance.
+
+    ```csharp
+    Logger.Debug($"User {userId} logged in at {DateTime.UtcNow}");
+    ```
+
+    In this example, if `Logger.Debug` is implemented using an interpolated string handler, the actual string interpolation only occurs if the debug message will be logged, avoiding unnecessary memory allocations. The key benefit of this feature lies in its ability to reduce the runtime overhead associated with string interpolation, making it a valuable tool for improving the performance of applications where logging and string manipulation are critical operations. It demonstrates a clear shift towards compile-time optimization, providing developers with finer control over memory usage and execution efficiency in their applications.
+
+    </details>
+
+- [`global using` directive](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/using-directive#global-modifier) - allows developers to declare namespace imports that are automatically applied across all files in a project, simplifying code and reducing redundancy.
+
+    <details><summary>Overview</summary><br>
+
+    The global using directive in C# 10 streamlines the development process by enabling developers to specify namespace imports that are universally accessible across all source files in a project, thus reducing boilerplate code and enhancing readability.
+
+    Before the introduction of this feature, developers had to repeatedly specify common using directives in every source file of a C# project, which not only added unnecessary boilerplate but also increased the chance of accidentally omitting essential namespaces, leading to compilation errors. For instance, in a web application, namespaces like `System.Linq`, `System.Collections.Generic`, and `Microsoft.AspNetCore.Mvc` would typically be required in numerous files across the application for common tasks such as data manipulation, working with collections, and defining controllers.
+
+    ```csharp
+    // Before C# 10, in each C# file
+    using System.Linq;
+    using System.Collections.Generic;
+    using Microsoft.AspNetCore.Mvc;
+    ```
+
+    With the advent of C# 10, the global using directive allows these common namespaces to be declared once in a central place, such as a project-wide file, automatically applying them to every file within the project. This means developers no longer need to include these repetitive using directives in every file, leading to cleaner code and faster development.
+
+    ```csharp
+    // C# 10, in a single project-wide file
+    global using System.Linq;
+    global using System.Collections.Generic;
+    global using Microsoft.AspNetCore.Mvc;
+    ```
+
+    The primary benefits of this feature are improved code maintainability and a reduction in the verbosity of code files, making them more focused on the unique functionality they provide. This is particularly useful in large projects or projects that adhere to certain architectural patterns requiring frequent use of specific namespaces across many files. The global using directive thereby facilitates a more efficient and error-resistant coding environment.
+
+    </details>
+
+- [File-scoped namespace declaration](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/namespace) - allows for a cleaner and more concise way to declare namespaces by reducing indentation and applying the namespace declaration to the entire file with a single line of code.
+
+    <details><summary>Overview</summary><br>
+
+    The file-scoped namespace declaration in C# 10 enhances code readability and conciseness by allowing namespaces to apply to the entire file with a single declaration, eliminating the need for additional indentation.
+
+    Prior to C# 10, namespaces in C# required a block scope, which meant that all code within a namespace was enclosed in braces, leading to an extra level of indentation for the entire file. This was more of a stylistic issue but did contribute to reduced readability, especially in files with multiple nested namespaces or in large projects with many layers of namespace nesting. For example, defining a class within a namespace looked like this:
+
+    ```csharp
+    namespace MyProject.Models
+    {
+        public class UserModel
+        {
+            // Model properties and methods go here
+        }
+    }
+    ```
+
+    With the introduction of C# 10, the file-scoped namespace declaration allows the same to be accomplished with less visual clutter, by removing the need for braces and thus the extra indentation level. The namespace applies to all types defined in the file, up to the end of the file or until another namespace declaration is encountered. Here’s how the above example would be rewritten using the new feature:
+
+    ```csharp
+    namespace MyProject.Models;
+
+    public class UserModel
+    {
+        // Model properties and methods go here
+    }
+    ```
+
+    The main advantage of this feature is improved code readability and a cleaner, more modern syntax that reduces the visual noise created by extra indentation. It's especially beneficial in projects with deep namespace hierarchies, as it makes the code easier to navigate and understand. Practical use cases include virtually any C# project, as the feature can be applied universally across different types of applications, from small libraries to large-scale enterprise applications, making it a versatile improvement in the C# language.
+
+    </details>
+
+- [Extended property patterns](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-10.0/extended-property-patterns) - enhance pattern matching by allowing deeper inspection of object properties within a single pattern, simplifying the syntax when matching against nested properties.
+
+    <details><summary>Overview</summary><br>
+
+    Extended property patterns in C# 10 refine the pattern matching capabilities of the language, enabling more concise and readable checks against complex object properties directly within patterns.
+
+    Prior to this feature, pattern matching in C# allowed developers to deconstruct objects and match against their properties, but it was limited in how it could directly access nested properties without multiple steps or additional pattern checks. This limitation made certain types of pattern matching verbose and less intuitive, particularly when working with deeply nested objects or complex data models. For instance, to match a specific property of a nested object, developers had to separately match each level of the object hierarchy:
+
+    ```csharp
+    if (person is { Address: { City: "New York" } })
+    {
+        // Logic for person living in New York
+    }
+    ```
+
+    C# 10's extended property patterns simplify this by allowing direct access to nested properties within a single pattern, reducing the need for multiple nested checks and making the code significantly more straightforward. For example, the same condition can now be expressed more succinctly as follows:
+
+    ```csharp
+    if (person is { Address.City: "New York" })
+    {
+        // Logic for person living in New York
+    }
+    ```
+
+    This enhancement significantly improves the readability and maintainability of code that relies on pattern matching, especially in scenarios involving complex data structures or models with nested objects. It's particularly useful in data processing, filtering operations, and when implementing domain-specific logic that requires inspection of nested properties. By streamlining pattern matching syntax, extended property patterns make C# code cleaner and more intuitive, facilitating a more declarative style of expressing conditions and data manipulation operations.
+
+    </details>
+
+- [Lambda expression improvements](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-10#lambda-expression-improvements) - include the ability to use natural types for lambda expressions and method group conversions, enhancing their flexibility and usability in scenarios requiring type inference.
+
+    <details><summary>Overview</summary><br>
+
+    Lambda expression improvements in C# 10 significantly enhance the language's functional programming capabilities by introducing natural type inference for lambdas and method groups, thereby increasing their versatility and simplifying code.
+
+    Previously, lambda expressions and method groups in C# required explicit type information in many contexts, which could lead to verbose and cumbersome code, especially in situations where the delegate type could be easily inferred from the context. For instance, using a lambda expression as an argument to a method that accepts a delegate type often necessitated specifying the delegate type explicitly or using a variable of a specific delegate type:
+
+    ```csharp
+    Func<int, int> double = x => x * 2;
+    var numbers = new List<int> { 1, 2, 3, 4 };
+    var doubledNumbers = numbers.Select(double).ToList();
+    ```
+
+    With the improvements introduced in C# 10, lambda expressions and method groups can be used more naturally without the need for explicit type declarations in many cases. The compiler is now capable of inferring the delegate type based on the target type, making the code cleaner and more intuitive:
+
+    ```csharp
+    var numbers = new List<int> { 1, 2, 3, 4 };
+    var doubledNumbers = numbers.Select(x => x * 2).ToList();
+    ```
+
+    This enhancement streamlines functional programming patterns within C#, making code that leverages lambda expressions and method groups not only more concise but also more readable. The ability to omit explicit types reduces boilerplate and makes C# more flexible in handling scenarios where the type can be inferred from context, such as in LINQ queries or when passing lambda expressions as arguments to methods expecting delegate types. Practical use cases include a wide range of scenarios from data manipulation with LINQ to asynchronous programming patterns, where this feature facilitates a more natural and expressive style of coding.
+
+    </details>
+
+- [Allow `const` interpolated strings](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-10#constant-interpolated-strings) - enables the use of string interpolation in const string declarations, provided all interpolated expressions are themselves constant, enhancing code readability and maintainability.
+
+    <details><summary>Overview</summary><br>
+
+    The "Allow const interpolated strings" feature in C# 10 introduces the capability to utilize string interpolation within `const` string declarations, as long as the interpolated components are also constants, thereby significantly enhancing code clarity and reducing repetition.
+
+    Prior to this enhancement, developers were unable to use interpolated strings in `const` declarations. This limitation often led to more verbose code or the need to concatenate strings manually, which could reduce clarity and increase the likelihood of errors, especially in scenarios requiring complex or formatted constant strings. For example, defining a complex constant string would typically involve concatenation:
+
+    ```csharp
+    const string BaseUrl = "https://api.example.com";
+    const string Resource = "/data";
+    const string ApiVersion = "v1";
+    const string FullUrl = BaseUrl + Resource + "/" + ApiVersion;
+    ```
+
+    With C# 10, the introduction of interpolated strings in `const` declarations allows for much clearer and more concise definitions of constant values that are composed of multiple constant elements. This makes the code easier to read and maintain, especially when dealing with static values that are used throughout an application:
+
+    ```csharp
+    const string BaseUrl = "https://api.example.com";
+    const string Resource = "/data";
+    const string ApiVersion = "v1";
+    const string FullUrl = $"{BaseUrl}{Resource}/{ApiVersion}";
+    ```
+
+    This feature is particularly beneficial in scenarios where constant strings are constructed from multiple constant parts, such as URLs, file paths, or standardized messages, making the codebase cleaner, more maintainable, and easier to understand at a glance. It represents a significant improvement in the language's ability to handle constant expressions more flexibly, thereby aiding developers in creating more readable and concise code.
+
+    </details>
+
+-  
 
 #### About .NET support (LTS, STS, and Preview)
 
