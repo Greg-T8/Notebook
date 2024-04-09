@@ -5,16 +5,10 @@
     - [The Joshua Tree Epiphany](#the-joshua-tree-epiphany)
     - [Introduction: Good Design Examples](#introduction-good-design-examples)
   - [Chapter 2: Proximity](#chapter-2-proximity)
-    - [Proximity: What to Avoid](#proximity-what-to-avoid)
-    - [Proximity: Design Examples](#proximity-design-examples)
+    - [Proximity: Examples](#proximity-examples)
   - [Chapter 3: Alignment](#chapter-3-alignment)
-    - [Alignment: How to get it](#alignment-how-to-get-it)
-    - [Alignment: What to avoid](#alignment-what-to-avoid)
-    - [Alignment: Key Takeaways](#alignment-key-takeaways)
     - [Alignment: Examples](#alignment-examples)
   - [Chapter 4: Repetition](#chapter-4-repetition)
-    - [Repetition: How to Get It](#repetition-how-to-get-it)
-    - [Repetition: What to Avoid](#repetition-what-to-avoid)
     - [Repetition: Examples](#repetition-examples)
   - [Chapter 5: Contrast](#chapter-5-contrast)
     - [Contrast: Examples](#contrast-examples)
@@ -86,7 +80,7 @@ The basic purpose  of the proximity principle is to **organize**; it aims to sim
 
 Group related items together to create one visual unit, enhancing organization and communication. Be conscious of where your eye is going. This not only reduces clutter but also makes the information more accessible to the reader.
 
-#### Proximity: What to Avoid
+What to avoid:
 
 - Avoid too many separate elements on a page
 - Avoid leaving equal amounts of whitespace between elements unless each group is part of a related subset
@@ -94,7 +88,7 @@ Group related items together to create one visual unit, enhancing organization a
 - Don't create relationships with elements that don't belong together!  If they are not _related_, move them apart from each other.
 - Don't stick things in the corners or in the middle just because the space is empty.
 
-#### Proximity: Design Examples
+#### Proximity: Examples
 
 The chapter illustrates the concept with examples such as business cards and flyers, demonstrating how grouping related elements together and separating unrelated ones can drastically improve the design's effectiveness. These examples show before-and-after scenarios where applying the proximity principle clarifies the design and makes it more visually appealing.
 
@@ -382,37 +376,9 @@ Unity is an important concept in design. To make all the elements on the page ap
 
 It is often a strong alignment (combined with the appropriate typeface) that creates a sophisticated look, a formal look, a fun look, or a serious look.
 
-#### Alignment: How to get it
-
 Be conscious of where you place elements. Always find something else on the page to align with, even if the two objects are physically far away from each other.  Look out for trapped whitespace.
 
-#### Alignment: What to avoid
-
 Avoid using more than one text alignment on the page. Don't center some text and right-align other text. Break away from centered alignment unless you are consciously trying to create a more formal, sedate presentation. Choose a centered alignment consciously, not by default.
-
-#### Alignment: Key Takeaways
-
-Chapter 3 of "The Non-Designer's Design Book" focuses on the principle of alignment, highlighting its critical role in creating visually appealing and coherent designs. Here are the key takeaways:
-
-1. **Purpose of Alignment**: Alignment is not about placing elements on the page arbitrarily but creating a visual connection between them. This principle is essential for organizing the page, enhancing its aesthetic appeal, and improving readability.
-
-2. **Creating Order**: Proper alignment brings order to a layout, making it appear organized and professional. Every element on the page should have a visual connection with another, ensuring that the design feels cohesive and intentional.
-
-3. **Guiding the Viewer**: Alignment helps guide the viewer's eye across the page, facilitating a logical flow from one element to the next. This invisible guiding line enhances the user's experience by making information easily accessible and understandable.
-
-4. **Types of Alignment**: The chapter discusses the importance of choosing a consistent alignment pattern (left, right, centered, or justified) and sticking to it throughout the design to maintain coherence and unity.
-
-    A centered alignment is the most common alignment that beginners use&mdash;it's very safe and feels comfortable. However, most designs that have a sophisticated look are not centered. As a beginner you need to break away from defaulting to centered alignment.
-
-5. **Avoiding Misalignment**: Misalignment or arbitrary placement of elements can lead to a cluttered, disorganized appearance, making it difficult for the viewer to navigate the information. Proper alignment eliminates confusion and clutter.
-
-    For beginners, stick to one text alignment on a page&mdash;all text is either flush left, flush right, or centered.
-
-6. **Enhancing Visual Appeal**: Strong alignment not only organizes information effectively but also contributes to the overall visual appeal of the design. It creates a sophisticated look that attracts the viewer's attention.
-
-7. **Application Across Multiple Pages**: For multi-page documents, alignment is crucial for maintaining a consistent look and feel across all pages, reinforcing the unity of the entire document.
-
-8. **Invisible Connections**: Even when elements are not physically close, alignment can create invisible connections between them, suggesting a relationship and continuity that enhances the design's coherence.
 
 #### Alignment: Examples
 
@@ -763,14 +729,10 @@ However, repetition goes beyond consistency&mdash;it is a conscious effort to un
 
 Repetition is useful on one-page pieces, and is critical in multi-page documents.
 
-#### Repetition: How to Get It
-
 Repetition is about consistency, but push the existing consistencies a little further:
 
 - At first, simply find _existing_ repetitions and strengthen them.
 - As you get used to the idea, start to _create_ repetitions to enhance the design and clarity of the information
-
-#### Repetition: What to Avoid
 
 Avoid repeating an element so much that it becomes annoying.
 
@@ -997,10 +959,9 @@ In this example, the recipes all follow the same format and there are strong ali
 
 ### Chapter 5: Contrast
 
-The Principle of Contrast states: **Contrast various elements of the piece to draw a reader's eye into the page.**
+The Principle of Contrast states: **Contrast various elements of the piece to draw a reader's eye into the pag
 
-Contrast not only serves to draw in the eye, but you can use it to organize information, clarify the hierarchy, guide a reader around the page, and provide a focus.
-
+Contrast has two purposes, and they are impossible to separate from each other. One purpose is to **create an interest on the page**&mdash;if a page is interesting to look at, it is more likely to be read. The other is to aid in the **organization** of the information. A reader should be able to instantly understand the way the information is organized, the logical flow from one item to another. Contrasting elements should never serve to confuse the reader or to create a focus that is not supposed to be a focus.
 
 Options for using contrast:
 
@@ -1012,6 +973,7 @@ Options for using contrast:
 - A horizontal element (such as a long line of text) with a vertical element (such as a tall, narrow column of text)
 - Widely spaced lines with closely packed lines
 - A small graphic with a large graphic
+- A dark shape with light text
 
 For contrast to be effective, it must be strong. Don't be a wimp.
 
@@ -1172,4 +1134,38 @@ Differences in these adds:
 - Moved the phrase "a pie gallery" into the headline because the shop does have a gallery of pies as art
 
 </details>
+
+<details><summary>Sally's Psychic Services - Incorporating contrast</summary><br>
+
+<img src='img/20240419-031959.png' width=400px>
+
+Image from Chapter 2, where proximity was discussed.
+
+<img src='img/20240421-032124.png' width=400px>
+
+Contrast gained by letting go of the pale purple and adding some strong purple on the bright white.
+
+Changes:
+
+- Got rid of Times New Roman: Replaced the heading with a script and the rest of the text with a sans serif
+- Added the dark purple bar
+- Pulled in the dark purple to appropriate lines in the bold sans
+- Removed the light purple background to increase contrast
+- Reduced the size of the heart so that it doesn't interrupt the text so much
+- Raised the heart to open the white space
+
+<img src='img/20240426-032613.png' width=400px>
+
+A well-designed project always has some form of contrast that attracts your eyes to the page and makes you think someone actually spent the time to design it.
+
+Although there is a lot going on here, it is easy to see the hierarchy of information through the contrast of elements. Plus, there is one clearly centered alignment for the type.
+
+<img src='img/20240429-032917.png' width=400px>
+
+One form of contrast here is the small, elegant type in a large field of white.
+
+</details>
+
+
+
 
