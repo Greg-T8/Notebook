@@ -12,6 +12,8 @@
     - [Repetition: Examples](#repetition-examples)
   - [Chapter 5: Contrast](#chapter-5-contrast)
     - [Contrast: Examples](#contrast-examples)
+  - [Chapter 6: Review of the Four Design Principles](#chapter-6-review-of-the-four-design-principles)
+    - [Chapter 6 Examples](#chapter-6-examples)
 
 ## The Non-Designer's Design Book
 
@@ -1165,6 +1167,44 @@ Although there is a lot going on here, it is easy to see the hierarchy of inform
 One form of contrast here is the small, elegant type in a large field of white.
 
 </details>
+
+### Chapter 6: Review of the Four Design Principles
+
+There is one more general guiding principle of Design (and of Life): **Don't be a wimp.**
+
+- Don't be afraid to create your Design (or your Life) with plenty of blank space&mdash;it's rest for the eyes (and the Soul).
+- Don't be afraid to be asymmetrical, to uncenter your format&mdash;it often makes the effect stronger. It's okay to do the unexpected.
+- Don't be afraid to make words very large or very small; don't be afraid to speak loudly or to speak in a whisper. Both can be effective in the right situation.
+- Don't be afraid to make your graphics very bold or very minimal, as long as the result complements or reinforces your design or your attitude
+
+#### Chapter 6 Examples
+
+<details><summary>Your attitude is your life</summary><br>
+
+<Enter text here>
+
+</details>
+
+<img src='img/20240417-031733.png' width=300px>
+
+Thoughts:
+
+- Typical but rather dull: centered, evenly spaced to fill the page
+- If you didn't read English, you might think there are six separate topics on this page. Each line seems an element unto itself
+
+<img src='img/20240419-031941.png' width=300px>
+
+**Proximity**:
+
+- If items are related, group them into closer proximity
+- Separate items that are not directly related to each other
+- Vary the space in between to indicate the closeness or the importance of the relationship. Besides creating a nicer look to the page, it also communicates more clearly
+- By putting the title and subtitle together, we now have one well-defined unit rather than six apparently unrelated units. It is now clear that those two topics are closely related to each other.
+- When the byline and the date are farther away, it becomes instantly clear that although this is related information and possibly important, it is not part of the title.
+- This is just an example of the huge difference a font can make in the visual impression of a piece. Everything else is exactly the same&mdash;size, spacing, etc.
+
+
+
 
 
 

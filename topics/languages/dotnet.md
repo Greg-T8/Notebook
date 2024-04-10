@@ -137,7 +137,7 @@ The following resources provide documentation and references on C# language feat
 
 - [GitHub - Roslyn Language Feature Status (versions 7.1+)](https://github.com/dotnet/roslyn/blob/main/docs/Language%20Feature%20Status.md)
 - [The history of C#](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history)
-- [C# Book: Language versions and features](https://github.com/markjprice/cs12dotnet8/blob/main/docs/ch02-features.md)
+- [cs12dotnet8 Book: Language versions and features](https://github.com/markjprice/cs12dotnet8/blob/main/docs/ch02-features.md) - maps book chapters to new features
 - [Visual Studio previous versions documentation](https://learn.microsoft.com/en-us/previous-versions/visualstudio/).
 
 ##### [C# version 1.0 (2003)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-10-1)
@@ -5024,6 +5024,8 @@ Features:
 
 ##### [C# Version 10 (November 2021)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-10)
 
+<details><summary>Overview</summary><br>
+
 Reference:
 
 - [What's new in C# 10](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-10)
@@ -5242,7 +5244,291 @@ Features:
 
     </details>
 
--  
+- [Record types can seal ToString()](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-10#record-types-can-seal-tostring) - record types have the capability to seal the ToString() method, preventing it from being overridden in derived record types. 
+
+    <details><summary>Overview</summary><br>
+
+    In C# 10, record types can now seal the `ToString()` method to prevent it from being overridden by derived records. This feature addresses the flexibility and control developers have over record types, which are primarily used for immutable objects. By sealing the `ToString()` method, developers ensure that the string representation of a record type is consistent and unchangeable by any subclass, which is crucial for types that are widely used as keys in collections or for logging purposes where a consistent format is necessary.
+
+    **Overview:**
+    The ability to seal the `ToString()` method in record types brings several benefits. First, it provides tighter control over how objects are represented as strings, which is especially important for debugging and logging. It also enhances the integrity of data, particularly when records are used in environments that depend on their string representation (like serialization or when used as dictionary keys). Practical use cases include defining domain models in business applications where immutability and data consistency are paramount, or in data transfer objects (DTOs) where consistent logging format across various services is required.
+
+    **Code Example Before Introduction:**
+    Prior to the introduction of the ability to seal `ToString()` in C# 10, developers would typically rely on documentation and developer discipline to ensure that `ToString()` was not inappropriately overridden in derived types. However, this approach was error-prone and did not provide any guarantees at the compiler level.
+
+    ```csharp
+    public record Person(string FirstName, string LastName);
+
+    public record Employee : Person
+    {
+        public int EmployeeId;
+
+        public Employee(string firstName, string lastName, int employeeId) : base(firstName, lastName)
+        {
+            EmployeeId = employeeId;
+        }
+
+        public override string ToString()
+        {
+            return $"{base.ToString()}, EmployeeId: {EmployeeId}";
+        }
+    }
+    ```
+
+    **Code Example After Introduction:**
+    With C# 10, the `ToString()` method can be explicitly sealed in the base record, preventing any derived record from overriding it. This enforcement is done at the compiler level, providing a robust mechanism to maintain a consistent string representation.
+
+    ```csharp
+    public record Person(string FirstName, string LastName)
+    {
+        public sealed override string ToString()
+        {
+            return $"{FirstName} {LastName}";
+        }
+    }
+
+    public record Employee : Person
+    {
+        public int EmployeeId;
+
+        public Employee(string firstName, string lastName, int employeeId) : base(firstName, lastName)
+        {
+            EmployeeId = employeeId;
+        }
+
+        // This line will cause a compiler error:
+        // public override string ToString() => $"{base.ToString()}, EmployeeId: {EmployeeId}";
+    }
+    ```
+
+    In this new approach, any attempt to override `ToString()` in `Employee` or any other record deriving from `Person` will result in a compiler error, ensuring that the `ToString()` implementation provided in `Person` is the final representation used throughout the inheritance hierarchy. This change makes the codebase safer and the behavior of these objects more predictable.
+
+    </details>
+
+- [Improved definite assignment](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-10#improved-definite-assignment) - allows for more accurate and flexible compiler understanding of code paths, enhancing safety by ensuring that local variables are definitively assigned before use.
+
+    <details><summary>Overview</summary><br>
+
+    In C# 10, the improved definite assignment feature enhances the compiler's ability to accurately determine whether all local variables have been assigned values before they are used. This enhancement refines the flow analysis mechanism, allowing the compiler to better recognize complex patterns and conditions under which variables are used, resulting in fewer false positives (erroneous warnings about uninitialized variables) and improved code reliability. The primary benefit of this feature is reducing the necessity for developers to initialize variables in scenarios where the compiler can definitively ascertain that they have been set under all possible execution paths. This is particularly useful in handling scenarios involving pattern matching and null checking, which are common in modern C# development focused on robustness and null safety.
+
+    **Overview:**
+    Improved definite assignment is a significant compiler update that helps developers by minimizing unnecessary code and enhancing safety. The feature's ability to understand more complex conditional logic without human oversight means fewer runtime errors due to uninitialized variables. Practical use cases include complex methods with multiple branching conditions where variables might be set in some branches but not others. This improvement is also vital in data manipulation and conditional logic operations common in financial software, simulations, and data processing tasks where clarity and reliability of the code are crucial.
+
+    **Code Example Before Introduction:**
+    Before this feature was introduced, C# developers often had to explicitly initialize variables to null or default values to satisfy the compiler's less sophisticated flow analysis, even if every logical path did set the value. This was especially cumbersome in conditional constructs with complex logic.
+
+    ```csharp
+    public void ProcessData(string input)
+    {
+        int result;  // Compiler error: use of unassigned local variable 'result'
+        if (input != null)
+        {
+            if (int.TryParse(input, out result))
+            {
+                Console.WriteLine("Parsed: " + result);
+            }
+        }
+
+        // must initialize result to default
+        result = 0;
+    }
+    ```
+
+    **Code Example After Introduction:**
+    With the introduction of improved definite assignment in C# 10, the compiler can more intelligently track that `result` is indeed set in all execution paths that use it, thus eliminating the need for unnecessary initializations and making the code cleaner and more straightforward.
+
+    ```csharp
+    public void ProcessData(string input)
+    {
+        int result;  // No need to initialize beforehand if all usage paths are guaranteed to assign it
+        if (input != null && int.TryParse(input, out result))
+        {
+            Console.WriteLine("Parsed: " + result);
+        }
+        else
+        {
+            Console.WriteLine("Invalid or null input");
+        }
+    }
+    ```
+
+    In this updated approach, the compiler recognizes that `result` is only used within a path where it has been assigned (inside the `if` block following a successful `TryParse`), thereby streamlining the code and avoiding superfluous initialization. This not only makes the code more succinct but also reinforces type safety and logical flow integrity.
+
+    </details>
+
+- [Assignment and declaration in same deconstruction](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-10#assignment-and-declaration-in-same-deconstruction) - allow for both the assignment of values to existing variables and the declaration of new ones within the same deconstruction statement, streamlining syntax and improving code clarity.
+
+    <details><summary>Overview</summary><br>
+
+    In C# 10, the language has been enhanced to allow for the assignment of values to existing variables and the declaration of new ones simultaneously within the same deconstruction operation. This improvement simplifies scenarios where developers work with tuples or objects that need to be deconstructed into both previously declared variables and new ones, making the code more concise and readable. The main benefit of this feature is the reduction of boilerplate code, particularly when dealing with complex data structures that need to be unpacked into a mixture of existing and new context-specific variables. It finds practical use in data transformation tasks, parsing operations, and when working with APIs that return complex data types, enabling a more straightforward and intuitive handling of multiple return values.
+
+    **Overview:**
+    Before this feature, developers had to perform deconstruction in two steps if they wanted to deconstruct a tuple or an object into both new and existing variables. First, they would deconstruct into new variables, then assign values to existing variables in separate operations. This not only cluttered the code but also introduced unnecessary verbosity, particularly evident in scenarios requiring the handling of multiple returned values from methods or when parsing complex structures.
+
+    **Code Example Before Introduction:**
+    Prior to C# 10, to deconstruct a tuple into a mix of existing and new variables, developers would typically deconstruct the tuple entirely into new variables and then manually assign relevant values to pre-existing variables.
+
+    ```csharp
+    (int a, int b) = (1, 2);  // Declaration
+    int existingVar = 3;
+    // Suppose we want to deconstruct a new tuple into 'existingVar' and a new variable 'c'
+    var tuple = (existingVar, 4);
+    // Deconstruction into entirely new variables, followed by manual assignment
+    int temp, c;
+    (temp, c) = tuple;
+    existingVar = temp;
+    ```
+
+    **Code Example After Introduction:**
+    With the introduction of C# 10, the same operation can be accomplished more succinctly by combining assignment to existing variables and declaration of new ones in a single deconstruction statement.
+
+    ```csharp
+    (int a, int b) = (1, 2);  // Declaration
+    int existingVar = 3;
+    // Directly deconstructing into 'existingVar' and a new variable 'c'
+    (existingVar, int c) = (3, 4);
+    ```
+
+    This streamlined syntax not only makes the code cleaner and easier to read but also reduces the chance for errors by minimizing the number of steps needed to deconstruct objects into variables. It represents a significant improvement in the language's ability to work with complex data structures efficiently and intuitively.
+
+    </details>
+
+- [Allow `AsyncMethodBuilder` attribute on methods](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-10#allow-asyncmethodbuilder-attribute-on-methods) - the `AsyncMethodBuilder` attribute can be applied to methods to specify a custom asynchronous method builder for tasks, enabling finer control over the execution and state management of asynchronous methods.
+
+    <details><summary>Overview</summary><br>
+
+    In C# 10, the introduction of the `AsyncMethodBuilder` attribute on methods allows developers to specify custom builders for asynchronous operations, facilitating enhanced control over the construction, execution, and performance characteristics of async methods. This attribute makes it possible to attach a specific method builder to an asynchronous method, which can be tailor-made to optimize performance based on the method's unique needs or operational context. The primary benefit of this feature is that it provides flexibility and optimization opportunities not previously available, such as reducing overhead or tailoring task-like types to specific asynchronous workflows. Practical applications include scenarios in high-performance computing or systems with specialized task scheduling requirements, such as game engines or real-time data processing frameworks.
+
+    **Overview:**
+    Prior to this feature, C# developers were limited to using the default asynchronous method builders provided by the .NET framework, such as `Task` and `ValueTask`. These builders are general-purpose and designed to cover a broad range of use cases, which sometimes meant that more specialized or performance-critical applications couldn't optimize beyond a certain point. Developers had to rely on these one-size-fits-all solutions for managing the state and execution flow of asynchronous methods.
+
+    **Code Example Before Introduction:**
+    Before the `AsyncMethodBuilder` attribute was available, all asynchronous methods in C# implicitly used the default method builders. For instance, any method marked with `async` and returning a `Task` or `ValueTask` would automatically use the respective default builder associated with those return types.
+
+    ```csharp
+    public async Task<int> CalculateAsync()
+    {
+        await Task.Delay(1000);  // Uses Task's default method builder
+        return 42;
+    }
+    ```
+
+    **Code Example After Introduction:**
+    With C# 10, developers can now explicitly specify an alternative method builder using the `AsyncMethodBuilder` attribute. This attribute can be attached to individual asynchronous methods to utilize custom builders that might implement more efficient state management, use lighter or faster synchronization mechanisms, or provide better logging and debugging capabilities.
+
+    ```csharp
+    using System.Runtime.CompilerServices;
+    using System.Threading.Tasks;
+
+    [AsyncMethodBuilder(typeof(CustomMethodBuilder))]
+    public async Task<int> CalculateOptimizedAsync()
+    {
+        await Task.Delay(1000);  // Uses CustomMethodBuilder instead of Task's default method builder
+        return 42;
+    }
+
+    public class CustomMethodBuilder
+    {
+        // Implementation of a custom method builder
+        public static CustomMethodBuilder Create() => new CustomMethodBuilder();
+        // Other necessary members to fulfill the async method builder contract
+    }
+    ```
+
+    This updated capability allows for the tailoring of asynchronous programming constructs to fit specific technical and performance needs, providing a critical tool for advanced C# development where control over asynchronous processing is necessary. This is a particularly valuable addition for developers working in areas where performance and memory optimizations are crucial.
+
+    </details>
+
+- [`CallerArgumentExpression` attribute diagnostics](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-10#callerargumentexpression-attribute-diagnostics) - enhances diagnostics by allowing developers to capture and log the text of the actual argument expressions passed to methods, facilitating easier debugging and more informative error messages.
+
+    <details><summary>Overview</summary><br>
+
+    In C# 10, the `CallerArgumentExpression` attribute enhances diagnostics by allowing developers to automatically capture and use the text of the actual code expressions passed as arguments, which can be especially useful for creating more detailed and helpful error messages and logs. This feature enables the inclusion of the expression passed to a parameter in diagnostics messages without manual intervention, thereby simplifying the process of debugging and maintaining code. The primary benefits of this attribute are improved error reporting and better traceability of issues in code, as it provides clear insights into what specific argument values led to a problem, particularly during validation or when exceptions occur. Practical use cases include validating method arguments, enforcing contract conditions, and logging detailed error contexts in complex applications such as financial modeling, data analysis, and enterprise-level software.
+
+    **Overview:**
+    Before the introduction of the `CallerArgumentExpression` attribute, developers often had to manually include argument expressions in exception messages or diagnostic logs to clarify which values caused an error. This was not only cumbersome but also prone to human error, as it required duplicating logic and manually updating error messages to reflect the actual arguments used.
+
+    **Code Example Before Introduction:**
+    Here is how a typical assertion method might have been implemented prior to this feature, requiring manual repetition of the argument expression in the error message:
+
+    ```csharp
+    public static void Assert(bool condition, string paramName, string message)
+    {
+        if (!condition)
+            throw new ArgumentException($"Assertion failed for {paramName}: {message}", paramName);
+    }
+
+    public void Process(int value)
+    {
+        Assert(value > 0, nameof(value), "value must be positive");
+    }
+    ```
+
+    **Code Example After Introduction:**
+    With the `CallerArgumentExpression` attribute in C# 10, the same assertion function can be made more robust and maintenance-free by automatically capturing the argument expressions, thus eliminating the need for manual string literals and reducing the potential for mistakes:
+
+    ```csharp
+    public static void Assert(bool condition, [CallerArgumentExpression("condition")] string expression = null)
+    {
+        if (!condition)
+            throw new ArgumentException($"Assertion failed: {expression}");
+    }
+
+    public void Process(int value)
+    {
+        Assert(value > 0);  // Automatically includes "value > 0" in the exception message if the assertion fails
+    }
+    ```
+
+    This implementation leverages the `CallerArgumentExpression` attribute to automatically insert the "value > 0" expression into the exception message, making the code cleaner and the diagnostics more informative without additional effort from the developer. This attribute significantly aids in debugging by providing exact details of the failing conditions directly in the error output, enhancing both developer efficiency and code quality.
+
+    </details>
+
+- [Enhanced `#line` pragma](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-10#enhanced-line-pragma) - provides more granular control over line numbering and file paths in compiler-generated output, improving debugging and error reporting by allowing developers to customize and manipulate the debug information associated with code locations.
+
+    <details><summary>Overview</summary><br>
+
+    In C# 10, the enhanced `#line` pragma offers expanded capabilities for controlling line numbers and file paths in the compiler’s output, significantly aiding in the customization of debugging and error handling experiences. This feature allows developers to adjust the source file reference and line numbers that appear in compiler error messages, stack traces, and debugger windows, providing flexibility previously unavailable. The benefit of this enhanced functionality is particularly evident in scenarios involving generated code, such as in code produced by T4 templates or advanced scenarios where code is dynamically generated at runtime. It improves the traceability and debuggability of such code by linking errors more clearly to their logical origin, even when the physical source differs.
+
+    **Overview:**
+    Before this enhancement, the `#line` pragma could only reset the line count or change the file name reported in debug traces, which was somewhat limiting in complex applications, especially those that dynamically generated part of their executable code. Developers often had to manually synchronize line numbers and filenames between the generated code and the original source files to make debugging and maintenance feasible, a process prone to errors and inconsistencies.
+
+    **Code Example Before Introduction:**
+    Here’s how developers might have used the old `#line` pragma to manipulate debug information:
+
+    ```csharp
+    #line 200 "SpecialGeneratedFile.cs"
+    Console.WriteLine("This is a line in a generated file.");
+    #line default
+    Console.WriteLine("Back to the original file.");
+    ```
+
+    In this code, debugging errors in `Console.WriteLine` would refer to "SpecialGeneratedFile.cs" starting at line 200, but limitations in adjusting these settings on the fly could lead to confusion if the generated code did not directly correspond to the lines in the original file.
+
+    **Code Example After Introduction:**
+    With the enhancements in C# 10, the `#line` pragma becomes more versatile, allowing for more precise control over both line numbering and file paths, dynamically adjusting them as needed:
+
+    ```csharp
+    #line 1 "OriginalSource.cs"
+    Console.WriteLine("This is the first line of the original file.");
+    #line hidden // This line hides subsequent lines from the debugger
+    Console.WriteLine("This line will not show up in the stack trace.");
+    #line 300 "GeneratedCode.cs"
+    Console.WriteLine("Now in the generated file, at line 300.");
+    #line default
+    Console.WriteLine("Back to the default settings.");
+    ```
+
+    In the enhanced version, developers can hide certain lines from the debugger to prevent stepping into trivial or sensitive code, and they can more accurately map lines to their logical sources in both original and generated contexts. This level of control makes debugging more intuitive and error reporting more accurate, particularly beneficial in complex systems where parts of the code base are generated dynamically. The improved `#line` pragma thus significantly aids in the management and maintenance of large and complex C# applications.
+
+    </details>
+
+</details>
+
+##### [C# Version 11 (November 2022)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-11)
+
+- [Raw string literals]() - 
+
 
 #### About .NET support (LTS, STS, and Preview)
 
