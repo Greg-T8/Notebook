@@ -1203,6 +1203,49 @@ Thoughts:
 - When the byline and the date are farther away, it becomes instantly clear that although this is related information and possibly important, it is not part of the title.
 - This is just an example of the huge difference a font can make in the visual impression of a piece. Everything else is exactly the same&mdash;size, spacing, etc.
 
+<img src='img/20240420-032009.png' width=300px>
+
+**Alignment:**
+
+- Be conscious about every alignment you place on the page
+- To keep the entire page unified, align every object with an edge of some other object
+- If your alignments are strong, then you can choose to break an alignment occasionally and it won't look like a mistake
+
+<img src='img/20240428-032835.png' width=300px>
+
+- A change from centered alignment to flush right gives a stronger edge, a stronger line for you to follow
+- The tension created by a flush left or flush right alignment tends to impart a more sophisticated look than does a centered alignment
+- Even though the author's name is far from the title, there is a visual connection, an invisible line, between the two elements because of the strong alignment to each other
+
+<img src='img/20240434-033408.png' width=300px>
+
+**Repetition:**
+
+- Repetition is a stronger form of being consistent
+- Look at the elements you already repeat (bullets, typefaces, lines, colors, etc.)
+- See if it might be appropriate to make one of these elements stronger and use it as a repetitive element
+- Repetition also helps strengthen the reader's sense of recognition of the entity represented by the design
+- The typeface and color in the title is repeated in the author's name, which strengthens their connection even though they are physically far apart on the page
+
+<img src='img/20240442-034211.png' width=300px>
+
+- The dotted rule becomes a repetitive element
+- Even though the dotted rules are not the same length, a dotted line is distinct enough to be used in all sorts of ways throughout the document and still be seen as a repetitive element
+
+<img src='img/20240446-034605.png' width=300px>
+
+**Contrast:**
+
+- The strong black versus white attracts your eye more than the previous examples
+- You can add contrast in many ways, including type, which is the basis for graphic design
+
+<img src='img/20240448-034804.png' width=300px>
+
+- Here, the contrast is the thick font versus the light font as well as caps versus lowercase
+- The heavy font and caps also act as repetitions
+
+
+
 
 
 
