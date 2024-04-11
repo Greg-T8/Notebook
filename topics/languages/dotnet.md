@@ -5527,7 +5527,315 @@ Features:
 
 ##### [C# Version 11 (November 2022)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-11)
 
-- [Raw string literals]() - 
+Reference:
+
+- [Welcome to C# 11](https://devblogs.microsoft.com/dotnet/welcome-to-csharp-11/)
+- [What's new in C# 11](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-11)
+- [GitHub Roslyn: C# 11 Language Features](https://github.com/dotnet/roslyn/blob/main/docs/Language%20Feature%20Status.md#c-110)
+
+Associated .NET Version:  .NET 7
+
+
+
+Features:
+
+- [Raw string literals](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-11#raw-string-literals) - allow for the creation of multi-line string literals that do not require escape sequences for special characters, simplifying the inclusion of complex content such as JSON or XML directly within the code.
+
+    <details><summary>Overview</summary><br>
+
+    In C# 11, raw string literals enable the inclusion of unescaped sequences in string literals, simplifying the declaration of strings that contain special characters or complex formatting. This feature is particularly advantageous for developers dealing with JSON, XML, regular expressions, or file paths where escape characters frequently complicate the clarity and readability of code. Previously, to include special characters like newlines or quotation marks in a string, developers had to use escape sequences, which could make the code difficult to read and maintain, especially in strings that involved complex patterns or multi-line formats.
+
+    For example, consider the task of defining a JSON string in C# 10 and earlier:
+
+    ```csharp
+    string json = "{\n\"name\": \"John\",\n\"age\": 30,\n\"city\": \"New York\"\n}";
+    ```
+
+    In this code, `\n` is used to insert newlines, and `\"` is used to include quotation marks, which makes the JSON string hard to read and maintain.
+
+    With C# 11's introduction of raw string literals, the same JSON string can be written more naturally without the need for escape characters:
+
+    ```csharp
+    string json = """
+    {
+        "name": "John",
+        "age": 30,
+        "city": "New York"
+    }
+    """;
+    ```
+
+    This new syntax uses triple quotes `"""` to start and end a raw string literal, which preserves internal newlines and quotation marks without escaping. The benefits of raw string literals are most evident when dealing with regular expressions and large blocks of text. They reduce the risk of errors in escaping sequences and improve the overall readability of code that integrates literal string data. Raw string literals thus represent a significant usability improvement in C# 11, aiding developers in creating clearer and more maintainable code bases, particularly in applications involving extensive data formatting or configuration tasks.
+
+    </details>
+
+- [Generic math support](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-11#generic-math-support) - introduces statically typed mathematical operations for generic types, enabling more performant and type-safe mathematical computations that are agnostic of the specific numeric type used.
+
+    <details><summary>Overview</summary><br>
+
+    In C# 11, generic math operations provide a framework for performing arithmetic and mathematical computations on generic types, streamlining the development of algorithms that are not bound to specific numeric types. This feature significantly benefits scenarios where code abstraction and reusability are critical, such as in libraries for numerical computation, financial modeling, and scientific research, where operations need to be generic to handle various types of numeric data efficiently.
+
+    Previously, developers had to write multiple overloads of functions or use dynamic types to handle different numeric types, which could lead to performance overhead and a higher risk of runtime errors. For instance, to write a generic sum function that could add elements of a list, developers had to use non-generic methods for each numeric type:
+
+    ```csharp
+    public static int SumInt(List<int> numbers) {
+        int sum = 0;
+        foreach (int num in numbers) {
+            sum += num;
+        }
+        return sum;
+    }
+
+    public static double SumDouble(List<double> numbers) {
+        double sum = 0.0;
+        foreach (double num in numbers) {
+            sum += num;
+        }
+        return sum;
+    }
+    ```
+
+    With the introduction of generic math operations in C# 11, the same functionality can be achieved using a single generic method, thanks to the new static abstract interface members in generic interfaces:
+
+    ```csharp
+    public interface IAdditionOperators<TSelf, TOther, TResult>
+        where TSelf : IAdditionOperators<TSelf, TOther, TResult> {
+        static abstract TResult operator +(TSelf left, TOther right);
+    }
+
+    public static T Sum<T>(List<T> numbers) where T : IAdditionOperators<T, T, T>, new() {
+        T sum = new T();
+        foreach (T num in numbers) {
+            sum += num;
+        }
+        return sum;
+    }
+    ```
+
+    This new model not only simplifies code but also enhances type safety and performance by avoiding boxing and unboxing of values and leveraging static type checks. The generic math operations in C# 11 are a powerful addition to the language, enabling developers to write more robust, maintainable, and scalable code across diverse mathematical domains.
+
+    </details> 
+
+- [Generic attributes](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-11#generic-attributes) - allow developers to define attributes that can take generic type parameters, enhancing the flexibility and reusability of attribute-based programming by enabling more specific type control and reducing code duplication.
+
+    <details><summary>Overview</summary><br>
+
+    In C# 11, generic attributes extend the functionality of custom attributes by allowing them to accept generic type parameters, thereby offering more dynamic and type-specific behavior in attribute-driven design. This feature enriches the type safety and flexibility of metadata annotations used across various domains such as serialization, object-relational mapping, and configuration management. Traditionally, to apply attributes that required type-specific logic, developers had to create multiple attribute classes or use less type-safe approaches involving `Type` properties or non-generic base classes. This often led to bloated code and the potential for runtime type errors.
+
+    For example, before generic attributes were introduced, if developers wanted to validate fields of different types using attributes, they might define a non-generic base attribute and then subclass it for each type:
+
+    ```csharp
+    public class RangeAttribute : Attribute {
+        public Type TargetType { get; }
+        public object Minimum { get; }
+        public object Maximum { get; }
+
+        public RangeAttribute(Type targetType, object minimum, object maximum) {
+            TargetType = targetType;
+            Minimum = minimum;
+            Maximum = maximum;
+        }
+    }
+
+    public class IntRangeAttribute : RangeAttribute {
+        public IntRangeAttribute(int min, int max) : base(typeof(int), min, max) {}
+    }
+
+    public class DoubleRangeAttribute : RangeAttribute {
+        public DoubleRangeAttribute(double min, double max) : base(typeof(double), min, max) {}
+    }
+    ```
+
+    This approach requires separate classes for each data type and involves casting, which reduces type safety and clarity.
+
+    With the introduction of generic attributes in C# 11, the same functionality can be more elegantly achieved with a single, type-safe attribute class:
+
+    ```csharp
+    public class RangeAttribute<T> : Attribute where T : IComparable<T> {
+        public T Minimum { get; }
+        public T Maximum { get; }
+
+        public RangeAttribute(T minimum, T maximum) {
+            Minimum = minimum;
+            Maximum = maximum;
+        }
+    }
+    ```
+
+    Here, `RangeAttribute<T>` can be used directly with any comparable type, ensuring type safety without casting and without multiple attribute definitions. For instance, you can decorate properties like so:
+
+    ```csharp
+    public class Measurement {
+        [Range(0.0, 100.0)]
+        public double Percent { get; set; }
+
+        [Range(0, 10000)]
+        public int Count { get; set; }
+    }
+    ```
+
+    This use of generic parameters in attributes simplifies the developer's task by reducing code duplication and enhancing the robustness of type checks at compile time. Generic attributes make the codebase cleaner, easier to maintain, and significantly more flexible, marking a substantial improvement in the expressiveness of the C# language.
+
+    </details>
+
+- [UTF-8 string literals](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-11#utf-8-string-literals) - allow developers to define strings that are directly encoded in UTF-8, optimizing performance and memory usage when interacting with systems and libraries that natively use UTF-8 encoding.
+
+    <details><summary>Overview</summary><br>
+
+    In C# 11, UTF-8 string literals allow developers to denote string literals that are encoded in UTF-8 directly in the source code by appending `u8` to the end of the string literals, which optimizes memory usage and performance when interfacing with systems where UTF-8 is the standard encoding. This feature is a significant enhancement for applications that frequently interact with web APIs, databases, and file systems that natively handle UTF-8 encoded data. It simplifies development by eliminating the need for runtime conversion between UTF-16, which is the default string encoding in .NET, and UTF-8, thereby reducing both the potential for errors and the overhead associated with these conversions.
+
+    Prior to this feature, if developers needed to ensure that string data was in UTF-8 format, they had to manually convert string literals from UTF-16 to UTF-8 using methods provided by the `System.Text.Encoding.UTF8` class. For example:
+
+    ```csharp
+    string message = "Hello, world!";
+    byte[] utf8Bytes = System.Text.Encoding.UTF8.GetBytes(message);
+    // Subsequent use of utf8Bytes, such as writing to a file or sending over a network
+    ```
+
+    This method requires extra steps and processing time to convert each string to UTF-8 at runtime, which can be inefficient in terms of performance, especially in scenarios where UTF-8 is extensively used.
+
+    With the introduction of UTF-8 string literals in C# 11, the same outcome can be achieved more efficiently:
+
+    ```csharp
+    string message = "Hello, world!"u8;
+    // The message is stored as UTF-8, and can be directly used in operations expecting UTF-8 data
+    ```
+
+    In this code snippet, the `u8` suffix directly instructs the compiler to encode the string as UTF-8, thereby bypassing the need for runtime conversion. This change enhances performance significantly when the application interacts with components or services where UTF-8 is the standard format, such as APIs, databases, and text files in multi-lingual environments. UTF-8 string literals not only make the codebase cleaner and easier to maintain but also optimize memory and processing resources, making C# more robust and efficient in handling modern application requirements.
+
+    </details>
+
+- [Newlines in string interpolation expressions](https://github.com/dotnet/csharplang/issues/4935) - allow for the inclusion of line breaks within expressions, enhancing readability and organization of complex string constructions.
+
+    <details><summary>Overview</summary><br>
+
+    In C# 11, the introduction of newlines in string interpolation expressions allows developers to include line breaks within the expressions themselves, which enhances readability and simplifies the formatting of complex strings. Before this feature, when developers needed to embed complex expressions or utilize multiple methods or conditions within an interpolated string, they had to meticulously format everything in a single line, which could lead to less readable and cluttered code. For example, formatting a detailed user message might have looked like this:
+
+    ```csharp
+    var name = "John";
+    var age = 30;
+    var status = "active";
+    var message = $"User {name}, age {age}, is currently {status} and has {((DateTime.Now.Hour > 12) ? "finished" : "not finished")} their work.";
+    Console.WriteLine(message);
+    ```
+
+    This single-line construction can be hard to read, especially as the complexity of the conditions increases. With the new feature in C# 11, this can be streamlined significantly by allowing expressions to span multiple lines within the same interpolated string, thereby keeping the structure clear and concise. The equivalent code using the new feature would look like this:
+
+    ```csharp
+    var name = "John";
+    var age = 30;
+    var status = "active";
+    var message = $@"
+    User {name}, age {age}, is currently {status} and has {
+        (DateTime.Now.Hour > 12 ? "finished" : "not finished")
+    } their work.";
+    Console.WriteLine(message);
+    ```
+
+    In this revised version, the logical condition to determine if the user has finished their work is clearly separated on a new line within the interpolation braces, enhancing readability. This change is particularly beneficial in scenarios involving complex logic or multiple method calls within a single interpolated string, such as generating reports, constructing dynamic SQL queries, or creating detailed user notifications. The ability to insert newlines directly within interpolation expressions allows for a more templated approach to string construction, making the code easier to write, understand, and maintain.
+
+    </details>
+
+- [List patterns](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/patterns#list-patterns) - provide a concise syntax for matching sequences within data structures like arrays, lists, or strings based on their elements' arrangement and properties, enhancing pattern matching capabilities.
+
+    <details><summary>Overview</summary><br>
+
+    In C# 11, list patterns extend the pattern matching capabilities to arrays, lists, and other enumerable collections, allowing for a more expressive and concise syntax when checking for sequence patterns. This feature simplifies the process of analyzing collections by matching them against a list of patterns directly within a switch statement or an is-expression. Previously, checking for specific patterns in a list required manual indexing and conditional logic, which was not only verbose but also error-prone. For example, to verify that an array starts with a specific sequence of numbers, one might have written:
+
+    ```csharp
+    int[] numbers = { 1, 2, 3, 4, 5 };
+    bool startsWithOneTwoThree = false;
+    if (numbers.Length >= 3 && numbers[0] == 1 && numbers[1] == 2 && numbers[2] == 3)
+    {
+        startsWithOneTwoThree = true;
+    }
+    ```
+
+    With C# 11's list patterns, this can be achieved more succinctly and readably by using patterns directly in a switch statement or an is-expression. The updated code using list patterns would look like this:
+
+    ```csharp
+    int[] numbers = { 1, 2, 3, 4, 5 };
+    bool startsWithOneTwoThree = numbers is [1, 2, 3, ..];
+    ```
+
+    This new syntax not only reduces the complexity and increases the readability of the code but also decreases the likelihood of bugs that are common with manual indexing. List patterns are particularly useful in scenarios where the structure and content of data collections are to be validated or decomposed. This includes tasks such as parsing protocol messages, validating input data, and processing sequences where pattern recognition is required, making the code not only easier to write but also to maintain and understand.
+
+    </details>
+
+- [`file` keyword](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/file) - allow developers to declare types that are scoped exclusively to the file in which they are defined, enhancing encapsulation and reducing namespace clutter.
+
+    <details><summary>Overview</summary><br>
+
+    In C# 11, file-local types are a new feature that allow types to be declared with a scope limited strictly to the file they are defined in, which helps in maintaining encapsulation and avoiding namespace pollution. This feature is particularly useful in large projects where the isolation of types can prevent accidental usage outside of their intended context, thus enforcing a more modular architecture. Before the introduction of file-local types, developers often resorted to using internal classes within namespaces to restrict access, but these classes were still accessible within the same assembly, potentially leading to dependencies that are hard to track. For instance, a developer might have defined a helper class as internal within a namespace like this:
+
+    ```csharp
+    namespace Project.Helpers
+    {
+        internal class HelperUtilities
+        {
+            public static void PerformAction()
+            {
+                // Method implementation
+            }
+        }
+    }
+    ```
+
+    In this scenario, `HelperUtilities` is accessible from any class within the same assembly, which could lead to its misuse in unintended contexts. With C# 11, the same functionality can be achieved with better encapsulation using a file-local type, as shown below:
+
+    ```csharp
+    namespace Project.Helpers;
+
+    file class HelperUtilities
+    {
+        public static void PerformAction()
+        {
+            // Method implementation
+        }
+    }
+    ```
+
+    Here, `HelperUtilities` is limited to the file where it is declared, ensuring that it cannot be accessed or even seen by other parts of the assembly, unless it is part of the same file. This level of encapsulation is highly beneficial for managing utilities, services, and other components that are not meant to be shared across the broader application, thus greatly simplifying maintenance and improving code clarity. Such file-local types are ideally suited for implementing details of a feature that should not leak into other parts of an application, like specific data processing algorithms or proprietary logic that is sensitive to the internal workings of a module.
+
+    </details>
+
+- [`Required` keyword](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/required) - enforce the initialization of specific properties or fields at the time of object creation, ensuring that objects are always created in a valid state.
+
+    <details><summary>Overview</summary><br>
+
+    In C# 11, required members feature mandates that certain properties or fields must be initialized when an object is instantiated, thereby guaranteeing that objects are consistently created in a complete and valid state. This capability is particularly beneficial for improving the robustness of software by preventing runtime errors caused by uninitialized properties. Before the advent of required members, developers typically ensured property initialization through constructors or by implementing factory methods that included checks and balances, which often led to verbose and repetitive code. For example, to ensure a class always had an essential property set, one would use a constructor like this:
+
+    ```csharp
+    public class Person
+    {
+        public string Name { get; set; }
+        public int Age { get; set; }
+
+        public Person(string name, int age)
+        {
+            if (string.IsNullOrEmpty(name))
+                throw new ArgumentException("Name cannot be null or empty.");
+
+            Name = name;
+            Age = age;
+        }
+    }
+    ```
+
+    In this traditional approach, the constructor forces the initialization of `Name` and `Age`, throwing an exception if `Name` is not provided, which can be cumbersome to handle properly and does not provide compile-time safety against improper uses. With C# 11's required members, this initialization can be enforced more declaratively and checked at compile time, improving code safety and clarity. The same scenario with required members would look like this:
+
+    ```csharp
+    public class Person
+    {
+        public required string Name { get; set; }
+        public int Age { get; set; }
+    }
+    ```
+
+    Here, the `required` keyword ensures that `Name` must be initialized whenever a `Person` object is created, providing a compile-time guarantee that `Name` is never null or empty without the need for explicit checks or exceptions. This change simplifies the code and enhances maintainability by reducing the boilerplate code associated with object validation. Required members are extremely useful in development environments focusing on domain-driven design where ensuring the validity of domain objects is critical for the application's integrity.
+
+    </details>
+
 
 
 #### About .NET support (LTS, STS, and Preview)
