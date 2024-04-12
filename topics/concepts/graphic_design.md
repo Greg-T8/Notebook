@@ -14,6 +14,7 @@
     - [Contrast: Examples](#contrast-examples)
   - [Chapter 6: Review of the Four Design Principles](#chapter-6-review-of-the-four-design-principles)
     - [Chapter 6 Examples](#chapter-6-examples)
+  - [Chapter 7: Design with Color](#chapter-7-design-with-color)
 
 ## The Non-Designer's Design Book
 
@@ -1181,10 +1182,6 @@ There is one more general guiding principle of Design (and of Life): **Don't be 
 
 <details><summary>Your attitude is your life</summary><br>
 
-<Enter text here>
-
-</details>
-
 <img src='img/20240417-031733.png' width=300px>
 
 Thoughts:
@@ -1244,11 +1241,66 @@ Thoughts:
 - Here, the contrast is the thick font versus the light font as well as caps versus lowercase
 - The heavy font and caps also act as repetitions
 
+</details>
 
 
+<details><summary>Resume Exercise - Identify differences between two resumes</summary><br>
+
+Find at least 7 differences between the two pretend resumes below. State what the changes are.
+
+<img src='img/20240413-031333.png' width=300px>
+
+<img src='img/20240414-031407.png' width=300px> 
+
+Differences
+
+1. Removed the border
+2. Grouped relevant items together
+3. Different fonts between subheads and copy text
+4. Repetition of bullet styles
+5. Contrast of bold font in subheads vs copy text
+6. Use of one alignment&mdash;left alignment
+7. Consistent use of white space between relevant items
+
+</details>
+
+<details><summary>Redesign the ad</summary><br>
+
+<img src='img/20240420-032046.png' width=500px>
+
+Problems:
+
+- There is more than one focal point
+- All caps not needed
+- Heavy border not needed
+- Number of different typefaces
+- Number of different alignments
+- Elements not grouped in close proximity together
+- Lack of use of repetition
+- The rounded edges of the border make the ad look wimpy
+
+To improve:
+
+- Get rid of everything superfluous so you know what you're working with
+- Don't need "http://" in the web address
+- Don't need the words "web site" or "email" because the format of the text and numbers tells you what the item is
+- You don't need a box around the image
+- You don't need ALL CAPS
+- Make the border thinner and sharp; use a pale tint shape instead of any border at all
+- Choose a new typeface or two
+- Web and email addresses are easier to read if you cap the main words
+- Determine what should be the focal point; it might be different depending on where the ad is placed
+
+<img src='img/20240424-032414.png' width=500px>
+
+<img src='img/20240429-032947.png' width=500px>
+
+<img src='img/20240430-033027.png' width=500px>
+
+</details>
 
 
-
+### Chapter 7: Design with Color
 
 
 
