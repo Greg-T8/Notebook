@@ -1302,5 +1302,44 @@ To improve:
 
 ### Chapter 7: Design with Color
 
+This chapter provides a brief overview of color theory.
+
+**The Color Wheel:**
+
+The color wheel begins with yellow, red, and blue. These are called **primary** colors because they're the only colors you cannot create. You can mix blue and yellow to make green, but there is no way to mix pure yellow, red, or blue from other colors.
+
+<img src='img/20240414-051425.png' width=300px>
+
+**Secondary** colors&mdash;green, purple, and yellow&mdash;are created when you mix each of the primary colors in an equal amount.
+
+<img src='img/20240417-051747.png' width=300px>
+
+**Tertiary** (or third) colors are created when you mix equal parts on each side.
+
+<img src='img/20240420-052026.png' width=300px>
+
+**Color Relationships:**
+
+With this color wheel, you can create combinations of colors that are guaranteed to work together. 
+
+**Complementary:**
+
+Colors directly across from each other, exact opposites, are **complements**. Because they're so opposite, they often work best when one is the main color and the other is an accent.
+
+<img src='img/20240424-052405.png' width=400px>
+
+**Triads:**
+
+A set of three colors equidistant from each other creates a **triad** of pleasing colors. The **primary triad** includes, red, yellow, and blue. A **secondary triad** of green, orange, and purple is also popular. All triads (except the primary triad of red, yellow, and blue) have underlying colors connecting them, which make them harmonize well.
+
+<img src='img/20240444-054447.png' width=300px>
+
+<img src='img/20240445-054526.png' width=300px>
+
+<img src='img/20240446-054644.png' width=300px>
+
+<img src='img/20240447-054743.png' width=300px>
+
+
 
 
