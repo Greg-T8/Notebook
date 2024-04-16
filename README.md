@@ -24,6 +24,10 @@ Use the links below to discover more about what I'm learning.
 - [Change Management](/topics/concepts/change_management.md)
 - [Graphic Design](/topics/concepts/graphic_design.md)
 
+## Professional Development
+
+- [Atomic Habits](/topics/concepts/atomic_habits.md)
+
 ## Certifications
 
 - [Main Certification Page](/topics/certifications/certifications.md)
