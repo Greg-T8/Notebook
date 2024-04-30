@@ -6,6 +6,7 @@
   - [Chapter 2: How Your Habits Shape Your Identity (and Vice Versa)](#chapter-2-how-your-habits-shape-your-identity-and-vice-versa)
   - [Chapter 3: How to Build Better Habits in 4 Simple Steps](#chapter-3-how-to-build-better-habits-in-4-simple-steps)
   - [Conclusion of Part 1](#conclusion-of-part-1)
+- [Part 2: Make it Obvious](#part-2-make-it-obvious)
 
 <img src='img/20240447-044713.png' width=200px>
 
@@ -194,3 +195,53 @@ Each of these examples not only highlights practical applications of the Four La
 ### Conclusion of Part 1
 
 Overall, Part 1 of "Atomic Habits" lays a solid groundwork by blending theoretical concepts with actionable strategies. Clear not only explains the importance of minor daily improvements but also provides a robust toolkit for personal development through habit manipulation. This part of the book is crucial for anyone looking to understand the mechanics of habits and how to leverage them for long-term success and identity transformation.
+
+## Part 2: Make it Obvious
+
+In the section "The 1st Law: Make it Obvious" from chapters 4 to 7 of "Atomic Habits" by James Clear, the focus is on strategies for habit formation, particularly how to design and implement obvious cues to make good habits inevitable and bad habits difficult.
+
+Here’s a breakdown of each chapter within this section:
+
+1. **Chapter 4: The Man Who Didn’t Look Right** - This chapter illustrates how our brains are wired to notice what stands out and ignore the common. Clear uses the story of an art expert who could sense something was off with a statue, leading to its exposure as a forgery. This concept of intuition is connected to the cues that trigger our habits.
+
+2. **Chapter 5: The Best Way to Start a New Habit** - Clear discusses the importance of implementation intentions in habit formation. By planning the where, when, and how of habits (i.e., "I will [BEHAVIOR] at [TIME] in [LOCATION]"), we make the cues for our habits obvious, which makes the habits themselves more likely to stick.
+
+3. **Chapter 6: Motivation Is Overrated; Environment Often Matters More** - This chapter emphasizes that the environment has a significant impact on our behavior, often more so than motivation. Clear suggests designing your environment to make cues for good habits obvious and bad habits invisible, thereby making it easier to stick to good habits and avoid bad ones.
+
+4. **Chapter 7: The Secret to Self-Control** - The final chapter in this section discusses self-control in the context of making cues invisible. By removing cues that trigger bad habits from our environment, we can exert better self-control. Clear suggests that instead of relying on willpower, changing your environment to make distractions less obvious is a more effective strategy.
+
+Overall, these chapters build upon the idea that by manipulating the visibility of cues, we can influence our habitual behaviors more effectively. Clear argues that our environment and the cues within it play a significant role in determining our actions, thus suggesting that by controlling these factors, we can make better habits more automatic and easier to maintain.
+
+Here are 10 key quotes from chapters 4 to 7 of "Atomic Habits" by James Clear, along with explanations and the specific chapters they are sourced from:
+
+1. **Chapter 4: "Habits are the compound interest of self-improvement."**
+   - **Explanation**: This quote emphasizes that the effects of habits accumulate over time, contributing significantly to personal improvement, much like compound interest grows financial investments.
+
+2. **Chapter 4: "The most effective way to change your habits is to focus not on what you want to achieve, but on who you wish to become."**
+   - **Explanation**: This underscores the importance of identity-based habits, suggesting that focusing on personal identity can drive the development of habits that align with who you aspire to be.
+
+3. **Chapter 5: "The two most common cues are time and location."**
+   - **Explanation**: This highlights that habits are often triggered by specific times and places, suggesting that by associating new habits with particular times and locations, they can be more easily adopted.
+
+4. **Chapter 5: "Make the cues of good habits obvious in your environment."**
+   - **Explanation**: Clear advises making environmental adjustments to make positive habit cues highly visible, thereby increasing the likelihood of performing the habit.
+
+5. **Chapter 6: "Small changes in context can lead to large changes in behavior over time."**
+   - **Explanation**: This quote indicates that even minor tweaks to one's environment can have profound, long-term effects on behavior, reinforcing the power of context in shaping habits.
+
+6. **Chapter 6: "Every habit is initiated by a cue. We are more likely to notice cues that stand out."**
+   - **Explanation**: Clear points out that noticeable cues are more likely to initiate behavior, highlighting the importance of designing distinct cues for habit formation.
+
+7. **Chapter 7: "Self-control is a short-term strategy, not a long-term one."**
+   - **Explanation**: This underscores the idea that relying solely on self-control is unsustainable for long-term habit change, advocating instead for strategic changes to one’s environment.
+
+8. **Chapter 7: "You can break a habit, but you're unlikely to forget it."**
+   - **Explanation**: This suggests that while habits can be discontinued, the patterns often remain embedded in our memory, pointing to the challenge of habit change.
+
+9. **Chapter 7: "Reduce the friction associated with good habits and increase it for bad habits."**
+   - **Explanation**: Clear advises making it easier to engage in good habits while adding obstacles to bad habits, thus leveraging the concept of friction to manage habits effectively.
+
+10. **Chapter 7: "The context is the cue."**
+    - **Explanation**: This quote reiterates that our environment provides the context that cues our habits, suggesting that changing our surroundings can significantly impact our behavior patterns.
+
+These quotes each highlight a central idea in Clear's argument about how habits are formed and influenced, specifically pointing to the role of environmental and psychological factors in shaping effective habits.
