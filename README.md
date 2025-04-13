@@ -13,10 +13,7 @@ Use the links below to discover more about what I'm learning.
 
 ## Book Notes
 
-- [Unit Testing](/topics/books/unit_testing.md)
-- [Change Management](/topics/books/change_management.md)
-- [Graphic Design](/topics/books/graphic_design.md)
-
-## Professional Development
-
+- [Unit Testing: Principles, Practices, and Patterns](/topics/books/unit_testing.md)
+- [The ADKAR Model](/topics/books/change_management.md)
+- [The Non-Designer's Design Book](/topics/books/graphic_design.md)
 - [Atomic Habits](/topics/books/atomic_habits.md)
