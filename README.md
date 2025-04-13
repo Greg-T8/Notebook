@@ -9,16 +9,9 @@ Use the links below to discover more about what I'm learning.
 
 ## Technologies
 
-- [Microsoft Defender](/topics/technologies/defender.md)
 - [Microsoft Purview](/topics/technologies/purview.md)
 
-## Programming Languages
-
-- [C# and .NET](/topics/languages/dotnet.md)
-- [C](/topics/languages/c.md)
-- [Assembly](/topics/languages/assembly.md)
-
-## Concepts
+## Book Notes
 
 - [Unit Testing](/topics/concepts/unit_testing.md)
 - [Change Management](/topics/concepts/change_management.md)
@@ -27,8 +20,3 @@ Use the links below to discover more about what I'm learning.
 ## Professional Development
 
 - [Atomic Habits](/topics/concepts/atomic_habits.md)
-
-## Certifications
-
-- [Main Certification Page](/topics/certifications/certifications.md)
-
