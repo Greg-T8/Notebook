@@ -13,10 +13,10 @@ Use the links below to discover more about what I'm learning.
 
 ## Book Notes
 
-- [Unit Testing](/topics/concepts/unit_testing.md)
-- [Change Management](/topics/concepts/change_management.md)
-- [Graphic Design](/topics/concepts/graphic_design.md)
+- [Unit Testing](/topics/books/unit_testing.md)
+- [Change Management](/topics/books/change_management.md)
+- [Graphic Design](/topics/books/graphic_design.md)
 
 ## Professional Development
 
-- [Atomic Habits](/topics/concepts/atomic_habits.md)
+- [Atomic Habits](/topics/books/atomic_habits.md)
